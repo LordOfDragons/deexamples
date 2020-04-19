@@ -1,0 +1,635 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<world>
+	<gravity x='0' y='-9.81' z='0'/>
+	<nextObjectID>44</nextObjectID>
+	
+	<object id='1'>
+		<classname>PlaygroundTerrain</classname>
+		<position x='0' y='0' z='0'/>
+	</object>
+	<object id='2'>
+		<classname>SpawnPoint</classname>
+		<position x='-6' y='0' z='8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='name'>player</property>
+	</object>
+	<object id='3'>
+		<classname>PropBox</classname>
+		<position x='-3.833' y='0' z='-10.195'/>
+		<rotation x='0' y='-19.5973' z='0'/>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.854902' g='0.192157' b='0.192157'/>
+		</texture>
+	</object>
+	<object id='4'>
+		<classname>SimpleElement</classname>
+		<position x='0.3' y='1' z='8'/>
+		<property key='component.model'>/content/models/sphere/sphere.demodel</property>
+		<property key='component.skin'>/content/materials/concrete/material.deskin</property>
+		<property key='component.rig'>/content/models/sphere/sphere.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.592157' g='0.764706' b='0.92549'/>
+		</texture>
+	</object>
+	<object id='5'>
+		<classname>SimpleElement</classname>
+		<position x='3.063' y='0' z='-9.17'/>
+		<rotation x='0' y='33.031' z='0'/>
+		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.835294' g='0.419608' b='0.866667'/>
+		</texture>
+	</object>
+	<object id='6'>
+		<classname>TriggerTouch</classname>
+		<position x='2.3' y='1' z='-8'/>
+		<rotation x='0' y='33' z='0'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>pokeSuzanneNose</property>
+	</object>
+	<object id='7'>
+		<classname>TriggerShout</classname>
+		<position x='3.029' y='2.5' z='-9.252'/>
+		<property key='showMessage.message'>Poke Suzanne's Nose!</property>
+		<property key='showMessage.trigger'>@pokeSuzanneNose</property>
+	</object>
+	<object id='8'>
+		<classname>TriggerTouch</classname>
+		<position x='-2.8' y='1' z='-7.45'/>
+		<rotation x='0' y='-19.6' z='0'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>boomCounterStart</property>
+	</object>
+	<object id='9'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.162' y='2.5' z='-10.255'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounter1</property>
+		<property key='timer.trigger'>boomCounterStart</property>
+	</object>
+	<object id='a'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.59844' y='2.5' z='-9.91357'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounter2</property>
+		<property key='timer.trigger'>boomCounter1</property>
+	</object>
+	<object id='b'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.99844' y='2.5' z='-9.56357'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounter3</property>
+		<property key='timer.trigger'>boomCounter2</property>
+	</object>
+	<object id='c'>
+		<classname>TriggerShout</classname>
+		<position x='-3.162' y='2.95' z='-10.255'/>
+		<property key='showMessage.message'>1...</property>
+		<property key='showMessage.trigger'>boomCounter1</property>
+	</object>
+	<object id='d'>
+		<classname>TriggerShout</classname>
+		<position x='-3.562' y='2.95' z='-9.855'/>
+		<property key='showMessage.message'>2...</property>
+		<property key='showMessage.trigger'>boomCounter2</property>
+	</object>
+	<object id='e'>
+		<classname>TriggerShout</classname>
+		<position x='-3.912' y='2.95' z='-9.405'/>
+		<property key='showMessage.message'>Boom! :D</property>
+		<property key='showMessage.trigger'>boomCounter3</property>
+	</object>
+	<object id='f'>
+		<classname>CowardlyActor</classname>
+		<position x='28' y='0' z='-20'/>
+	</object>
+	<object id='10'>
+		<classname>BaseParticleEmitter</classname>
+		<position x='0.3' y='2.3' z='8'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='particleEmitter.path'>/content/emitters/smoke.depemit</property>
+	</object>
+	<object id='11'>
+		<classname>BaseParticleEmitter</classname>
+		<position x='-3.833' y='2.1' z='-10.195'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='particleEmitter.trigger'>@boomCounter3</property>
+		<property key='particleEmitter.path'>/content/emitters/explosion/explosion.depemit</property>
+		<property key='particleEmitter.targetLastParticleDied'>lastParticleDied</property>
+	</object>
+	<object id='12'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.912' y='3.4' z='-9.405'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounterStart</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.fullReset'>1</property>
+		<property key='timer.trigger'>boomCounter3</property>
+	</object>
+	<object id='13'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.912' y='3.65' z='-9.405'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounter1</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.fullReset'>1</property>
+		<property key='timer.trigger'>boomCounter3</property>
+	</object>
+	<object id='14'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.912' y='3.9' z='-9.405'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounter2</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.fullReset'>1</property>
+		<property key='timer.trigger'>boomCounter3</property>
+	</object>
+	<object id='15'>
+		<classname>TriggerTimer</classname>
+		<position x='-3.912' y='4.15' z='-9.405'/>
+		<property key='timer.timeout'>1</property>
+		<property key='timer.target'>boomCounter3</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.fullReset'>1</property>
+		<property key='timer.trigger'>boomCounter3</property>
+	</object>
+	<object id='16'>
+		<classname>TriggerShout</classname>
+		<position x='-3.912' y='4.6' z='-9.405'/>
+		<property key='showMessage.message'>Last Particle Died</property>
+		<property key='showMessage.trigger'>@lastParticleDied</property>
+	</object>
+	<object id='17'>
+		<classname>PropBox</classname>
+		<position x='10' y='0' z='8'/>
+		<property key='component.skin'>/content/materials/metalWall/material.deskin</property>
+	</object>
+	<object id='18'>
+		<classname>BaseParticleEmitter</classname>
+		<position x='8.98' y='1.6' z='8.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='particleEmitter.trigger'>@castBeam</property>
+		<property key='particleEmitter.path'>/content/emitters/beams/beam6e.depemit</property>
+	</object>
+	<object id='19'>
+		<classname>TriggerTouch</classname>
+		<position x='6.5' y='1' z='4.5'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>castBeam</property>
+	</object>
+	<object id='1a'>
+		<classname>BaseSky</classname>
+		<position x='-1.896' y='3' z='0.021'/>
+		<property key='sky.path'>/content/skies/dynamic.desky</property>
+		<property key='dayTimeSky.dayTime'>10</property>
+	</object>
+	<object id='1b'>
+		<classname>PropBox</classname>
+		<position x='2.5' y='0' z='8'/>
+		<property key='component.skin'>/content/materials/metalWall/material.deskin</property>
+	</object>
+	<object id='1c'>
+		<classname>SimpleElement</classname>
+		<position x='2.6' y='0' z='-3.5'/>
+		<property key='component.model'>/content/models/animationTest/at.demodel</property>
+		<property key='component.rig'>/content/models/animationTest/at.derig</property>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.176471' g='0.184314' b='0.368627'/>
+		</texture>
+		<texture name='screen'>
+			<skin>/content/materials/consoleLogs/material.deskin</skin>
+		</texture>
+		<texture name='glowers'>
+			<skin>/content/materials/glower/material.deskin</skin>
+		</texture>
+		<texture name='screen2'>
+			<skin>/content/materials/waveMonitor/material.deskin</skin>
+		</texture>
+	</object>
+	<object id='1d'>
+		<classname>AnimatedElement</classname>
+		<position x='3.8' y='0' z='-3.5'/>
+		<property key='component.model'>/content/models/animationTest/at2.demodel</property>
+		<property key='animated.animator'>/content/models/animationTest/at2.deanimator</property>
+		<property key='animated.playing'>1</property>
+		<property key='component.skin'>/content/models/animationTest/at2.deskin</property>
+		<property key='component.rig'>/content/models/animationTest/at2.derig</property>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.176471' g='0.184314' b='0.368627'/>
+		</texture>
+		<texture name='panel'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.819608' g='0.831373' b='0.741176'/>
+		</texture>
+		<texture name='needle'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.52549' g='0' b='0'/>
+		</texture>
+	</object>
+	<object id='1f'>
+		<classname>InfoSign</classname>
+		<position x='1' y='0' z='-3.5'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/animationTest1.deskin</skin>
+		</texture>
+	</object>
+	<object id='20'>
+		<classname>InfoSign</classname>
+		<position x='5.4' y='0' z='-3.5'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/animationTest2.deskin</skin>
+		</texture>
+	</object>
+	<object id='21'>
+		<classname>BaseBillboard</classname>
+		<position x='9' y='0' z='-3.5'/>
+		<property key='billboard.offset'>0 0.5</property>
+		<property key='billboard.skin'>/content/materials/waveMonitor/material.deskin</property>
+	</object>
+	<object id='22'>
+		<classname>TriggerTouch</classname>
+		<position x='-6' y='0.5' z='8'/>
+		<property key='touching.target'>convoShowBindings</property>
+	</object>
+	<object id='23'>
+		<classname>TriggerTimer</classname>
+		<position x='-7.048' y='1' z='8.386'/>
+		<property key='timer.timeout'>3</property>
+		<property key='timer.target'>convoShowBindingsStart</property>
+		<property key='timer.trigger'>convoShowBindings</property>
+	</object>
+	<object id='24'>
+		<classname>TriggerConversation</classname>
+		<position x='-7.048' y='1.5' z='8.386'/>
+		<property key='conversation.path'>/content/conversations/system.deconvo</property>
+		<property key='conversation.addPlayer'></property>
+		<property key='conversation.topic'>showBindings</property>
+		<property key='conversation.topicGroup'>system</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>convoShowBindingsStart</property>
+		<property key='convoActor.id'>system</property>
+	</object>
+	<object id='25'>
+		<classname>SimpleElement</classname>
+		<position x='-9' y='0' z='-3'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0588235' g='0.152941' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/fakeWindow/room1_night.deskin</skin>
+		</texture>
+	</object>
+	<object id='26'>
+		<classname>InfoSign</classname>
+		<position x='-14.2' y='0' z='-2.9'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/envRoomSkins.deskin</skin>
+		</texture>
+	</object>
+	<object id='27'>
+		<classname>InfoSign</classname>
+		<position x='13' y='0' z='-3.5'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/billboards.deskin</skin>
+		</texture>
+	</object>
+	<object id='28'>
+		<classname>BaseBillboard</classname>
+		<position x='11.2' y='0' z='-3.5'/>
+		<property key='billboard.locked'>0</property>
+		<property key='billboard.offset'>0 0.5</property>
+		<property key='billboard.skin'>/content/materials/waveMonitor/material.deskin</property>
+	</object>
+	<object id='29'>
+		<classname>BaseBillboard</classname>
+		<position x='10.1' y='0' z='-3.5'/>
+		<property key='billboard.offset'>0 0.5</property>
+		<property key='billboard.skin'>/content/materials/waveMonitor/material.deskin</property>
+		<property key='billboard.spherical'>0</property>
+	</object>
+	<object id='2a'>
+		<classname>PropBox</classname>
+		<position x='8.25' y='0' z='10'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='2b'>
+		<classname>PropBox</classname>
+		<position x='6.25' y='0' z='10'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='2c'>
+		<classname>PropBox</classname>
+		<position x='4.25' y='0' z='10'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='2d'>
+		<classname>InfoSign</classname>
+		<position x='10' y='0' z='6.85'/>
+		<rotation x='0' y='180' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/beams.deskin</skin>
+		</texture>
+	</object>
+	<object id='2e'>
+		<classname>BaseParticleEmitter</classname>
+		<position x='8.98' y='0.8' z='8.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='particleEmitter.path'>/content/emitters/beams/beam2.depemit</property>
+	</object>
+	<object id='2f'>
+		<classname>BaseParticleEmitter</classname>
+		<position x='0.3' y='2.05' z='8'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='particleEmitter.path'>/content/emitters/flame1.depemit</property>
+	</object>
+	<object id='30'>
+		<classname>InfoSign</classname>
+		<position x='1.5' y='0' z='5.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/particles.deskin</skin>
+		</texture>
+	</object>
+	<object id='31'>
+		<classname>BaseParticleEmitter</classname>
+		<position x='0.3' y='2.1' z='10.5'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='particleEmitter.trigger'>@castParticle</property>
+		<property key='particleEmitter.path'>/content/emitters/explosion/explosion.depemit</property>
+	</object>
+	<object id='32'>
+		<classname>PropBox</classname>
+		<position x='0.3' y='1' z='10.5'/>
+		<property key='component.model'>/content/models/sphere/sphere.demodel</property>
+		<property key='component.rig'>/content/models/sphere/sphere.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.854902' g='0.192157' b='0.192157'/>
+		</texture>
+	</object>
+	<object id='33'>
+		<classname>TriggerTouch</classname>
+		<position x='-2' y='1' z='10.5'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>castParticle</property>
+	</object>
+	<object id='35'>
+		<classname>InfoSign</classname>
+		<position x='-6' y='0' z='4.5'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/bindingsInfo1.deskin</skin>
+		</texture>
+	</object>
+	<object id='36'>
+		<classname>InfoSign</classname>
+		<position x='-0.25' y='0' z='-9.8'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/triggers.deskin</skin>
+		</texture>
+	</object>
+	<object id='38'>
+		<classname>SimpleElement</classname>
+		<position x='33' y='0' z='-30'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='39'>
+		<classname>SimpleElement</classname>
+		<position x='38' y='0' z='-25'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='3a'>
+		<classname>SimpleElement</classname>
+		<position x='38' y='0' z='-15'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='3b'>
+		<classname>SimpleElement</classname>
+		<position x='23' y='0' z='-30'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='3c'>
+		<classname>SimpleElement</classname>
+		<position x='33' y='0' z='-10'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='3d'>
+		<classname>SimpleElement</classname>
+		<position x='23' y='0' z='-10'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='3e'>
+		<classname>SimpleElement</classname>
+		<position x='18' y='0' z='-14.6'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='3f'>
+		<classname>SimpleElement</classname>
+		<position x='18' y='0' z='-25.4'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
+		<property key='component.rig'>/content/models/facade/facade.derig</property>
+		<texture name='wall'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.054902' g='0.333333' b='0.431373'/>
+		</texture>
+		<texture name='window frame'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.764706' g='0.764706' b='0.764706'/>
+		</texture>
+		<texture name='window'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.0745098' g='0.0745098' b='0.0745098'/>
+		</texture>
+	</object>
+	<object id='40'>
+		<classname>InfoSign</classname>
+		<position x='17.5' y='0' z='-21.6'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/actorai.deskin</skin>
+		</texture>
+	</object>
+	<object id='41'>
+		<classname>SimpleElement</classname>
+		<position x='-10' y='0' z='-10'/>
+		<rotation x='0' y='-19.5973' z='0'/>
+		<property key='component.model'>/content/models/speaker/speaker1.demodel</property>
+		<texture name='base'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+		<texture name='speaker grid'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0' g='0.145098' b='0.447059'/>
+		</texture>
+		<texture name='speake case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0' g='0.286275' b='1'/>
+		</texture>
+	</object>
+	<object id='42'>
+		<classname>BaseSpeaker</classname>
+		<position x='-10' y='1.8' z='-10'/>
+		<property key='speaker.sound'>/content/sound/birds.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.range'>5</property>
+	</object>
+	<object id='43'>
+		<classname>InfoSign</classname>
+		<position x='-12' y='0' z='-10'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/speaker.deskin</skin>
+		</texture>
+	</object>
+	
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='6.5' y='0.1' z='4.5'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='-2' y='0.1' z='10.5'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='-2.8' y='0.1' z='-7.45'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='2.3' y='0.1' z='-8'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+</world>

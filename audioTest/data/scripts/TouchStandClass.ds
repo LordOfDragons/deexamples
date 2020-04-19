@@ -1,0 +1,41 @@
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+// Touch stand. Supports changing "panel" skin if trigger expression changes
+class TouchStandClass extends BehaviorElementClass
+	public var ECBehaviorComponent component
+	public var ECBehaviorCollider collider
+	public var ECBehaviorTriggered triggered
+	
+	public var ECPSkin skinOn
+	public var ECPSkin skinOff
+	
+	
+	// Create element class
+	public func new() super("TouchStand")
+		// Component behavior
+		component = ECBehaviorComponent.new(this, null)
+		component.setCommonPath("/model/prop", "touchMe.demodel", null, "touchMe.derig")
+		component.addTextureReplacement("case", "/material/plastic/matte.deskin", Color.new(0.757, 0.922, 1.0))
+		
+		// Collider behavior
+		collider = ECBehaviorCollider.new(this, component)
+		
+		// Triggered behavior. Default property name is "trigger"
+		triggered = ECBehaviorTriggered.new(this, BaseGameApp.getApp().getTriggerTable())
+		
+		// Other properties
+		addProperty(skinOn = ECPSkin.new("skinOn", "/material/miscLabel/active.deskin"))
+		addProperty(skinOff = ECPSkin.new("skinOff", "/material/miscLabel/touchMe.deskin"))
+	end
+	
+	
+	// Create element instance. If we do not overwrite this we get an BehaviorElement instance
+	// instead. We could use a pure listener approach which works with a BehaviorElement but
+	// it is better to have a real TouchStand instance
+	protected func Element createElement()
+		return TouchStand.new(this)
+	end
+end

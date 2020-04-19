@@ -1,0 +1,197 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Gui.Events
+pin Dragengine.Networking
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Game Application Class. BaseGameApp provides basic starting behavior.
+ */
+class GameApp extends BaseGameApp
+	
+	/**
+	 * Define additional collision filter bits.
+	 */
+	class CollisionFilterBit extends BaseGameApp.CollisionFilterBit
+		/**
+		 * Elements supporting BehaviorKick.
+		 */
+		public static fixed var int kickable = custom
+		
+		/**
+		 * Elements supporting BehaviorClaimable.
+		 */
+		public static fixed var int claimable = custom + 1
+	end
+	
+	
+	
+	/**
+	 * Main menu window.
+	 */
+	public var MainMenu mainMenu
+	
+	/**
+	 * Game server if hosting game.
+	 */
+	public var GameServer gameServer
+	
+	/**
+	 * Client side networkPlayer if connected to a game.
+	 */
+	public var NetworkPlayerClient networkPlayerClient
+	
+	/**
+	 * Game state.
+	 */
+	public var GameState gameState
+	
+	
+	
+	/**
+	 * Game application instance.
+	 */
+	static public func GameApp getGameApp()
+		return getApp() cast GameApp
+	end
+	
+	
+	
+	/**
+	 * Create Game Application.
+	 * 
+	 * Set here properties used by BaseGameApp during initGame(). All other initialization
+	 * work should be placed inside initGame() or one of the hook methods called by
+	 * BaseGameApp.initGame().
+	 */
+	public func new()
+		// Path to the GUI Theme file to use. If not set uses BaseGameApp.defaultPathGuiTheme
+		pathDesktopGuiTheme = "/content/ui/main.guitheme.xml"
+		
+		
+		// To use translation support create one or more language packs and uncomment the
+		// properties below with the appropriate values.
+		// 
+		//pathLanguagePacks = "/content/langpacks"
+		//defaultLanguagePackName = UnicodeString.newFromUTF8( "English" )
+	end
+	
+	/**
+	 * Initialize game.
+	 * 
+	 * Create required objects here and start loading. Lengthy loading work should not be
+	 * waited for in this method. Methods like startLoadGameWorld() will notify you when
+	 * the lengthy loading work is done.
+	 * 
+	 * See BaseGameApp.initGame() documentation for the supported hook methods.
+	 */
+	public func void initGame()
+		// super-call has to come first
+		super.initGame()
+		
+		// Start game by showing the Drag[en]gine Game Engine logo and optionally other logos
+		// you would like to show. WindowLogo.show*() does all the work of showing a logo or
+		// video with optional sound. Once the window is finished (the user can skip it)
+		// the provided action listener is called. This can be creating a class implementing
+		// ActionListener interface or by using BlockActionListener. This is a convenience
+		// class allowing to use a block as an action and is suitable for quick code insertion
+		// like this. Using a class implementing ActionListener is though favorable since it
+		// makes it easier to chain actions in an understandable way.
+		// 
+		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
+		// engine but we highly appreciate it if you do so.
+		
+		WindowLogo.showDragengineLogo( this.getDesktop(), BlockActionListener.new( \
+			block ActionEvent event
+				launchApplication()
+			end ) )
+	end
+	
+	/**
+	 * \brief Launch example application.
+	 * 
+	 * Called after logo windows are finished.
+	 */
+	public func void launchApplication()
+		// BaseGameApp adds a WindowConsole which can be toggled by pressing F1 key. Adding
+		// a ShoutConsole shows the last messages without needing to show the console.
+		getWindowGameWorld().addWidget( ShoutConsole.new( getConsole() ) )
+		
+		// Show main menu
+		mainMenu = MainMenu.new()
+		getDesktop().addWindow( mainMenu )
+		mainMenu.activate()
+	end
+	
+	/**
+	 * Create commands and add them to command list. We just want to remove here some
+	 * commands we do not use for this example application.
+	 */
+	protected func void createAndAddCommands()
+		super.createAndAddCommands()
+		
+		var Commands.CommandManager cm = getCommandManager()
+		cm.remove( cm.getNamed( "toggleCrouch" ) )
+		cm.remove( cm.getNamed( "toggleRun" ) )
+	end
+	
+	/**
+	 * Create element classes and add them to element class list.
+	 */
+	protected func void createAndAddElementClasses()
+		super.createAndAddElementClasses()
+		getElementClassList().add( PlayerActorClass.new() )
+		getElementClassList().add( BallClass.new() )
+		getElementClassList().add( PlayerPlatformClass.new() )
+	end
+	
+	/**
+	 * Cleaning up.
+	 * 
+	 * Will be called before the game engine shuts down the game. This method will be also
+	 * called if the initGame() threw an exception before finishing. Make sure to check if
+	 * objects have been initialized before cleaning them up.
+	 */
+	public func void cleanUp()
+		if networkPlayerClient != null
+			networkPlayerClient.dispose()
+			networkPlayerClient = null
+		end
+		if gameServer != null
+			gameServer.dispose()
+			gameServer = null
+		end
+		if gameState != null
+			gameState.dispose()
+			gameState = null
+		end
+		
+		// super-call has to come last
+		super.cleanUp()
+	end
+end

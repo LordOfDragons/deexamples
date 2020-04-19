@@ -1,0 +1,124 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui
+pin Dragengine.LoadSave
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Sky for test world the user can use.
+ * 
+ * Keeps the sky in memory once loaded so it can be quickly switched.
+ */
+class TestWorldSky
+	private var String pPathSky
+	private var String pDisplayName
+	private var SkyInstance pSky
+	private var Array pControllerNames
+	
+	
+	
+	/**
+	 * \brief Create test world sky.
+	 */
+	public func new( String pathSky, String displayName )
+		pPathSky = pathSky
+		pDisplayName = displayName
+	end
+	
+	
+	
+	/** \brief Path to sky file. */
+	public func String getPathSky()
+		return this.pPathSky
+	end
+	
+	/** \brief Display name. */
+	public func String getDisplayName()
+		return pDisplayName
+	end
+	
+	/**
+	 * \brief Sky or \em null if not loaded or loading failed.
+	 * 
+	 * If the sky is not loaded loads it.
+	 */
+	public func SkyInstance getSky()
+		if pSky == null
+			loadSky()
+		end
+		return pSky
+	end
+	
+	/** \brief Controller names as Array of String. */
+	public func Array getControllerNames()
+		return this.pControllerNames
+	end
+	
+	
+	
+	/**
+	 * \brief String representation for example for combo boxes.
+	 */
+	public func String toString()
+		return pDisplayName
+	end
+	
+	/**
+	 * \brief Compare to enable sorting.
+	 */
+	public func int compare( Object other )
+		return pPathSky.compare( ( other cast TestWorldSky ).pPathSky )
+	end
+	
+	/**
+	 * \brief Equals.
+	 */
+	public func bool equals( Object other )
+		return other castable TestWorldSky \
+			and pPathSky.equals( ( other cast TestWorldSky ).pPathSky )
+	end
+	
+	
+	
+	/** \brief Load sky. */
+	protected func void loadSky()
+		var LoadSky loadSky = BaseGameApp.getApp().getLoaders().getSky()
+		var Sky sky = loadSky.loadFromFile( pPathSky )
+		
+		pSky = SkyInstance.new()
+		pSky.setSky( sky )
+		
+		pControllerNames = Array.new()
+		
+		var int i, count = pSky.getControllerCount()
+		var SkyController controller
+		
+		for i = 0 to count
+			controller = pSky.getControllerAt( i )
+			controller.setValue( ( controller.getLower() + controller.getUpper() ) * 0.5 )
+			pControllerNames.add( controller.getName() )
+		end
+	end
+end

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<guiTheme extend='/shareddata/guithemes/modern/modern.guitheme.xml'>
+	<!--
+	This is the main UI GuiTheme for the audio test example application. Multiple gui themes
+	can be used but for this example one gui theme is used.
+	
+	The GuiTheme extends the DragonScript module provided moden gui theme. We leave this gui
+	theme as is and just add our modifications to it.
+	-->
+	
+	
+	<!--
+	Style the WindowTrackerMap.
+	-->
+	<designer name='Window.TrackerMap' type='Window'>
+		<canvasCreator parameter='normal.canvas' type='Rectangle'>
+			<color parameter='colorFill' r='0' g='0' b='0' a='0.25'/>
+		</canvasCreator>
+		<mousePointer parameter='normal.mousePointer' type='Default'/>
+	</designer>
+	
+	<!--
+	Style window fading over black.
+	-->
+	<designer name='Window.OverBlack' type='Window'>
+		<canvasCreator parameter='normal.canvas' type='Rectangle'>
+			<color parameter='colorFill' r='0' g='0' b='0'/>
+		</canvasCreator>
+		<mousePointer parameter='normal.mousePointer' type='Default'/>
+	</designer>
+	
+	
+	
+	<!-- Style the WindowPlayerChoice -->
+	
+	
+	<!-- Style WindowSubTitle -->
+	
+	<!-- Defines the style for the dragoness actor. Just changes colors. -->
+	<designer name='Label.SubTitleBoxText.Text.dragoness' extendNamed='Label.SubTitleBoxText.Text'>
+		<color parameter='normal.textColor' r='1' g='0.25' b='1'/>
+	</designer>
+	
+	<!-- Example for using styles with TagResolver. here a simple emphasis tag is shown. -->
+	<designer name='ConvoTagResolver.Emphasis' extendNamed='Label.SubTitleBoxText'>
+		<color parameter='normal.textColor' r='1' g='0.5' b='0'/>
+	</designer>
+	
+</guiTheme>

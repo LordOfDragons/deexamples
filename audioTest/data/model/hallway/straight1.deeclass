@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='HallwayStraight1' class='SimpleElement'>
+	<string name='component.model'>straight.demodel</string>
+	<string name='component.audioModel'>straight.demodel</string>
+	<string name='component.occlusionMesh'>hallway1.deoccmesh</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>hallway1.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='baseboard'>
+			<string key='skin'>/material/plastic/matte.deskin</string>
+			<color key='tint' r='0.298039' g='0.211765' b='0.192157'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='floor'>
+			<string key='skin'>/material/parquet/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='ceiling'>
+			<string key='skin'>/material/wallpaper/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='wall'>
+			<string key='skin'>/material/wallpaper/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

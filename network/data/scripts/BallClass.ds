@@ -1,0 +1,89 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Scenery
+
+
+/**
+ * Play ball.
+ * 
+ * TODO add simple game rules. Ball gets the glower material from the example-app. Ball gets
+ * ECBehaviorDynamicSkin to change the emissivity.tint of the material. Add to the play field
+ * floor plates with the color of each player (each player gets a unique color). If the ball
+ * moves across the panel it switches (using smoothing maybe) to the color of the panel.
+ * Ball keeps color until hitting another panel. Player with smae color gets points over time.
+ * Points have to be shown in the UI somehow. Simple principle suitable enough for an example.
+ * 
+ * BehaviorClaimable: if present allows element to be claimed by platform. Requires listeners
+ *                      so effects like the ball color can be attached to it.
+ * BehaviorColorizeClaimed: behavior attaching to BehaviorClaimable updating a ECBehaviorDynamicSkin
+ *                          renderable with claimed color. Needs to track network state for color.
+ * BehaviorClaimer: if present allows element to claim an BehaviorClaimable (for platform).
+ */
+public class BallClass extends BehaviorElementClass
+	public var ECBehaviorComponent component
+	public var ECBehaviorCollider collider
+	public var ECBehaviorDynamicSkin dynamicSkin
+	public var ECBehaviorNetworkState networkState
+	public var BehaviorKickable kickable
+	public var BehaviorClaimable claimable
+	public var BehaviorColorizeClaimed colorizeClaimed
+	
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super( "Ball" )
+		// Add component behavior defining the visual aspects
+		component = ECBehaviorComponent.new( this, null )
+		component.setCommonPath( "/content/models/ball", "ball.demodel", "ball.deskin", "ball.derig" )
+		
+		// Add collider behavior defining the physical aspects.
+		collider = ECBehaviorCollider.new( this, component )
+		collider.getCollider().getPhysicsType().setEnumeration( CollisionResponse.dynamic )
+		collider.getCollider().getWeight().setValue( 1 )
+// 		collider.getCollider().getCollisionFilter()
+		
+		// Add dynamic skin
+		dynamicSkin = ECBehaviorDynamicSkin.new( this, component )
+		
+		// Add network state behavior enabling networking support
+		networkState = ECBehaviorNetworkState.new( this, \
+			NetworkPlayer.LinkCode.object.order() cast byte, \
+			NetworkPlayer.MessageCode.networkState.order() cast byte )
+		
+		// Synchronize position and orientation of element
+		ECBehaviorNStateGeometry.new( this, networkState )
+		
+		// Add support to be kicked
+		kickable = BehaviorKickable.new( this, collider )
+		
+		// Add support to be claimed
+		claimable = BehaviorClaimable.new( this, collider, networkState )
+		
+		// Add support to change color of ball matching player having it claimed
+		colorizeClaimed = BehaviorColorizeClaimed.new( this, claimable, dynamicSkin )
+	end
+end

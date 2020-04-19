@@ -1,0 +1,149 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+
+/**
+ * Host game loader class.
+ * 
+ * Loads game world showing a WindowLoading. Once finished finishes setting up game and
+ * hands control over to the game.
+ * 
+ * Uses WindowGameWorld.Loader as super class to directly update the WindowGameWorld
+ * created by BaseGameApp.
+ */
+class HostGame extends WindowGameWorld.Loader
+	/** Name to use for game session. */
+	public var String sessionName
+	
+	/** Address to host game session on. */
+	public var String listenAddress
+	
+	/** Player name. */
+	public var String playerName
+	
+	
+	
+	/**
+	 * Create start game loader.
+	 */
+	public func new( WindowGameWorld window ) super( window )
+		listenAddress = "127.0.0.1"  // "*"
+		
+		// Enable networking for loaded game elements
+		setEnableNetworking( true )
+	end
+	
+	/**
+	 * Loading world finished successfully.
+	 */
+	public func void onLoadWorldFinished()
+		var GameApp app = BaseGameApp.getApp() cast GameApp
+		
+		// Create game state
+		app.gameState = GameState.new()
+		app.gameState.pathWorldFile = getPathWorld()
+		app.gameState.gameWorld = getStubWorld().getGameWorld()
+		
+		app.gameState.localPlayer = PlayerState.new( app.getIDGenerator().nextID() )
+		app.gameState.localPlayer.name = UnicodeString.newFromUTF8( playerName )
+		app.gameState.localPlayer.color = app.gameState.playerColors.getAt( 1 ) cast Color
+		app.gameState.players.add( app.gameState.localPlayer )
+		
+		// Create required game elements
+		app.gameState.createGameElements()
+		
+		// Listen for incoming connections. Connections will not be accepted until
+		// game loader has been removed during call to finishLoadGameWorld()
+		app.gameServer = GameServer.new( sessionName, listenAddress )
+		
+		// Create actor and spawn it
+		var StubElement stub = StubElement.new( app.getElementClassList().getNamed( "PlayerActor" ), \
+			app.getIDGenerator().nextID() )
+		stub.setEnableNetworking( true )
+		stub.setPropertyValueFor( "playerID", app.gameState.localPlayer.id.toHexString() )
+		var PlayerActor player = stub.createElement() cast PlayerActor
+		
+		app.gameState.spawnPlayer( player, "player1" )
+		
+		// To take control of the actor assign it as the player controlled actor
+		player.getPlayerControllable().takeControl()
+		
+		// Set a camera directory placing the camera and microphone relative to the actor.
+		getWindow().setCameraDirector( PlayerControlledActorCameraDirector.new() )
+		
+		// Spawn ball
+		app.gameState.spawnBall( "ball1" )
+		
+		// super-call to assign the game world to the game world window. The player can now
+		// see and hear the game world
+		super.onLoadWorldFinished()
+		
+		// Switch on processing binding input. Bindings run commands bound by the player
+		// to his keyboard, mouse and game pads. To give control back to the desktop call
+		// app.setInputProcessorDesktop() .
+		app.setInputProcessorBindings()
+		
+		// Ready to start your game. This call cleans up the game loader so you can now
+		// run the game. This has to come last
+		app.finishLoadGameWorld()
+	end
+	
+	/**
+	 * Loading world failed.
+	 * 
+	 * This method is called if any exceptions are thrown during loading the game world
+	 * or if problems with element classes have been found.
+	 */
+	public func void onLoadWorldFailed()
+		// super-call this first
+		super.onLoadWorldFailed()
+		
+		// tear down networking if running
+		var GameApp app = BaseGameApp.getApp() cast GameApp
+		if app.gameServer != null
+			app.gameServer.dispose()
+			app.gameServer = null
+		end
+		
+		// drop game state
+		if app.gameState != null
+			app.gameState.dispose()
+			app.gameState = null
+		end
+		
+		// This cleans up the game loader and allows you to continue for example by showing
+		// the main menu again with an error message
+		app.cancelLoadGameWorld()
+		
+		// Go back to main menu
+		app.mainMenu.activate()
+	end
+end

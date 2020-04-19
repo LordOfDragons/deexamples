@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<world>
+	<gravity x='0' y='-9.81' z='0'/>
+	<ambientLight r='1' g='1' b='1'/>
+	<nextObjectID>5</nextObjectID>
+	
+	<object id='1'>
+		<classname>SimpleElement</classname>
+		<position x='0' y='0' z='0'/>
+		<property key='component.rig'>/worlds/example1/model/rigEditorRoom/room.derig</property>
+		<property key='component.model'>/worlds/example1/model/rigEditorRoom/room.demodel</property>
+		<property key='component.skin'>/worlds/example1/material/empty.deskin</property>
+		<texture name='grass'>
+			<skin>/worlds/example1/material/grass/material.deskin</skin>
+		</texture>
+		<texture name='wall'>
+			<skin>/worlds/example1/material/concrete/material.deskin</skin>
+		</texture>
+		<texture name='beton'>
+			<skin>/worlds/example1/material/concrete/material.deskin</skin>
+		</texture>
+	</object>
+	<object id='2'>
+		<classname>SimpleElement</classname>
+		<position x='-3.83349' y='1' z='-10.1951'/>
+		<rotation x='0' y='-19.5973' z='0'/>
+		<property key='component.rig'>/worlds/example1/model/examples/box.derig</property>
+		<property key='component.model'>/worlds/example1/model/examples/box.demodel</property>
+		<property key='component.skin'>/worlds/example1/material/concrete/material.deskin</property>
+		<texture name='material'>
+			<skin>/worlds/example1/material/concrete/material.deskin</skin>
+			<tint r='0.854902' g='0.192157' b='0.192157'/>
+		</texture>
+	</object>
+	<object id='3'>
+		<classname>SimpleElement</classname>
+		<position x='-0.137399' y='1' z='-9.92006'/>
+		<rotation x='0' y='-19.5973' z='0'/>
+		<property key='component.rig'>/worlds/example1/model/examples/sphere.derig</property>
+		<property key='component.model'>/worlds/example1/model/examples/sphere.demodel</property>
+		<property key='component.skin'>/worlds/example1/material/concrete/material.deskin</property>
+		<texture name='material'>
+			<skin>/worlds/example1/material/concrete/material.deskin</skin>
+			<tint r='0.592157' g='0.764706' b='0.92549'/>
+		</texture>
+	</object>
+	<object id='4'>
+		<classname>SimpleElement</classname>
+		<position x='3.0626' y='1' z='-9.17006'/>
+		<rotation x='0' y='33.031' z='0'/>
+		<property key='component.rig'>/worlds/example1/model/examples/suzanne.derig</property>
+		<property key='component.model'>/worlds/example1/model/examples/suzanne.demodel</property>
+		<property key='component.skin'>/worlds/example1/material/concrete/material.deskin</property>
+		<texture name='material'>
+			<skin>/worlds/example1/material/concrete/material.deskin</skin>
+			<tint r='0.835294' g='0.419608' b='0.866667'/>
+		</texture>
+	</object>
+</world>

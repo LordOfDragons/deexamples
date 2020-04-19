@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<image property='color'>color.jpg</image>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>1</value>
+		<value property='ambient.occlusion'>1</value>
+		<image property='normal'>normal.jpg</image>
+		<color property='color.tint' r='0.847059' g='0.776471' b='0.556863' a='1' renderable='tint'/>
+		<value property='sound.absorption'>0.16</value>
+		<value property='sound.absorption.lower'>0.064</value>
+		<value property='sound.absorption.upper'>2.87</value>
+		<value property='sound.transmission'>0.4</value>
+		<value property='sound.transmission.lower'>2.8</value>
+		<value property='sound.transmission.upper'>0.28</value>
+	</texture>
+</skin>

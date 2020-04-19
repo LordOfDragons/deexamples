@@ -1,0 +1,212 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Gui.Layouts
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Main Menu.
+ */
+class MainMenu extends Window
+	/**
+	 * Found game sessions.
+	 */
+	class FoundGameSession
+		public var String name
+		public var String ip
+		
+		public func new( String name, String ip )
+			this.name = name
+			this.ip = ip
+		end
+	end
+	
+	/**
+	 * Action hosting game.
+	 */
+	class ActionHostGame extends DefaultActionListener
+		public var MainMenu mainMenu
+		
+		public func new( MainMenu mainMenu )
+			this.mainMenu = mainMenu
+		end
+		
+		public func void onAction( ActionEvent event )
+			var GameApp app = GameApp.getGameApp()
+			var String pathWorld = "/content/worlds/field1.deworld"
+			
+			var HostGame loader = HostGame.new( app.getWindowGameWorld() )
+			loader.setPathWorld( pathWorld )
+			loader.sessionName = mainMenu.modelSessionName.getText()
+			loader.playerName = mainMenu.modelPlayerName.getText()
+			
+			mainMenu.deactivate()
+			app.startLoadGameWorld( loader )
+		end
+	end
+	
+	/**
+	 * Action join game.
+	 */
+	class ActionJoinGame extends DefaultActionListener
+		public var MainMenu mainMenu
+		
+		public func new( MainMenu mainMenu )
+			this.mainMenu = mainMenu
+		end
+		
+		public func void onAction( ActionEvent event )
+			/*
+			if mainMenu.listSessions.getSelectedElement() == -1
+				return
+			end
+			
+			var FoundGameSession session = mainMenu.listSessions.getModel().getAt( \
+				mainMenu.listSessions.getSelectedElement() ) cast FoundGameSession
+			BaseGameApp.getConsole().addMessage( "Join game named '" + session.name + "'" )
+			*/
+			
+			var GameApp app = GameApp.getGameApp()
+			
+			var JoinGame loader = JoinGame.new( app.getWindowGameWorld() )
+			loader.hostName = mainMenu.modelJoinHost.getText()
+			loader.playerName = mainMenu.modelPlayerName.getText()
+			
+			mainMenu.deactivate()
+			app.startLoadGameWorld( loader )
+		end
+	end
+	
+	
+	
+	/**
+	 * Models storing parameters.
+	 */
+	public var TextModel modelPlayerName
+	public var TextModel modelSessionName
+	public var TextModel modelJoinHost
+	
+	
+	
+	/**
+	 * Create main menu.
+	 */
+	public func new()
+		// Set up window as a full screen window with no title. The background image or
+		// video is set using selector "WindowMainMenu" in main.guitheme.xml .
+		setTitle( "" )
+		setWindowState( Window.WindowState.maximized )
+		setCanClose( false )
+		setCanMaximize( false )
+		setCanMinimize( false )
+		setCanResize( false )
+		setVisible( true )
+		setDesignerSelector( "WindowMainMenu" )
+		
+		// Create models
+		modelPlayerName = DefaultTextModel.new( "Player" )
+		modelSessionName = DefaultTextModel.new( "Bring it on!" )
+		modelJoinHost = DefaultTextModel.new( "127.0.0.1" )
+		
+		// Border layout is a simple layout to place a logo in the top row and content below.
+		setLayout( BorderLayout.new() )
+		
+		// Add logo to top row. Using DisplayImage is one way to do this
+		addWidget( DisplayImage.new( Image.new( "/content/ui/logo.jpg" ) ), BorderLayout.Area.top )
+		
+		// Add content. In this example the content composes of three panels centered in the
+		// middle. This is done using a grid layout inside a centrized box layout.
+		addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.x ), block Panel p1
+			// Centrized box layout ensures the two panels are centered in the window
+			p1.addWidget( Panel.new( GridLayout.new( 3, 1, 25 ), block Panel p2
+				// Grid layout ensures the three panels have the same size. In this case the
+				// layout has 1 row and 3 columns and 50 pixels gap.
+				
+				// Left panel contains host game parameters
+				p2.addWidget( Panel.new( BorderLayout.new( 20 ), block Panel panel
+					panel.setDesignerSelector( "Panel.MainWindow.HostGame" )
+					panel.addWidget( Panel.new( FlowLayout.new( LayoutAxis.y, 10 ), block Panel sub
+						sub.addWidget( Label.new( "Session Name", "Label.MainWindow.SessionName" ) )
+						var TextField textField = TextField.new( modelSessionName, 15 )
+						textField.setValidator( SimpleTextValidator.new( 20, SimpleTextValidator.CharacterClass.printable ) )
+						sub.addWidget( textField )
+					end ), BorderLayout.Area.content )
+					
+					panel.addWidget( Button.new( "Host Game", ActionHostGame.new( this ) ), BorderLayout.Area.bottom )
+				end ) )
+				
+				// Center panel contains player parameters
+				p2.addWidget( Panel.new( FlowLayout.new( LayoutAxis.y, 10 ), block Panel panel
+					panel.setDesignerSelector( "Panel.MainWindow.Player" )
+					panel.addWidget( Label.new( "Player Name", "Label.MainWindow.PlayerName" ) )
+					var TextField textField = TextField.new( modelPlayerName, 15 )
+					textField.setValidator( SimpleTextValidator.new( 20, SimpleTextValidator.CharacterClass.printable ) )
+					panel.addWidget( textField )
+					setActiveWidget( textField ) // This will be the active widget
+				end ) )
+				
+				// Right panel contains join game parameters
+				p2.addWidget( Panel.new( BorderLayout.new( 20 ), block Panel panel
+					//var ListBox listSessions = ListBox.new()
+					//listSessions.setNumberDisplayLines( 4 )
+					//panel.addWidget( listSessions )
+					
+					panel.setDesignerSelector( "Panel.MainWindow.JoinGame" )
+					panel.addWidget( Panel.new( FlowLayout.new( LayoutAxis.y, 10 ), block Panel sub
+						sub.addWidget( Label.new( "Host Name/IP", "Label.MainWindow.HostName" ) )
+						sub.addWidget( TextField.new( modelJoinHost, 15 ) )
+					end ), BorderLayout.Area.content )
+					
+					panel.addWidget( Button.new( "Join Game", ActionJoinGame.new( this ) ), BorderLayout.Area.bottom )
+				end ) )
+			end ) )
+		end ), BorderLayout.Area.content )
+		
+		// Add at the bottom a quit button
+		addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.x ), block Panel p
+			p.addWidget( Button.new( "Quit Game", QuitGameActionListener.new() ) )
+		end ), BorderLayout.Area.bottom )
+	end
+	
+	
+	
+	/**
+	 * Activate main menu.
+	 */
+	public func void activate()
+		setVisible( true )
+		GameApp.getApp().setInputProcessorDesktop()
+	end
+	
+	/**
+	 * Deactivate main menu.
+	 */
+	public func void deactivate()
+		setVisible( false )
+	end
+end

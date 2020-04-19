@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='CeilingLampRoom2' class='CeilingLamp'>
+	<float name='light.intensity'>2</float>
+	<float name='light.halfIntensityDistance'>0.3</float>
+	<float name='light.range'>20</float>
+</elementClass>

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE animator SYSTEM 'EpsylonAnimator.dtd'>
+<animator>
+	<display>
+		<model>/model/dragoness/dragoness.demodel</model>
+		<skin>/model/dragoness/dragoness.deskin</skin>
+		<rig>/model/dragoness/dragoness.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>/model/dragoness/dragoness.derig</rig>
+	<animation>/model/dragoness/dragoness.deanim</animation>
+	
+	<controller>
+		<name>idle</name>
+		<limits min='0' max='4'/>
+		<clamp>0</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>look.horizontal</name>
+		<limits min='-90' max='90'/>
+		<locomotionAttribute>lookHorizontal</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>look.vertical</name>
+		<limits min='-80' max='80'/>
+		<locomotionAttribute>lookVertical</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<link>
+		<name>idle</name>
+		<controller>0</controller>
+		<mapping x='0' y='0'/>
+		<mapping x='1' y='1'/>
+	</link>
+	
+	<link>
+		<name>look.horizontal</name>
+		<controller>1</controller>
+		<mapping x='0' y='0'/>
+		<mapping x='1' y='1'/>
+	</link>
+	
+	<link>
+		<name>look.vertical</name>
+		<controller>2</controller>
+		<mapping x='0' y='0'/>
+		<mapping x='1' y='1'/>
+	</link>
+	
+	<ruleAnimation>
+		<name>sitting</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<moveName>sitting</moveName>
+		<moveTime>0</moveTime>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+		<target name='moveTime'>
+			<link>0</link>
+		</target>
+	</ruleAnimation>
+	
+	<ruleAnimationDifference>
+		<name>look.vertical</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<bone>neck</bone>
+		<bone>neck2</bone>
+		<bone>neck3</bone>
+		<bone>neck4</bone>
+		<bone>neck5</bone>
+		<bone>neck6</bone>
+		<bone>neck.head</bone>
+		<bone>head</bone>
+		<bone>shield1</bone>
+		<bone>shield2</bone>
+		<bone>shield3</bone>
+		<leadingMoveName>sitting ud</leadingMoveName>
+		<leadingMoveTime>0.5</leadingMoveTime>
+		<referenceMoveName>sitting ud</referenceMoveName>
+		<referenceMoveTime>0.5</referenceMoveTime>
+		<enablePosition>0</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+		<target name='leadingMoveTime'>
+			<link>2</link>
+		</target>
+		<target name='referenceMoveTime'>
+		</target>
+	</ruleAnimationDifference>
+	
+	<ruleBoneTransformator>
+		<name>look.horizontal</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<bone>neck3</bone>
+		<bone>neck4</bone>
+		<bone>neck5</bone>
+		<minimumTranslation x='0' y='0' z='0'/>
+		<maximumTranslation x='0' y='0' z='0'/>
+		<minimumRotation x='0' y='-30' z='0'/>
+		<maximumRotation x='0' y='30' z='0'/>
+		<minimumScaling x='1' y='1' z='1'/>
+		<maximumScaling x='1' y='1' z='1'/>
+		<cframe>component</cframe>
+		<enablePosition>0</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+		<targetBone/>
+		<target name='translation'>
+		</target>
+		<target name='rotation'>
+			<link>1</link>
+		</target>
+		<target name='scaling'>
+		</target>
+	</ruleBoneTransformator>
+</animator>

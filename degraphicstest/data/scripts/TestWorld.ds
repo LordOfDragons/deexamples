@@ -1,0 +1,181 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Test world the user can show.
+ * 
+ * Keeps the world in memory once loaded so it can be quickly switched.
+ */
+class TestWorld
+	private var String pPathWorld
+	private var String pDisplayName
+	private var GameWorld pWorld
+	private var DefaultListModel pModelSkies
+	private var TestWorldSky pActiveSky
+	
+	
+	
+	/** \brief Create test world. */
+	public func new( String pathWorld, String displayName )
+		pPathWorld = pathWorld
+		pDisplayName = displayName
+		pModelSkies = DefaultListModel.new()
+		
+		var String searchPath = File.new( pathWorld ).getParent().toString()
+		searchSkyFiles( searchPath, searchPath.getLength() + 1 )
+		if pModelSkies.getCount() > 0
+			setActiveSky( pModelSkies.getAt( 0 ) cast TestWorldSky )
+		end
+	end
+	
+	
+	
+	/** \brief Path to world file. */
+	public func String getPathWorld()
+		return pPathWorld
+	end
+	
+	/** \brief Display name. */
+	public func String getDisplayName()
+		return pDisplayName
+	end
+	
+	/** \brief World or \em null if not loaded. */
+	public func GameWorld getWorld()
+		return pWorld
+	end
+	
+	/** \brief Sky model. */
+	public func DefaultListModel getModelSkies()
+		return pModelSkies
+	end
+	
+	/** \brief Active sky. */
+	public func TestWorldSky getActiveSky()
+		return pActiveSky
+	end
+	
+	/** \brief Set active sky. */
+	public func void setActiveSky( TestWorldSky sky )
+		if sky == pActiveSky
+			return
+		end
+		
+		pActiveSky = sky
+		pModelSkies.setSelected( pModelSkies.indexOf( sky ) )
+		
+		if pWorld != null
+			if sky != null
+				pWorld.getWorld().addSky( sky.getSky() )
+				
+			else
+				pWorld.getWorld().removeAllSkies()
+			end
+		end
+	end
+	
+	
+	
+	/**
+	 * \brief Activate world.
+	 * 
+	 * If world is loaded sets the world as activate world in the game world window.
+	 * If not starts loading the world. Once loading finishes the world is set as
+	 * the active world in the game world window.
+	 */
+	public func void activate()
+		var BaseGameApp app = BaseGameApp.getApp()
+		
+		if pWorld != null
+			app.getConsole().addMessage( "Activate world '" + pPathWorld + "'" )
+			app.getWindowGameWorld().setGameWorld( pWorld )
+			
+		else
+			app.getConsole().addMessage( "Start loading world '" + pPathWorld + "'" )
+			app.startLoadGameWorld( LoadTestWorld.new( app.getWindowGameWorld(), this ) )
+		end
+	end
+	
+	/**
+	 * \brief Finish loading.
+	 * 
+	 * For use by LoadTestWorld only.
+	 */
+	public func void finishLoadWorld( GameWorld world )
+		var BaseGameApp app = BaseGameApp.getApp()
+		
+		app.getConsole().addMessage( "Finished loading world '" + pPathWorld + "'" )
+		app.getConsole().addMessage( "Activate world '" + pPathWorld + "'" )
+		
+		pWorld = world
+		
+		if pActiveSky != null
+			world.getWorld().addSky( pActiveSky.getSky() )
+		end
+	end
+	
+	
+	
+	/**
+	 * \brief String representation for example for combo boxes.
+	 */
+	public func String toString()
+		return pDisplayName
+	end
+	
+	/**
+	 * \brief Compare to enable sorting.
+	 */
+	public func int compare( Object other )
+		return pPathWorld.compare( ( other cast TestWorld ).pPathWorld )
+	end
+	
+	/**
+	 * \brief Equals.
+	 */
+	public func bool equals( Object other )
+		return other castable TestWorld \
+			and pPathWorld.equals( ( other cast TestWorld ).pPathWorld )
+	end
+	
+	
+	
+	/**
+	 * \brief Find sky files to show.
+	 * 
+	 * Searches recursively for *.desky files. Each found file is added as TestWorldSky to
+	 * the sky model. The user can select the sky to display from the configuration screen.
+	 */
+	protected func void searchSkyFiles( String directory, int cutDisplayName )
+		FileSystem.searchFiles( directory, true, block String each, FileType type
+			if type == FileType.file and FileSystem.pathMatchesPattern( each, "*.desky" )
+				pModelSkies.add( TestWorldSky.new( each, each.substring( cutDisplayName ) ) )
+			end
+			return true
+		end )
+	end
+end

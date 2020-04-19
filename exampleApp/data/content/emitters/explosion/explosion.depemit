@@ -1,0 +1,455 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<particleEmitter>
+	<controller>
+		<name>power</name>
+		<limits lower='0' upper='1'/>
+		<frozen>false</frozen>
+		<clamp>true</clamp>
+		<linkToTime>false</linkToTime>
+	</controller>
+	<burstLifetime>3</burstLifetime>
+	<emitBurst>true</emitBurst>
+	
+	<type>
+		<name>rocks</name>
+		<skin>firyrock.deskin</skin>
+		<castFrom>vertex</castFrom>
+		<simulationType>particle</simulationType>
+		<intervalAsDistance>false</intervalAsDistance>
+		<trailEmitter>trail.depemit</trailEmitter>
+		<trailController id='linearVelocity'>velocity</trailController>
+		<physicsSize>0</physicsSize>
+		<collisionResponse>physical</collisionResponse>
+		<emitMinImpulse>0.01</emitMinImpulse>
+		
+		<parameter id='timeToLive'>
+			<value>2</value>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='2.5'/>
+					<handle1 x='0.95' y='4.40945'/>
+					<handle2 x='1.05' y='2.5'/>
+				</point>
+			</curveValue>
+		</parameter>
+		<parameter id='interval'>
+			<value>1</value>
+		</parameter>
+		<parameter id='particleCount'>
+			<value>5</value>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='4'/>
+					<handle1 x='0.95' y='4'/>
+					<handle2 x='1.05' y='4'/>
+				</point>
+			</curveValue>
+		</parameter>
+		<parameter id='castAngleX'>
+			<value>0</value>
+			<spread>0.35</spread>
+		</parameter>
+		<parameter id='castAngleY'>
+			<value>0</value>
+			<spread>0.35</spread>
+		</parameter>
+		<parameter id='size'>
+			<value>0.15</value>
+			<spread>0.1</spread>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='1.5'/>
+					<handle1 x='0.95' y='1.5'/>
+					<handle2 x='1.05' y='1.5'/>
+				</point>
+			</curveValue>
+		</parameter>
+		<parameter id='red'>
+			<value>1</value>
+		</parameter>
+		<parameter id='green'>
+			<value>1</value>
+		</parameter>
+		<parameter id='blue'>
+			<value>1</value>
+		</parameter>
+		<parameter id='transparency'>
+			<value>1</value>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0.9' y='1'/>
+					<handle1 x='0.85' y='1'/>
+					<handle2 x='0.95' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0'/>
+					<handle1 x='0.980211' y='0.42126'/>
+					<handle2 x='1.05' y='0'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='emissivity'>
+			<value>0</value>
+			<curveProgress>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0'/>
+					<handle1 x='0.95' y='0'/>
+					<handle2 x='1.05' y='0'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='mass'>
+			<value>0.3</value>
+			<spread>0.1</spread>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='3'/>
+					<handle1 x='0.95' y='3'/>
+					<handle2 x='1.05' y='3'/>
+				</point>
+			</curveValue>
+			<curveProgress>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0'/>
+					<handle1 x='0.95' y='0'/>
+					<handle2 x='1.05' y='0'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='rotation'>
+			<value>0</value>
+		</parameter>
+		<parameter id='linearVelocity'>
+			<value>4</value>
+			<spread>1.5</spread>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='3'/>
+					<handle1 x='0.95' y='3'/>
+					<handle2 x='1.05' y='3'/>
+				</point>
+			</curveValue>
+		</parameter>
+		<parameter id='angularVelocity'>
+			<value>8</value>
+			<spread>2</spread>
+		</parameter>
+		<parameter id='brownMotion'>
+			<value>0</value>
+		</parameter>
+		<parameter id='damping'>
+			<value>0</value>
+		</parameter>
+		<parameter id='drag'>
+			<value>0</value>
+		</parameter>
+		<parameter id='gravityX'>
+			<value>0</value>
+		</parameter>
+		<parameter id='gravityY'>
+			<value>0</value>
+		</parameter>
+		<parameter id='gravityZ'>
+			<value>0</value>
+		</parameter>
+		<parameter id='localGravity'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldDirect'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldSurface'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldMass'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldSpeed'>
+			<value>0</value>
+		</parameter>
+		<parameter id='elasticity'>
+			<value>0.5</value>
+		</parameter>
+		<parameter id='roughness'>
+			<value>0.5</value>
+		</parameter>
+		<parameter id='emitDirection'>
+			<value>0</value>
+		</parameter>
+		<parameter id='beamStart'>
+			<value>0</value>
+		</parameter>
+		<parameter id='beamEnd'>
+			<value>0</value>
+		</parameter>
+	</type>
+	<type>
+		<name>puffcloud</name>
+		<skin>smoke.deskin</skin>
+		<castFrom>vertex</castFrom>
+		<simulationType>particle</simulationType>
+		<intervalAsDistance>false</intervalAsDistance>
+		<physicsSize>0</physicsSize>
+		<collisionResponse>physical</collisionResponse>
+		<emitMinImpulse>0.01</emitMinImpulse>
+		
+		<parameter id='timeToLive'>
+			<value>1</value>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='2'/>
+					<handle1 x='0.95' y='2'/>
+					<handle2 x='1.05' y='2'/>
+				</point>
+			</curveValue>
+		</parameter>
+		<parameter id='interval'>
+			<value>1</value>
+		</parameter>
+		<parameter id='particleCount'>
+			<value>30</value>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='3'/>
+					<handle1 x='0.95' y='3'/>
+					<handle2 x='1.05' y='3'/>
+				</point>
+			</curveValue>
+		</parameter>
+		<parameter id='castAngleX'>
+			<value>0.5</value>
+		</parameter>
+		<parameter id='castAngleY'>
+			<value>0</value>
+			<spread>1</spread>
+		</parameter>
+		<parameter id='size'>
+			<value>1.5</value>
+			<controllerValue>0</controllerValue>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='4'/>
+					<handle1 x='0.95' y='4'/>
+					<handle2 x='1.05' y='4'/>
+				</point>
+			</curveValue>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='0.2'/>
+					<handle1 x='-0.05' y='0.2'/>
+					<handle2 x='0.25066' y='0.594488'/>
+				</point>
+				<point>
+					<coordinates x='1' y='1'/>
+					<handle1 x='0.598945' y='0.996063'/>
+					<handle2 x='1.05' y='1'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='red'>
+			<value>1</value>
+		</parameter>
+		<parameter id='green'>
+			<value>1</value>
+		</parameter>
+		<parameter id='blue'>
+			<value>1</value>
+		</parameter>
+		<parameter id='transparency'>
+			<value>1</value>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.248021' y='0.996063'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0'/>
+					<handle1 x='0.860158' y='0.185039'/>
+					<handle2 x='1.05' y='0'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='emissivity'>
+			<value>0</value>
+		</parameter>
+		<parameter id='mass'>
+			<value>0.1</value>
+		</parameter>
+		<parameter id='rotation'>
+			<value>0</value>
+		</parameter>
+		<parameter id='linearVelocity'>
+			<value>3</value>
+			<spread>2</spread>
+			<controllerValue>0</controllerValue>
+			<controllerSpread>0</controllerSpread>
+			<curveValue>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='8'/>
+					<handle1 x='0.95' y='8'/>
+					<handle2 x='1.05' y='8'/>
+				</point>
+			</curveValue>
+			<curveSpread>
+				<interpolation>linear</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.05' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='8'/>
+					<handle1 x='0.95' y='8'/>
+					<handle2 x='1.05' y='8'/>
+				</point>
+			</curveSpread>
+		</parameter>
+		<parameter id='angularVelocity'>
+			<value>0</value>
+		</parameter>
+		<parameter id='brownMotion'>
+			<value>0</value>
+		</parameter>
+		<parameter id='damping'>
+			<value>0</value>
+		</parameter>
+		<parameter id='drag'>
+			<value>0.6</value>
+			<spread>0.4</spread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='0'/>
+					<handle1 x='-0.05' y='0'/>
+					<handle2 x='0.5' y='0'/>
+				</point>
+				<point>
+					<coordinates x='0.699208' y='1'/>
+					<handle1 x='0.572559' y='1'/>
+					<handle2 x='0.825858' y='1'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0'/>
+					<handle1 x='0.889182' y='0.00393698'/>
+					<handle2 x='1.11082' y='-0.00393698'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='gravityX'>
+			<value>0</value>
+		</parameter>
+		<parameter id='gravityY'>
+			<value>0</value>
+		</parameter>
+		<parameter id='gravityZ'>
+			<value>0</value>
+		</parameter>
+		<parameter id='localGravity'>
+			<value>1</value>
+		</parameter>
+		<parameter id='forceFieldDirect'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldSurface'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldMass'>
+			<value>0</value>
+		</parameter>
+		<parameter id='forceFieldSpeed'>
+			<value>0</value>
+		</parameter>
+		<parameter id='elasticity'>
+			<value>1</value>
+		</parameter>
+		<parameter id='roughness'>
+			<value>0</value>
+		</parameter>
+		<parameter id='emitDirection'>
+			<value>0</value>
+		</parameter>
+		<parameter id='beamStart'>
+			<value>0</value>
+		</parameter>
+		<parameter id='beamEnd'>
+			<value>0</value>
+		</parameter>
+	</type>
+</particleEmitter>

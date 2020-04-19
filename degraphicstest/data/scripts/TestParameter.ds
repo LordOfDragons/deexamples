@@ -1,0 +1,265 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Commands
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Test parameter.
+ * 
+ * Parameters are changed bei either changing a module parameter or by sending a sequence
+ * of commands to the graphic module. If commands are used they contain the placeholder
+ * "{value}" to insert the chosen value at. If a module parameter is used the values have
+ * to be integer or floating point values. Strings not representing a valid value will
+ * be send as 0.
+ */
+class TestParameter
+	private var String pName
+	private var String pModuleParameter
+	private var Array pSendCommands
+	private var DefaultListModel pModelValues
+	private var TestParameterValue pActiveValue
+	private var TestParameterValue pDefaultValue
+	private var Binding pBinding
+	private var CommandToggleParameter pCommand
+	
+	
+	
+	/** \brief Create test parameter. */
+	public func new( String name )
+		pName = name
+		pSendCommands = Array.new()
+		pModelValues = DefaultListModel.new()
+		pCommand = CommandToggleParameter.new( this )
+	end
+	
+	/** \brief Create copy of test parameter. */
+	public func new( TestParameter parameter )
+		pName = parameter.pName
+		pModuleParameter = parameter.pModuleParameter
+		
+		pSendCommands = Array.new( parameter.pSendCommands )
+		
+		pModelValues = DefaultListModel.new()
+		parameter.pModelValues.forEach( block TestParameterValue each
+			pModelValues.add( TestParameterValue.new( each ) )
+		end )
+		if parameter.pActiveValue != null
+			pActiveValue = pModelValues.getAt( parameter.pModelValues \
+				.indexOf( parameter.pActiveValue ) ) cast TestParameterValue
+		end
+		if parameter.pDefaultValue != null
+			pDefaultValue = pModelValues.getAt( parameter.pModelValues \
+				.indexOf( parameter.pDefaultValue ) ) cast TestParameterValue
+		end
+		
+		pCommand = CommandToggleParameter.new( this )
+		if parameter.pBinding != null
+			pBinding = Binding.new( parameter.pBinding, pCommand )
+		end
+	end
+	
+	
+	
+	/** \brief Display name. */
+	public func String getName()
+		return pName
+	end
+	
+	/** \brief Set display name. */
+	public func void setName( String name )
+		pName = name
+	end
+	
+	/** \brief Name of module parameter to set or \em null to send command. */
+	public func String getModuleParameter()
+		return pModuleParameter
+	end
+	
+	/** \brief Set name of module parameter to set or \em null to send command. */
+	public func void setModuleParameter( String name )
+		pModuleParameter = name
+	end
+	
+	/**
+	 * \brief SendCommands to send to graphic module to change the parameter.
+	 * 
+	 * Array contains commands to send as String. The chosen value is inserted
+	 * into strings by using the placeholder "{value}"
+	 */
+	public func Array getSendCommands()
+		return pSendCommands
+	end
+	
+	/** \brief Model with TestParameterValue. */
+	public func DefaultListModel getModelValues()
+		return pModelValues
+	end
+	
+	/** \brief Default value. */
+	public func TestParameterValue getDefaultValue()
+		return pDefaultValue
+	end
+	
+	/** \brief Set default value. */
+	public func void setDefaultValue( TestParameterValue value )
+		pDefaultValue = value
+	end
+	
+	/** \brief Active value. */
+	public func TestParameterValue getActiveValue()
+		return pActiveValue
+	end
+	
+	/** \brief Set active value. */
+	public func void setActiveValue( TestParameterValue value )
+		if value == pActiveValue
+			return
+		end
+		
+		pActiveValue = value
+		this.pModelValues.setSelected( this.pModelValues.indexOf( value ) )
+		
+		if value != null
+			value.apply( this )
+		end
+	end
+	
+	/** \brief Activate next value. */
+	public func void activateNextValue()
+		var int index = -1
+		
+		if pActiveValue != null
+			index = pModelValues.indexOf( pActiveValue )
+		end
+		
+		if index != -1
+			setActiveValue( pModelValues.getAt( ( index + 1 ) \
+				% pModelValues.getCount() ) cast TestParameterValue )
+			
+		else
+			setActiveValue( pModelValues.getAt( 0 ) cast TestParameterValue )
+		end
+	end
+	
+	/** \brief Activate previous value. */
+	public func void activatePreviousValue()
+		var int index = -1
+		
+		if pActiveValue != null
+			index = pModelValues.indexOf( pActiveValue )
+		end
+		
+		if index != -1
+			setActiveValue( pModelValues.getAt( ( index - 1 + pModelValues.getCount() ) \
+				% pModelValues.getCount() ) cast TestParameterValue )
+			
+		else
+			setActiveValue( pModelValues.getAt( 0 ) cast TestParameterValue )
+		end
+	end
+	
+	/**
+	 * \brief Activate value best matching graphic system value
+	 * 
+	 * If a module parameter is used retrieves the parameter and activates the value with
+	 * the matching value. If no matching value is found the default value is activated.
+	 * 
+	 * If send commands are used the default value is activated.
+	 * 
+	 * Activates the value without triggering module updates.
+	 */
+	public func void activateFromModule()
+		var String moduleValue
+		
+		pActiveValue = null
+		
+		try
+			if pModuleParameter != null
+				moduleValue = GraphicSystem.getParameterValue( pModuleParameter )
+			end
+			
+		catch Exception e
+			BaseGameApp.getApp().getConsole().addError( \
+				"Failed get parameter '" + pName + "'.", e )
+		end
+		
+		if moduleValue != null
+			pActiveValue = pModelValues.find( block TestParameterValue each
+				return each.getValue().equals( moduleValue )
+			end ) cast TestParameterValue
+		end
+		
+		if pActiveValue == null
+			pActiveValue = pDefaultValue
+		end
+	end
+	
+	/** \brief Binding to use to toggle the values. */
+	public func Binding getBinding()
+		return pBinding
+	end
+	
+	/** \brief Set binding to use to toggle the values. */
+	public func void setBinding( Binding binding )
+		pBinding = binding
+	end
+	
+	/** \brief Command used to toggle this parameter. */
+	public func CommandToggleParameter getCommand()
+		return pCommand
+	end
+	
+	
+	
+	/** \brief Show dialog to select binding. */
+	public func void selectBinding()
+		ActionChangeParameterBinding.new( this ).onAction( \
+			ActionEvent.new( this, ActionEvent.idAction, 0 ) )
+	end
+	
+	
+	
+	/**
+	 * \brief String representation for example for combo boxes.
+	 */
+	public func String toString()
+		return pName
+	end
+	
+	/**
+	 * \brief Compare to enable sorting.
+	 */
+	public func int compare( Object other )
+		return pName.compare( other.toString() )
+	end
+	
+	/**
+	 * \brief Equals.
+	 */
+	public func bool equals( Object other )
+		return other castable TestParameter and pName.equals( other.toString() )
+	end
+end

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE animator SYSTEM 'EpsylonAnimator.dtd'>
+<animator>
+	<display>
+		<model>/model/dragoness/dragoness.demodel</model>
+		<skin>/model/dragoness/dragoness.deskin</skin>
+		<rig>/model/dragoness/dragoness.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>/model/dragoness/dragoness.derig</rig>
+	<animation>/model/dragoness/dragoness.deanim</animation>
+	
+	<controller>
+		<name>idle</name>
+		<limits min='0' max='4'/>
+		<clamp>0</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>look.horizontal</name>
+		<limits min='-90' max='90'/>
+		<locomotionAttribute>lookHorizontal</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>look.vertical</name>
+		<limits min='-80' max='80'/>
+		<locomotionAttribute>lookVertical</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>gesture.progress</name>
+		<limits min='0' max='1'/>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<link>
+		<name>gesture blend</name>
+		<controller>3</controller>
+		<curve>
+			<interpolation>bezier</interpolation>
+			<point>
+				<coordinates x='0' y='1'/>
+				<handle1 x='0' y='1'/>
+				<handle2 x='0' y='1'/>
+			</point>
+			<point>
+				<coordinates x='0.17801' y='0.913669'/>
+				<handle1 x='0.112584' y='0.993644'/>
+				<handle2 x='0.378873' y='0.668142'/>
+			</point>
+			<point>
+				<coordinates x='0.780105' y='0.179856'/>
+				<handle1 x='0.651759' y='0.333163'/>
+				<handle2 x='0.908451' y='0.0265487'/>
+			</point>
+			<point>
+				<coordinates x='1' y='0'/>
+				<handle1 x='1' y='0'/>
+				<handle2 x='1' y='0'/>
+			</point>
+		</curve>
+	</link>
+	
+	<ruleStateSnapshot>
+		<name>current state</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<useLastState>1</useLastState>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+	</ruleStateSnapshot>
+	
+	<ruleStateSnapshot>
+		<name>captured state</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+			<link>0</link>
+		</target>
+		<useLastState>0</useLastState>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+	</ruleStateSnapshot>
+</animator>

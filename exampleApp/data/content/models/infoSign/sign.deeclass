@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='InfoSign' class='SimpleElement'>
+	<string name='component.model'>sign.demodel</string>
+	<string name='component.rig'>sign.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='case'>
+			<string key='skin'>/content/materials/metalPainted/rough.deskin</string>
+			<color key='tint' r='0.2' g='0.188235' b='0.188235'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='content'>
+			<string key='skin'>/content/materials/signs/empty.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

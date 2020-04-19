@@ -1,0 +1,325 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.Preloading
+
+
+/**
+ * \brief User Interface Window.
+ * 
+ * Transparent window laid over the render window containing all the user interface.
+ * Window is styled using the selector "WindowUI".
+ */
+class WindowUI extends Window
+	/**
+	 * \brief Frame updater altering widget transparency.
+	 * 
+	 * If mouse cursor is inside monitor widget the transparency of the controller widget is
+	 * increased to make it easier to edit. Otherwise the transparency is decreased to make
+	 * the rendered world better visible.
+	 * 
+	 * If a owning window is blocked by a modal window no update is done
+	 */
+	private class WidgetFader extends FrameUpdateListener
+		private var Widget pWidgetModify
+		private var Widget pWidgetMonitor
+		private var float pFade
+		
+		/** \brief Fading speed (change per second). */
+		protected var float pSpeedFadeIn
+		protected var float pSpeedFadeOut
+		
+		/** \brief Hidden transparency. */
+		protected var float pTransparencyHidden
+		
+		/** \brief Create frame update listener. */
+		public func new( Widget widgetModify, Widget widgetMonitor )
+			pWidgetModify = widgetModify
+			pWidgetMonitor = widgetMonitor
+			pFade = 0.0
+			pSpeedFadeIn = 2.0
+			pSpeedFadeOut = 0.5
+			pTransparencyHidden = 0.25
+		end
+		
+		/** \brief Do frame update. */
+		public func void frameUpdate( float elapsed )
+			if pWidgetMonitor.getWindow().getBlockingWindow() != null
+				return
+			end
+			
+			if pWidgetMonitor.isMouseInside()
+				pFade = DEMath.min( pFade + pSpeedFadeIn * elapsed, 1.0 )
+				
+			else
+				pFade = DEMath.max( pFade - pSpeedFadeOut * elapsed, 0.0 )
+			end
+			
+			pWidgetModify.setTransparency( DEMath.smoothStep( pFade, 0.0, 1.0, pTransparencyHidden, 1.0 ) )
+		end
+	end
+	
+	
+	
+	private var String pPathTestConfiguration
+	private var DefaultListModel pModelTestWorld
+	private var TestWorld pActiveWorld
+	private var TestConfiguration pTestConfiguration
+	private var Panel pPanelControlWidgets
+	private var Panel pPanelWorldWidgets
+	protected var WidgetFader pControllerPanelFader
+	protected var WidgetFader pWorldPanelFader
+	
+	
+	
+	/**
+	 * \brief Create user interface window.
+	 */
+	public func new()
+		pPathTestConfiguration = "/testConfig.xml"
+		
+		runWhileBlockingLayout( block
+			buildContent()
+		end )
+		
+		pModelTestWorld = DefaultListModel.new()
+		pTestConfiguration = TestConfiguration.new()
+	end
+	
+	public func void dispose()
+		if pControllerPanelFader != null
+			pControllerPanelFader.giveUp()
+			pControllerPanelFader = null
+		end
+		if pWorldPanelFader != null
+			pWorldPanelFader.giveUp()
+			pWorldPanelFader = null
+		end
+		
+		super.dispose()
+		
+		pActiveWorld = null
+		pPanelWorldWidgets = null
+		pPanelControlWidgets = null
+		pModelTestWorld = null
+	end
+	
+	
+	
+	/** \brief Test world model. */
+	public func DefaultListModel getModelTestWorld()
+		return pModelTestWorld
+	end
+	
+	/** \brief Active world. */
+	public func TestWorld getActiveWorld()
+		return pActiveWorld
+	end
+	
+	/** \brief Set active world. */
+	public func void setActiveWorld( TestWorld world )
+		if pActiveWorld == world
+			return
+		end
+		pActiveWorld = world
+		pModelTestWorld.setSelected( pModelTestWorld.indexOf( world ) )
+		world.activate()
+	end
+	
+	
+	
+	/** \brief Test configuration. */
+	public func TestConfiguration getTestConfiguration()
+		return pTestConfiguration
+	end
+	
+	/** \brief Set test configuration. */
+	public func void setTestConfiguration( TestConfiguration configuration )
+		if configuration == null
+			throw EInvalidParam.new()
+		end
+		
+		pTestConfiguration = configuration
+		configuration.activateAllFromModule()
+		onTestConfigurationChanged()
+	end
+	
+	/** \brief Test configuration filename. */
+	public func String getPathTestConfiguration()
+		return pPathTestConfiguration
+	end
+	
+	
+	
+	/** \brief Notification loading test world finished. */
+	public func void onLoadingTestWorldFinished( TestWorld testWorld )
+		//BaseGameApp.getApp().getConsole().addMessage( "onLoadingTestWorldFinished" )
+		if testWorld == pActiveWorld
+			onActiveSkyChanged()
+		end
+	end
+	
+	/** \brief Notification test configuration changed. */
+	public func void onTestConfigurationChanged()
+		//BaseGameApp.getApp().getConsole().addMessage( "onTestConfigurationChanged" )
+		GraphicsTestApp.getGTApp().updateBindings()
+		rebuildControlWidgets()
+	end
+	
+	/** \brief Active sky changed. */
+	public func void onActiveSkyChanged()
+		pPanelWorldWidgets.runWhileBlockingLayout( block
+			while pPanelWorldWidgets.getWidgetCount() > 2
+				var Widget widget = pPanelWorldWidgets.getWidget( 2 )
+				pPanelWorldWidgets.removeWidget( widget )
+				widget.dispose()
+			end
+			
+			if pActiveWorld == null or pActiveWorld.getActiveSky() == null
+				return null
+			end
+			
+			var TestWorldSky testSky = pActiveWorld.getActiveSky()
+			var Array names = testSky.getControllerNames()
+			if names == null
+				return null
+			end
+			
+			var int i, count = names.getCount()
+			
+			for i = 0 to count
+				pPanelWorldWidgets.addWidget( SkyControllerWidget.new( \
+					testSky.getSky().getControllerAt( i ), names.getAt( i ) cast String ) )
+			end
+		end )
+		pPanelWorldWidgets.doLayout()
+	end
+	
+	
+	
+	/** \brief Initialize. */
+	public func void init()
+		searchWorldFiles( "/worlds", 8 )
+		
+		if pModelTestWorld.getCount() > 0
+			setActiveWorld( pModelTestWorld.getAt( 0 ) cast TestWorld )
+		end
+		pPanelWorldWidgets.addWidget( CycleWorldWidget.new() )
+		pPanelWorldWidgets.addWidget( CycleSkyWidget.new() )
+		onActiveSkyChanged()
+		
+		loadTestConfiguration()
+	end
+	
+	
+	
+	/** \brief Build content (called from constructor). */
+	protected func void buildContent()
+		setDesignerSelector( "WindowUI" )
+		setWindowState( Window.WindowState.maximized )
+		setLayout( BorderLayout.new() )
+		setCanClose( false )
+		setCanMaximize( false )
+		setCanMinimize( false )
+		setCanFocus( true )
+		
+		// widgets controlling test world
+		pPanelWorldWidgets = Panel.new()
+		pPanelWorldWidgets.setLayout( FlowLayout.new( LayoutAxis.y, 0, FlowLayout.Stretch.none ) )
+		pPanelWorldWidgets.setDesignerSelector( "Panel.WorldControllers" )
+		
+		var Viewport viewport = Viewport.new( pPanelWorldWidgets )
+		viewport.setLayout( FlowLayout.new( LayoutAxis.y ) )
+		var ScrollPanel scrollPanel = ScrollPanel.new( viewport, \
+			ScrollPanel.Policy.hidden, ScrollPanel.Policy.needed )
+		scrollPanel.setDesignerSelector( "Scroll.WorldControllers" )
+		addWidget( scrollPanel, BorderLayout.Area.right )
+		
+		pWorldPanelFader = WidgetFader.new( scrollPanel, pPanelWorldWidgets )
+		
+		// widgets controlling test parameters
+		pPanelControlWidgets = Panel.new()
+		pPanelControlWidgets.setLayout( FlowLayout.new( LayoutAxis.y, 0, FlowLayout.Stretch.none ) )
+		pPanelControlWidgets.setDesignerSelector( "Panel.ParameterControllers" )
+		
+		viewport = Viewport.new( pPanelControlWidgets )
+		viewport.setLayout( FlowLayout.new( LayoutAxis.y ) )
+		scrollPanel = ScrollPanel.new( viewport, \
+			ScrollPanel.Policy.hidden, ScrollPanel.Policy.needed )
+		scrollPanel.setDesignerSelector( "Scroll.ParameterControllers" )
+		addWidget( scrollPanel, BorderLayout.Area.left )
+		
+		pControllerPanelFader = WidgetFader.new( scrollPanel, pPanelControlWidgets )
+	end
+	
+	/** \brief Rebuild test parameter control widgets. */
+	protected func void rebuildControlWidgets()
+		pPanelControlWidgets.runWhileBlockingLayout( block
+			pPanelControlWidgets.removeAllWidgets()
+			
+			pTestConfiguration.forEachParameter( block TestParameter each
+				// could be specalized widgets depending on parameter type later on
+				pPanelControlWidgets.addWidget( CycleControlWidget.new( each ) )
+			end )
+		end )
+		pPanelControlWidgets.doLayout()
+	end
+	
+	/**
+	 * \brief Find world files to show.
+	 * 
+	 * Searches recursively for *.deworld files. Each found file is added as TestWorld to
+	 * the test world model. The user can select the world file to display from the
+	 * configuration screen.
+	 */
+	protected func void searchWorldFiles( String directory, int cutDisplayName )
+		FileSystem.searchFiles( directory, true, block String each, FileType type
+			if type == FileType.file and FileSystem.pathMatchesPattern( each, "*.deworld" )
+				pModelTestWorld.add( TestWorld.new( each, each.substring( cutDisplayName, -8 ) ) )
+			end
+			return true
+		end )
+	end
+	
+	/**
+	 * \brief Load test configuration.
+	 */
+	protected func void loadTestConfiguration()
+		if not FileSystem.existsFile( pPathTestConfiguration )
+			return
+		end
+		
+		try
+			setTestConfiguration( LoadTestConfiguration.new().loadFromFile( pPathTestConfiguration ) )
+			
+		catch Exception e
+			var String message = "Failed loading test configuration from '" \
+				+ pPathTestConfiguration + "'.\n\nUsing empty configuration instead."
+			BaseGameApp.getApp().getConsole().addError( message, e )
+			WindowDialog.message( this, "Load Test Configuration", message, null, null, null )
+			setTestConfiguration( TestConfiguration.new() )
+		end
+	end
+end

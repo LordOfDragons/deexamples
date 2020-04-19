@@ -1,0 +1,479 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Networking
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Add support to elements to kick elements supporting BehaviorKickable.
+ * 
+ * Figuring out what element is kicked can be done in two ways. Either a touch sensor is
+ * used (for example using an ECBehaviorTouchSensor) or a ColliderCollisionTest is used.
+ * Using a touch sensor works best if groups of elements are tracked or complex behavior
+ * is required. For this simple case a ColliderCollisionTest is better suited. We get
+ * this way the first element touched element which is all we need.
+ */
+class BehaviorKick extends DefaultECBehavior
+	/**
+	 * Listener.
+	 */
+	interface Listener
+		/**
+		 * Element has been kicked with a certain impulse. Power is a percentage value
+		 * in the range from 0 to 1 independent of the actual impulse.
+		 */
+		func void kicked( Instance instance, BehaviorKickable.Instance kickable, Vector impulse, float power )
+	end
+	
+	/**
+	 * Default implementation of Listener. It is recommended to provide a default
+	 * implementation even for a single function interface since this allows to
+	 * extend the interface in the future without breaking implementors.
+	 */
+	class DefaultListener implements Listener
+		/**
+		 * Create default listener.
+		 */
+		public func new()
+		end
+		
+		/**
+		 * Element has been kicked with a certain impulse. Power is a percentage value
+		 * in the range from 0 to 1 independent of the actual impulse.
+		 * 
+		 * Default implementation does nothing.
+		 */
+		public func void kicked( Instance instance, BehaviorKickable.Instance kickable, Vector impulse, float power )
+		end
+	end
+	
+	
+	
+	/**
+	 * Behavior instance.
+	 */
+	class Instance extends DefaultECBehaviorInstance
+		/** Messages. */
+		class BaseMessage extends ECBehaviorNetworkState.DefaultMessageListener
+			protected var Instance instance
+			protected var int number
+			
+			public func new( Instance instance )
+				this.instance = instance
+				number = instance.networkState.addMessage( this )
+			end
+		end
+		
+		class MessageStart extends BaseMessage
+			public func new( Instance instance ) super( instance )
+			end
+			
+			public func void messageReceived( Connection connection, FileReader reader )
+				instance.start()
+			end
+			
+			public func void send()
+				instance.networkState.sendReliableMessage( number, NetworkMessage.new() )
+			end
+		end
+		
+		class MessageStop extends BaseMessage
+			public func new( Instance instance ) super( instance )
+			end
+			
+			public func void messageReceived( Connection connection, FileReader reader )
+				instance.stop()
+			end
+			
+			public func void send()
+				instance.networkState.sendReliableMessage( number, NetworkMessage.new() )
+			end
+		end
+		
+		class MessageKicked extends BaseMessage
+			public func new( Instance instance ) super( instance )
+			end
+			
+			public func void messageReceived( Connection connection, FileReader reader )
+				instance.stop()
+				
+				// The message contains the parameters for notifyKicked. To obtain the
+				// kickable we have to get the kickable instance from the element ID.
+				// This requires take the route over the tracked network state. When we
+				// have this behavior then we can look up the kickable behavior in the
+				// owner element.
+				var UniqueID idKickable = UniqueID.readFromFile( reader )
+				var ECBehaviorNetworkState.Instance nsKicked = \
+					instance.networkState.getNetworkStateTracker().getAt( idKickable )
+				var BehaviorKickable.Instance kickable = \
+					BehaviorKickable.getInstanceIn( nsKicked.getElement() )
+				
+				var Vector impulse = Vector.readFromFile( reader )
+				var float power = reader.readFloat()
+				
+				instance.kick( kickable, impulse, power )
+			end
+			
+			public func void send( BehaviorKickable.Instance kickable, Vector impulse, float power )
+				var NetworkMessage message = NetworkMessage.new()
+				var FileWriter writer = message.getWriter( false )
+				kickable.getElement().getID().writeToFile( writer )
+				impulse.writeToFile( writer )
+				writer.writeFloat( power )
+				instance.networkState.sendReliableMessage( number, message )
+			end
+		end
+		
+		
+		
+		/** Behavior. */
+		public var BehaviorKick behavior
+		
+		/** Collider behavior instance. */
+		public var ECBehaviorColliderAI.Instance collider
+		
+		/** Locomotion behavior instance. */
+		public var ECBehaviorLocomotion.Instance locomotion
+		
+		/** Network state behavior instance. */
+		public var ECBehaviorNetworkState.Instance networkState
+		
+		/** Kick active. */
+		public var bool active
+		
+		/** Time in seconds the kick is active. */
+		public var float elapsed
+		
+		/** Time required for full power kick. */
+		public var float fullPowerTime
+		
+		/** Minimum power kick impulse magnitude. */
+		public var float minImpulse
+		
+		/** Maximum power kick impulse magnitude. */
+		public var float maxImpulse
+		
+		/** Minimum power kick lift angle. */
+		public var float minLift
+		
+		/** Maximum power kick lift angle. */
+		public var float maxLift
+		
+		/** Collider collision test to figure out what is hit by a kick. */
+		protected var ColliderCollisionTest collisionTest
+		
+		/** Messages. */
+		protected var MessageStart messageStart
+		protected var MessageStop messageStop
+		protected var MessageKicked messageKicked
+		
+		/** Listeners. */
+		private var Array pListeners
+		
+		
+		
+		/**
+		 * Create behavior instance
+		 */
+		public func new( BehaviorKick behavior, BehaviorElement element ) super( element )
+			this.behavior = behavior
+			pListeners = Array.new()
+			setRequiresThink( true )
+		end
+		
+		/**
+		 * Dispose of behavior element. To avoid problems always add a dispose method
+		 * and clear all variables storing references to other behavior instances.
+		 */
+		public func void dispose()
+			collisionTest = null
+			collider = null
+			locomotion = null
+			networkState = null
+			pListeners = null
+			messageStart = null
+			messageStop = null
+			messageKicked = null
+			
+			// Always super call dispose() to avoid leaking
+			super.dispose()
+		end
+		
+		
+		
+		/**
+		 * Initialize behavior instance from stub.
+		 */
+		public func void init( StubElement stub )
+			// Store behavior instance we need
+			collider = behavior.collider.instance( getElement() )
+			locomotion = behavior.locomotion.instance( getElement() )
+			networkState = behavior.networkState.instance( getElement() )
+			
+			// Store parameters
+			fullPowerTime = behavior.fullPowerTime.getValue( stub )
+			minImpulse = behavior.minImpulse.getValue( stub )
+			maxImpulse = behavior.maxImpulse.getValue( stub )
+			minLift = behavior.minLift.getValue( stub )
+			maxLift = behavior.maxLift.getValue( stub )
+			
+			// Add network messages
+			messageStart = MessageStart.new( this )
+			messageStop = MessageStop.new( this )
+			messageKicked = MessageKicked.new( this )
+		end
+		
+		
+		
+		/** Start kick. */
+		public func void start()
+			active = true
+			elapsed = 0
+			
+			// Send network message
+			if not networkState.getReadOnly()
+				messageStart.send()
+			end
+		end
+		
+		/**
+		 * Stop kick. Checks if an element with BehaviorKickable support is located in
+		 * front of the element. If not does nothing. Otherwise calls BehaviorKickable.kick()
+		 * and calls Listener.kicked() on all listeners.
+		 */
+		public func void stop()
+			active = false
+			
+			if networkState.getReadOnly()
+				return
+			end
+			
+			// Check if a kickable element is in front of the actor. This is the typical
+			// situation to use BehaviorKickable.getInstanceIn() to get the instance from
+			// an element of unknown element class. If not present null is returned.
+			// Here thought this can never happen since only BehaviorKickable supporting
+			// elements have the correct collision bit set. The element required for the
+			// function call is stored in Collider.getOwner() by ECBehaviorCollider.
+			if collisionTest == null or not collisionTest.getHasCollision()
+				messageStop.send()
+				return
+			end
+			
+			var BehaviorKickable.Instance kickable = BehaviorKickable.getInstanceIn( \
+				collisionTest.hitCollider( 0 ).getOwner() cast BehaviorElement )
+			
+			var float power = DEMath.linearStep( elapsed, 0.0, fullPowerTime )
+			var float lift = DEMath.linearStep( power, 0.0, 1.0, minLift, maxLift )
+			var float impulse = DEMath.linearStep( power, 0.0, 1.0, minImpulse, maxImpulse )
+			
+			var Vector direction = ( Matrix.newRotationX( lift ) * locomotion.getViewMatrix() ).getViewVector()
+			var Vector impulseVector = direction * impulse
+			
+			// Kick kickable and notify listeners
+			kick( kickable, impulseVector, power )
+		end
+		
+		/** Kick kickable. */
+		public func void kick( BehaviorKickable.Instance kickable, Vector impulse, float power )
+			kickable.kick( this, impulse, power )
+			
+			pListeners.forEach( block Listener each
+				each.kicked( this, kickable, impulse, power )
+			end )
+			
+			if not networkState.getReadOnly()
+				messageKicked.send( kickable, impulse, power )
+			end
+		end
+		
+		
+		
+		/** Think. */
+		public func void think( float elapsed )
+			if active
+				this.elapsed += elapsed
+			end
+			
+			// Adjust collision test direction to point into the horizontal viewing direction
+			if collisionTest != null
+				var Locomotion l = locomotion.getLocomotion()
+				var float orientation = l.getOrientation() + l.getLookHorizontal()
+				var float length = 1.5
+				collisionTest.setDirection( Matrix.newRotationY( orientation ).getViewVector() * length )
+			end
+		end
+		
+		/** \brief Add element to game world. */
+		public func void addToGameWorld()
+			// Add collision test only if network state is not read-only
+			if not networkState.getReadOnly()
+				createColliderCollisionTest()
+			end
+		end
+		
+		
+		
+		/** Create collider collision test. */
+		protected func void createColliderCollisionTest()
+			// Create collider collision test. Collision tests are calculated by the physics
+			// module during physics simulation time. This makes collision tests a
+			// deploy-and-forget system but also means the stored result is one frame behind.
+			// Using ColliderCollisionTest is preferrable over calling collision tests manually.
+			// 
+			// Sets up a test starting at knee height pointing forward by a short distance.
+			// Using the filter bit only collisions with BehaviorKickable are found.
+			// 
+			// If our own colliders (either ECBehaviorCollider or ECBehaviorColliderAI) would
+			// also contain this bit then we would need to ignore them using
+			// Collider.addIgnoreCollider(). In this setup though this is not required
+			// 
+			// By default collision tests are relative to the element orientation. This means
+			// we would check into the direction the actor is moving but we like to use the
+			// direction he is looking. To do this local direction is disabled using
+			// setLocalDirection(false) and the test direction is updated during think().
+			var LayerMask cfCategory = LayerMask.newWith( BaseGameApp.CollisionFilterBit.actorAI )
+			var LayerMask cfFilter = LayerMask.newWith( GameApp.CollisionFilterBit.kickable )
+			var CollisionFilter filter = CollisionFilter.new( cfCategory, cfFilter )
+			
+			collisionTest = ColliderCollisionTest.new( filter, Vector.new( 0, 0.4, 0 ), Vector.new() )
+			collisionTest.setLocalDirection( false )
+			collider.getCollider().addCollisionTest( collisionTest )
+		end
+		
+		
+		
+		/**
+		 * Add listener.
+		 */
+		public func void addListener( Listener listener )
+			if listener == null
+				throw EInvalidParam.new()
+			end
+			pListeners.add( listener )
+		end
+		
+		/**
+		 * Remove listener.
+		 */
+		public func void removeListener( Listener listener )
+			pListeners.remove( listener )
+		end
+	end
+	
+	
+	
+	/** Collider behavior. */
+	public var ECBehaviorColliderAI collider
+	
+	/** Locomotion behavior. */
+	public var ECBehaviorLocomotion locomotion
+	
+	/** Network state behavior. */
+	public var ECBehaviorNetworkState networkState
+	
+	/** Time required for full power kick. */
+	public var ECPFloat fullPowerTime
+	
+	/** Minimum power kick impulse magnitude. */
+	public var ECPFloat minImpulse
+	
+	/** Maximum power kick impulse magnitude. */
+	public var ECPFloat maxImpulse
+	
+	/** Minimum power kick lift angle. */
+	public var ECPFloat minLift
+	
+	/** Maximum power kick lift angle. */
+	public var ECPFloat maxLift
+	
+	
+	
+	
+	/** Create behavior. */
+	public func new( BehaviorElementClass eclass, ECBehaviorColliderAI collider, \
+	ECBehaviorLocomotion locomotion, ECBehaviorNetworkState networkState ) super( eclass )
+		if collider == null
+			throw ENullPointer.new( "collider" )
+		end
+		if locomotion == null
+			throw ENullPointer.new( "locomotion" )
+		end
+		if networkState == null
+			throw EInvalidParam.new( "networkState" )
+		end
+		this.collider = collider
+		this.locomotion = locomotion
+		this.networkState = networkState
+		
+		// Create full power time element class property. This allows to change the
+		// parameters in subclass or using XML element classes. The convenience constructor
+		// defines the default value (1 seconds) and lowest allowed value (0 seconds)
+		fullPowerTime = ECPFloat.new( "kick.fullPowerTime", 1, 0 )
+		
+		// Create impulse magnitude element class properties
+		minImpulse = ECPFloat.new( "kick.minImpulse", 10, 0 )
+		maxImpulse = ECPFloat.new( "kick.maxImpulse", 30, 0 )
+		
+		// Create lift angle element class properties
+		minLift = ECPFloat.new( "kick.minLift", 15, 0 )
+		maxLift = ECPFloat.new( "kick.maxLift", 30, 0 )
+		
+		// Add behavior to element class. This should always come last
+		eclass.addBehavior( this )
+	end 
+	
+	/** Dispose of behavior. */
+	public func void dispose()
+		collider = null
+		locomotion = null
+		networkState = null
+		super.dispose()
+	end
+	
+	
+	
+	/** Get instance from element. */
+	public func Instance instance( BehaviorElement element )
+		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
+	end
+	
+	
+	
+	/** Get instance in element or null if absent. */
+	static public func Instance getInstanceIn( BehaviorElement element )
+		return element.findInstance( block ECBehaviorInstance each
+			return each castable Instance
+		end ) cast Instance
+	end
+	
+	
+	
+	/** \brief Create Behavior instance. */
+	public func ECBehaviorInstance createInstance( BehaviorElement element )
+		return Instance.new( this, element )
+	end
+end

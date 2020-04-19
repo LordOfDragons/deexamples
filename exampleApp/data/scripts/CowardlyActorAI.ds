@@ -1,0 +1,351 @@
+namespace Example
+
+pin Dragengine.BehaviorTreeSystem
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * \brief AI for the CowardlyActor.
+ * 
+ * Uses a behavior tree. Using separate classes for the AI is useful to keep scripts
+ * tidy and understandable while offering the possiblity to switch AI.
+ */
+class CowardlyActorAI extends BAAIBehaviorTree
+	/**
+	 * \brief Base action for actions moving somewhere.
+	 */
+	private abstract class BaseActionMove extends BTActionAI
+		public func new( CowardlyActorAI ai ) super( ai )
+		end
+		
+		protected func BTResult moveStart( DVector target, bool run )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			ai.actorMover.setSpeed( run if ai.playerInputMove.getSpeedRun() else ai.playerInputMove.getSpeedWalk() )
+			ai.actorMover.moveTo( target, 0.2 )
+			return BTResult.running
+		end
+		
+		protected func BTResult moveContinue()
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			if ai.actorMover.hasGoal()
+				return BTResult.running
+				
+			else
+				moveStop()
+				return BTResult.success
+			end
+		end
+		
+		protected func BTResult moveStart( bool run )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			var float distance = DEMath.random( 0.1, ai.wanderRadius )
+			var float direction = DEMath.random( 0.0, 360.0 )
+			
+			var DVector target = ai.wanderOrigin + DMatrix.newRotationY( direction ).getViewVector() * distance
+			
+			return moveStart( target, run )
+		end
+		
+		protected func void moveStop()
+			( getAI() cast CowardlyActorAI ).actorMover.stopMoving()
+		end
+	end
+	
+	/**
+	 * \brief Wander action.
+	 */
+	private class ActionWander extends BaseActionMove
+		public func new( CowardlyActorAI ai ) super( ai )
+		end
+		
+		public func BTResult runAction( BTContext context, Dictionary parameters )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			if context.getActionFirstRun()
+				if not DEMath.probability( 0.25 )
+					return BTResult.failure  // action launcher but missed chance
+					
+				else
+					return moveStart( false )
+				end
+				
+			else
+				return moveContinue()
+			end
+		end
+	end
+	
+	/**
+	 * \brief Wait action.
+	 */
+	private class ActionWait extends BaseActionMove
+		public func new( CowardlyActorAI ai ) super( ai )
+		end
+		
+		public func BTResult runAction( BTContext context, Dictionary parameters )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			if context.getActionFirstRun()
+				moveStop()
+				ai.countdown = DEMath.random( 1.0, 5.0 )
+				
+			elif ai.countdown <= 0
+				return BTResult.success
+			end
+			
+			return BTResult.running
+		end
+	end
+	
+	/**
+	 * \brief Turning action.
+	 */
+	private class ActionTurning extends BaseActionMove
+		public func new( CowardlyActorAI ai ) super( ai )
+		end
+		
+		public func BTResult runAction( BTContext context, Dictionary parameters )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			var float direction
+			
+			if context.getActionFirstRun()
+				if not DEMath.probability( 0.35 )
+					return BTResult.failure  // action launcher but missed chance
+				end
+				
+				moveStop()
+				ai.targetOrientation = DEMath.random( 0.0, 360.0 )
+			end
+			
+			var Locomotion locomotion = ai.actorMover.getLocomotion().getLocomotion()
+			direction = DEMath.normalize( ai.targetOrientation - locomotion.getOrientation(), -180.0, 180.0 )
+			direction = DEMath.clamp( direction, -60.0, 60.0 )  // avoid rotation jumping
+			locomotion.setLookHorizontalGoal( direction )
+			locomotion.setTurnHorizontal( direction )
+			
+			if DEMath.fabs( direction ) < 0.1
+				return BTResult.success
+				
+			else
+				return BTResult.running
+			end
+		end
+	end
+	
+	/**
+	 * \brief Back-off action.
+	 */
+	private class ActionBackOff extends BaseActionMove
+		public func new( CowardlyActorAI ai ) super( ai )
+		end
+		
+		protected func BTResult moveStart( bool run )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			var DVector player = BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement().getPosition()
+			var float distance = 8
+			var DVector vector = getActor().getPosition() - player
+			var float direction = -DEMath.atan2( vector.getX(), vector.getZ() ) + DEMath.random( -15.0, 15.0 )
+			
+			var DVector target = player + DMatrix.newRotationY( direction ).getViewVector() * distance
+			
+			return moveStart( target, run )
+		end
+		
+		protected func BTResult moveContinue()
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			var float distance = ai.playerDistance.getValue( 100 )
+			
+			if distance < 2
+				return moveStart( true )
+				
+			elif distance < 6
+				return super.moveContinue()
+				
+			else
+				moveStop()
+				return BTResult.success
+			end
+		end
+		
+		public func BTResult runAction( BTContext context, Dictionary parameters )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			if context.getActionFirstRun()
+				if ai.isPlayerRunning()
+					return BTResult.failure
+					
+				else
+					return moveStart( false )
+				end
+				
+			else
+				return moveContinue()
+			end
+		end
+	end
+	
+	/**
+	 * \brief Flee action.
+	 */
+	private class ActionFlee extends ActionBackOff
+		public func new( CowardlyActorAI ai ) super( ai )
+		end
+		
+		public func BTResult runAction( BTContext context, Dictionary parameters )
+			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
+			
+			if context.getActionFirstRun()
+				if not ai.isPlayerRunning()
+					return BTResult.failure
+					
+				else
+					//var Collider collider = getActor().getAICollider()
+					//collider.setLinearVelocity( collider.getLinearVelocity() + Vector.new( 0, 4, 0 ) )
+					return moveStart( true )
+				end
+				
+			else
+				return moveContinue()
+			end
+		end
+	end
+	
+	
+	
+	/** \brief Actor mover behavior instance. */
+	public var ECBehaviorActorMover.Instance actorMover
+	
+	/** \brief Player movement input behavior instance. */
+	public var ECBehaviorPlayerInputMove.Instance playerInputMove
+	
+	/** \brief Player distance to actor. */
+	public var ParameterTableEntry playerDistance
+	
+	/** \brief Wander origin. */
+	public var DVector wanderOrigin
+	
+	/** \brief Wander radius. */
+	public var float wanderRadius
+	
+	/** \brief Countdown time. */
+	public var float countdown
+	
+	/** \brief Target orientation. */
+	public var float targetOrientation
+	
+	
+	
+	/**
+	 * \brief Create AI.
+	 */
+	public func new()
+		// load behavior tree
+		var BehaviorTree behaviorTree = BaseGameApp.getApp().getLoaders() \
+			.getBehaviorTree().loadFromFile( "/content/behaviors/cowardly.xml" )
+		
+		// create context suitable for BAAIBehaviorTree and subclasses thereof
+		var BTContextAI context = BTContextAI.new( this, behaviorTree )
+		setContext( context )
+		
+		// add actions used by behavior tree. missing actions cause BTResult.failure
+		context.setAction( "wander", ActionWander.new( this ) )
+		context.setAction( "wait", ActionWait.new( this ) )
+		context.setAction( "turning", ActionTurning.new( this ) )
+		context.setAction( "flee", ActionFlee.new( this ) )
+		context.setAction( "backOff", ActionBackOff.new( this ) )
+		
+		// run behavior tree during think()
+		setRunning( true )
+		
+		// the rest will be done during activate() call since only then we have access to the actor
+	end
+	
+	
+	
+	/**
+	 * \brief Action has been set as active action in an actor.
+	 */
+	public func void activate( BehaviorElement actor )
+		super.activate( actor )
+		
+		// use actor parameter table to store parameters different systems can access
+		var ParameterTable paramTable = ECBehaviorParameterTable.getInstanceIn( actor ).getParameterTable()
+		playerDistance = paramTable.getAt( "playerDistance" )
+		
+		// add conditions used by the behavior tree. missing conditions evaluate to false.
+		// using the actor parameter table for this is a simple solution
+		var BTContextAI context = getContext()
+		
+		// condition testing if the player is near the actor or not. parameter table
+		// conditions support the negated() method. this way opposite conditions can
+		// be quickly added. this reduces typing required in XML behavior trees and
+		// makes the XML behavior trees more readable and understandable
+		var BTConditionParameterTableFloat condition = BTConditionParameterTableFloat.new( \
+			playerDistance, 100, BTConditionParameterTableFloat.Operator.lessThan, 4 )
+		context.setCondition( "playerNearby", condition )
+		context.setCondition( "playerNotNearby", condition.negated() )
+		
+		/*
+		// enable behavior tree debugging
+		getContext().setConsole( BaseGameApp.getApp().getConsole() )
+		getContext().setLoggingName( loggingPrefix() )
+		//getContext().setLogSteps( true )
+		getContext().setLogRuleChanges( true )
+		*/
+		
+		wanderOrigin = actor.getPosition()
+		wanderRadius = 8
+	end
+	
+	/**
+	 * \brief Init behaviors.
+	 * 
+	 * Retrieve and store required and optional behavior instances from the actor element.
+	 */
+	protected func void initBehaviors()
+		super.initBehaviors()
+		
+		actorMover = ECBehaviorActorMover.getInstanceIn( actor )
+		playerInputMove = ECBehaviorPlayerInputMove.getInstanceIn( actor )
+	end
+	
+	/**
+	 * \brief Thinking.
+	 */
+	public func void think( float elapsed )
+		// count down. does not matter if used or not
+		countdown -= elapsed
+		
+		// store the distance to the player actor in the actor parameter table. this
+		// way the behavior tree conditions have easy access to this information. of
+		// course a class variable could be used to. this requires then a BTCondition
+		// implementation to test the class variable. using the parameter table is
+		// usually a quicker solution for simple problems. also other scripts in the
+		// game have access to the actor parameter table
+		var BehaviorElement player = BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement()
+		playerDistance.setValue( ( player.getPosition() - actor.getPosition() ).getLength() )
+		
+		// this would be an example of jumping to a specific rule
+		//if interrupt
+		//	getContext().setCurrentRuleByID( "flee" )
+		//end
+		
+		// continue with super class behavior. this handles behavior tree for us
+		super.think( elapsed )
+	end
+	
+	
+	
+	/**
+	 * \brief Player is running.
+	 */
+	public func bool isPlayerRunning()
+		return ECBehaviorPlayerInputMove.getInstanceIn( \
+			BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement() ).getRun()
+	end
+end

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Pillar1' class='SimpleElement'>
+	<string name='component.model'>pillar1.demodel</string>
+	<string name='component.audioModel'>pillar1.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>pillar1.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='base'>
+			<string key='skin'>/material/ceramicTiles/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='10' y='10'/>
+			</map>
+		</map>
+		<map key='light'>
+			<string key='skin'>/material/lightGrid/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+		<map key='arch'>
+			<string key='skin'>/material/concrete/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

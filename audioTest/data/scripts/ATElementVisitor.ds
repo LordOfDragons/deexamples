@@ -1,0 +1,12 @@
+pin Dragengine.Scenery
+
+
+// Extend ElementVisitor with classes added
+class ATElementVisitor extends ElementVisitor
+	public func new()
+	end
+	
+	public func void visitDragoness(Dragoness dragoness)
+		visitBaseActor(dragoness)
+	end
+end

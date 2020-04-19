@@ -1,0 +1,458 @@
+// Pin namespaces to located script classes
+pin Dragengine.Gui.Layouts
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Video Player Application Class.
+ */
+class VideoPlayerApp extends BaseGameApp
+	/** Rewind to beginning. */
+	class Rewind implements ActionListener
+		public func new()
+		end
+		
+		public func void onAction( ActionEvent event )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).rewind()
+		end
+	end
+	
+	/** Fast forward to the end. */
+	class ForwardEnd implements ActionListener
+		public func new()
+		end
+		
+		public func void onAction( ActionEvent event )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).forwardEnd()
+		end
+	end
+	
+	/** Play. */
+	class Play implements ActionListener
+		public func new()
+		end
+		
+		public func void onAction( ActionEvent event )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).play()
+		end
+	end
+	
+	/** Pause. */
+	class Pause implements ActionListener
+		public func new()
+		end
+		
+		public func void onAction( ActionEvent event )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).pause()
+		end
+	end
+	
+	/** Stop. */
+	class Stop implements ActionListener
+		public func new()
+		end
+		
+		public func void onAction( ActionEvent event )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).stop()
+		end
+	end
+	
+	/** Update playback. */
+	class PlaybackUpdater extends FrameUpdateListener
+		public func new()
+		end
+		
+		public func void frameUpdate( float elapsed )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).updatePlayback()
+		end
+	end
+	
+	/** Combo box listener. */
+	class ChangeVideo extends DefaultListModelListener
+		public func new()
+		end
+		
+		public func void selectionChanged( ListModel model )
+			( BaseGameApp.getApp() cast VideoPlayerApp ).switchVideo( model.getAt( model.getSelected() ) cast String )
+		end
+	end
+	
+	/** Click and drag in play bar. */
+	class ClickAndDragPlayBar extends DefaultMouseListener
+		public var bool dragging
+		public var Widget widget
+		
+		public func new( Widget widget )
+			this.widget = widget
+		end
+		
+		public func float positionFromMouse( int mouse )
+			var int x = mouse - widget.getPadding().getLeft()
+			var int width = widget.getWidth() - widget.getPadding().getWidth()
+			var float percentage = ( x cast float ) / ( width cast float )
+			return percentage * ( BaseGameApp.getApp() cast VideoPlayerApp ).displayVideo.getPlayTime()
+		end
+		
+		public func void onButtonPress( MouseEvent event )
+			if not dragging and event.getButton() == InputEventMouseButton.left
+				dragging = true
+				widget.captureMouse()
+				( BaseGameApp.getApp() cast VideoPlayerApp ).skipToPosition( \
+					positionFromMouse( event.getPosition().getX() ) )
+			end
+		end
+		
+		public func void onButtonRelease( MouseEvent event )
+			if dragging and event.getButton() == InputEventMouseButton.left
+				dragging = false
+				widget.releaseMouse()
+			end
+		end
+		
+		public func void onMouseMove( MouseEvent event )
+			if dragging
+				( BaseGameApp.getApp() cast VideoPlayerApp ).skipToPosition( \
+					positionFromMouse( event.getPosition().getX() ) )
+			end
+		end
+	end
+	
+	
+	
+	/** Main window. */
+	public var Window windowMain
+	
+	/** Display video widget. */
+	public var DisplayVideo displayVideo
+	
+	/** Microphone required to listen to audio if present. */
+	public var Microphone microphone
+	
+	/** Speaker assigned to video player to output audio if present. */
+	public var Speaker speaker
+	
+	/** Range model representing play position. */
+	public var DefaultRangeModel modelPlayPosition
+	
+	/** List model with videos found to play. */
+	public var DefaultListModel modelVideos
+	
+	/** Buttons. */
+	public var Button buttonRewind
+	public var Button buttonPause
+	public var Button buttonPlay
+	public var Button buttonStop
+	public var Button buttonForwardEnd
+	
+	/** Update playback using a frame update listener. */
+	public var PlaybackUpdater playbackUpdater
+	
+	/** Uints per second. */
+	public static var int unitsPerSecond = 20
+	
+	 
+	/**
+	 * Create Game Application.
+	 * 
+	 * Set here properties used by BaseVideoPlayerApp during initGame(). All other initialization
+	 * work should be placed inside initGame() or one of the hook methods called by
+	 * BaseVideoPlayerApp.initGame().
+	 */
+	public func new()
+		// Path to the GUI Theme file to use. If not set uses BaseVideoPlayerApp.defaultPathGuiTheme
+		pathDesktopGuiTheme = "/content/ui/main.guitheme.xml"
+		
+		// To use translation support create one or more language packs and uncomment the
+		// properties below with the appropriate values.
+		// 
+		//pathLanguagePacks = "/content/langpacks"
+		//defaultLanguagePackName = UnicodeString.newFromUTF8( "English" )
+	end
+	
+	/**
+	 * Initialize game.
+	 * 
+	 * Create required objects here and start loading. Lengthy loading work should not be
+	 * waited for in this method. Methods like startLoadGameWorld() will notify you when
+	 * the lengthy loading work is done.
+	 * 
+	 * See BaseVideoPlayerApp.initGame() documentation for the supported hook methods.
+	 */
+	public func void initGame()
+		// super-call has to come first
+		super.initGame()
+		
+		// Switch off capturing input devices. This allows the game window to be used like
+		// regular windows not capturing mouse and keyboard input
+		InputSystem.setCaptureInputDevices( false )
+		
+		// Start game by showing the Drag[en]gine Game Engine logo and optionally other logos
+		// you would like to show. WindowLogo.show*() does all the work of showing a logo or
+		// video with optional sound. Once the window is finished (the user can skip it)
+		// the provided action listener is called. This can be creating a class implementing
+		// ActionListener interface or by using BlockActionListener. This is a convenience
+		// class allowing to use a block as an action and is suitable for quick code insertion
+		// like this. Using a class implementing ActionListener is though favorable since it
+		// makes it easier to chain actions in an understandable way.
+		// 
+		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
+		// engine but we highly appreciate it if you do so.
+		
+		WindowLogo.showDragengineLogo( this.getDesktop(), BlockActionListener.new( \
+			block ActionEvent event
+				launchApplication()
+			end ) )
+	end
+	
+	/**
+	 * \brief Launch example application.
+	 * 
+	 * Called after logo windows are finished.
+	 */
+	public func void launchApplication()
+		// Create microphone to hear audio. Microphones can be placed in World objects or not.
+		// If placed in a world object the LayerMask of the microphone and speakers are used
+		// to determine which speakers the microphone hears and how they are heard depending
+		// on their spatial location as well as the surrounding environment. No matter if
+		// placed in a game world or not microphones can be assigned speakers directly. These
+		// speakers will always be heard no matter what LayerMask they have assigned.
+		// 
+		// For GUI related usage a microphone not placed in a game world is the usual solution.
+		// Only one microphone can be active at each time so you have to switch between the
+		// GUI microphone and world microphones yourself.
+		// 
+		// A speaker is created and assigned to both the microphone (to hear it) and the
+		// video player (to produce audio).
+		microphone = Microphone.new()
+		AudioSystem.setActiveMicrophone( microphone )
+		
+		speaker = Speaker.new()
+		microphone.addSpeaker( speaker )
+		
+		// Create main window
+		windowMain = Window.new()
+		windowMain.setDesignerSelector( "Window.MainMenu" )
+		windowMain.setSize( getDesktop().getSize() )
+		windowMain.setLayout( BorderLayout.new( 5 ) )
+		windowMain.setVisible( true )
+		windowMain.setWindowState( Window.WindowState.maximized )
+		
+		// Top panel with combo box to select videos
+		windowMain.addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.y ), \
+		block Panel panel
+			panel.addWidget( Panel.new( FlowLayout.new( LayoutAxis.x, 5 ), \
+			block Panel panel2
+				modelVideos = DefaultListModel.new()
+				modelVideos.add( "" )
+				modelVideos.addListener( ChangeVideo.new() )
+				panel2.addWidget( ComboBox.new( modelVideos, \
+					DefaultListElementRenderer.new( String.new( 'X', 30 ) ) ) )
+			end ) )
+		end ), BorderLayout.Area.top )
+		
+		// Content panel with video player. The CentrizedBoxLayout layout places the
+		// video in the center of the panel with the desired video size. To scale the
+		// video to fill the window StackLayout.new(StackLayout.AspectRatio.fit) can be used instead
+		windowMain.addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.y ), \
+		block Panel panel
+			panel.setDesignerSelector( "Panel.VideoPlayerContent" )
+			
+			displayVideo = DisplayVideo.new( null, RepeatMode.stretch, false, speaker )
+			displayVideo.setLooping( false )
+			panel.addWidget( displayVideo )
+		end ), BorderLayout.Area.content )
+		
+		// Play bar with current play position and the possibility to click on it to move
+		windowMain.addWidget( Panel.new( FlowLayout.new( LayoutAxis.y ), block Panel panel
+			panel.setDesignerSelector( "Panel.VideoPlayerBar" )
+			
+			// Model used to represent the play position
+			modelPlayPosition = DefaultRangeModel.new( 0, 0, 40, 0, unitsPerSecond )
+			
+			//modelPlayPosition.addListener( ChangePlaybackPosition.new( this ) )
+			// doing this here causes problems since changing progress bar value due to
+			// update-by-time play position causes listener to re-adjust the time potentially
+			// setting it backwards due to quantizing
+			
+			var ProgressBar progress = ProgressBar.new( Orientation.horizontal, modelPlayPosition )
+			progress.setDesignerSelector( "ProgressBar.VideoPlayer" )
+			progress.addMouseListener( ClickAndDragPlayBar.new( progress ) )
+			panel.addWidget( progress )
+			
+			// Buttons centered in the bottom. For this two layouts are used a
+			// CentrizedBoxLayout to center the panel and FlowLayout for the buttons
+			panel.addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.y ), \
+			block Panel panel2
+				panel2.addWidget( Panel.new( FlowLayout.new( LayoutAxis.x, 5 ), \
+				block Panel panel3
+					buttonRewind = Button.new( "", Image.new( "/content/ui/rewind.png" ), Rewind.new() )
+					buttonRewind.setDesignerSelector( "Button.VideoPlayer" )
+					panel3.addWidget( buttonRewind )
+					
+					buttonPause = Button.new( "", Image.new( "/content/ui/pause.png" ), Pause.new() )
+					buttonPause.setDesignerSelector( "Button.VideoPlayer" )
+					panel3.addWidget( buttonPause )
+					
+					buttonPlay = Button.new( "", Image.new( "/content/ui/play.png" ), Play.new() )
+					buttonPlay.setDesignerSelector( "Button.VideoPlayer" )
+					panel3.addWidget( buttonPlay )
+					
+					buttonStop = Button.new( "", Image.new( "/content/ui/stop.png" ), Stop.new() )
+					buttonStop.setDesignerSelector( "Button.VideoPlayer" )
+					panel3.addWidget( buttonStop )
+					
+					buttonForwardEnd = Button.new( "", Image.new( "/content/ui/forwardend.png" ), ForwardEnd.new() )
+					buttonForwardEnd.setDesignerSelector( "Button.VideoPlayer" )
+					panel3.addWidget( buttonForwardEnd )
+				end ) )
+			end ) )
+		end ), BorderLayout.Area.bottom )
+		
+		enableButtons()
+		
+		getDesktop().addWindow( windowMain )
+		
+		playbackUpdater = PlaybackUpdater.new()
+		
+		// Scan for videos and add them to the list model
+		var Array files = Array.new()
+		FileSystem.searchFiles( "/content/videos", true, block String each, FileType type
+			if type == FileType.file
+				files.add( each )
+			end
+			return true
+		end )
+		modelVideos.addAll( files.sorted() )
+	end
+	
+	/**
+	 * Cleaning up.
+	 * 
+	 * Will be called before the game engine shuts down the game. This method will be also
+	 * called if the initGame() threw an exception before finishing. Make sure to check if
+	 * objects have been initialized before cleaning them up.
+	 */
+	public func void cleanUp()
+		// Stop the playback updater
+		if playbackUpdater != null
+			playbackUpdater.giveUp()
+			playbackUpdater = null
+		end
+		
+		// Drop references
+		buttonRewind = null
+		buttonPause = null
+		buttonPlay = null
+		buttonStop = null
+		buttonForwardEnd = null
+		modelVideos = null
+		modelPlayPosition = null
+		displayVideo = null
+		windowMain = null
+		
+		// This here is only an example and is not required. To disable a microphone you can
+		// either switch to another microphone or set it to null. Check first if the microphone
+		// is actually the active one before clearing it otherwise you silence an unrelated one.
+		// You have to use equals() to check. Using == operator is not going to work on game
+		// engine related resources
+		if speaker != null and microphone != null
+			microphone.removeSpeaker( speaker )
+		end
+		
+		if microphone != null and microphone.equals( AudioSystem.getActiveMicrophone() )
+			AudioSystem.setActiveMicrophone( null )
+		end
+		
+		// super-call has to come last
+		super.cleanUp()
+	end
+	
+	
+	
+	/** Switch video to play or empty string to unload. */
+	public func void switchVideo( String path )
+		stop()
+		rewind()
+		
+		if path.empty()
+			displayVideo.setVideo( null )
+			
+		else
+			try
+				displayVideo.setVideo( Video.new( path ) )
+				modelPlayPosition.setMaximum( ( displayVideo.getPlayTime() * unitsPerSecond ) cast int )
+				
+			catch Exception e
+				displayVideo.setVideo( null )
+				WindowDialog.message( windowMain, "Load Video Failed", \
+					"Failed loading video '" + path + "'", null, null, null )
+			end
+		end
+	end
+	
+	/** Rewind to the beginning. */
+	public func void rewind()
+		displayVideo.setPlayPosition( 0 )
+	end
+	
+	/** Fast forward to end. */
+	public func void forwardEnd()
+		displayVideo.setPlayPosition( displayVideo.getPlayTime() )
+	end
+	
+	/** Play. */
+	public func void play()
+		if displayVideo.getPlayPosition() >= displayVideo.getPlayTime() - 0.01
+			displayVideo.setPlayPosition( 0 )
+		end
+		displayVideo.play()
+		enableButtons()
+	end
+	
+	/** Pause. */
+	public func void pause()
+		displayVideo.pause()
+		enableButtons()
+	end
+	
+	/** Stop. */
+	public func void stop()
+		displayVideo.stop()
+		enableButtons()
+	end
+	
+	/** Change playback position to match range model after manual change. */
+	public func void changePlaybackPosition()
+		displayVideo.setPlayPosition( ( modelPlayPosition.getValue() cast float ) / unitsPerSecond )
+	end
+	
+	/** Skip to position. */
+	public func void skipToPosition( float position )
+		displayVideo.setPlayPosition( position )
+	end
+	
+	/**
+	 * Update playback. Called every frame update. Used to update the play bar model value.
+	 */
+	public func void updatePlayback()
+		modelPlayPosition.setValue( ( displayVideo.getPlayPosition() * unitsPerSecond ) cast int )
+		enableButtons()
+	end
+	
+	/** Enable/Disable buttons depending on state. */
+	public func void enableButtons()
+		var bool hasVideo = displayVideo.getVideo() != null
+		var bool playing = displayVideo.isPlaying()
+		var bool paused = displayVideo.isPaused()
+		var bool stopped = displayVideo.isStopped()
+		
+		buttonPlay.setEnabled( hasVideo and ( stopped or paused ) )
+		buttonPause.setEnabled( hasVideo and playing )
+		buttonStop.setEnabled( hasVideo and ( playing or paused ) )
+		buttonRewind.setEnabled( hasVideo )
+		buttonForwardEnd.setEnabled( hasVideo )
+	end
+end

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gameDefinition>
+	<identifier>NetworkExample</identifier>
+	<description>Game project NetworkExample.</description>
+	<basePath>/localhome/roland/encrypted/mp/progs/deexamples/network/data</basePath>
+	<vfsPath>/</vfsPath>
+	<scriptModule>DragonScript</scriptModule>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<categories>
+		<classes>
+			<category>
+				<name>NetworkExample</name>
+			</category>
+		</classes>
+		<skins>
+			<category>
+				<name>NetworkExample</name>
+			</category>
+		</skins>
+	</categories>
+	<class name='PlayerPlatform'>
+		<description>Gives points to player if ball is located inside touch sensor.</description>
+		<inherit name='ECBehaviorComponent'>
+			<propertyPrefix>component.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCollider'>
+			<propertyPrefix>collider.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorNetworkState'>
+			<propertyPrefix>networkState.</propertyPrefix>
+		</inherit>
+		<inherit name='BehaviorClaim'>
+			<propertyPrefix>claim.</propertyPrefix>
+		</inherit>
+		<propertyValue name='component.model'>/content/models/platform/platform.demodel</propertyValue>
+		<propertyValue name='component.skin'>/content/models/platform/platform.deskin</propertyValue>
+		<propertyValue name='component.rig'>/content/models/platform/platform.derig</propertyValue>
+		<category>NetworkExample</category>
+	</class>
+	<class name='BehaviorClaim'>
+		<description>Add support to elements to claim elements supporting BehaviorClaimable if touching.</description>
+		<ghost>true</ghost>
+		<canInstanciate>false</canInstanciate>
+		<defaultInheritPropertyPrefix>claim.</defaultInheritPropertyPrefix>
+		<inherit name='ECBehaviorTouchSensor'>
+			<propertyPrefix>touchSensor.</propertyPrefix>
+		</inherit>
+		<property name='playerNumber'>
+			<description>Player to claim for.</description>
+			<type>integer</type>
+			<default>1</default>
+		</property>
+		<category>NetworkExample</category>
+	</class>
+</gameDefinition>

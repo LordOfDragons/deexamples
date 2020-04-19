@@ -1,0 +1,368 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Networking
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Add support to elements to claim elements supporting BehaviorClaimable if touching.
+ */
+class BehaviorClaim extends DefaultECBehavior
+	/**
+	 * Listener.
+	 */
+	interface Listener
+		/**
+		 * Element has been claimed.
+		 */
+		func void claimed( Instance instance, BehaviorClaimable.Instance claimable )
+		
+		/**
+		 * Element has been unclaimed.
+		 */
+		func void unclaimed( Instance instance, BehaviorClaimable.Instance claimable )
+	end
+	
+	/**
+	 * Default implementation of Listener. It is recommended to provide a default
+	 * implementation even for a single function interface since this allows to
+	 * extend the interface in the future without breaking implementors.
+	 */
+	class DefaultListener implements Listener
+		/**
+		 * Create default listener.
+		 */
+		public func new()
+		end
+		
+		/**
+		 * Element has been claimed.
+		 */
+		public func void claimed( Instance instance, BehaviorClaimable.Instance claimable )
+		end
+		
+		/**
+		 * Element has been unclaimed.
+		 */
+		public func void unclaimed( Instance instance, BehaviorClaimable.Instance claimable )
+		end
+	end
+	
+	
+	
+	/**
+	 * Behavior instance.
+	 */
+	class Instance extends DefaultECBehaviorInstance
+		/**
+		 * Touch sensor listener to claim touching element if supporting BehaviorClaimable.
+		 */
+		class ClaimListener extends ECBehaviorTouchSensor.DefaultListener
+			protected var Instance instance
+			
+			public func new( Instance instance )
+				this.instance = instance
+			end
+			
+			/**
+			 * Element entered touch sensor.
+			 */
+			public func void elementEntered( ECBehaviorTouchSensor.Instance instance, Element element )
+				var BehaviorClaimable.Instance claimable = \
+					BehaviorClaimable.getInstanceIn( element cast BehaviorElement )
+				if claimable != null
+					this.instance.claim( claimable )
+				end
+			end
+			
+			/**
+			 * Element left touch sensor.
+			 */
+			public func void elementLeft( ECBehaviorTouchSensor.Instance instance, Element element )
+				// We have to be careful here. ECBehaviorTouchSensor tracks elements without
+				// them knowing about this. If the element is disposed before the touch sensor
+				// is disposed we can easily access an already disposed element. There is no
+				// way around this without telling the element it is tracked by us or (which is
+				// the recommended way) we figure out the element is already disposed of
+				if element.isNotDisposed()
+					var BehaviorClaimable.Instance claimable = \
+						BehaviorClaimable.getInstanceIn( element cast BehaviorElement )
+					if claimable != null
+						this.instance.unclaim( claimable )
+					end
+				end
+			end
+			
+			/**
+			 * Element can touch this touch sensor. Returns true for behavior elements.
+			 */
+			public func bool elementCanTouch( ECBehaviorTouchSensor.Instance instance, Element element )
+				return element castable BehaviorElement
+			end
+		end
+		
+		/** Messages. */
+		class MessageClaimed extends ECBehaviorNetworkState.DefaultMessageListener
+			protected var Instance instance
+			protected var int number
+			
+			public func new( Instance instance )
+				this.instance = instance
+				number = instance.networkState.addMessage( this )
+			end
+			
+			public func void messageReceived( Connection connection, FileReader reader )
+				var UniqueID idClaimable = UniqueID.readFromFile( reader )
+				var ECBehaviorNetworkState.Instance nsClaimable = \
+					instance.networkState.getNetworkStateTracker().getAt( idClaimable )
+				var BehaviorClaimable.Instance claimable = \
+					BehaviorClaimable.getInstanceIn( nsClaimable.getElement() )
+				
+				instance.claim( claimable )
+			end
+			
+			public func void send( BehaviorClaimable.Instance claimable )
+				var NetworkMessage message = NetworkMessage.new()
+				var FileWriter writer = message.getWriter( false )
+				claimable.getElement().getID().writeToFile( writer )
+				instance.networkState.sendReliableMessage( number, message )
+			end
+		end
+		
+		class MessageUnclaimed extends ECBehaviorNetworkState.DefaultMessageListener
+			protected var Instance instance
+			protected var int number
+			
+			public func new( Instance instance )
+				this.instance = instance
+				number = instance.networkState.addMessage( this )
+			end
+			
+			public func void messageReceived( Connection connection, FileReader reader )
+				var UniqueID idClaimable = UniqueID.readFromFile( reader )
+				var ECBehaviorNetworkState.Instance nsClaimable = \
+					instance.networkState.getNetworkStateTracker().getAt( idClaimable )
+				var BehaviorClaimable.Instance claimable = \
+					BehaviorClaimable.getInstanceIn( nsClaimable.getElement() )
+				
+				instance.unclaim( claimable )
+			end
+			
+			public func void send( BehaviorClaimable.Instance claimable )
+				var NetworkMessage message = NetworkMessage.new()
+				var FileWriter writer = message.getWriter( false )
+				claimable.getElement().getID().writeToFile( writer )
+				instance.networkState.sendReliableMessage( number, message )
+			end
+		end
+		
+		
+		
+		/** Behavior. */
+		public var BehaviorClaim behavior
+		
+		/** Network state behavior instance. */
+		public var ECBehaviorNetworkState.Instance networkState
+		
+		/** Touch sensor behavior instance. */
+		public var ECBehaviorTouchSensor.Instance touchSensor
+		
+		/** Player number to claim for. */
+		public var int playerNumber
+		
+		/** Messages. */
+		protected var MessageClaimed messageClaimed
+		protected var MessageUnclaimed messageUnclaimed
+		
+		/** Listeners. */
+		private var Array pListeners
+		
+		
+		
+		/**
+		 * Create behavior instance
+		 */
+		public func new( BehaviorClaim behavior, BehaviorElement element ) super( element )
+			this.behavior = behavior
+			pListeners = Array.new()
+		end
+		
+		/**
+		 * Dispose of behavior element. To avoid problems always add a dispose method
+		 * and clear all variables storing references to other behavior instances.
+		 */
+		public func void dispose()
+			networkState = null
+			pListeners = null
+			messageClaimed = null
+			messageUnclaimed = null
+			
+			// Always super call dispose() to avoid leaking
+			super.dispose()
+		end
+		
+		
+		
+		/**
+		 * Initialize behavior instance from stub.
+		 */
+		public func void init( StubElement stub )
+			// Store behavior instance we need
+			networkState = behavior.networkState.instance( getElement() )
+			touchSensor = behavior.touchSensor.instance( getElement() )
+			touchSensor.addListener( ClaimListener.new( this ) )
+			
+			// Store parameters
+			playerNumber = behavior.playerNumber.getValue( stub )
+			
+			// Add network messages
+			messageClaimed = MessageClaimed.new( this )
+			messageUnclaimed = MessageUnclaimed.new( this )
+		end
+		
+		
+		
+		/**
+		 * Claim claimable.
+		 */
+		public func void claim( BehaviorClaimable.Instance claimable )
+			claimable.claimBy( playerNumber )
+			
+			pListeners.forEach( block Listener each
+				each.claimed( this, claimable )
+			end )
+			
+			if not networkState.getReadOnly()
+				messageClaimed.send( claimable )
+			end
+		end
+		
+		/**
+		 * Unclaim claimable.
+		 */
+		public func void unclaim( BehaviorClaimable.Instance claimable )
+			claimable.claimBy( 0 )
+			
+			pListeners.forEach( block Listener each
+				each.unclaimed( this, claimable )
+			end )
+			
+			if not networkState.getReadOnly()
+				messageUnclaimed.send( claimable )
+			end
+		end
+		
+		
+		
+		/**
+		 * Add listener.
+		 */
+		public func void addListener( Listener listener )
+			if listener == null
+				throw EInvalidParam.new()
+			end
+			pListeners.add( listener )
+		end
+		
+		/**
+		 * Remove listener.
+		 */
+		public func void removeListener( Listener listener )
+			pListeners.remove( listener )
+		end
+	end
+	
+	
+	
+	/** Network state behavior. */
+	public var ECBehaviorNetworkState networkState
+	
+	/** Touch sensor behavior. */
+	public var ECBehaviorTouchSensor touchSensor
+	
+	/** Player to claim for. */
+	public var ECPInteger playerNumber
+	
+	
+	
+	
+	/** Create behavior. */
+	public func new( BehaviorElementClass eclass, ECBehaviorNetworkState networkState ) super( eclass )
+		if networkState == null
+			throw EInvalidParam.new( "networkState" )
+		end
+		
+		this.networkState = networkState
+		
+		// Create player number element class property. This defines which player this
+		// element is claiming for.
+		playerNumber = ECPInteger.new( "claim.playerNumber", 1, 1 )
+		
+		// Create touch sensor behavior. Setting the ID is required to ensure multiple
+		// instances of a behavior can be used on the same element without conflicting.
+		// Setting the prefix is only done here to ensure naming convention. If not used
+		// the behavior would get the default prefix "touchSensor(claim)."
+		touchSensor = ECBehaviorTouchSensor.new( eclass, null, "claim", "claim.touchSensor." )
+		
+		touchSensor.getCollisionFilter().setCollisionFilter( CollisionFilter.new( \
+			LayerMask.newWith( GameApp.CollisionFilterBit.claimable ), \
+			LayerMask.newWith( BaseGameApp.CollisionFilterBit.geometry ) ) )
+		
+		// Add behavior to element class. This should always come last
+		eclass.addBehavior( this )
+	end 
+	
+	/** Dispose of behavior. */
+	public func void dispose()
+		networkState = null
+		touchSensor = null
+		super.dispose()
+	end
+	
+	
+	
+	/** Get instance from element. */
+	public func Instance instance( BehaviorElement element )
+		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
+	end
+	
+	
+	
+	/** Get instance in element or null if absent. */
+	static public func Instance getInstanceIn( BehaviorElement element )
+		return element.findInstance( block ECBehaviorInstance each
+			return each castable Instance
+		end ) cast Instance
+	end
+	
+	
+	
+	/** \brief Create Behavior instance. */
+	public func ECBehaviorInstance createInstance( BehaviorElement element )
+		return Instance.new( this, element )
+	end
+end

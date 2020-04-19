@@ -1,0 +1,117 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui
+pin Dragengine.Preloading
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Player in the game.
+ */
+class PlayerState
+	/** Identifier. */
+	public var UniqueID id
+	
+	/** Display name. */
+	public var UnicodeString name
+	
+	/** Player actor element controlled by this player. */
+	public var PlayerActor actor
+	
+	/** Player number. */
+	public var int number
+	
+	/** Player color. */
+	public var Color color
+	
+	
+	
+	/** Create player state. */
+	public func new( UniqueID id )
+		this.id = id
+		name = UnicodeString.newFromUTF8( "Player" )
+		number = 1
+		color = Color.black
+	end
+	
+	/** Dispose of player state. */
+	public func void dispose()
+		if actor != null
+			actor.safeDispose()
+			actor = null
+		end
+	end
+	
+	
+	
+	/** This is the local player state. */
+	public func bool isLocal()
+		return GameState.getGameState().localPlayer == this
+	end
+	
+	
+	
+	/**
+	 * Create player actor controlled by this player. Sends link state request to remote host.
+	 */
+	public func void createActor()
+		if actor != null
+			throw EInvalidParam.new()
+		end
+		
+		var StubElement stub = StubElement.new( \
+			GameApp.getGameApp().getElementClassList().getNamed( "PlayerActor" ), \
+			GameApp.getGameApp().getIDGenerator().nextID() )
+		stub.setEnableNetworking( true )
+		stub.setPropertyValueFor( "playerID", id.toHexString() )
+		actor = stub.createElement() cast PlayerActor
+	end
+	
+	/**
+	 * Spawn actor.
+	 */
+	public func void spawnActor( String spawnName )
+		var WindowGameWorld window = GameApp.getApp().getWindowGameWorld()
+		var GameWorld gameWorld = window.getGameWorld()
+		
+		// If actor is not created yet do it now
+		if actor == null
+			createActor()
+		end
+		
+		// Spawn player at spawn point indicated by server
+		gameWorld.getSpawnPoints().getNamed( spawnName ).spawn( gameWorld, actor )
+		
+		// For local player only. Take control of actor and set a camera directory placing
+		// the camera and microphone relative to the actor.
+		if isLocal()
+			actor.getPlayerControllable().takeControl()
+			window.setCameraDirector( PlayerControlledActorCameraDirector.new() )
+		end
+	end
+end

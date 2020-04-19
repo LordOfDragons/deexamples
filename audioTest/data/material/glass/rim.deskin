@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0.262745' g='0.431373' b='0.364706' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0</value>
+		<value property='transparency'>1</value>
+		<value property='sound.absorption'>0.15</value>
+		<value property='sound.absorption.lower'>3</value>
+		<value property='sound.absorption.upper'>0.4</value>
+		<value property='sound.transmission'>0.4</value>
+		<value property='sound.transmission.lower'>2.8</value>
+		<value property='sound.transmission.upper'>0.28</value>
+	</texture>
+</skin>

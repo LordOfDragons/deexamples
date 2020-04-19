@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rig>
+	<modelCollision>false</modelCollision>
+	<centralMassPoint x='0' y='0' z='0'/>
+	<sphere>
+		<position x='0' y='0' z='0'/>
+		<radius>1</radius>
+	</sphere>
+</rig>

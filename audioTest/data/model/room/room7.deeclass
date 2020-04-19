@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Room7' class='SimpleElement'>
+	<string name='component.audioModel'>room7.demodel</string>
+	<string name='navigationSpace.path'>room7.denavspace</string>
+	<string name='component.rig'>room7.derig</string>
+	<string name='component.occlusionMesh'>room7.deoccmesh</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.model'>room7.demodel</string>
+	<map name='component.textureReplacements'>
+		<map key='baseboard'>
+			<string key='skin'>/material/plastic/matte.deskin</string>
+			<color key='tint' r='0.298039' g='0.211765' b='0.192157'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='floor'>
+			<string key='skin'>/material/parquet/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='translate' x='0' y='-0.4'/>
+				<float key='rotate'>180</float>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='ceiling'>
+			<string key='skin'>/material/wallpaper/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='translate' x='0' y='0.2'/>
+				<float key='rotate'>180</float>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='wall'>
+			<string key='skin'>/material/wallpaper/material.deskin</string>
+			<color key='tint' r='0.627451' g='0.411765' b='0.603922'/>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+		<map key='wall2'>
+			<string key='skin'>/material/fibrePanel/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='4' y='4'/>
+			</map>
+		</map>
+		<map key='wall3'>
+			<string key='skin'>/material/ceramicTiles/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='4' y='4'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	<hull>
+		<position x='0' y='0' z='0'/>
+		<rotation x='0' y='-0' z='-0'/>
+		<point x='5' y='0' z='2'/>
+		<point x='-5' y='0' z='2'/>
+		<point x='5' y='0' z='-2'/>
+		<point x='-5' y='0' z='-2'/>
+		<point x='3' y='0' z='4'/>
+		<point x='-3' y='0' z='4'/>
+		<point x='3' y='0' z='-4'/>
+		<point x='-3' y='0' z='-4'/>
+		<point x='4.8' y='0.1' z='1.9'/>
+		<point x='-4.8' y='0.1' z='1.9'/>
+		<point x='4.8' y='0.1' z='-1.9'/>
+		<point x='-4.8' y='0.1' z='-1.9'/>
+		<point x='2.9' y='0.1' z='3.8'/>
+		<point x='-2.9' y='0.1' z='3.8'/>
+		<point x='2.9' y='0.1' z='-3.8'/>
+		<point x='-2.9' y='0.1' z='-3.8'/>
+	</hull>
+</rig>

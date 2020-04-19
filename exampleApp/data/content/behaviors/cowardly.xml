@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<behaviorTree>
+	<!--
+	A simple behavior tree making the actor wander around and if the player
+	gets close tries to stay away from him. If the player is moving fast
+	the actor gets jumpy.
+	
+	This uses the basic behavior tree system from the game engine with some
+	ready made actions.
+	-->
+	
+	<!--
+	The basic AI loop. For this example we use a choice with all supported
+	behaviors. This could be also done differently but avoids the need to
+	use "success" rules to make a choice always succeed if no of the supported
+	behaviors applies.
+	
+	It is possible to add the loop="true" attribute. This would cause the
+	root rule to be looping. The difference is subtle but potentially
+	problematic. If the rule ends with a success state and looping is set
+	to true then the rule will start again from the beginning. As you can
+	imagine this can lead to a run-away situation if the rule continues
+	to return success state. If the rule is not looping with a success state
+	the processing ends for this stepping of the behavior tree. It is
+	recommended to not use looping on the root rule uness you have a
+	specific need to do so.
+	
+	Looping rules can be used anywhere in the behavior tree for both
+	sequence and choice rules. Looping can be useful in some situations.
+	
+	This choice is structed in a way all regular actions come first. One of
+	them is going to succeed so the interruption rule is never used. This
+	rule is only jumped to directly hence the name. It would be also possible
+	to embed the interruption behavior into the regular processing of the
+	behavior tree. In this case interruption actions would only be possible
+	after another action finished running.
+	
+	Rules are not required to have identifiers under certain circumstances.
+	Identifiers are used by these actions:
+	- Mandatory: Switch current rule (jumping) from script code
+	- Mandatory: Saving behavior tree context state to save states
+	- Optional: Debug logging to identify what rule is processed
+	For mandatory usage an exception will be thrown if rule identifiers are
+	null. If a rule only returns success or failure state and never returns
+	running state the identifier can be skipped. This works since only
+	running rules can be the current rule and thus only the identifier or
+	such rules are saved to file writers. If you never intend to save state
+	nor jump to rules you can skip them entirly.
+	-->
+	<choice id='root'>
+		<!--
+		Choice of behaviors reacting to player getting too close.
+		
+		This rule is jumped to directly if the player gets close. This makes
+		this rule an "interruption" rule. Such rules can be jumped to directly
+		but also work if run inside regular AI looping. Jumping to simply
+		makes the actor react immediatly. Without jumping the actor would
+		react after finishing his current sequence of actions.
+		
+		To make writing identifiers simpler a trick can be used. If the
+		identifier begins with a period the parent rule identifier is used
+		as prefix. For example the ID ".child" inside a parent with ID "parent"
+		becomes "parent.child".
+		-->
+		
+		<!--
+		Wander to a random position. This rule keeps running until the actor
+		arrives at the target. The action succeeds once the actor arrived at
+		the desired position. This action fails as long as player is too close.
+		
+		This action has a 25% chance.
+		
+		The attribute "name" defines the action to run and has to match a
+		BTAction present in the game scripts.
+		-->
+		<action id='wander' name='wander'>
+			<!--
+			Parameters have string key and value. The action-tag and custom BTAction
+			subclasses can use these parameters to modify the way the selected action
+			runs. Certain conditions and custom BTCondition subclasses can also use
+			the same parameters to modify the run checks.
+			
+			Since parameters are shared across all these elements care has to be taken
+			how the parameters are named. If for example two conditions use the same
+			parameter name they will receive the same value. If you need unique values
+			for specific types of conditions you have to choose individual parameter
+			names in your game scripts when adding the conditions to the context to
+			allow you to define them separately in your behavior trees.
+			
+			The condition and parameter tags can appear in any order.
+			-->
+			<parameter name='chance'>0.25</parameter>
+			
+			<!--
+			All actions use this condition to be interrupted. This could be also
+			achieved by jumping to a specific rule manually. In this example the
+			actions contain the interrupt condition.
+			
+			Each rule can have any number of conditions. The conditionMode states
+			how the rules are checked. Supported are these modes:
+			- allTrue: no condition returns false
+			- anyTrue: at least one condition returns true
+			- anyFalse: at least one condition returns false
+			- allFalse: no condition returns true
+			
+			If complex conditions are required it is best to model them in the
+			game scripts as a separate named condition. This increases the
+			flexibility and avoids complicated XML for non-trivial situations
+			-->
+			<conditionMode>allFalse</conditionMode>
+			<condition>playerNearby</condition>
+			
+			<!--
+			The above condition is an example. To keep conditions more compact
+			you can create a negated version of the condition. This has been
+			done in the two actions below.
+			-->
+		</action>
+		
+		<!--
+		Randomly rotate. This action has a 35% chance.
+		-->
+		<action id='turning' name='turning'>
+			<parameter name='chance'>0.35</parameter>
+			<condition>playerNotNearby</condition>
+		</action>
+		
+		<!--
+		Wait a random amount of time. This action has a 100% chance.
+		-->
+		<action id='wait' name='wait'>
+			<parameter name='chance'>1</parameter>
+			<condition>playerNotNearby</condition>
+		</action>
+		
+		<!--
+		If the player is close enough and moving fast the actor tries to
+		flee by running and does a little jump for show. If any condition
+		is false this action is not triggered.
+		
+		Condition checks are best done inside the action itself instead of
+		using a construct like this:
+		<sequence>
+			<condition>isConditionTrue</condition>
+			<action>doAction</action>
+		</sequence>
+		
+		Using this construct is not wrong but prevents actions from being
+		interrupted if a condition changes. The condition in the example
+		above would be evaluated when the sequence is first entered and
+		whenever an inner action fails and the next one is tried.
+		
+		To make writing the identifiers simpler a trick can be used. If the
+		identifier begins with a period the parent rule identifier is used
+		as prefix. In this example the ID ".flee" becomes "interrupt.flee". 
+		-->
+		<action id='flee' name='flee'>
+			<condition>playerNearby</condition>
+		</action>
+		
+		<!--
+		If the player is close enough and not moving fast the actor tries
+		to increase his distance to the player by walking. If any condition
+		is false this action is not triggered.
+		-->
+		<action id='backOff' name='backOff'>
+			<condition>playerNearby</condition>
+		</action>
+		
+		<!--
+		If we end up here no event condition is true. We want to loop again
+		so we need to use the success rule. Using failure instead (same as
+		doing nothing here) would fail the behavior tree and throw an exception.
+		
+		This is a good example where rule identifier is not required since the
+		rule never returns running and thus never will be the current rule
+		after the behavior tree finished stepping. Another such rule is
+		<failure/> which always fails.
+		-->
+		<success/>
+	</choice>
+	
+	
+	
+	<!--
+	Without the comments the above behavior tree becomes this compact:
+	
+	<choice id='root'>
+		<action id='wander' name='wander'>
+			<parameter name='chance'>0.25</parameter>
+			<condition>playerNotNearby</condition>
+		</action>
+		<action id='turning' name='turning'>
+			<parameter name='chance'>0.35</parameter>
+			<condition>playerNotNearby</condition>
+		</action>
+		<action id='wait' name='wait'>
+			<parameter name='chance'>1</parameter>
+			<condition>playerNotNearby</condition>
+		</action>
+		<action id='flee' name='flee'>
+			<condition>playerNearby</condition>
+		</action>
+		<action id='backOff' name='backOff'>
+			<condition>playerNearby</condition>
+		</action>
+		<success/>
+	</choice>
+	
+	
+	
+	If jumping is used to do the interruption the tree would could look like this
+	(using 'interrupt' as manual jump target):
+	
+	<choice id='root'>
+		<action id='wander' name='wander'>
+			<parameter name='chance'>0.25</parameter>
+		</action>
+		<action id='turning' name='turning'>
+			<parameter name='chance'>0.35</parameter>
+		</action>
+		<action id='wait' name='wait'>
+			<parameter name='chance'>1</parameter>
+		</action>
+		<choice id='interrupt'>
+			<condition>playerNearby</condition>
+			<action id='flee' name='flee'/>
+			<action id='backOff' name='backOff'/>
+		</choice>
+		<success/>
+	</choice>
+	-->
+</behaviorTree>

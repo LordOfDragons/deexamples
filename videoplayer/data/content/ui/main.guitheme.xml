@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<guiTheme extend='/shareddata/guithemes/modern/modern.guitheme.xml'>
+	<!-- Main GUI Theme based on modern GUI Theme included in the DragonScript Module -->
+	
+	<!-- Change desktop mouse pointer -->
+	<designer name='Desktop' extendNamed='Desktop'>
+		<mousePointer parameter='normal.mousePointer' type='Image'>
+			<image parameter='image'>/content/ui/pointer.png</image>
+		</mousePointer>
+	</designer>
+	
+	<!--
+	The default logo window has no mouse pointer since it is usually used with captured
+	input mode. Since we use it without captured input mode keep it visible.
+	-->
+	<designer name='WindowLogo' type='Window'>
+		<canvasCreator parameter='normal.canvas' type='Rectangle'>
+			<color parameter='colorFill' r='0' g='0' b='0'/>
+		</canvasCreator>
+	</designer>
+	
+	<!-- Main menu window is full screen with no border and black background -->
+	<designer name='Window.MainMenu' type='Window'>
+		<canvasCreator parameter='normal.canvas' type='Rectangle'>
+			<color parameter='colorFill' r='0' g='0' b='0'/>
+		</canvasCreator>
+	</designer>
+	
+	<designer name='Panel.VideoPlayerContent' type='Widget'>
+		<canvasCreator parameter='normal.canvas' type='Rectangle'>
+			<color parameter='colorFill' r='0' g='0' b='0'/>
+		</canvasCreator>
+	</designer>
+	
+	<designer name='Panel.VideoPlayerBar' type='Widget'>
+		<canvasCreator parameter='normal.canvas' type='Rectangle'>
+			<color parameter='colorFill' r='0' g='0' b='0'/>
+		</canvasCreator>
+	</designer>
+	
+	<designer name='Button.VideoPlayer' extendNamed='Button'>
+		<borderSize parameter='normal.padding' all='0'/>
+		<borderSize parameter='pressed.padding' all='0'/>
+	</designer>
+	
+	<designer name='ProgressBar.VideoPlayer' extendNamed='ProgressBar'>
+		<boolean parameter='normal.showPercentage'>false</boolean>
+		<borderSize parameter='normal.padding' left='2' top='5' right='2' bottom='5'/>
+	</designer>
+</guiTheme>

@@ -1,0 +1,119 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui
+pin Dragengine.Networking
+pin Dragengine.Preloading
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Network player base class working for both server and client use.
+ */
+abstract class NetworkPlayer implements ConnectionListener
+	/** Message codes. */
+	enum MessageCode
+		networkState
+		join
+		loadWorldFinished
+		playerJoined
+		playerLeft
+		spawnActor
+	end
+	
+	/** Request link codes. */
+	enum LinkCode
+		player
+		object
+	end
+	
+	
+	/** Connection. */
+	protected var Connection pConnection
+	
+	/**
+	 * Protocol version. Including one in the join message allows to easily upgrade the
+	 * network protocol. If possible older protocols should still be supported but an
+	 * often used solution is to just accept the most current one and force the client
+	 * to update.
+	 */
+	protected var int pProtocolVersion
+	
+	/** Player state. */
+	public var PlayerState playerState
+	
+	
+	
+	/**
+	 * Create network player with connection instance.
+	 */
+	protected func new( Connection connection )
+		pProtocolVersion = 1
+		
+		pConnection = connection
+		pConnection.setConnectionListener( this )
+	end
+	
+	/**
+	 * Dispose of network player.
+	 */
+	public func void dispose()
+		disconnect()
+		pConnection = null
+	end
+	
+	
+	
+	/**
+	 * Connection.
+	 */
+	public func Connection getConnection()
+		return pConnection
+	end
+	
+	
+	
+	/**
+	 * Connected to host.
+	 */
+	public func bool isConnected()
+		return pConnection.getConnected()
+	end
+	
+	/**
+	 * Disconnect with sending message.
+	 */
+	public func void disconnect()
+		var GameApp app = GameApp.getGameApp()
+		if app.getConnectionTracker().has( pConnection )
+			app.getConnectionTracker().remove( pConnection )
+		end
+		
+		// TODO send disconnect message with reason
+		pConnection.disconnect()
+	end
+end

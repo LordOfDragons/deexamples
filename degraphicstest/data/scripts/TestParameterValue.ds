@@ -1,0 +1,127 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Test parameter value.
+ */
+class TestParameterValue
+	private var String pName
+	private var String pValue
+	private var String pDescription
+	
+	
+	
+	/** \brief Create test parameter value. */
+	public func new( String name, String value, String description )
+		pName = name
+		pValue = value
+		pDescription = description
+	end
+	
+	/** \brief Create copy of test parameter value. */
+	public func new( TestParameterValue value )
+		pName = value.pName
+		pValue = value.pValue
+		pDescription = value.pDescription
+	end
+	
+	
+	
+	/** \brief Display name. */
+	public func String getName()
+		return pName
+	end
+	
+	/** \brief Value. */
+	public func String getValue()
+		return pValue
+	end
+	
+	/** \brief Description. */
+	public func String getDescription()
+		return pDescription
+	end
+	
+	
+	
+	/**
+	 * \brief Apply value.
+	 * 
+	 * If an exception is thrown it is caught and written to the console.
+	 */
+	public func void apply( TestParameter parameter )
+		var Console console = BaseGameApp.getApp().getConsole()
+		var String response
+		
+		try
+			if parameter.getModuleParameter() != null
+				GraphicSystem.setParameterValue( parameter.getModuleParameter(), pValue )
+				
+			else
+				parameter.getSendCommands().forEach( block String each
+					each.replaceString( "{value}", pValue ).split( '\n' ).forEach( block String each2
+						response = GraphicSystem.sendCommand( each2 )
+						if not response.empty()
+							if response.getAt( response.getLength() - 1 ) == '\n'
+								response = response.substring( 0, response.getLength() - 1 )
+							end
+							console.addMessage( response )
+						end
+					end )
+				end )
+			end
+			
+		catch Exception e
+			console.addError( "Failed apply parameter '" \
+				+ parameter.getName() + "' value '" + pName + "'.", e )
+		end
+	end
+	
+	
+	
+	/**
+	 * \brief String representation for example for combo boxes.
+	 */
+	public func String toString()
+		return pName
+	end
+	
+	/**
+	 * \brief Compare to enable sorting.
+	 */
+	public func int compare( Object other )
+		return pValue.compare( ( other cast TestParameterValue ).pValue )
+	end
+	
+	/**
+	 * \brief Equals.
+	 */
+	public func bool equals( Object other )
+		return other castable TestParameterValue \
+			and pValue.equals( ( other cast TestParameterValue ).pValue )
+	end
+end

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+	<profile>
+		<name>Development</name>
+		<description>Development profile created by Template. In contrary to the release profile files under /develop are included for development game testing. A typical solution to running a development build is to use a subclass of GameApp (for example GameAppDevelop) modifying the base GameApp behavior to expose development and debugging features. If you do this you have to change the game object parameter in this profile. Furthermore you should exclude this subclass from the release build. Typically the file would be located in a /scripts/debug directory together with other debugging related scripts. This way you can exclude the entire directory from release builds.</description>
+		<scriptDirectory>/scripts</scriptDirectory>
+		<gameObject>GameApp</gameObject>
+		<pathConfig>/config</pathConfig>
+		<pathCapture>/capture</pathCapture>
+		<identifier>cfd1cfa0-7667-4172-add2-ee4e876fecf4</identifier>
+		<aliasIdentifier>denetworkexample</aliasIdentifier>
+		<title>Drag[en]gine Network Example - Development</title>
+		<gameDescription>Development</gameDescription>
+		<creator>Drag[en]gine</creator>
+		<website>dragengine.rptd.ch</website>
+		<icon>/content/images/icon64.png</icon>
+		<delgaPath>distribute/DENetworkExample-Dev.delga</delgaPath>
+	</profile>
+	<profile>
+		<name>Release</name>
+		<description>Release profile created by Template. Excludes development files under /develop to produce a distribution ready DELGA file.</description>
+		<scriptDirectory>/scripts</scriptDirectory>
+		<gameObject>GameApp</gameObject>
+		<pathConfig>/config</pathConfig>
+		<pathCapture>/capture</pathCapture>
+		<identifier>cfd1cfa0-7667-4172-add2-ee4e876fecf4</identifier>
+		<aliasIdentifier>denetworkexample</aliasIdentifier>
+		<title>Drag[en]gine Network Example</title>
+		<gameDescription>Example for using network support in the Drag[en]gine Game Engine.</gameDescription>
+		<creator>Drag[en]gine</creator>
+		<website>dragengine.rptd.ch</website>
+		<icon>/content/images/icon64.png</icon>
+		<excludePattern>/develop</excludePattern>
+		<delgaPath>distribute/DENetworkExample.delga</delgaPath>
+	</profile>
+</project>

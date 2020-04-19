@@ -1,0 +1,71 @@
+/////////////////////////////
+//                        //
+//    Example Content    //
+//                      //
+/////////////////////////
+
+This directory contains example content which you can copy to your game
+project directory to experiment with ready to use content. All files in
+this directory are free to use for any purpose you see fit (public domain).
+
+
+
+/////////////////////////////
+//                        //
+//    Elements           //
+//                      //
+/////////////////////////
+
+This directory contains XML element classes. This is one of the neat features
+of the Drag[en]gine Game Engine. With a properly prepared directory you can
+copy the entire directory into your game project and it just works without
+importing, converting or even manual fixing.
+
+For this to work a directory has to contain one or more *.deeclass files.
+These files can be written by hand or created using the world editor.
+Using the world editor you can pick an object in your game world, which you
+have modified (using texture replacements and object properties), and
+"SubClass XML EClass" it. This will write the *.deeclass file.
+
+Now ensure all required files are underneath this directory. Then ensure
+the *.deeclass files contain only relative path pointing to this content.
+
+If done correctly the directory content is self-contained. Such a directory
+can be copied to another project and just works as long as the parent
+script class does exist.
+
+
+
+/////////////////////////////
+//                        //
+//    Materials          //
+//                      //
+/////////////////////////
+
+This directory contains some example materials. Here too the material
+files and directories can be just copied and work as long as the images
+they reference are underneath the skin file directory. This allows to create
+skins you can place in a shared storage and copy to your project without
+the need to import, modify or manual fixing.
+
+
+
+/////////////////////////////
+//                        //
+//    cubemap.png3d      //
+//                      //
+/////////////////////////
+
+This is an example 3D cube map file. Different cube map formats can be
+supported using  Image Modules. The *.png3d format is a simple format which
+can be build by hand without needing extra softwar. This is simply a Tarball
+file (*.tar) renamed to *.png3d . It contains up to 6 *.png files named z0.png
+to z5.png . Each file represents one side of the cube map. The order is:
+- z0: Positive X Axis (pointing to the right)
+- z1: Negative X Axis (pointing to the left)
+- z2: Positive Y Axis (pointing upwards)
+- z3: Negative Y Axis (pointing downwards)
+- z4: Positive Z Axis (pointing into the screen)
+- z5: Negative Z Axis (pointing out of the screen)
+Not used images are filled with the default color depending on what skin
+texture property they are used on.

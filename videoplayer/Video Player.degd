@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<gameDefinition>
+	<identifier>Video Player</identifier>
+	<description>Game project Video Player.</description>
+	<basePath>/home/roland/progs/deexamples/videoplayer/data</basePath>
+	<scriptModule>DragonScript</scriptModule>
+	<categories>
+	</categories>
+</gameDefinition>

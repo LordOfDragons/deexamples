@@ -1,0 +1,181 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui
+pin Dragengine.Networking
+pin Dragengine.Preloading
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Client side network player.
+ */
+class NetworkPlayerClient extends NetworkPlayer
+	/** Request to load game world. */
+	public var String requestLoadGameWorld
+	
+	
+	
+	/** Create network player with. */
+	public func new() super( Connection.new() )
+	end
+	
+	/**
+	 * Dispose of network player.
+	 */
+	public func void dispose()
+		GameApp.getGameApp().networkPlayerClient = null
+		super.dispose()
+	end
+	
+	
+	
+	/** Connect to host. */
+	public func void connectTo( String host )
+		pConnection.connectTo( host )
+	end
+	
+	/**
+	 * Send load world finished message to client.
+	 */
+	public func void sendMessageLoadWorldFinished()
+		GameApp.getGameApp().getConsole().addMessage( "sendMessageLoadWorldFinished" )
+		var NetworkMessage message = NetworkMessage.new()
+		var FileWriter writer = message.getWriter( false )
+		writer.writeByte( NetworkPlayer.MessageCode.loadWorldFinished.order() )
+		writer.writeByte( 0 )  // all okay
+		pConnection.sendReliableMessage( message )
+	end
+	
+	
+	
+	/**
+	 * \brief Connection has been closed by the local or remote host.
+	 */
+	public func void connectionClosed()
+		var GameApp app = GameApp.getGameApp()
+		app.getConsole().addMessage( "connectionClosed" )
+		app.cancelLoadGameWorld()
+		app.networkPlayerClient = null
+		app.getWindowGameWorld().setGameWorld( null, true )
+		app.gameState.dispose()
+		app.gameState = null
+		app.mainMenu.activate()
+		dispose()
+	end
+	
+	/** \brief A long message is in progress of receiving. */
+	public func void messageProgress( int bytesReceived )
+		GameApp.getGameApp().getConsole().addMessage( "messageProgress " + bytesReceived )
+	end
+	
+	/** \brief A message has been received. */
+	public func void messageReceived( NetworkMessage message )
+		var GameApp app = GameApp.getGameApp()
+		var FileReader reader = message.getReader()
+		var NetworkPlayer.MessageCode code = NetworkPlayer.MessageCode.withOrder( reader.readByte() )
+		
+		app.getConsole().addMessage( "messageReceived " + code )
+		
+		select code
+		case NetworkPlayer.MessageCode.networkState
+			app.getNetworkStateTracker().receiveMessage( pConnection, reader )
+			
+		case NetworkPlayer.MessageCode.join
+			var int version = reader.readByte()
+			if version != pProtocolVersion
+				app.getConsole().addMessage( "received join with outdated protocol version " + version )
+				dispose()
+				return
+			end
+			
+			app.gameState.localPlayer = PlayerState.new( UniqueID.readFromFile( reader ) )
+			playerState = app.gameState.localPlayer
+			app.gameState.players.add( app.gameState.localPlayer )
+			
+			requestLoadGameWorld = reader.readString8()
+			app.getConsole().addMessage( "received join: playerID=" \
+				+ playerState.id + " pathWorldFile=" + requestLoadGameWorld )
+			
+		case NetworkPlayer.MessageCode.playerJoined
+			var PlayerState playerState = PlayerState.new( UniqueID.readFromFile( reader ) )
+			playerState.name = UnicodeString.newFromUTF8( reader.readString16() )
+			app.gameState.players.add( playerState )
+			app.getConsole().addMessage( "received player joined: playerID=" \
+				+ playerState.id + " name='" + playerState.name + "'" )
+			
+		case NetworkPlayer.MessageCode.playerLeft
+			var PlayerState playerState = GameState.getGameState().getPlayer( UniqueID.readFromFile( reader ) )
+			app.getConsole().addMessage( "received player left: playerID=" \
+				+ playerState.id + " name='" + playerState.name + "'" )
+			app.gameState.players.remove( playerState )
+			playerState.dispose()
+			
+		case NetworkPlayer.MessageCode.spawnActor
+			var PlayerState playerState = GameState.getGameState().getPlayer( UniqueID.readFromFile( reader ) )
+			var String spawnName = reader.readString8()
+			app.getConsole().addMessage( "received spawn actor: playerID=" \
+				+ playerState.id + " spawn='" + spawnName + "'" )
+			playerState.spawnActor( spawnName )
+			
+		else
+			dispose()
+		end
+	end
+	
+	/**
+	 * \brief Host send state to link.
+	 * \param networkState Network state to use for this side of the link.
+	 * \param message Additional information.
+	 * \returns true to accept the link or false to deny it.
+	 */
+	public func bool linkState( NetworkState state, NetworkMessage message )
+		var GameApp app = GameApp.getGameApp()
+		var FileReader reader = message.getReader()
+		var NetworkPlayer.LinkCode requestLinkCode = NetworkPlayer.LinkCode.withOrder( reader.readByte() )
+		
+		select requestLinkCode
+		case NetworkPlayer.LinkCode.player
+			var ECBehaviorNetworkState.Instance behavior = \
+				ECBehaviorNetworkState.createFromLinkRequest( pConnection, state, reader )
+			
+			// actor belonging to this player are not added to the game world all others are
+			if playerState.actor != behavior.getElement()
+				app.getWindowGameWorld().getGameWorld().addElement( behavior.getElement() )
+			end
+			
+			return true
+			
+		case NetworkPlayer.LinkCode.object
+			return ECBehaviorNetworkState.createAndAddFromLinkRequest( pConnection, \
+				state, reader, app.getWindowGameWorld().getGameWorld() )
+			
+		else
+			return false
+		end
+	end
+end

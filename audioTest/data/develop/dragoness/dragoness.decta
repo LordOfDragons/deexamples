@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<conversationTestActor>
+	<id>dragoness</id>
+	<aliasID>dragoness voice</aliasID>
+	<position x='0' y='0' z='3'/>
+	<orientation x='0' y='180' z='0'/>
+	<model>/model/dragoness/dragoness.demodel</model>
+	<skin>/model/dragoness/dragoness.deskin</skin>
+	<rig>/model/dragoness/dragoness.derig</rig>
+	<speechAnimation/>
+	<eyesAnimator/>
+	<facePoseAnimator/>
+	<pose name='default'>
+		<animator>/model/dragoness/animators/sitting.deanimator</animator>
+		<controller index='0'>
+			<update>elapsedTime</update>
+			<value>0</value>
+			<vector x='0' y='0' z='0'/>
+		</controller>
+		<controller index='1'>
+			<update>headLeftRight</update>
+			<value>0</value>
+			<vector x='0' y='0' z='0'/>
+		</controller>
+		<controller index='2'>
+			<update>headUpDown</update>
+			<value>0</value>
+			<vector x='0' y='0' z='0'/>
+		</controller>
+	</pose>
+	<activePose>default</activePose>
+</conversationTestActor>

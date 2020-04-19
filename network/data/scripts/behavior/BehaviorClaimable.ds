@@ -1,0 +1,253 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Networking
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Behavior for elements able to be claimed by a player.
+ * 
+ * How claiming is done is not the responsibility of this behavior. This behavior simply stores
+ * which player the element is claimed to if any at all. Adding listener support allows to
+ * attach later on new behaviors reacting to events.
+ */
+class BehaviorClaimable extends DefaultECBehavior
+	/**
+	 * Listener.
+	 */
+	interface Listener
+		/**
+		 * Claimed player changed.
+		 */
+		func void claimedChanged( Instance instance )
+	end
+	
+	/**
+	 * Default implementation of Listener. It is recommended to provide a default
+	 * implementation even for a single function interface since this allows to
+	 * extend the interface in the future without breaking implementors.
+	 */
+	class DefaultListener implements Listener
+		/**
+		 * Create default listener.
+		 */
+		public func new()
+		end
+		
+		/**
+		 * Claimed player changed.
+		 */
+		public func void claimedChanged( Instance instance )
+		end
+	end
+	
+	
+	
+	/**
+	 * Behavior instance.
+	 */
+	class Instance extends DefaultECBehaviorInstance
+		/** Message. */
+		class MessageClaimedChanged extends ECBehaviorNetworkState.DefaultMessageListener
+			protected var Instance instance
+			protected var int number
+			
+			public func new( Instance instance )
+				this.instance = instance
+				number = instance.networkState.addMessage( this )
+			end
+			
+			public func void messageReceived( Connection connection, FileReader reader )
+				instance.claimBy( reader.readByte() )
+			end
+			
+			public func void send()
+				var NetworkMessage message = NetworkMessage.new()
+				var FileWriter writer = message.getWriter( false )
+				writer.writeByte( instance.playerNumber )
+				instance.networkState.sendReliableMessage( number, message )
+			end
+		end
+		
+		
+		
+		/** Behavior. */
+		public var BehaviorClaimable behavior
+		
+		/** Network state behavior instance. */
+		public var ECBehaviorNetworkState.Instance networkState
+		
+		/** Player number having claimed the element or 0 if nobody has claimed it. */
+		public var int playerNumber
+		
+		/** Messages. */
+		protected var MessageClaimedChanged messageClaimedChanged
+		
+		/** Listeners. */
+		private var Array pListeners
+		
+		
+		
+		/**
+		 * Create behavior instance
+		 */
+		public func new( BehaviorClaimable behavior, BehaviorElement element ) super( element )
+			this.behavior = behavior
+			messageClaimedChanged = null
+			pListeners = Array.new()
+		end
+		
+		/**
+		 * Dispose of behavior element. To avoid problems always add a dispose method
+		 * and clear all variables storing references to other behavior instances.
+		 */
+		public func void dispose()
+			networkState = null
+			pListeners = null
+			messageClaimedChanged = null
+			
+			// Always super call dispose() to avoid leaking
+			super.dispose()
+		end
+		
+		
+		
+		/**
+		 * Initialize behavior instance from stub.
+		 */
+		public func void init( StubElement stub )
+			// Store behavior instance we need
+			networkState = behavior.networkState.instance( getElement() )
+			
+			// Add network messages
+			messageClaimedChanged = MessageClaimedChanged.new( this )
+		end
+		
+		
+		
+		/**
+		 * Change player claiming element. Calls Listener.claimedChanged() on all listeners.
+		 * Number 0 indicates nobody claimes the element. Number 1 is the first player,
+		 * number 2 the second and so forth.
+		 * 
+		 * Caller is responsible to check if player has not claimed the element yet.
+		 * This allows to produce "re-claim" effects if desired.
+		 */
+		public func void claimBy( int playerNumber )
+			this.playerNumber = playerNumber
+			
+			// Notify listeners
+			pListeners.forEach( block Listener each
+				each.claimedChanged( this )
+			end )
+			
+			// Send network message
+			if not networkState.getReadOnly()
+				messageClaimedChanged.send()
+			end
+		end
+		
+		
+		
+		/**
+		 * Add listener.
+		 */
+		public func void addListener( Listener listener )
+			if listener == null
+				throw EInvalidParam.new()
+			end
+			pListeners.add( listener )
+		end
+		
+		/**
+		 * Remove listener.
+		 */
+		public func void removeListener( Listener listener )
+			pListeners.remove( listener )
+		end
+	end
+	
+	
+	
+	/** Collider behavior. */
+	public var ECBehaviorCollider collider
+	
+	/** Network state behavior. */
+	public var ECBehaviorNetworkState networkState
+	
+	
+	
+	/** Create behavior. */
+	public func new( BehaviorElementClass eclass, ECBehaviorCollider collider, \
+	ECBehaviorNetworkState networkState ) super( eclass )
+		if collider == null
+			throw ENullPointer.new( "collider" )
+		end
+		if networkState == null
+			throw ENullPointer.new( "networkState" )
+		end
+		
+		this.collider = collider
+		this.networkState = networkState
+		
+		// Modify the collider to have the claimable filter bit set
+		collider.getCollider().collisionFilterSetBit( GameApp.CollisionFilterBit.claimable )
+		
+		// Add behavior to element class. This should always come last
+		eclass.addBehavior( this )
+	end 
+	
+	/** Dispose of behavior. */
+	public func void dispose()
+		collider = null
+		networkState = null
+		super.dispose()
+	end
+	
+	
+	
+	/** Get instance from element. */
+	public func Instance instance( BehaviorElement element )
+		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
+	end
+	
+	
+	
+	/** Get instance in element or null if absent. */
+	static public func Instance getInstanceIn( BehaviorElement element )
+		return element.findInstance( block ECBehaviorInstance each
+			return each castable Instance
+		end ) cast Instance
+	end
+	
+	
+	
+	/** \brief Create Behavior instance. */
+	public func ECBehaviorInstance createInstance( BehaviorElement element )
+		return Instance.new( this, element )
+	end
+end

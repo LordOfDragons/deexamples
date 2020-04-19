@@ -1,0 +1,162 @@
+pin Dragengine.Commands
+pin Dragengine.Utils
+
+
+/**
+ * \brief Debug version of Game Application Class.
+ * 
+ * Used by debug profile.
+ * 
+ * This is an example on how script debug stuff can be added to game projects in an easy to
+ * use way. To use this two profiles are required and scripts inside a specific directory.
+ * In this example the directory is called "develop" and is located under the script directory.
+ * 
+ * The debug profile uses GameAppDebug as the application class. This subclass works like
+ * the GameApp class but adds debug specific stuff.
+ * 
+ * The release profile uses GameApp and excludes the "develop" directory. This will run the
+ * project without any debug code and no debug script code will be present in the distribution
+ * DELGA file while still present in the game project.
+ * 
+ * You can use more than one profile each using different application classes for specific
+ * situation like using target platform specific handling.
+ */
+class GameAppDebug extends GameApp
+	/**
+	 * \brief Capture active microphone audio rays and visualized them.
+	 */
+	class CommandCaptureMicRays extends Command
+		public func new()
+			this.setName("debugCaptureMicRays")
+		end
+		
+		public func void stop()
+			AudioSystem.sendCommand("dm_capture_mic_rays")
+			//AudioSystem.sendCommand("dm_capture_mic_rays xray")
+		end
+	end
+	
+	
+	/**
+	 * \brief Create Debug Game Application.
+	 */
+	public func new()
+	end
+	
+	/**
+	 * \brief Launch example application.
+	 * 
+	 * Called after logo windows are finished. Adds debug stuff.
+	 */
+	public func void launchApplication()
+		super.launchApplication()
+		this.initDebug()
+	end
+	
+	/**
+	 * \brief Creatd and add commands.
+	 *
+	 * Modified to add debug commands:
+	 * - CaptureMicRays: Capture active microphone audio rays and visualized them
+	 */
+	protected func void createAndAddCommands()
+		super.createAndAddCommands()
+		
+		getCommandManager().add(CommandCaptureMicRays.new())
+	end
+	
+	/**
+	 * Create default bindings.
+	 * 
+	 * Add default bindings for debug commands added in createAndAddCommands().
+	 */
+	public func DefaultBindingHelper defaultBindings()
+		var DefaultBindingHelper helper = super.defaultBindings()
+		
+		helper.keyboardBindKeyCode(InputEventKey.f9, "debugCaptureMicRays")
+		
+		return helper
+	end
+	
+	/**
+	 * \brief Finish loading game world.
+	 * 
+	 * If no game world loader is active this method does nothing. Otherwise calls dispose()
+	 * on the active game world. After this call returns no game world loader is active.
+	 */
+	public func void finishLoadGameWorld()
+		super.finishLoadGameWorld()
+		
+		initDebugLoadingFinished()
+	end
+	
+	
+	
+	/**
+	 * \brief Initialize debug stuff.
+	 */
+	private func void initDebug()
+		changeSpawnPoint()
+		showClosestSpeakers()
+		
+		/*
+		GraphicSystem.sendCommand("dm_enable")
+		GraphicSystem.sendCommand("dm_show_debug_info 1")
+		GraphicSystem.sendCommand("dm_show_occmap_level 0")
+		*/
+	end
+	
+	/**
+	 * \brief Initialize debug stuff when loading game world finished.
+	 */
+	private func void initDebugLoadingFinished()
+		disableExplications()
+	end
+	
+	
+	
+	/**
+	 * \brief Change the spawn point.
+	 */
+	private func void changeSpawnPoint()
+		// you can also influence the loading of the game world. as an example here
+		// the spawn point is modified
+		var StartGame startGame = getGameWorldLoader() cast StartGame
+		
+		//startGame.spawnPointPlayer = "debug1" // large reverberant room
+		//startGame.spawnPointPlayer = "debug2"  // dragoness
+		//startGame.spawnPointPlayer = "debug3"  // first room
+	end
+	
+	/**
+	 * \brief Activate debug display of the closest 3 speakers.
+	 */
+	public func void showClosestSpeakers()
+		var Array commands = Array.new()
+		
+		//commands.add("dm_enable")
+		//commands.add("dm_show_module_info 1")
+		//commands.add("dm_show_active_mic_info 1")
+		//commands.add("dm_show_speaker_env_info_closest 3")
+		
+		// //commands.add("dm_log_calc_envprobe 1")
+		// //commands.add("dm_show_speaker_env_info 1")
+		// //commands.add("dm_show_speaker_env_info_at 0 1.6 -4")
+		
+		var Console console = getConsole()
+		try
+			commands.forEach(block String each
+				console.addMessage(AudioSystem.sendCommand(each).substring(0, -1))
+			end)
+		catch Exception e
+			console.addError("AudioSystem.sendCommand failed:", e)
+		end
+	end
+	
+	/**
+	 * \brief Disable explications.
+	 */
+	public func void disableExplications()
+		getTriggerTable().getOrAddNamed(StringID.new("enableExplications")).fullReset()
+	end
+end

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rig>
+	<box>
+		<position x='0' y='0.2244' z='-0.3101'/>
+		<rotation x='-83' y='-180' z='-180'/>
+		<halfExtends x='0.2506' y='0.02709' z='0.223'/>
+	</box>
+	<box>
+		<position x='0' y='0.2187' z='0.1408'/>
+		<rotation x='-83.1' y='-0' z='-0'/>
+		<halfExtends x='0.2506' y='0.02709' z='0.223'/>
+	</box>
+	<box>
+		<position x='0' y='0.7775' z='0.1958'/>
+		<rotation x='-87.9' y='-180' z='-180'/>
+		<halfExtends x='0.2506' y='0.02709' z='0.3583'/>
+	</box>
+	<box>
+		<position x='0' y='0.4441' z='-0.06947'/>
+		<rotation x='0' y='0' z='0'/>
+		<halfExtends x='0.2506' y='0.02709' z='0.2398'/>
+	</box>
+</rig>

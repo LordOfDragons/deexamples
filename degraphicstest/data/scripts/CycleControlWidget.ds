@@ -1,0 +1,154 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.Preloading
+
+
+/**
+ * \brief Control widget cycling through parameter values on click.
+ */
+class CycleControlWidget extends Panel
+	/** \brief Pick value from list action. */
+	class SelectFromList extends DefaultMouseListener implements WindowDialog.ResultListener
+		private var CycleControlWidget pController
+		
+		public func new( CycleControlWidget controller )
+			pController = controller
+		end
+		
+		public func void onButtonRelease( MouseEvent event )
+			var TestParameter parameter = pController.getTestParameter()
+			WindowDialog.chooseList( pController.getWindow(), \
+				"Select Parameter Value", "Select value.", null, parameter.getModelValues(), \
+				DefaultListElementRenderer.new( String.new( 'X', 20 ) ), null, null, this )
+		end
+		
+		public func void onResult( Object result )
+			var int index = result cast int
+			if index == -1
+				return
+			end
+			
+			var TestParameter parameter = pController.getTestParameter()
+			parameter.setActiveValue( parameter.getModelValues().getAt( index ) cast TestParameterValue )
+			pController.onActiveValueChanged()
+		end
+	end
+	
+	/** \brief Activate previous value. */
+	class ActivatePrevValue implements ActionListener
+		private var CycleControlWidget pController
+		
+		public func new( CycleControlWidget controller )
+			pController = controller
+		end
+		
+		public func void onAction( ActionEvent event )
+			pController.getTestParameter().activatePreviousValue()
+			pController.onActiveValueChanged()
+		end
+	end
+	
+	/** \brief Activate next value. */
+	class ActivateNextValue implements ActionListener
+		private var CycleControlWidget pController
+		
+		public func new( CycleControlWidget controller )
+			pController = controller
+		end
+		
+		public func void onAction( ActionEvent event )
+			pController.getTestParameter().activateNextValue()
+			pController.onActiveValueChanged()
+		end
+	end
+	
+	
+	
+	private var TestParameter pTestParameter
+	private var DefaultTextModel pModelValue
+	
+	
+	
+	/**
+	 * \brief Create user interface window.
+	 */
+	public func new( TestParameter parameter )
+		pTestParameter = parameter
+		
+		if parameter.getActiveValue() != null
+			pModelValue = DefaultTextModel.new( parameter.getActiveValue().getName() )
+			
+		else
+			pModelValue = DefaultTextModel.new( "- - -" )
+		end
+		
+		runWhileBlockingLayout( block
+			buildContent()
+		end )
+	end
+	
+	
+	
+	/** \brief Test parameter. */
+	public func TestParameter getTestParameter()
+		return pTestParameter
+	end
+	
+	
+	
+	/** \brief Active parameter value changed. */
+	public func void onActiveValueChanged()
+		if pTestParameter.getActiveValue() != null
+			pModelValue.setText( pTestParameter.getActiveValue().getName() )
+			
+		else
+			pModelValue.setText( "- - -" )
+		end
+	end
+	
+	/** \brief Build content (called by constructor). */
+	protected func void buildContent()
+		setDesignerSelector( "Panel.ParameterController.CycleControl" )
+		setLayout( BoxLayout.new( LayoutAxis.x ) )
+		
+		var Label label = Label.new( pTestParameter.getName() )
+		label.setDesignerSelector( "Label.ParameterController.Name" )
+		addWidget( label )
+		
+		var Button button = Button.new( "<", ActivatePrevValue.new( this ) )
+		button.setDesignerSelector( "Button.ParameterController.PrevValue" )
+		addWidget( button )
+		
+		label = Label.new( pModelValue )
+		label.setDesignerSelector( "Label.ParameterController.Value" )
+		label.addMouseListener( SelectFromList.new( this ) )
+		addWidget( label )
+		
+		button = Button.new( ">", ActivateNextValue.new( this ) )
+		button.setDesignerSelector( "Button.ParameterController.NextValue" )
+		addWidget( button )
+	end
+end

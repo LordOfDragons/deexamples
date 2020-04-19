@@ -1,0 +1,53 @@
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.Preloading
+pin Dragengine.TriggerSystem
+
+
+// If players runs fire a trigger target. The Trigger element provides the basic implementation
+// for all kinds of triggers firing a trigger target due to a specific logic. All we need to do
+// is to define the logic. For this the element is added as thinker and checks during think()
+// if the player runs.
+class TriggerPlayerRuns extends BehaviorElement
+	public var TSNamedTriggerTarget target
+	
+	
+	// Create trigger
+	public func new(TriggerPlayerRunsClass eclass) super(eclass)
+		setRequiresThink(true)
+	end
+	
+	
+	// Init element
+	public func void init(StubElement stub)
+		super.init(stub)
+		var TriggerPlayerRunsClass eclass = getClass() cast TriggerPlayerRunsClass
+		target = TSNamedTriggerTarget.new(eclass.target.getValue(stub))
+	end
+	
+	
+	// Add element to game world.
+	public func void addToGameWorld()
+		super.addToGameWorld()
+		target.acquireTarget(BaseGameApp.getApp().getTriggerTable())
+	end
+	
+	
+	// Remove element from game world.
+	public func void removeFromGameWorld()
+		super.removeFromGameWorld()
+		target.dropTarget()
+	end
+	
+	
+	// Check if player runs and update target trigger accordingly
+	public func void think(float elapsed)
+		if PlayerActor.getPlayer().getPlayerInputMove().getRun()
+			target.fire()
+			
+		else
+			target.reset()
+		end
+	end
+end

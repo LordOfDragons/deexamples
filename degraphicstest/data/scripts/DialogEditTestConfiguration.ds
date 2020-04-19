@@ -1,0 +1,793 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Commands
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.LoadSave
+pin Dragengine.Utils
+pin Dragengine.XML
+
+
+
+/**
+ * \brief Dialog edit test configuration.
+ */
+class DialogEditTestConfiguration extends WindowDialog
+	/** \brief Save action configuration. */
+	class SaveConfiguration implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			if pDialog.isAllInputValid() and pDialog.saveConfiguration()
+				pDialog.close()
+			end
+		end
+	end
+	
+	/** \brief Reset parameters action. */
+	class ResetParameters implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.resetParameters()
+		end
+	end
+	
+	/** \brief Show module parameter information. */
+	class ShowModuleParameterInfo implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.showModuleParameterInfo()
+		end
+	end
+	
+	/** \brief TestParameter list element renderer. */
+	class ParamLER extends DefaultListElementRenderer
+		public func new()
+		end
+		
+		public func void updateRenderer( ListBox listBox, Widget renderer, Object object, \
+		bool selected, bool focused )
+			var String text
+			
+			if object != null
+				text = ( object cast TestParameter ).getName()
+				
+			else
+				text = String.new( 'X', 20 )  // for default size calculation only
+			end
+			
+			super.updateRenderer( listBox, renderer, text, selected, focused )
+		end
+	end
+	
+	/** \brief Add parameter action. */
+	class AddParameter implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.addParameter()
+		end
+	end
+	
+	/** \brief Remove parameter action. */
+	class RemoveParameter implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.removeParameter()
+		end
+	end
+	
+	/** \brief Move parameter action. */
+	class MoveParameter implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		private var int pDirection
+		
+		public func new( DialogEditTestConfiguration dialog, int direction )
+			pDialog = dialog
+			pDirection = direction
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.moveParameter( pDirection )
+		end
+	end
+	
+	/** \brief Select parameterlistener. */
+	class SelectParameter extends DefaultListModelListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void selectionChanged( ListModel listModel )
+			pDialog.saveParameter()
+			pDialog.loadParameter()
+		end
+	end
+	
+	/** \brief Parameter name widget lost focus. */
+	class ParameterNameDefocus extends DefaultFocusListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onFocusLost( FocusEvent event )
+			var DefaultTextModel modelName = pDialog.getModelParameterName()
+			var DefaultListModel modelParams = pDialog.getModelParameters()
+			var TestParameter parameter = pDialog.getEditParameter()
+			
+			if parameter != null and not modelName.getText().equals( parameter.getName() )
+				var String name = modelName.getText()
+				var int counter = 2
+				while modelParams.find( block TestParameter each
+					return each.getName().equals( name )
+				end ) != null
+					name = modelName.getText() + "_" + counter++
+				end
+				
+				if not name.equals( modelName.getText() )
+					modelName.setText( name )
+				end
+				
+				pDialog.saveParameter()
+				var int index = modelParams.indexOf( parameter )
+				modelParams.notifyContentChanged( index, index )
+			end
+		end
+	end
+	
+	/** \brief TestParameterValue list element renderer. */
+	class ParamValueLER extends DefaultListElementRenderer
+		public func new()
+		end
+		
+		public func void updateRenderer( ListBox listBox, Widget renderer, Object object, \
+		bool selected, bool focused )
+			var String text
+			
+			if object != null
+				var TestParameterValue value = object cast TestParameterValue
+				text = value.getName() + ": " + value.getValue()
+				
+			else
+				text = String.new( 'X', 15 )  // for default size calculation only
+			end
+			
+			super.updateRenderer( listBox, renderer, text, selected, focused )
+		end
+	end
+	
+	/** \brief Add parameter value action. */
+	class AddParameterValue implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.addParameterValue()
+		end
+	end
+	
+	/** \brief Remove parameter value action. */
+	class RemoveParameterValue implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.removeParameterValue()
+		end
+	end
+	
+	/** \brief Rename parameter value action. */
+	class RenameParameterValue implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.renameParameterValue()
+		end
+	end
+	
+	/** \brief Edit parameter value action. */
+	class EditParameterValue implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		
+		public func new( DialogEditTestConfiguration dialog )
+			pDialog = dialog
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.editParameterValue()
+		end
+	end
+	
+	/** \brief Move parameter value action. */
+	class MoveParameterValue implements ActionListener
+		private var DialogEditTestConfiguration pDialog
+		private var int pDirection
+		
+		public func new( DialogEditTestConfiguration dialog, int direction )
+			pDialog = dialog
+			pDirection = direction
+		end
+		
+		public func void onAction( ActionEvent event )
+			pDialog.moveParameterValue( pDirection )
+		end
+	end
+	
+	
+	
+	private var TestConfiguration pTestConfiguration
+	private var TestParameter pEditParameter
+	private var DefaultListModel pModelParameters
+	private var Panel pPanelParameter
+	private var DefaultTextModel pModelParameterName
+	private var DefaultListModel pModelModuleParameter
+	private var DefaultTextModel pModelEditModuleParameter
+	private var ComboBox pComboModuleParameter
+	private var DefaultTextModel pModelSendCommands
+	private var ComboBox pComboDefaultValue
+	private var DefaultListModel pModelValues
+	private var ListBox pListValues
+	
+	// binding
+	
+	
+	
+	/** \brief Create dialog. */
+	public func new()
+		pModelParameters = DefaultListModel.new()
+		pModelParameterName = DefaultTextModel.new()
+		pModelModuleParameter = DefaultListModel.new()
+		pModelEditModuleParameter = DefaultTextModel.new()
+		pModelSendCommands = DefaultTextModel.new()
+		pModelValues = DefaultListModel.new()
+		updateModelModuleParameters()
+		
+		this.runWhileBlockingLayout( block
+			setTitle( "Edit Test Configuration" )
+			setLayout( BorderLayout.new( 2 ) )
+			buildContent()
+		end )
+		
+		pTestConfiguration = TestConfiguration.new( \
+			GraphicsTestApp.getGTApp().getWindowUI().getTestConfiguration() )
+		resetParameters()
+	end
+	
+	/** \brief Dispose of window. */
+	public func void dispose()
+		super.dispose()
+		pModelParameterName = null
+		pComboModuleParameter = null
+		pModelEditModuleParameter = null
+		pModelModuleParameter = null
+		pModelSendCommands = null
+		pComboDefaultValue = null
+		pModelValues = null
+		pListValues = null
+		pPanelParameter = null
+		pModelParameters = null
+	end
+	
+	
+	
+	/** \brief Edit test parameter. */
+	public func TestParameter getEditParameter()
+		return pEditParameter
+	end
+	
+	/** \brief Test parameter model with String names. */
+	public func DefaultListModel getModelParameters()
+		return pModelParameters
+	end
+	
+	/** \brief Parameter name model. */
+	public func DefaultTextModel getModelParameterName()
+		return pModelParameterName
+	end
+	
+	
+	
+	/** \brief Reset parameters model. */
+	public func void resetParameters()
+		pModelParameters.removeAll()
+		pTestConfiguration.forEachParameter( block TestParameter each
+			pModelParameters.add( TestParameter.new( each ) )
+		end )
+	end
+	
+	/** \brief Load parameter into model. */
+	public func void loadParameter()
+		var TestParameter parameter
+		if pModelParameters.getSelected() != -1
+			parameter = pModelParameters.getAt( pModelParameters.getSelected() ) cast TestParameter
+		end
+		
+		if parameter != null
+			pModelParameterName.setText( parameter.getName() )
+			
+			if parameter.getModuleParameter() != null
+				pModelEditModuleParameter.setText( parameter.getModuleParameter() )
+				
+			else
+				pModelEditModuleParameter.setText( "" )
+			end
+			
+			if parameter.getSendCommands().getCount() > 0
+				pModelSendCommands.setText( parameter.getSendCommands().fold( \
+					block String folded, String each
+						return folded + "\n" + each
+					end ) cast String )
+				
+			else
+				pModelSendCommands.setText( "" )
+			end
+			
+			pModelValues.setContent( parameter.getModelValues().getContent() )
+			pComboDefaultValue.setSelectedElement( pModelValues.indexOf( parameter.getDefaultValue() ) )
+			
+			pPanelParameter.setEnabled( true )
+			
+		else
+			pPanelParameter.setEnabled( false )
+			pModelParameterName.setText( "" )
+			pModelEditModuleParameter.setText( "" )
+			pModelSendCommands.setText( "" )
+			pModelValues.removeAll()
+			pComboDefaultValue.setSelectedElement( -1 )
+		end
+		
+		pEditParameter = parameter
+	end
+	
+	/** \brief Save parameter from model. */
+	public func void saveParameter()
+		if pEditParameter == null
+			return
+		end
+		
+		pEditParameter.setName( pModelParameterName.getText() )
+		
+		if pModelEditModuleParameter.getText().empty()
+			pEditParameter.setModuleParameter( null )
+			
+		else
+			pEditParameter.setModuleParameter( pModelEditModuleParameter.getText() )
+		end
+		
+		pEditParameter.getSendCommands().removeAll()
+		pModelSendCommands.getText().split( '\n' ).forEach( block String each
+			pEditParameter.getSendCommands().add( each )
+		end )
+		
+		pEditParameter.getModelValues().setContent( pModelValues.getContent() )
+		
+		if pComboDefaultValue.getSelectedElement() != -1
+			pEditParameter.setDefaultValue( pModelValues.getAt( \
+				pComboDefaultValue.getSelectedElement() ) cast TestParameterValue )
+			
+		else
+			pEditParameter.setDefaultValue( null )
+		end
+		
+		var int index = pModelParameters.indexOf( pEditParameter )
+		pModelParameters.notifyContentChanged( index, index )
+	end
+	
+	/** \brief Show module parameter information if valid. */
+	public func void showModuleParameterInfo()
+		var String name = pModelEditModuleParameter.getText()
+		var ModuleParameter parameter = GraphicSystem.getParameterInfo( name )
+		var Array info = Array.new()
+		
+		if parameter != null
+			info.add( parameter.getDescription() )
+			info.add( "" )
+			
+			select parameter.getType()
+			case ModuleParameterType.boolean
+				info.add( "Type: Boolean" )
+				
+			case ModuleParameterType.numeric
+				info.add( "Type: Numeric" )
+				
+			case ModuleParameterType.ranged
+				info.add( "Type: Range" )
+				info.add( "Minimum Value: " + parameter.getMinimumValue() )
+				info.add( "Maximum Value: " + parameter.getMaximumValue() )
+				info.add( "Value Step: " + parameter.getValueStepSize() )
+				
+			case ModuleParameterType.selection
+				var Array values = Array.new()
+				var int i, count = parameter.getSelectionEntryCount()
+				for i = 0 to count
+					values.add( parameter.getSelectionEntryValueAt( i ) + "(" + i + ")" )
+				end
+				if values.getCount() == 0
+					values.add( "??" )
+				end
+				info.add( "Values: " + values.fold( block String folded, String each
+					return folded + ", " + each
+				end ) )
+				
+			case ModuleParameterType.string
+				info.add( "Type: String" )
+				
+			else
+				info.add( "Type: ??" )
+			end
+			
+		else
+			info.add( "No module parameter with this name exists" )
+		end
+		
+		var String message = info.fold( block String folded, String each
+			return folded + "\n" + each
+		end ) cast String
+		
+		WindowDialog.message( this, "Module Parameter '" + name + "'", message, null, null, null )
+	end
+	
+	/** \brief Add parameter. */
+	public func void addParameter()
+		var String name = "Parameter"
+		var int counter = 2
+		while pModelParameters.find( block TestParameter each
+			return each.getName().equals( name )
+		end ) != null
+			name = "Parameter" + counter++
+		end
+		
+		pModelParameters.add( TestParameter.new( name ) )
+		pModelParameters.setSelected( pModelParameters.getCount() - 1 )
+	end
+	
+	/** \brief Remove parameter. */
+	public func void removeParameter()
+		var int index = pModelParameters.getSelected()
+		if index == -1
+			return
+		end
+		
+		pModelParameters.removeFrom( index )
+	end
+	
+	/** \brief Move parameter. */
+	public func void moveParameter( int direction )
+		var int index = pModelParameters.getSelected()
+		if index == -1
+			return
+		end
+		
+		var int moved = DEMath.clamp( index + direction, 0, pModelParameters.getCount() - 1 )
+		if moved == index
+			return
+		end
+		
+		var Array content = pModelParameters.getContent()
+		content.move( index, moved )
+		pModelParameters.setContent( content )
+		pModelParameters.setSelected( moved )
+	end
+	
+	/** \brief Add parameter value. */
+	public func void addParameterValue()
+		if pEditParameter == null
+			return
+		end
+		
+		var String name = "Value"
+		var int counter = 2
+		while pModelValues.find( block TestParameterValue each
+			return each.getName().equals( name )
+		end ) != null
+			name = "Value" + counter++
+		end
+		
+		pModelValues.add( TestParameterValue.new( name, "Value", "" ) )
+		pListValues.setSelectedElement( pModelValues.getCount() - 1 )
+	end
+	
+	/** \brief Rename parameter value. */
+	public func void renameParameterValue()
+		var int index = pListValues.getSelectedElement()
+		if pEditParameter == null or index == -1
+			return
+		end
+		
+		var TestParameterValue value = pModelValues.getAt( index ) cast TestParameterValue
+		
+		WindowDialog.input( this, "Rename Parameter Value", "Name:", \
+			null, value.getName(), null, null, BlockResultListener.new( block String result
+				if result != null and pModelValues.find( block TestParameterValue each
+					return each.getName().equals( result )
+				end ) == null
+					pModelValues.setAt( index, TestParameterValue.new( \
+						result, value.getValue(), value.getDescription() ) )
+				end
+			end ) )
+	end
+	
+	/** \brief Edit parameter value. */
+	public func void editParameterValue()
+		if pEditParameter == null
+			return
+		end
+		
+		var int index = pListValues.getSelectedElement()
+		var TestParameterValue value
+		
+		if index != -1
+			value = pModelValues.getAt( index ) cast TestParameterValue
+		end
+		
+		WindowDialog.input( this, "Edit Parameter Value", value.getName() + ":", \
+			null, value.getValue(), null, null, BlockResultListener.new( block String result
+				if result != null
+					pModelValues.setAt( index, TestParameterValue.new( \
+						value.getName(), result, value.getDescription() ) )
+				end
+			end ) )
+	end
+	
+	/** \brief Remove parameter value. */
+	public func void removeParameterValue()
+		var int index = pListValues.getSelectedElement()
+		if pEditParameter == null or index == -1
+			return
+		end
+		
+		pModelValues.removeFrom( index )
+		pListValues.setSelectedElement( DEMath.min( index, pModelValues.getCount() - 1 ) )
+	end
+	
+	/** \brief Remove parameter value. */
+	public func void moveParameterValue( int direction )
+		var int index = pListValues.getSelectedElement()
+		if pEditParameter == null or index == -1
+			return
+		end
+		
+		var int moved = DEMath.clamp( index + direction, 0, pModelValues.getCount() - 1 )
+		if moved == index
+			return
+		end
+		
+		var TestParameterValue defaultValue
+		if pComboDefaultValue.getSelectedElement() != -1
+			defaultValue = pModelValues.getAt( \
+				pComboDefaultValue.getSelectedElement() ) cast TestParameterValue
+		end
+		
+		var Array content = pModelValues.getContent()
+		content.move( index, moved )
+		pModelValues.setContent( content )
+		pListValues.setSelectedElement( moved )
+		
+		pComboDefaultValue.setSelectedElement( pModelValues.indexOf( defaultValue ) )
+	end
+	
+	
+	
+	/**
+	 * \brief Verify input.
+	 * \returns \em true if all input is valid.
+	 */
+	public func bool isAllInputValid()
+		saveParameter()
+		return true
+	end
+	
+	/**
+	 * \brief Save configuration.
+	 * \returns \em true if saving succeeded or false otherwise.
+	 */
+	public func bool saveConfiguration()
+		var WindowUI windowUI = GraphicsTestApp.getGTApp().getWindowUI()
+		
+		pEditParameter = null
+		
+		pTestConfiguration.removeAllParameters()
+		pModelParameters.forEach( block TestParameter each
+			pTestConfiguration.addParameter( each )
+		end )
+		pModelParameters.removeAll()
+		
+		try
+			LoadTestConfiguration.new().saveToFile( windowUI.getPathTestConfiguration(), pTestConfiguration )
+			
+		catch Exception e
+			var String message = "Failed saving test configuration to '" \
+				+ windowUI.getPathTestConfiguration() + "'."
+			BaseGameApp.getApp().getConsole().addError( message, e )
+			WindowDialog.message( this, "Save Test Configuration", message, null, null, null )
+			return false
+		end
+		
+		windowUI.setTestConfiguration( pTestConfiguration )
+		return true
+	end
+	
+	
+	
+	/** \brief Add graphic module parameters to model. */
+	protected func void updateModelModuleParameters()
+		var Array names = Array.new()
+		var int i, count = GraphicSystem.getParameterCount()
+		for i = 0 to count
+			names.add( GraphicSystem.getParameterInfo( i ).getName() )
+		end
+		pModelModuleParameter.setContent( names.sorted() )
+	end
+	
+	/** \brief Build window content (called from constructor). */
+	protected func void buildContent()
+		addWidget( createPanelParameters(), BorderLayout.Area.content )
+		addWidget( createButtonsActions( \
+			Array.newWith( \
+				ButtonConfiguration.new( "Save" ), \
+				ButtonConfiguration.new( "Reset" ), \
+				ButtonConfiguration.new( "Cancel" ) ), \
+			Array.newWith( \
+				SaveConfiguration.new( this ), \
+				ResetParameters.new( this ), \
+				CloseDialog.new( this ) ) ), BorderLayout.Area.bottom )
+	end
+	
+	/** \brief Create parameters panel. */
+	protected func Panel createPanelParameters()
+		var Panel panel = Panel.new()
+		panel.runWhileBlockingLayout( block
+			// parameters list is on the left side. parameter definition on the right side
+			panel.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
+			
+			panel.addWidget( createPanelListParameters() )
+			
+			pPanelParameter = createPanelParameter()
+			panel.addWidget( pPanelParameter )
+			pPanelParameter.setEnabled( false )
+		end )
+		return panel
+	end
+	
+	/** \brief Create list parameters panel. */
+	protected func Panel createPanelListParameters()
+		var Panel panel = Panel.new()
+		panel.runWhileBlockingLayout( block
+			panel.setLayout( FlowLayout.new( LayoutAxis.y, 2, FlowLayout.Stretch.first ) )
+			
+			var ListBox listBox = ListBox.new( pModelParameters, ParamLER.new() )
+			pModelParameters.addListener( SelectParameter.new( this ) )
+			panel.addWidget( ScrollPanel.new( listBox, \
+				ScrollPanel.Policy.hidden, ScrollPanel.Policy.visible ) )
+			
+			var Panel buttons = Panel.new()
+			buttons.runWhileBlockingLayout( block
+				buttons.setLayout( GridLayout.new( 4, 1, 2 ) )
+				buttons.addWidget( Button.new( "Add", AddParameter.new( this ) ) )
+				buttons.addWidget( Button.new( "Remove", RemoveParameter.new( this ) ) )
+				buttons.addWidget( Button.new( "Up", MoveParameter.new( this, -1 ) ) )
+				buttons.addWidget( Button.new( "Down", MoveParameter.new( this, 1 ) ) )
+			end )
+			panel.addWidget( buttons )
+		end )
+		return panel
+	end
+	
+	/** \brief Create parameter panel. */
+	protected func Panel createPanelParameter()
+		var Panel panel = Panel.new()
+		panel.runWhileBlockingLayout( block
+			panel.setLayout( FormLayout.new( true, 5, 5 ) )
+			
+			panel.addWidget( Label.new( "Name:", Label.middleLeft ) )
+			var TextField textField = TextField.new( pModelParameterName, 20 )
+			panel.addWidget( textField )
+			textField.addFocusListener( ParameterNameDefocus.new( this ) )
+			
+			panel.addWidget( Label.new( "Module Parameter:", Label.middleLeft ) )
+			var Panel line = Panel.new()
+			line.setLayout( FlowLayout.new( LayoutAxis.x, 2, FlowLayout.Stretch.first ) )
+			pComboModuleParameter = ComboBox.new( pModelModuleParameter, \
+				DefaultListElementRenderer.new( String.new( 'X', 20 ) ), \
+				DefaultComboBoxEditor.new( pModelEditModuleParameter ) )
+			pComboModuleParameter.setNumberDisplayLines( 12 )
+			line.addWidget( pComboModuleParameter )
+			line.addWidget( Button.new( "...", ShowModuleParameterInfo.new( this ) ) )
+			panel.addWidget( line )
+			
+			panel.addWidget( Label.new( "Send Commands:\n({value}=selected)", Label.topLeft ) )
+			panel.addWidget( ScrollPanel.new( TextArea.new( pModelSendCommands, 4 ), \
+				ScrollPanel.Policy.visible, ScrollPanel.Policy.visible ) )
+			
+			panel.addWidget( Label.new( "Default Value:", Label.topLeft ) )
+			pComboDefaultValue = ComboBox.new( pModelValues, \
+				DefaultListElementRenderer.new( String.new( 'X', 20 ) ) )
+			panel.addWidget( pComboDefaultValue )
+			
+			panel.addWidget( Label.new( "Values:", Label.topLeft ) )
+			panel.addWidget( createPanelParameterValues() )
+		end )
+		return panel
+	end
+	
+	/** \brief Create list parameter values panel. */
+	protected func Panel createPanelParameterValues()
+		var Panel panel = Panel.new()
+		panel.runWhileBlockingLayout( block
+			panel.setLayout( FlowLayout.new( LayoutAxis.y, 2, FlowLayout.Stretch.first ) )
+			
+			pListValues = ListBox.new( pModelValues, ParamValueLER.new() )
+			panel.addWidget( ScrollPanel.new( pListValues, \
+				ScrollPanel.Policy.hidden, ScrollPanel.Policy.visible ) )
+			
+			var Panel buttons = Panel.new()
+			buttons.runWhileBlockingLayout( block
+				buttons.setLayout( GridLayout.new( 3, 2, 2 ) )
+				buttons.addWidget( Button.new( "Add", AddParameterValue.new( this ) ) )
+				buttons.addWidget( Button.new( "Rename", RenameParameterValue.new( this ) ) )
+				buttons.addWidget( Button.new( "Up", MoveParameterValue.new( this, -1 ) ) )
+				buttons.addWidget( Button.new( "Remove", RemoveParameterValue.new( this ) ) )
+				buttons.addWidget( Button.new( "Edit", EditParameterValue.new( this ) ) )
+				buttons.addWidget( Button.new( "Down", MoveParameterValue.new( this, 1 ) ) )
+			end )
+			panel.addWidget( buttons )
+		end )
+		return panel
+	end
+end

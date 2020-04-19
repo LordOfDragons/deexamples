@@ -1,0 +1,92 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Load test world loader.
+ * 
+ * Loads game world showing a WindowLoading. Once finished finishes setting up world.
+ * 
+ * Uses WindowGameWorld.Loader as super class to directly update the WindowGameWorld
+ * created by BaseGameApp.
+ */
+class LoadTestWorld extends WindowGameWorld.Loader
+	private var TestWorld pTestWorld
+	
+	
+	
+	/**
+	 * \brief Create start game loader.
+	 * 
+	 * \param window Game world window from BaseGameApp.
+	 * \param pathWorld Path to world file to load
+	 */
+	public func new( WindowGameWorld window, TestWorld testWorld ) super( window )
+		pTestWorld = testWorld
+		setPathWorld( testWorld.getPathWorld() )
+	end
+	
+	/**
+	 * \brief Create loading window.
+	 * 
+	 * Modified to place the loading window under the user interface window and to
+	 * not make it grab the focus.
+	 */
+	protected func void createLoadingWindow()
+		var BaseGameApp app = BaseGameApp.getApp()
+		
+		var WindowLoading window = WindowLoading.new()
+		window.setCanActivate( false )  // avoid stealing focus
+		
+		window.getModelText().setText( "Loading\n" + pTestWorld )
+		this.setWindowLoading( window )
+		
+		app.getDesktop().addWindow( window )
+		window.moveAbove( getWindow() )
+	end
+	
+	/**
+	 * \brief Loading world finished successfully.
+	 */
+	public func void onLoadWorldFinished()
+		pTestWorld.finishLoadWorld( getStubWorld().getGameWorld() )
+		super.onLoadWorldFinished()
+		GraphicsTestApp.getGTApp().finishLoadGameWorld( pTestWorld )
+	end
+	
+	/**
+	 * \brief Loading world failed.
+	 * 
+	 * This method is called if any exceptions are thrown during loading the game world
+	 * or if problems with element classes have been found.
+	 */
+	public func void onLoadWorldFailed()
+		super.onLoadWorldFailed()
+		BaseGameApp.getApp().cancelLoadGameWorld()
+	end
+end

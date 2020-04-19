@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Pole' class='SimpleElement'>
+	<string name='component.model'>pole.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>pole.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='pole'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.0470588' g='0.0470588' b='0.203922'/>
+			<map key='transform'>
+				<vector2 key='scale' x='4' y='4'/>
+			</map>
+		</map>
+		<map key='pole top'>
+			<string key='skin'>/material/metal/gold.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='ornament'>
+			<string key='skin'>/material/metal/gold.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

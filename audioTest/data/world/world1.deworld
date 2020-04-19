@@ -1,0 +1,3841 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<world>
+	<gravity x='0' y='-9.81' z='0'/>
+	<ambientLight r='1' g='1' b='1'/>
+	<nextObjectID>264</nextObjectID>
+	
+	<object id='1'>
+		<classname>Room1</classname>
+		<position x='0' y='0' z='0'/>
+	</object>
+	<object id='2'>
+		<classname>SpeakerMount1</classname>
+		<position x='0' y='0' z='-4'/>
+		<property key='component.renderEnvMap'>0</property>
+	</object>
+	<object id='3'>
+		<classname>CeilingLampRoom</classname>
+		<position x='1.5' y='2.5' z='-1.5'/>
+	</object>
+	<object id='4'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-1.5' y='2.5' z='-1.5'/>
+	</object>
+	<object id='5'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-1.5' y='2.5' z='-6.5'/>
+	</object>
+	<object id='6'>
+		<classname>CeilingLampRoom</classname>
+		<position x='1.5' y='2.5' z='-6.5'/>
+	</object>
+	<object id='8'>
+		<classname>DoorFrame</classname>
+		<position x='0' y='0' z='0.05'/>
+	</object>
+	<object id='9'>
+		<classname>SpawnPoint</classname>
+		<position x='-11.5' y='0' z='1'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='name'>player</property>
+	</object>
+	<object id='a'>
+		<classname>BaseSpeaker</classname>
+		<position x='0' y='1.6' z='-4'/>
+		<property key='speaker.sound'>/sound/engine1.ogg</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='b'>
+		<classname>EnvironmentMap</classname>
+		<position x='5' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='d'>
+		<classname>HallwayStraight1</classname>
+		<position x='0' y='0' z='1'/>
+	</object>
+	<object id='e'>
+		<classname>EnvironmentMap</classname>
+		<position x='-5' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='f'>
+		<classname>CeilingLampHallway</classname>
+		<position x='5' y='2.5' z='1'/>
+	</object>
+	<object id='10'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-5' y='2.5' z='1'/>
+	</object>
+	<object id='11'>
+		<classname>RoomLabelPlate</classname>
+		<position x='-1.2' y='1.6' z='0.1'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/commonRoom.deskin</skin>
+		</texture>
+	</object>
+	<object id='12'>
+		<classname>HallwayDeadEnd</classname>
+		<position x='-10' y='0' z='1'/>
+	</object>
+	<object id='14'>
+		<classname>CeilingLampRoom</classname>
+		<position x='21.5' y='2.5' z='-6.5'/>
+	</object>
+	<object id='15'>
+		<classname>SpeakerMount1</classname>
+		<position x='20' y='0' z='-4'/>
+		<property key='component.renderEnvMap'>0</property>
+	</object>
+	<object id='16'>
+		<classname>BaseSpeaker</classname>
+		<position x='20' y='1.6' z='-4'/>
+		<property key='speaker.sound'>/sound/water.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='17'>
+		<classname>CeilingLampRoom</classname>
+		<position x='21.5' y='2.5' z='-1.5'/>
+	</object>
+	<object id='18'>
+		<classname>CeilingLampRoom</classname>
+		<position x='18.5' y='2.5' z='-6.5'/>
+	</object>
+	<object id='19'>
+		<classname>CeilingLampRoom</classname>
+		<position x='18.5' y='2.5' z='-1.5'/>
+	</object>
+	<object id='1b'>
+		<classname>RoomLabelPlate</classname>
+		<position x='18.8' y='1.6' z='0.1'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/openings.deskin</skin>
+		</texture>
+	</object>
+	<object id='1c'>
+		<classname>Room1</classname>
+		<position x='20' y='0' z='0'/>
+	</object>
+	<object id='1d'>
+		<classname>DoorFrame</classname>
+		<position x='20' y='0' z='0.05'/>
+	</object>
+	<object id='1e'>
+		<classname>CeilingLampHallway</classname>
+		<position x='25' y='2.5' z='1'/>
+	</object>
+	<object id='1f'>
+		<classname>EnvironmentMap</classname>
+		<position x='25' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='20'>
+		<classname>HallwayStraight1</classname>
+		<position x='20' y='0' z='1'/>
+	</object>
+	<object id='21'>
+		<classname>EnvironmentMap</classname>
+		<position x='15' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='22'>
+		<classname>CeilingLampHallway</classname>
+		<position x='15' y='2.5' z='1'/>
+	</object>
+	<object id='23'>
+		<classname>CeilingLampRoom</classname>
+		<position x='41.5' y='2.5' z='-6.5'/>
+	</object>
+	<object id='24'>
+		<classname>SpeakerMount1</classname>
+		<position x='40' y='0' z='-4'/>
+		<property key='component.renderEnvMap'>0</property>
+	</object>
+	<object id='25'>
+		<classname>BaseSpeaker</classname>
+		<position x='40' y='1.6' z='-4'/>
+		<property key='speaker.sound'>/sound/engine1.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='26'>
+		<classname>CeilingLampRoom</classname>
+		<position x='41.5' y='2.5' z='-1.5'/>
+	</object>
+	<object id='27'>
+		<classname>CeilingLampRoom</classname>
+		<position x='38.5' y='2.5' z='-6.5'/>
+	</object>
+	<object id='28'>
+		<classname>CeilingLampRoom</classname>
+		<position x='38.5' y='2.5' z='-1.5'/>
+	</object>
+	<object id='2a'>
+		<classname>RoomLabelPlate</classname>
+		<position x='38.8' y='1.6' z='0.1'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/thickness.deskin</skin>
+		</texture>
+	</object>
+	<object id='2b'>
+		<classname>Room1</classname>
+		<position x='40' y='0' z='0'/>
+	</object>
+	<object id='2c'>
+		<classname>DoorFrame</classname>
+		<position x='40' y='0' z='0.05'/>
+	</object>
+	<object id='2d'>
+		<classname>CeilingLampHallway</classname>
+		<position x='45' y='2.5' z='1'/>
+	</object>
+	<object id='2e'>
+		<classname>EnvironmentMap</classname>
+		<position x='45' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='2f'>
+		<classname>HallwayStraight1</classname>
+		<position x='40' y='0' z='1'/>
+	</object>
+	<object id='30'>
+		<classname>EnvironmentMap</classname>
+		<position x='35' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='31'>
+		<classname>CeilingLampHallway</classname>
+		<position x='35' y='2.5' z='1'/>
+	</object>
+	<object id='32'>
+		<classname>HallwayCorner</classname>
+		<position x='50' y='0' z='2.9'/>
+	</object>
+	<object id='33'>
+		<classname>Blinds1</classname>
+		<position x='20' y='0' z='-4'/>
+	</object>
+	<object id='35'>
+		<classname>Blinds2</classname>
+		<position x='40' y='0' z='-4'/>
+	</object>
+	<object id='36'>
+		<classname>RoomLabelPlate</classname>
+		<position x='39.95' y='2' z='-3'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/wall5cm.deskin</skin>
+		</texture>
+	</object>
+	<object id='37'>
+		<classname>RoomLabelPlate</classname>
+		<position x='39.95' y='2' z='-5'/>
+		<rotation x='0' y='180' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/wall30cm.deskin</skin>
+		</texture>
+	</object>
+	<object id='38'>
+		<classname>RoomLabelPlate</classname>
+		<position x='38.9' y='2' z='-4'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/wall20cm.deskin</skin>
+		</texture>
+	</object>
+	<object id='39'>
+		<classname>RoomLabelPlate</classname>
+		<position x='41.2' y='2' z='-4'/>
+		<rotation x='0' y='-90' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/wall40cm.deskin</skin>
+		</texture>
+	</object>
+	<object id='3a'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.5' y='1.65' z='1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,1.5,1.25,1.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,1.55,1.3,1.55</property>
+	</object>
+	<object id='3b'>
+		<classname>EnvironmentMap</classname>
+		<position x='51.5' y='1.65' z='1.5'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,1.5,1.25,1.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,1.55,1.3,1.55</property>
+	</object>
+	<object id='3c'>
+		<classname>EnvironmentMap</classname>
+		<position x='51.4' y='1.65' z='24.4'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,1.5,1.25,1.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,1.55,1.3,1.55</property>
+	</object>
+	<object id='3d'>
+		<classname>HallwayCorner</classname>
+		<position x='50' y='0' z='22.9'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='3e'>
+		<classname>CeilingLampHallway</classname>
+		<position x='51.55' y='2.5' z='1.45'/>
+	</object>
+	<object id='3f'>
+		<classname>EnvironmentMap</classname>
+		<position x='35' y='1.65' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='40'>
+		<classname>CeilingLampHallway</classname>
+		<position x='45' y='2.5' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='41'>
+		<classname>CeilingLampHallway</classname>
+		<position x='35' y='2.5' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='42'>
+		<classname>EnvironmentMap</classname>
+		<position x='45' y='1.65' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='43'>
+		<classname>RoomLabelPlate</classname>
+		<position x='41.2' y='1.6' z='25.7'/>
+		<rotation x='0' y='-180' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/smallReverbe.deskin</skin>
+		</texture>
+	</object>
+	<object id='44'>
+		<classname>HallwayStraight1</classname>
+		<position x='40' y='0' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='45'>
+		<classname>DoorFrame</classname>
+		<position x='40' y='0' z='25.75'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='46'>
+		<classname>SpeakerMount1</classname>
+		<position x='40' y='0' z='28.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='component.renderEnvMap'>0</property>
+	</object>
+	<object id='47'>
+		<classname>BaseSpeaker</classname>
+		<position x='40' y='1.6' z='28.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='speaker.sound'>/sound/birds.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='48'>
+		<classname>CeilingLampRoom</classname>
+		<position x='41' y='2.5' z='26.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='49'>
+		<classname>CeilingLampRoom</classname>
+		<position x='41' y='2.5' z='30.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='4a'>
+		<classname>CeilingLampRoom</classname>
+		<position x='39' y='2.5' z='26.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='4b'>
+		<classname>CeilingLampRoom</classname>
+		<position x='39' y='2.5' z='30.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='4c'>
+		<classname>EnvironmentMap</classname>
+		<position x='0' y='1.65' z='-4'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,3,1.25,4</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,3.05,1.3,4.05</property>
+	</object>
+	<object id='4d'>
+		<classname>EnvironmentMap</classname>
+		<position x='20' y='1.65' z='-4'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,3,1.25,4</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,3.05,1.3,4.05</property>
+	</object>
+	<object id='4e'>
+		<classname>EnvironmentMap</classname>
+		<position x='40' y='1.65' z='-4'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,3,1.25,4</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,3.05,1.3,4.05</property>
+	</object>
+	<object id='4f'>
+		<classname>EnvironmentMap</classname>
+		<position x='40' y='1.65' z='-2.1'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,-1.9:extends,3,1.25,4</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,-1.9:extends,3.05,1.3,4.05</property>
+	</object>
+	<object id='51'>
+		<classname>EnvironmentMap</classname>
+		<position x='40' y='1.65' z='28.3'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,2,1.25,2.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,2.05,1.3,2.55</property>
+	</object>
+	<object id='52'>
+		<classname>Room2</classname>
+		<position x='40' y='0' z='25.8'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='53'>
+		<classname>EnvironmentMap</classname>
+		<position x='15' y='1.65' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='54'>
+		<classname>CeilingLampHallway</classname>
+		<position x='15' y='2.5' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='55'>
+		<classname>CeilingLampHallway</classname>
+		<position x='25' y='2.5' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='56'>
+		<classname>EnvironmentMap</classname>
+		<position x='25' y='1.65' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='57'>
+		<classname>HallwayStraight1</classname>
+		<position x='20' y='0' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='58'>
+		<classname>RoomLabelPlate</classname>
+		<position x='21.2' y='1.6' z='25.7'/>
+		<rotation x='0' y='-180' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/largeReverbe.deskin</skin>
+		</texture>
+	</object>
+	<object id='59'>
+		<classname>DoorFrame</classname>
+		<position x='20' y='0' z='25.75'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='5a'>
+		<classname>PillarLight</classname>
+		<position x='17.65' y='0.7' z='27.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='5b'>
+		<classname>BaseSpeaker</classname>
+		<position x='20' y='1.6' z='40'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='speaker.sound'>/sound/birds.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='5c'>
+		<classname>EnvironmentMap</classname>
+		<position x='20' y='1.65' z='34.3'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,0.6,0:extends,7,2.25,8.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,0.6,0:extends,7.05,2.3,8.55</property>
+	</object>
+	<object id='5e'>
+		<classname>SpeakerMount1</classname>
+		<position x='20' y='0' z='40'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='61'>
+		<classname>Room3</classname>
+		<position x='20' y='0' z='25.8'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='62'>
+		<classname>Pillar1</classname>
+		<position x='17.3' y='0' z='27.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='64'>
+		<classname>PillarLight</classname>
+		<position x='17.65' y='0.7' z='30.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='65'>
+		<classname>Pillar1</classname>
+		<position x='17.3' y='0' z='30.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='66'>
+		<classname>PillarLight</classname>
+		<position x='17.65' y='0.7' z='33.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='67'>
+		<classname>Pillar1</classname>
+		<position x='17.3' y='0' z='33.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='68'>
+		<classname>PillarLight</classname>
+		<position x='17.65' y='0.7' z='36.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='69'>
+		<classname>Pillar1</classname>
+		<position x='17.3' y='0' z='36.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='6a'>
+		<classname>PillarLight</classname>
+		<position x='17.65' y='0.7' z='39.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='6b'>
+		<classname>Pillar1</classname>
+		<position x='17.3' y='0' z='39.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='6c'>
+		<classname>PillarLight</classname>
+		<position x='17.65' y='0.7' z='42.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='6d'>
+		<classname>Pillar1</classname>
+		<position x='17.3' y='0' z='42.3'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='6e'>
+		<classname>PillarLight</classname>
+		<position x='22.35' y='0.7' z='27.3'/>
+	</object>
+	<object id='6f'>
+		<classname>Pillar1</classname>
+		<position x='22.7' y='0' z='27.3'/>
+	</object>
+	<object id='70'>
+		<classname>PillarLight</classname>
+		<position x='22.35' y='0.7' z='30.3'/>
+	</object>
+	<object id='71'>
+		<classname>Pillar1</classname>
+		<position x='22.7' y='0' z='30.3'/>
+	</object>
+	<object id='72'>
+		<classname>PillarLight</classname>
+		<position x='22.35' y='0.7' z='33.3'/>
+	</object>
+	<object id='73'>
+		<classname>Pillar1</classname>
+		<position x='22.7' y='0' z='33.3'/>
+	</object>
+	<object id='74'>
+		<classname>PillarLight</classname>
+		<position x='22.35' y='0.7' z='36.3'/>
+	</object>
+	<object id='75'>
+		<classname>Pillar1</classname>
+		<position x='22.7' y='0' z='36.3'/>
+	</object>
+	<object id='76'>
+		<classname>PillarLight</classname>
+		<position x='22.35' y='0.7' z='39.3'/>
+	</object>
+	<object id='77'>
+		<classname>Pillar1</classname>
+		<position x='22.7' y='0' z='39.3'/>
+	</object>
+	<object id='78'>
+		<classname>PillarLight</classname>
+		<position x='22.35' y='0.7' z='42.3'/>
+	</object>
+	<object id='79'>
+		<classname>Pillar1</classname>
+		<position x='22.7' y='0' z='42.3'/>
+	</object>
+	<object id='7a'>
+		<classname>Entrance</classname>
+		<position x='20' y='0' z='42.8'/>
+	</object>
+	<object id='7b'>
+		<classname>Railing2</classname>
+		<position x='20' y='0' z='39.7'/>
+	</object>
+	<object id='7f'>
+		<classname>BaseLight</classname>
+		<position x='20' y='4' z='38.3'/>
+		<rotation x='-67.1967' y='0' z='0'/>
+		<property key='light.type'>spot</property>
+		<property key='light.intensity'>8</property>
+		<property key='light.spotExponent'>2</property>
+		<property key='light.halfIntensityDistance'>0.5</property>
+		<property key='light.range'>8</property>
+		<property key='light.ambientRatio'>0</property>
+		<property key='light.color'>1.000000 0.854902 0.462745</property>
+		<property key='light.spotAngle'>40</property>
+	</object>
+	<object id='80'>
+		<classname>Entrance</classname>
+		<position x='20' y='0' z='25.8'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='81'>
+		<classname>Railing1</classname>
+		<position x='16.9' y='0' z='37.8'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='82'>
+		<classname>Railing1</classname>
+		<position x='16.9' y='0' z='34.8'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='83'>
+		<classname>Railing1</classname>
+		<position x='16.9' y='0' z='31.8'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='84'>
+		<classname>Railing1</classname>
+		<position x='16.9' y='0' z='28.8'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='85'>
+		<classname>Railing1</classname>
+		<position x='16.9' y='0' z='40.8'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='86'>
+		<classname>Railing1</classname>
+		<position x='23.1' y='0' z='40.8'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='87'>
+		<classname>Railing1</classname>
+		<position x='23.1' y='0' z='37.8'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='88'>
+		<classname>Railing1</classname>
+		<position x='23.1' y='0' z='34.8'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='89'>
+		<classname>Railing1</classname>
+		<position x='23.1' y='0' z='31.8'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='8a'>
+		<classname>Railing1</classname>
+		<position x='23.1' y='0' z='28.8'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='8b'>
+		<classname>Pole</classname>
+		<position x='17.95' y='0' z='26.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='8c'>
+		<classname>Pole</classname>
+		<position x='22.05' y='0' z='26.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='8d'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.4' y='1.65' z='25.2'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,1.5,1.25,1.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,1.55,1.3,1.55</property>
+	</object>
+	<object id='8e'>
+		<classname>CeilingLampHallway</classname>
+		<position x='10.1' y='2.5' z='24.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='8f'>
+		<classname>HallwayCorner</classname>
+		<position x='-10' y='0' z='26.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='96'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.9' y='2.5' z='41.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='97'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.9' y='1.65' z='41.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='98'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.9' y='2.5' z='31.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='99'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.9' y='1.65' z='31.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='9a'>
+		<classname>DoorFrame</classname>
+		<position x='52.85' y='0' z='12.9'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='9b'>
+		<classname>RoomLabelPlate</classname>
+		<position x='52.8' y='1.6' z='11.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/furnishedRoom.deskin</skin>
+		</texture>
+	</object>
+	<object id='9c'>
+		<classname>HallwayStraight1</classname>
+		<position x='-11.9' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='9d'>
+		<classname>CeilingLampHallway</classname>
+		<position x='5' y='2.5' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='9e'>
+		<classname>EnvironmentMap</classname>
+		<position x='5' y='1.65' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='9f'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-5' y='2.5' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='a0'>
+		<classname>EnvironmentMap</classname>
+		<position x='-5' y='1.65' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='a1'>
+		<classname>DoorFrame</classname>
+		<position x='-2.98023e-07' y='0' z='25.75'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='a2'>
+		<classname>HallwayStraight1</classname>
+		<position x='-2.98023e-07' y='0' z='24.8'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='a3'>
+		<classname>EnvironmentMap</classname>
+		<position x='11.5' y='1.65' z='68.6'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,1.5,1.25,1.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,1.55,1.3,1.55</property>
+	</object>
+	<object id='a4'>
+		<classname>HallwayDeadEnd</classname>
+		<position x='10' y='0' z='68.6'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='a5'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.55' y='2.5' z='25.25'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='a6'>
+		<classname>CeilingLampRoom</classname>
+		<position x='59.4' y='2.5' z='11.4'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='a7'>
+		<classname>CeilingLampRoom</classname>
+		<position x='59.4' y='2.5' z='14.4'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='a8'>
+		<classname>SpeakerMount1</classname>
+		<position x='59.5' y='0' z='14.35'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='a9'>
+		<classname>BaseSpeaker</classname>
+		<position x='59.5' y='1.6' z='14.35'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='speaker.sound'>/sound/engine1.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='aa'>
+		<classname>EnvironmentMap</classname>
+		<position x='56.9' y='1.65' z='12.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,3,1.25,4</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,3.05,1.3,4.05</property>
+	</object>
+	<object id='ab'>
+		<classname>CeilingLampRoom</classname>
+		<position x='54.4' y='2.5' z='14.4'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='ac'>
+		<classname>CeilingLampRoom</classname>
+		<position x='54.4' y='2.5' z='11.4'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='ad'>
+		<classname>Room1</classname>
+		<position x='52.9' y='0' z='12.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='floor'>
+			<skin>/material/carpet/material.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.00784314' g='0.223529' b='0.313726'/>
+		</texture>
+		<texture name='ceiling'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+		</texture>
+	</object>
+	<object id='ae'>
+		<classname>BaseSpeaker</classname>
+		<position x='59.5' y='1.6' z='11.35'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='speaker.sound'>/sound/birds.ogg</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='af'>
+		<classname>SpeakerMount1</classname>
+		<position x='59.5' y='0' z='11.35'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='b0'>
+		<classname>Desk</classname>
+		<position x='59.5' y='0' z='14.35'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='b1'>
+		<classname>Desk</classname>
+		<position x='59.5' y='0' z='11.35'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='b2'>
+		<classname>Chair3</classname>
+		<position x='57.2' y='0' z='14.95'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='b3'>
+		<classname>Chair3</classname>
+		<position x='57.2' y='0' z='14.3'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='b4'>
+		<classname>Chair3</classname>
+		<position x='57.2' y='0' z='13.65'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='b5'>
+		<classname>Chair2</classname>
+		<position x='57.2' y='0' z='12.15'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='b6'>
+		<classname>Chair2</classname>
+		<position x='57.2' y='0' z='11.55'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='b7'>
+		<classname>Chair2</classname>
+		<position x='57.2' y='0' z='10.95'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='bb'>
+		<classname>Chair3</classname>
+		<position x='55.65' y='0' z='14.95'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='bc'>
+		<classname>Chair3</classname>
+		<position x='55.65' y='0' z='14.3'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='bd'>
+		<classname>Chair3</classname>
+		<position x='55.65' y='0' z='13.65'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='be'>
+		<classname>Chair2</classname>
+		<position x='55.65' y='0' z='12.15'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='bf'>
+		<classname>Chair2</classname>
+		<position x='55.65' y='0' z='11.55'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c0'>
+		<classname>Chair2</classname>
+		<position x='55.65' y='0' z='10.95'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c1'>
+		<classname>Chair3</classname>
+		<position x='54.15' y='0' z='14.95'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c2'>
+		<classname>Chair3</classname>
+		<position x='54.15' y='0' z='14.3'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c3'>
+		<classname>Chair3</classname>
+		<position x='54.15' y='0' z='13.65'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c4'>
+		<classname>Chair2</classname>
+		<position x='54.15' y='0' z='12.15'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c5'>
+		<classname>Chair2</classname>
+		<position x='54.15' y='0' z='11.55'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c6'>
+		<classname>Chair2</classname>
+		<position x='54.15' y='0' z='10.95'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='c7'>
+		<classname>Chair</classname>
+		<position x='60.3' y='0' z='14.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='c8'>
+		<classname>Chair</classname>
+		<position x='60.3' y='0' z='13.85'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='c9'>
+		<classname>Chair</classname>
+		<position x='60.3' y='0' z='11.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='ca'>
+		<classname>Chair</classname>
+		<position x='60.3' y='0' z='10.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='ce'>
+		<classname>SpawnPoint</classname>
+		<position x='20.141' y='0' z='32.176'/>
+		<property key='name'>debug1</property>
+	</object>
+	<object id='cf'>
+		<classname>EnvironmentMap</classname>
+		<position x='51.9' y='1.65' z='17.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='d0'>
+		<classname>CeilingLampHallway</classname>
+		<position x='51.9' y='2.5' z='17.9'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='d1'>
+		<classname>EnvironmentMap</classname>
+		<position x='51.9' y='1.65' z='7.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='d2'>
+		<classname>CeilingLampHallway</classname>
+		<position x='51.9' y='2.5' z='7.9'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='d3'>
+		<classname>HallwayStraight1</classname>
+		<position x='51.9' y='0' z='12.9'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='d4'>
+		<classname>CeilingLampHallway</classname>
+		<position x='51.55' y='2.5' z='24.45'/>
+	</object>
+	<object id='d8'>
+		<classname>CeilingLampRoom</classname>
+		<position x='1.5' y='2.5' z='32.3'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='d9'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-1.5' y='2.5' z='32.3'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='da'>
+		<classname>SpeakerMountMoving</classname>
+		<position x='-2.5' y='0' z='29.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.targetMoving'>movingSound.play</property>
+		<property key='moveOnRail.trigger'>@movingSound.move</property>
+		<property key='moveOnRail.rail'>movingSound.train1</property>
+	</object>
+	<object id='db'>
+		<classname>EnvironmentMap</classname>
+		<position x='0' y='1.65' z='28.3'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,-1.5:extends,3,1.25,4</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,-1.5:extends,3.05,1.3,4.05</property>
+	</object>
+	<object id='dc'>
+		<classname>AttachableBaseSpeaker</classname>
+		<position x='-2.5' y='0.25' z='29.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='speaker.sound'>/sound/steps1.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.trigger'>@movingSound.play</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.range'>40</property>
+		<attachTo>da</attachTo>
+	</object>
+	<object id='dd'>
+		<classname>CeilingLampRoom</classname>
+		<position x='1.5' y='2.5' z='27.3'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='de'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-1.5' y='2.5' z='27.3'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='df'>
+		<classname>Room4</classname>
+		<position x='0' y='0' z='25.8'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='e0'>
+		<classname>Railing2</classname>
+		<position x='0' y='0' z='28'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='e1'>
+		<classname>RailCorner</classname>
+		<position x='-2.5' y='0' z='29.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='e2'>
+		<classname>RailCorner</classname>
+		<position x='-2.5' y='0' z='27.3'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='e3'>
+		<classname>RailCorner</classname>
+		<position x='-3.5' y='0' z='27.3'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>2</property>
+	</object>
+	<object id='e4'>
+		<classname>RailCorner</classname>
+		<position x='-3.5' y='0' z='32.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>3</property>
+	</object>
+	<object id='e5'>
+		<classname>RailCorner</classname>
+		<position x='-3.5' y='3' z='32.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>4</property>
+	</object>
+	<object id='e6'>
+		<classname>RailCorner</classname>
+		<position x='-2' y='3' z='32.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>5</property>
+	</object>
+	<object id='e7'>
+		<classname>RailCorner</classname>
+		<position x='2' y='3' z='26.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>6</property>
+	</object>
+	<object id='e8'>
+		<classname>RailCorner</classname>
+		<position x='3.5' y='3' z='26.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>7</property>
+	</object>
+	<object id='e9'>
+		<classname>RailCorner</classname>
+		<position x='3.5' y='0' z='26.8'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>8</property>
+	</object>
+	<object id='ea'>
+		<classname>RailCorner</classname>
+		<position x='3.5' y='0' z='32.25'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>9</property>
+	</object>
+	<object id='eb'>
+		<classname>RailCorner</classname>
+		<position x='-2.5' y='0' z='32.25'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingSound.train1</property>
+		<property key='order'>10</property>
+	</object>
+	<object id='ec'>
+		<classname>TriggerTouch</classname>
+		<position x='0' y='0.5' z='29.2'/>
+		<scaling x='0.5' y='1' z='0.5'/>
+		<property key='touching.target'>movingSound.move</property>
+	</object>
+	<object id='ee'>
+		<classname>DoorFrame</classname>
+		<position x='-3.05' y='0' z='27.3'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.105882' g='0.180392' b='0.611765'/>
+		</texture>
+	</object>
+	<object id='ef'>
+		<classname>DoorFrame</classname>
+		<position x='3.05' y='0' z='32.3'/>
+		<rotation x='0' y='-90' z='0'/>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.611765' g='0.145098' b='0.105882'/>
+		</texture>
+	</object>
+	<object id='f1'>
+		<classname>Chair3</classname>
+		<position x='-1.92315' y='0' z='30.6982'/>
+		<rotation x='0' y='36.2742' z='0'/>
+	</object>
+	<object id='f2'>
+		<classname>Chair3</classname>
+		<position x='-1.01126' y='0' z='31.2038'/>
+		<rotation x='0' y='21.0971' z='0'/>
+	</object>
+	<object id='f3'>
+		<classname>Chair3</classname>
+		<position x='-0.0941991' y='0' z='31.4691'/>
+		<rotation x='0' y='7.12677' z='0'/>
+	</object>
+	<object id='f4'>
+		<classname>Chair3</classname>
+		<position x='1.04603' y='0' z='31.3926'/>
+		<rotation x='0' y='-20.3049' z='0'/>
+	</object>
+	<object id='f5'>
+		<classname>Chair3</classname>
+		<position x='1.80066' y='0' z='30.896'/>
+		<rotation x='0' y='-45.0891' z='0'/>
+	</object>
+	<object id='f6'>
+		<classname>Chair3</classname>
+		<position x='2.34333' y='0' z='30.0393'/>
+		<rotation x='0' y='-61.9743' z='0'/>
+	</object>
+	<object id='f7'>
+		<classname>Chair4</classname>
+		<position x='-0.123148' y='0' z='33.3982'/>
+	</object>
+	<object id='f8'>
+		<classname>Chair4</classname>
+		<position x='-0.873148' y='0' z='33.3982'/>
+	</object>
+	<object id='f9'>
+		<classname>Chair4</classname>
+		<position x='-1.67315' y='0' z='33.3982'/>
+	</object>
+	<object id='fa'>
+		<classname>Chair4</classname>
+		<position x='-2.37315' y='0' z='33.3982'/>
+	</object>
+	<object id='fb'>
+		<classname>Chair4</classname>
+		<position x='0.626852' y='0' z='33.3982'/>
+	</object>
+	<object id='fc'>
+		<classname>Chair4</classname>
+		<position x='1.32685' y='0' z='33.3982'/>
+	</object>
+	<object id='fd'>
+		<classname>Chair4</classname>
+		<position x='2.02685' y='0' z='33.3982'/>
+	</object>
+	<object id='fe'>
+		<classname>RoomLabelPlate</classname>
+		<position x='1.2' y='1.6' z='25.7'/>
+		<rotation x='0' y='-180' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/movingSound.deskin</skin>
+		</texture>
+	</object>
+	<object id='ff'>
+		<classname>TouchStand</classname>
+		<position x='3.72529e-08' y='0' z='29.3'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='100'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-19.4' y='2.5' z='38.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='101'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-19.4' y='2.5' z='35.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='102'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-14.4' y='2.5' z='35.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='103'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-14.4' y='2.5' z='38.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='104'>
+		<classname>Room5</classname>
+		<position x='-12.9' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='105'>
+		<classname>DoorFrame</classname>
+		<position x='-12.85' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='10b'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.45' y='2.5' z='68.25'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='10c'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.5' y='1.65' z='68.1'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,1.5,1.25,1.5</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,1.55,1.3,1.55</property>
+	</object>
+	<object id='10d'>
+		<classname>HallwayCorner</classname>
+		<position x='-10' y='0' z='66.7'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='10e'>
+		<classname>TouchStand</classname>
+		<position x='-16.3' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='10f'>
+		<classname>TriggerTouch</classname>
+		<position x='-16.1' y='0.25' z='36.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>movingRoomBlock.move.touch</property>
+	</object>
+	<object id='110'>
+		<classname>Railing2</classname>
+		<position x='-15' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='111'>
+		<classname>BaseSpeaker</classname>
+		<position x='-18.5' y='1.6' z='36.7'/>
+		<property key='speaker.sound'>/sound/steps1.ogg</property>
+		<property key='speaker.volume'>0.75</property>
+		<property key='speaker.trigger'>movingRoomBlock.move | movingRoomBlock.move.back</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.range'>90</property>
+	</object>
+	<object id='112'>
+		<classname>SpeakerMount1</classname>
+		<position x='-18.5' y='0' z='36.7'/>
+	</object>
+	<object id='114'>
+		<classname>RailCorner</classname>
+		<position x='-13.9' y='0' z='33.25'/>
+		<property key='id'>movingRoomBlock.train1</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='115'>
+		<classname>RailCorner</classname>
+		<position x='-13.9' y='0' z='27.75'/>
+		<property key='id'>movingRoomBlock.train1</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='116'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.954' y='0.5' z='36.739'/>
+		<property key='timer.timeout'>30</property>
+		<property key='timer.target'>movingRoomBlock.move.switch</property>
+		<property key='timer.trigger'>movingRoomBlock.move</property>
+	</object>
+	<object id='118'>
+		<classname>TriggerTimer</classname>
+		<position x='-13.954' y='0.5' z='34.539'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train1</property>
+		<property key='timer.trigger'>@movingRoomBlock.train2 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='119'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-15.9' y='0' z='33.25'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train2</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train2</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.513726' g='0.690196' b='1'/>
+		</texture>
+	</object>
+	<object id='11b'>
+		<classname>RailCorner</classname>
+		<position x='-15.9' y='0' z='33.25'/>
+		<property key='id'>movingRoomBlock.train2</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='11c'>
+		<classname>RailCorner</classname>
+		<position x='-15.9' y='0' z='27.75'/>
+		<property key='id'>movingRoomBlock.train2</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='11d'>
+		<classname>TriggerTimer</classname>
+		<position x='-15.954' y='0.5' z='34.539'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train2</property>
+		<property key='timer.trigger'>@movingRoomBlock.train3 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='11e'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.954' y='0.5' z='34.539'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train3</property>
+		<property key='timer.trigger'>@movingRoomBlock.train4 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='11f'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-17.9' y='0' z='33.25'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train3</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train3</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.513726' g='0.792157' b='1'/>
+		</texture>
+	</object>
+	<object id='120'>
+		<classname>RailCorner</classname>
+		<position x='-17.9' y='0' z='33.25'/>
+		<property key='id'>movingRoomBlock.train3</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='121'>
+		<classname>RailCorner</classname>
+		<position x='-17.9' y='0' z='27.75'/>
+		<property key='id'>movingRoomBlock.train3</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='122'>
+		<classname>TriggerTimer</classname>
+		<position x='-19.954' y='0.5' z='34.539'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train4</property>
+		<property key='timer.trigger'>movingRoomBlock.move</property>
+	</object>
+	<object id='123'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-19.9' y='0' z='33.25'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train4</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train4</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.513726' g='0.933333' b='1'/>
+		</texture>
+	</object>
+	<object id='124'>
+		<classname>RailCorner</classname>
+		<position x='-19.9' y='0' z='33.25'/>
+		<property key='id'>movingRoomBlock.train4</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='125'>
+		<classname>RailCorner</classname>
+		<position x='-19.9' y='0' z='27.75'/>
+		<property key='id'>movingRoomBlock.train4</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='126'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-13.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train5</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train5</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.964706' g='0.513726' b='1'/>
+		</texture>
+	</object>
+	<object id='127'>
+		<classname>RailCorner</classname>
+		<position x='-13.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train5</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='128'>
+		<classname>RailCorner</classname>
+		<position x='-13.9' y='0' z='45.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train5</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='129'>
+		<classname>TriggerTimer</classname>
+		<position x='-13.846' y='0.5' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train5</property>
+		<property key='timer.trigger'>@movingRoomBlock.train6 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='113'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-13.9' y='0' z='33.25'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train1</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train1</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.513726' g='0.6' b='1'/>
+		</texture>
+	</object>
+	<object id='12a'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-15.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train6</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train6</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='1' g='0.513726' b='0.760784'/>
+		</texture>
+	</object>
+	<object id='12b'>
+		<classname>RailCorner</classname>
+		<position x='-15.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train6</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='12c'>
+		<classname>RailCorner</classname>
+		<position x='-15.9' y='0' z='45.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train6</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='12d'>
+		<classname>TriggerTimer</classname>
+		<position x='-15.846' y='0.5' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train6</property>
+		<property key='timer.trigger'>@movingRoomBlock.train7 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='12e'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-17.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train7</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train7</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='1' g='0.623529' b='0.513726'/>
+		</texture>
+	</object>
+	<object id='12f'>
+		<classname>RailCorner</classname>
+		<position x='-17.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train7</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='130'>
+		<classname>RailCorner</classname>
+		<position x='-17.9' y='0' z='45.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train7</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='131'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.846' y='0.5' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train7</property>
+		<property key='timer.trigger'>@movingRoomBlock.train8 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='132'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-19.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='moveOnRail.velocity'>0.5</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train8</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train8</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='1' g='0.811765' b='0.513726'/>
+		</texture>
+	</object>
+	<object id='133'>
+		<classname>RailCorner</classname>
+		<position x='-19.9' y='0' z='39.95'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train8</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='134'>
+		<classname>RailCorner</classname>
+		<position x='-19.9' y='0' z='45.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='id'>movingRoomBlock.train8</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='135'>
+		<classname>TriggerTimer</classname>
+		<position x='-19.846' y='0.5' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train8</property>
+		<property key='timer.trigger'>movingRoomBlock.move</property>
+	</object>
+	<object id='136'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='36.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train9</property>
+		<property key='timer.trigger'>movingRoomBlock.move</property>
+	</object>
+	<object id='137'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train9</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train9</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.513726' g='1' b='0.545098'/>
+		</texture>
+	</object>
+	<object id='138'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train9</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='139'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train9</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='13a'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='34.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train10</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train10</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.290196' g='0.792157' b='0.376471'/>
+		</texture>
+	</object>
+	<object id='13b'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='34.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train10</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='13c'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='35.104'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train10</property>
+		<property key='timer.trigger'>@movingRoomBlock.train9 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='13d'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='34.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train10</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='13e'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='32.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train11</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train11</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.145098' g='0.568627' b='0.219608'/>
+		</texture>
+	</object>
+	<object id='13f'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='32.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train11</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='140'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='32.004'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train11</property>
+		<property key='timer.trigger'>@movingRoomBlock.train10 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='141'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='32.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train11</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='142'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='30.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train12</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train12</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.0823529' g='0.345098' b='0.129412'/>
+		</texture>
+	</object>
+	<object id='143'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='30.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train12</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='144'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='30.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train12</property>
+		<property key='timer.trigger'>@movingRoomBlock.train11 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='145'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='30.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train12</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='146'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='28.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train13</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train13</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.0941176' g='0.172549' b='0.105882'/>
+		</texture>
+	</object>
+	<object id='147'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='28.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train13</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='148'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='28.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train13</property>
+		<property key='timer.trigger'>@movingRoomBlock.train12 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='149'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='28.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train13</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='14a'>
+		<classname>TriggerEvaluate</classname>
+		<position x='-16.804' y='0.5' z='36.739'/>
+		<property key='evaluate.trigger'>@movingRoomBlock.move.touch &#38; !@movingRoomBlock.move.switch</property>
+		<property key='evaluate.target'>movingRoomBlock.move</property>
+	</object>
+	<object id='14b'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='38.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train14</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train14</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.290196' g='0.792157' b='0.376471'/>
+		</texture>
+	</object>
+	<object id='14c'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='38.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train14</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='14d'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='38.254'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train14</property>
+		<property key='timer.trigger'>@movingRoomBlock.train9 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='14e'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='38.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train14</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='14f'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='40.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train15</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train15</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.145098' g='0.568627' b='0.219608'/>
+		</texture>
+	</object>
+	<object id='150'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='40.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train15</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='151'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='41.404'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train15</property>
+		<property key='timer.trigger'>@movingRoomBlock.train14 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='152'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='40.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train15</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='153'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='42.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train16</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train16</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.0823529' g='0.345098' b='0.129412'/>
+		</texture>
+	</object>
+	<object id='154'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='42.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train16</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='155'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='42.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train16</property>
+		<property key='timer.trigger'>@movingRoomBlock.train15 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='156'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='42.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train16</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='157'>
+		<classname>MovingRoomBlock</classname>
+		<position x='-21.9' y='0' z='44.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='moveOnRail.velocity'>1</property>
+		<property key='moveOnRail.trigger'>@movingRoomBlock.train17</property>
+		<property key='moveOnRail.rail'>movingRoomBlock.train17</property>
+		<texture name='material'>
+			<skin>/material/wallpaper/material.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.0941176' g='0.172549' b='0.105882'/>
+		</texture>
+	</object>
+	<object id='158'>
+		<classname>RailCorner</classname>
+		<position x='-21.9' y='0' z='44.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train17</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='159'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='0.5' z='44.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train17</property>
+		<property key='timer.trigger'>@movingRoomBlock.train16 &#38; movingRoomBlock.move</property>
+	</object>
+	<object id='15a'>
+		<classname>RailCorner</classname>
+		<position x='-31.4' y='0' z='44.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='id'>movingRoomBlock.train17</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='15c'>
+		<classname>TriggerTimer</classname>
+		<position x='-13.954' y='1' z='34.539'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train1</property>
+		<property key='timer.trigger'>movingRoomBlock.move.back</property>
+	</object>
+	<object id='15d'>
+		<classname>TriggerTimer</classname>
+		<position x='-15.954' y='1' z='34.539'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train2</property>
+		<property key='timer.trigger'>@movingRoomBlock.train1 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='15e'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.954' y='1' z='34.539'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train3</property>
+		<property key='timer.trigger'>@movingRoomBlock.train2 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='15f'>
+		<classname>TriggerTimer</classname>
+		<position x='-19.954' y='1' z='34.539'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train4</property>
+		<property key='timer.trigger'>@movingRoomBlock.train3 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='160'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='35.104'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train10</property>
+		<property key='timer.trigger'>@movingRoomBlock.train11 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='161'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='36.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train9</property>
+		<property key='timer.trigger'>@movingRoomBlock.train10 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='162'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='38.254'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train14</property>
+		<property key='timer.trigger'>@movingRoomBlock.train15 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='163'>
+		<classname>TriggerTimer</classname>
+		<position x='-19.846' y='1' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train8</property>
+		<property key='timer.trigger'>@movingRoomBlock.train7 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='164'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.846' y='1' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train7</property>
+		<property key='timer.trigger'>@movingRoomBlock.train6 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='165'>
+		<classname>TriggerTimer</classname>
+		<position x='-15.846' y='1' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train6</property>
+		<property key='timer.trigger'>@movingRoomBlock.train5 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='166'>
+		<classname>TriggerTimer</classname>
+		<position x='-13.846' y='1' z='38.661'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train5</property>
+		<property key='timer.trigger'>movingRoomBlock.move.back</property>
+	</object>
+	<object id='167'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='41.404'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train15</property>
+		<property key='timer.trigger'>@movingRoomBlock.train16 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='168'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='42.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train16</property>
+		<property key='timer.trigger'>@movingRoomBlock.train17 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='169'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='44.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train17</property>
+		<property key='timer.trigger'>movingRoomBlock.move.back</property>
+	</object>
+	<object id='16a'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='32.004'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train11</property>
+		<property key='timer.trigger'>@movingRoomBlock.train12 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='16b'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='30.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>2</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train12</property>
+		<property key='timer.trigger'>@movingRoomBlock.train13 &#38; movingRoomBlock.move.back</property>
+	</object>
+	<object id='16c'>
+		<classname>TriggerTimer</classname>
+		<position x='-20.611' y='1' z='28.754'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>movingRoomBlock.train13</property>
+		<property key='timer.trigger'>movingRoomBlock.move.back</property>
+	</object>
+	<object id='16d'>
+		<classname>TriggerEvaluate</classname>
+		<position x='-16.804' y='1' z='36.739'/>
+		<property key='evaluate.trigger'>@movingRoomBlock.move.touch &#38; @movingRoomBlock.move.switch</property>
+		<property key='evaluate.target'>movingRoomBlock.move.back</property>
+	</object>
+	<object id='16e'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.954' y='1' z='36.739'/>
+		<property key='timer.timeout'>30</property>
+		<property key='timer.target'>movingRoomBlock.move.switch</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>movingRoomBlock.move.back</property>
+	</object>
+	<object id='172'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.954' y='0.5' z='37.089'/>
+		<property key='timer.timeout'>31</property>
+		<property key='timer.target'>movingRoomBlock.move</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>movingRoomBlock.move</property>
+		<property key='timer.fullReset'>1</property>
+	</object>
+	<object id='173'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.954' y='1' z='37.089'/>
+		<property key='timer.timeout'>31</property>
+		<property key='timer.target'>movingRoomBlock.move.back</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>movingRoomBlock.move.back</property>
+		<property key='timer.fullReset'>1</property>
+	</object>
+	<object id='174'>
+		<classname>TouchStand</classname>
+		<position x='1.24545' y='0' z='27.939'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='skinOff'>/material/miscLabel/movingRoomLayout.deskin</property>
+		<property key='skinOn'>/material/miscLabel/movingRoomLayout.deskin</property>
+	</object>
+	<object id='175'>
+		<classname>EnvironmentMap</classname>
+		<position x='-15.4' y='1.65' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,-7.5:extends,10,1.25,10</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,-7.5:extends,10.05,1.3,10.05</property>
+	</object>
+	<object id='176'>
+		<classname>RoomLabelPlate</classname>
+		<position x='-12.8' y='1.6' z='37.95'/>
+		<rotation x='0' y='-90' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/movingBoxes.deskin</skin>
+		</texture>
+	</object>
+	<object id='177'>
+		<classname>SimpleElement</classname>
+		<position x='3.05' y='1.5' z='29.3'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='component.model'>/model/prop/window1.demodel</property>
+		<property key='component.skin'>/shareddata/materials/empty.deskin</property>
+		<property key='component.rig'>/model/prop/window1.derig</property>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.168627' g='0.215686' b='0.105882'/>
+		</texture>
+		<texture name='glass'>
+			<skin>/material/glass/colored_light.deskin</skin>
+			<tint r='0.141176' g='0.145098' b='0.0392157'/>
+		</texture>
+	</object>
+	<object id='178'>
+		<classname>HallwayStraight1</classname>
+		<position x='-11.9' y='0' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='179'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.9' y='1.65' z='61.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='17a'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.9' y='2.5' z='61.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='17b'>
+		<classname>RoomLabelPlate</classname>
+		<position x='-12.8' y='1.6' z='57.95'/>
+		<rotation x='0' y='-90' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/animatedGeometry.deskin</skin>
+		</texture>
+	</object>
+	<object id='17c'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.9' y='2.5' z='51.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='17d'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.9' y='1.65' z='51.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='17e'>
+		<classname>DoorFrame</classname>
+		<position x='-12.85' y='0' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='17f'>
+		<classname>Room6</classname>
+		<position x='-12.9' y='0' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='180'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-17.8' y='2.5' z='55.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='181'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-17.8' y='2.5' z='58.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='182'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-14.4' y='2.5' z='58.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='183'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-14' y='2.5' z='55.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='185'>
+		<classname>EnvironmentMap</classname>
+		<position x='-15.9' y='1.65' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,3,1.25,3</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,3.05,1.3,3.05</property>
+	</object>
+	<object id='186'>
+		<classname>BaseSpeaker</classname>
+		<position x='-24.3' y='1.6' z='56.7'/>
+		<property key='speaker.sound'>/sound/ventilation1.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.trigger'>animatedGeometry.run</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='187'>
+		<classname>SpeakerMount1</classname>
+		<position x='-24.3' y='0' z='56.7'/>
+	</object>
+	<object id='188'>
+		<classname>TriggerTouch</classname>
+		<position x='-16.1' y='0.25' z='56.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>animatedGeometry.run</property>
+	</object>
+	<object id='189'>
+		<classname>TouchStand</classname>
+		<position x='-16.3' y='0' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='18a'>
+		<classname>Railing2</classname>
+		<position x='-15' y='0' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='18b'>
+		<classname>TriggerTimer</classname>
+		<position x='-18.3' y='0.25' z='56.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>55</property>
+		<property key='timer.target'>animatedGeometry.door1</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='18d'>
+		<classname>CeilingLampRoom</classname>
+		<position x='-23' y='2.5' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='18e'>
+		<classname>SimpleElement</classname>
+		<position x='-24.75' y='0' z='56.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='component.model'>/model/prop/railing2.demodel</property>
+		<property key='component.skin'>/shareddata/materials/empty.deskin</property>
+		<property key='component.rig'>/model/prop/railing2.derig</property>
+		<texture name='pole'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.0470588' g='0.0470588' b='0.203922'/>
+		</texture>
+		<texture name='pole top'>
+			<skin>/material/metal/gold.deskin</skin>
+		</texture>
+		<texture name='ornament'>
+			<skin>/material/metal/gold.deskin</skin>
+		</texture>
+		<texture name='railing'>
+			<skin>/material/metal/gold.deskin</skin>
+		</texture>
+	</object>
+	<object id='18f'>
+		<classname>DoorLargeAnimated</classname>
+		<position x='-19.1' y='0' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='twoStateAnimated.trigger'>@animatedGeometry.door1</property>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.560784' g='0' b='0.0352941'/>
+		</texture>
+		<texture name='sign'>
+			<skin>/material/decal/sign/electricity.deskin</skin>
+		</texture>
+		<texture name='door'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.560784' g='0.498039' b='0'/>
+		</texture>
+	</object>
+	<object id='190'>
+		<classname>DoorLargeAnimated</classname>
+		<position x='-15.9' y='0' z='53.5'/>
+		<property key='twoStateAnimated.trigger'>@animatedGeometry.door2</property>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0' g='0.0117647' b='0.560784'/>
+		</texture>
+		<texture name='sign'>
+			<skin>/material/decal/sign/electricity.deskin</skin>
+		</texture>
+		<texture name='door'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0' g='0.552941' b='0.560784'/>
+		</texture>
+	</object>
+	<object id='191'>
+		<classname>DoorLargeAnimated</classname>
+		<position x='-15.9' y='0' z='59.9'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='twoStateAnimated.trigger'>@animatedGeometry.door3</property>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.0196078' g='0.560784' b='0'/>
+		</texture>
+		<texture name='door'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.560784' g='0.34902' b='0'/>
+		</texture>
+		<texture name='sign'>
+			<skin>/material/decal/sign/electricity.deskin</skin>
+		</texture>
+	</object>
+	<object id='192'>
+		<classname>CeilingLamp</classname>
+		<position x='-16.05' y='2.5' z='61.4'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='light.intensity'>1</property>
+		<property key='light.halfIntensityDistance'>0.3</property>
+		<property key='light.range'>10</property>
+	</object>
+	<object id='193'>
+		<classname>CeilingLamp</classname>
+		<position x='-16.1' y='2.5' z='52.15'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='light.intensity'>1</property>
+		<property key='light.halfIntensityDistance'>0.3</property>
+		<property key='light.range'>10</property>
+	</object>
+	<object id='195'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.95' y='0.25' z='56.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>80</property>
+		<property key='timer.target'>animatedGeometry.door1</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='196'>
+		<classname>TriggerTimer</classname>
+		<position x='-16' y='0.25' z='54.3'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>5</property>
+		<property key='timer.target'>animatedGeometry.door2</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='197'>
+		<classname>TriggerTimer</classname>
+		<position x='-16.3' y='0.25' z='54.3'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>18</property>
+		<property key='timer.target'>animatedGeometry.door2</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='198'>
+		<classname>TriggerTimer</classname>
+		<position x='-15.95' y='0.25' z='59.15'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>30</property>
+		<property key='timer.target'>animatedGeometry.door3</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='199'>
+		<classname>TriggerTimer</classname>
+		<position x='-16.25' y='0.25' z='59.15'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>43</property>
+		<property key='timer.target'>animatedGeometry.door3</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='19a'>
+		<classname>TriggerTimer</classname>
+		<position x='-16.8' y='0.25' z='54.3'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>68</property>
+		<property key='timer.target'>animatedGeometry.door2</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='19b'>
+		<classname>TriggerTimer</classname>
+		<position x='-16.75' y='0.25' z='59.15'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>69</property>
+		<property key='timer.target'>animatedGeometry.door3</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='19c'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.1' y='0.25' z='54.3'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>80</property>
+		<property key='timer.target'>animatedGeometry.door2</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='19d'>
+		<classname>TriggerTimer</classname>
+		<position x='-17.05' y='0.25' z='59.15'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>81</property>
+		<property key='timer.target'>animatedGeometry.door3</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+	</object>
+	<object id='19e'>
+		<classname>TriggerTimer</classname>
+		<position x='-16.85' y='0.25' z='56.7'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.timeout'>100</property>
+		<property key='timer.target'>animatedGeometry.run</property>
+		<property key='timer.fireOnTimeout'>0</property>
+		<property key='timer.trigger'>animatedGeometry.run</property>
+		<property key='timer.fullReset'>1</property>
+	</object>
+	<object id='19f'>
+		<classname>BaseSpeaker</classname>
+		<position x='-15.9' y='1.6' z='53.75'/>
+		<property key='speaker.trigger'>@animatedGeometry.door2</property>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.looping'>0</property>
+		<property key='speaker.range'>30</property>
+	</object>
+	<object id='1a0'>
+		<classname>BaseSpeaker</classname>
+		<position x='-15.9' y='1.6' z='59.65'/>
+		<property key='speaker.trigger'>@animatedGeometry.door3</property>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.looping'>0</property>
+		<property key='speaker.range'>30</property>
+	</object>
+	<object id='1a1'>
+		<classname>BaseSpeaker</classname>
+		<position x='-18.85' y='1.6' z='56.7'/>
+		<property key='speaker.trigger'>@animatedGeometry.door1</property>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.looping'>0</property>
+		<property key='speaker.range'>30</property>
+	</object>
+	<object id='1af'>
+		<classname>Tube2</classname>
+		<position x='-25.5' y='0' z='52.65'/>
+		<rotation x='0' y='90' z='180'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='1' g='0' b='0'/>
+		</texture>
+	</object>
+	<object id='1b2'>
+		<classname>Tube2</classname>
+		<position x='-24.7' y='0' z='52.65'/>
+		<rotation x='0' y='90' z='180'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='1' g='0' b='0'/>
+		</texture>
+	</object>
+	<object id='1b5'>
+		<classname>Tube1</classname>
+		<position x='-23.0772' y='0' z='51.7365'/>
+		<rotation x='0' y='-13.6354' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1b4'>
+		<classname>Tube1</classname>
+		<position x='-23.6057' y='0' z='52.7394'/>
+		<rotation x='0' y='-13.6354' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1b3'>
+		<classname>Tube1</classname>
+		<position x='-24.0488' y='0' z='53.6701'/>
+		<rotation x='0' y='-13.6354' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1a9'>
+		<classname>Tube2</classname>
+		<position x='-22.5' y='2.5' z='54'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.0235294' g='1' b='0'/>
+		</texture>
+	</object>
+	<object id='1ab'>
+		<classname>Tube2</classname>
+		<position x='-21.8' y='2.5' z='54'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.0235294' g='1' b='0'/>
+		</texture>
+	</object>
+	<object id='1ad'>
+		<classname>Tube2</classname>
+		<position x='-21.1' y='2.5' z='54'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.0235294' g='1' b='0'/>
+		</texture>
+	</object>
+	<object id='1a4'>
+		<classname>Tube1</classname>
+		<position x='-26.4' y='0' z='55.65'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1a5'>
+		<classname>Tube1</classname>
+		<position x='-26.35' y='0' z='56.35'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0'/>
+		</texture>
+	</object>
+	<object id='1a6'>
+		<classname>Tube1</classname>
+		<position x='-26.35' y='0' z='57.05'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0.439216'/>
+		</texture>
+	</object>
+	<object id='1a7'>
+		<classname>Tube1</classname>
+		<position x='-26.35' y='0' z='57.7'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0.282353'/>
+		</texture>
+	</object>
+	<object id='1b0'>
+		<classname>Tube2</classname>
+		<position x='-25.5' y='0' z='60.85'/>
+		<rotation x='0' y='90' z='180'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.592157' g='0' b='1'/>
+		</texture>
+	</object>
+	<object id='1b1'>
+		<classname>Tube2</classname>
+		<position x='-24.7' y='0' z='60.85'/>
+		<rotation x='0' y='90' z='180'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.592157' g='0' b='1'/>
+		</texture>
+	</object>
+	<object id='1b6'>
+		<classname>Tube1</classname>
+		<position x='-23.8706' y='0' z='59.5034'/>
+		<rotation x='0' y='12.0272' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0.282353'/>
+		</texture>
+	</object>
+	<object id='1b7'>
+		<classname>Tube1</classname>
+		<position x='-23.5587' y='0' z='60.4389'/>
+		<rotation x='0' y='12.0272' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0.282353'/>
+		</texture>
+	</object>
+	<object id='1b8'>
+		<classname>Tube1</classname>
+		<position x='-23.0304' y='0' z='61.3183'/>
+		<rotation x='0' y='12.0272' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0.282353'/>
+		</texture>
+	</object>
+	<object id='1aa'>
+		<classname>Tube2</classname>
+		<position x='-22.5' y='2.5' z='59'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0' g='0.898039' b='1'/>
+		</texture>
+	</object>
+	<object id='1ac'>
+		<classname>Tube2</classname>
+		<position x='-21.8' y='2.5' z='59'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0' g='0.898039' b='1'/>
+		</texture>
+	</object>
+	<object id='1ae'>
+		<classname>Tube2</classname>
+		<position x='-21.1' y='2.5' z='59'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0' g='0.898039' b='1'/>
+		</texture>
+	</object>
+	<object id='1be'>
+		<classname>Tube2</classname>
+		<position x='-20.45' y='0' z='63.2'/>
+		<rotation x='0' y='0' z='180'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.592157' g='0' b='1'/>
+		</texture>
+	</object>
+	<object id='1c2'>
+		<classname>Tube1</classname>
+		<position x='-19.1' y='0' z='62.25'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0' b='0.282353'/>
+		</texture>
+	</object>
+	<object id='1c1'>
+		<classname>Tube1</classname>
+		<position x='-18.25' y='0' z='62.25'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='1' g='0.584314' b='0'/>
+		</texture>
+	</object>
+	<object id='1c0'>
+		<classname>Tube1</classname>
+		<position x='-17.45' y='0' z='62.3'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0' g='0.964706' b='1'/>
+		</texture>
+	</object>
+	<object id='1bf'>
+		<classname>Tube1</classname>
+		<position x='-16.7' y='0' z='62.6'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.0509804' g='1' b='0'/>
+		</texture>
+	</object>
+	<object id='1bd'>
+		<classname>Tube2</classname>
+		<position x='-16.3' y='0' z='63.2'/>
+		<rotation x='0' y='0' z='180'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.592157' g='0' b='1'/>
+		</texture>
+	</object>
+	<object id='1b9'>
+		<classname>Tube1</classname>
+		<position x='-15.15' y='0' z='50.25'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1ba'>
+		<classname>Tube1</classname>
+		<position x='-16' y='0' z='50.25'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1bb'>
+		<classname>Tube1</classname>
+		<position x='-16.9' y='0' z='50.25'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1bc'>
+		<classname>Tube1</classname>
+		<position x='-17.8' y='0' z='50.25'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.596078' g='0.172549' b='0'/>
+		</texture>
+	</object>
+	<object id='1c3'>
+		<classname>Tube2</classname>
+		<position x='-16.5' y='2.5' z='51'/>
+		<texture name='tube'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<tint r='0.266667' g='0.180392' b='0'/>
+		</texture>
+	</object>
+	<object id='1c6'>
+		<classname>TriggerTouch</classname>
+		<position x='0' y='0.5' z='-0.35'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>roomCommon.explain</property>
+	</object>
+	<object id='1c7'>
+		<classname>TriggerConversation</classname>
+		<position x='-1' y='1' z='-0.2'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>commonRoom</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>roomCommon.explain &#38; enableExplications</property>
+	</object>
+	<object id='1ca'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='0' y='1.2' z='-3.68'/>
+		<property key='convoCoordSystem.name'>roomCommon speaker</property>
+	</object>
+	<object id='1cb'>
+		<classname>TriggerToggle</classname>
+		<position x='-9.2' y='1' z='1.55'/>
+		<property key='toggle.startActivated'>1</property>
+		<property key='toggle.target'>enableExplications</property>
+	</object>
+	<object id='1cd'>
+		<classname>TriggerTouch</classname>
+		<position x='20' y='0.5' z='-0.35'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>openings.explain</property>
+	</object>
+	<object id='1ce'>
+		<classname>TriggerConversation</classname>
+		<position x='19' y='1' z='-0.2'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>openings</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>openings.explain &#38; enableExplications</property>
+	</object>
+	<object id='1cf'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='20' y='1.2' z='-3.68'/>
+		<property key='convoCoordSystem.name'>openings speaker</property>
+	</object>
+	<object id='1d0'>
+		<classname>TriggerTouch</classname>
+		<position x='40' y='0.5' z='-0.35'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>thickness.explain</property>
+	</object>
+	<object id='1d1'>
+		<classname>TriggerConversation</classname>
+		<position x='39' y='1' z='-0.2'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>thickness</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>thickness.explain &#38; enableExplications</property>
+	</object>
+	<object id='1d2'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='40' y='1.2' z='-2.88'/>
+		<property key='convoCoordSystem.name'>thickness speaker</property>
+	</object>
+	<object id='1d3'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='59.13' y='1.2' z='14.3'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='convoCoordSystem.name'>furnishedRoom speaker1</property>
+	</object>
+	<object id='1d4'>
+		<classname>TriggerTouch</classname>
+		<position x='53.35' y='0.5' z='12.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>furnishedRoom.explain</property>
+	</object>
+	<object id='1d5'>
+		<classname>TriggerConversation</classname>
+		<position x='53.2' y='1' z='11.9'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>furnishedRoom</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>furnishedRoom.explain &#38; enableExplications</property>
+	</object>
+	<object id='1d6'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='55.78' y='1.2' z='11.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='convoCoordSystem.name'>furnishedRoom seats1</property>
+	</object>
+	<object id='1d7'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='59.13' y='1.2' z='11.4'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='convoCoordSystem.name'>furnishedRoom speaker2</property>
+	</object>
+	<object id='1d8'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='55.78' y='1.2' z='14.2'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='convoCoordSystem.name'>furnishedRoom seats2</property>
+	</object>
+	<object id='1d9'>
+		<classname>TriggerTouch</classname>
+		<position x='40' y='0.5' z='26.15'/>
+		<rotation x='0' y='180' z='0'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>smallReverberant.explain</property>
+	</object>
+	<object id='1da'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='40' y='1.2' z='28.48'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>smallReverberant speaker</property>
+	</object>
+	<object id='1db'>
+		<classname>TriggerConversation</classname>
+		<position x='41' y='1' z='26'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>smallReverberant</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>smallReverberant.explain &#38; enableExplications</property>
+	</object>
+	<object id='1dc'>
+		<classname>TriggerTouch</classname>
+		<position x='20' y='0.5' z='27'/>
+		<rotation x='0' y='180' z='0'/>
+		<scaling x='2' y='1' z='0.1'/>
+		<property key='touching.target'>largeReverberant.explain</property>
+	</object>
+	<object id='1dd'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='20' y='1.2' z='39.28'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>largeReverberant speaker</property>
+	</object>
+	<object id='1de'>
+		<classname>TriggerConversation</classname>
+		<position x='21.1' y='1' z='27.25'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>largeReverberant</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>largeReverberant.explain &#38; enableExplications</property>
+	</object>
+	<object id='1df'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='13.35' y='1.2' z='33.03'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>largeReverberant wall1</property>
+	</object>
+	<object id='1e0'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='26.25' y='1.2' z='33.03'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>largeReverberant wall2</property>
+	</object>
+	<object id='1e3'>
+		<classname>TriggerTouch</classname>
+		<position x='0' y='0.5' z='26.15'/>
+		<rotation x='0' y='180' z='0'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>movingSound.explain</property>
+	</object>
+	<object id='1e4'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='2.91118e-07' y='1.2' z='29.03'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>movingSound stand</property>
+	</object>
+	<object id='1e5'>
+		<classname>TriggerConversation</classname>
+		<position x='1' y='1' z='26'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>movingSound</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>movingSound.explain &#38; enableExplications</property>
+	</object>
+	<object id='1e6'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='1.05' y='1.2' z='27.73'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>movingSound plan</property>
+	</object>
+	<object id='1e7'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-2.2' y='0.4' z='29.48'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='convoCoordSystem.name'>movingSound speaker</property>
+	</object>
+	<object id='1e8'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-16.03' y='1.2' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>movingBoxes stand</property>
+	</object>
+	<object id='1e9'>
+		<classname>TriggerTouch</classname>
+		<position x='-13.25' y='0.5' z='36.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>movingBoxes.explain</property>
+	</object>
+	<object id='1ea'>
+		<classname>TriggerConversation</classname>
+		<position x='-13.1' y='1' z='37.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>movingBoxes</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>movingBoxes.explain &#38; enableExplications</property>
+	</object>
+	<object id='1eb'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-16.38' y='1.2' z='34.45'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>movingBoxes box1</property>
+	</object>
+	<object id='1ec'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-16.28' y='1.2' z='38.8'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>movingBoxes box2</property>
+	</object>
+	<object id='1ed'>
+		<classname>TriggerTouch</classname>
+		<position x='-13.25' y='0.5' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<scaling x='1' y='1' z='0.1'/>
+		<property key='touching.target'>animatedGeometry.explain</property>
+	</object>
+	<object id='1ee'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-16.03' y='1.2' z='56.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>animatedGeometry stand</property>
+	</object>
+	<object id='1ef'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-15.88' y='1.2' z='53.9'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>animatedGeometry door1</property>
+	</object>
+	<object id='1f0'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-15.78' y='1.2' z='59.55'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>animatedGeometry door2</property>
+	</object>
+	<object id='1f1'>
+		<classname>TriggerConversation</classname>
+		<position x='-13.1' y='1' z='57.7'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'>player</property>
+		<property key='conversation.topic'>animatedGeometry</property>
+		<property key='conversation.topicGroup'>explain</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>animatedGeometry.explain &#38; enableExplications</property>
+	</object>
+	<object id='1f2'>
+		<classname>RoomLabelPlate</classname>
+		<position x='20.9501' y='2.31994' z='41.8'/>
+		<rotation x='0' y='-180' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/private.deskin</skin>
+		</texture>
+	</object>
+	<object id='1f3'>
+		<classname>BaseLight</classname>
+		<position x='20.9501' y='2.31994' z='41.6'/>
+		<property key='light.intensity'>0.5</property>
+		<property key='light.ambientRatio'>0.25</property>
+		<property key='light.color'>0.345098 0.694118 0.921569</property>
+		<property key='light.halfIntensityDistance'>0.3</property>
+		<property key='light.range'>1</property>
+	</object>
+	<object id='1f4'>
+		<classname>SpawnPoint</classname>
+		<position x='-0.059' y='0' z='68.576'/>
+		<property key='name'>debug2</property>
+	</object>
+	<object id='1f5'>
+		<classname>Dragoness</classname>
+		<position x='-0.00900022' y='0' z='77.476'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='1f6'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-30' y='1.2' z='132'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>trackerMap.origin</property>
+	</object>
+	<object id='1f7'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='30' y='1.2' z='132'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>trackerMap.right</property>
+	</object>
+	<object id='1f8'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-30' y='1.2' z='72'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='convoCoordSystem.name'>trackerMap.down</property>
+	</object>
+	<object id='1f9'>
+		<classname>HallwayStraight1</classname>
+		<position x='-2.98023e-07' y='0' z='68.6'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='1fa'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-5' y='2.5' z='68.6'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='1fb'>
+		<classname>EnvironmentMap</classname>
+		<position x='-5' y='1.65' z='68.6'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='1fc'>
+		<classname>EnvironmentMap</classname>
+		<position x='5' y='1.65' z='68.6'/>
+		<rotation x='0' y='-180' z='0'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
+	</object>
+	<object id='1fd'>
+		<classname>CeilingLampHallway</classname>
+		<position x='5' y='2.5' z='68.6'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='1fe'>
+		<classname>RoomLabelPlate</classname>
+		<position x='1.2' y='1.6' z='69.5'/>
+		<rotation x='0' y='-180' z='0'/>
+		<texture name='display'>
+			<skin>/material/roomLabel/soundLevelMeter.deskin</skin>
+		</texture>
+	</object>
+	<object id='1ff'>
+		<classname>DoorFrame</classname>
+		<position x='-2.98023e-07' y='0' z='69.55'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='200'>
+		<classname>Room7</classname>
+		<position x='-2.98023e-07' y='0' z='69.6'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='201'>
+		<classname>EnvironmentMap</classname>
+		<position x='-0.149999' y='1.65' z='95.45'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.influenceArea'>box:position,-10,-0.4,3:extends,26,1.3,23</property>
+	</object>
+	<object id='202'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='1.15' y='2.5' z='75.4'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='203'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='0.1' y='2.5' z='82.35'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='204'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-8.8' y='2.5' z='82.55'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='205'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-17.05' y='2.5' z='82.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='206'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-14.25' y='2.5' z='89'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='207'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-10.1' y='2.5' z='93.8'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='208'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-10.1' y='2.5' z='100.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='209'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-3.9' y='2.5' z='86'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='20a'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='7.45' y='2.5' z='86.6'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='20b'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='17.05' y='2.5' z='82.6'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='20c'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='17' y='2.5' z='90.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='20d'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='15.6' y='2.5' z='98.45'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='20e'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='7.9' y='2.5' z='98.45'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='20f'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='17.4' y='2.5' z='103.95'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='210'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='17' y='2.5' z='116.45'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='212'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='11.4' y='2.5' z='110.3'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='213'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='0.7' y='2.5' z='110.3'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='214'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='6.6' y='2.5' z='116.2'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='215'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='10.7' y='2.5' z='120.65'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='216'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='0.2' y='2.5' z='121.05'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='217'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='0.25' y='2.5' z='126.65'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='218'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-9.85' y='2.5' z='121.05'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='219'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-17' y='2.5' z='116.65'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='21a'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-6.1' y='2.5' z='116.4'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='21b'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-6' y='2.5' z='105.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='21c'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-14.35' y='2.5' z='105.3'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='21d'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-3.85' y='2.5' z='92.05'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='21e'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='2.3' y='2.5' z='92.15'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='21f'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-3.45' y='2.5' z='99.65'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='220'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='2.05' y='2.5' z='99.65'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='221'>
+		<classname>TouchStand</classname>
+		<position x='-18.6' y='0' z='82.5'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='trigger'>soundLevelMeter.stand1</property>
+	</object>
+	<object id='222'>
+		<classname>TriggerTouch</classname>
+		<position x='-18.4' y='0.25' z='82.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>soundLevelMeter.stand1</property>
+	</object>
+	<object id='223'>
+		<classname>TouchStand</classname>
+		<position x='17' y='0' z='81.1'/>
+		<property key='trigger'>soundLevelMeter.stand2</property>
+	</object>
+	<object id='224'>
+		<classname>TriggerTouch</classname>
+		<position x='17' y='0.25' z='81.3'/>
+		<rotation x='0' y='-180' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>soundLevelMeter.stand2</property>
+	</object>
+	<object id='225'>
+		<classname>TouchStand</classname>
+		<position x='17' y='0' z='118.15'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='trigger'>soundLevelMeter.stand3</property>
+	</object>
+	<object id='226'>
+		<classname>TriggerTouch</classname>
+		<position x='17' y='0.25' z='117.95'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>soundLevelMeter.stand3</property>
+	</object>
+	<object id='227'>
+		<classname>TouchStand</classname>
+		<position x='-18.5' y='0' z='116.65'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='trigger'>soundLevelMeter.stand4</property>
+	</object>
+	<object id='228'>
+		<classname>TriggerTouch</classname>
+		<position x='-18.3' y='0.25' z='116.65'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>soundLevelMeter.stand4</property>
+	</object>
+	<object id='229'>
+		<classname>DoorLargeAnimated</classname>
+		<position x='-9.68575e-08' y='0' z='79.4'/>
+		<property key='twoStateAnimated.trigger'>soundLevelMeter.finished</property>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.627451' g='0' b='0'/>
+		</texture>
+		<texture name='door'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.654902' g='0.435294' b='0'/>
+		</texture>
+	</object>
+	<object id='22a'>
+		<classname>DoorFrameLarge</classname>
+		<position x='-14.8' y='0' z='82.6'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.0117647' g='0' b='0.556863'/>
+		</texture>
+	</object>
+	<object id='22b'>
+		<classname>DoorFrameLarge</classname>
+		<position x='17' y='0' z='84.8'/>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0' g='0.556863' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='22c'>
+		<classname>DoorFrameLarge</classname>
+		<position x='17' y='0' z='114.4'/>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.556863' g='0.529412' b='0'/>
+		</texture>
+	</object>
+	<object id='22d'>
+		<classname>DoorFrameLarge</classname>
+		<position x='-14.8' y='0' z='116.6'/>
+		<rotation x='0' y='90' z='0'/>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.447059' g='0' b='0.556863'/>
+		</texture>
+	</object>
+	<object id='22e'>
+		<classname>DoorLargeAnimated</classname>
+		<position x='-9.68575e-08' y='0' z='124.8'/>
+		<property key='twoStateAnimated.trigger'>soundLevelMeter.finished</property>
+		<texture name='frame'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='8' v='8'/>
+			</transform>
+			<tint r='0.105882' g='0.105882' b='0.105882'/>
+		</texture>
+		<texture name='door'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='2' v='2'/>
+			</transform>
+			<tint r='0.298039' g='0.298039' b='0.298039'/>
+		</texture>
+	</object>
+	<object id='22f'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='0' y='2.5' z='72.35'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='230'>
+		<classname>SpeakerMount1</classname>
+		<position x='-1.15' y='0' z='75.85'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.882353' g='0.0980392' b='0.764706'/>
+		</texture>
+	</object>
+	<object id='231'>
+		<classname>SpeakerMount1</classname>
+		<position x='1.15' y='0' z='75.85'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.882353' g='0.0980392' b='0.764706'/>
+		</texture>
+	</object>
+	<object id='232'>
+		<classname>SpeakerMount1</classname>
+		<position x='-1.3' y='0' z='74.9'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.592157' g='0.219608' b='1'/>
+		</texture>
+	</object>
+	<object id='233'>
+		<classname>SpeakerMount1</classname>
+		<position x='1.3' y='0' z='74.9'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.592157' g='0.219608' b='1'/>
+		</texture>
+	</object>
+	<object id='234'>
+		<classname>SpeakerMount1</classname>
+		<position x='-1.5' y='0' z='73.9'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.329412' g='0.552941' b='1'/>
+		</texture>
+	</object>
+	<object id='235'>
+		<classname>SpeakerMount1</classname>
+		<position x='1.5' y='0' z='73.9'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.329412' g='0.552941' b='1'/>
+		</texture>
+	</object>
+	<object id='236'>
+		<classname>SpawnPoint</classname>
+		<position x='-0.00900003' y='0' z='81.026'/>
+		<property key='name'>soundLevelMeter.player</property>
+	</object>
+	<object id='237'>
+		<classname>SpawnPoint</classname>
+		<position x='-1' y='0' z='95'/>
+		<property key='name'>soundLevelMeter.dragoness</property>
+	</object>
+	<object id='238'>
+		<classname>TriggerEvaluate</classname>
+		<position x='-1.75' y='0.25' z='89.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='evaluate.trigger'>soundLevelMeter.stand1 &#38; soundLevelMeter.stand2 &#38; soundLevelMeter.stand3 &#38; soundLevelMeter.stand4 &#38; soundLevelMeter.stand5</property>
+		<property key='evaluate.target'>soundLevelMeter.done</property>
+	</object>
+	<object id='239'>
+		<classname>TouchStand</classname>
+		<position x='-1.1' y='0' z='89.25'/>
+		<property key='trigger'>soundLevelMeter.done</property>
+	</object>
+	<object id='23a'>
+		<classname>TriggerTouch</classname>
+		<position x='-1.1' y='0.25' z='89.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>soundLevelMeter.stand5</property>
+	</object>
+	<object id='23b'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='-1.2' y='2.5' z='75.55'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='23c'>
+		<classname>EnvironmentMap</classname>
+		<position x='0' y='1.65' z='74.5'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5,1.3,2.1</property>
+	</object>
+	<object id='23d'>
+		<classname>BaseSpeaker</classname>
+		<position x='-18.7' y='1.6' z='82.5'/>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.trigger'>soundLevelMeter.stand1</property>
+		<property key='speaker.range'>15</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='23e'>
+		<classname>BaseSpeaker</classname>
+		<position x='-18.7' y='1.85' z='82.5'/>
+		<property key='speaker.sound'>/sound/clack2.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
+		<property key='speaker.range'>30</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='23f'>
+		<classname>BaseSpeaker</classname>
+		<position x='-18.5' y='1.6' z='116.65'/>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.trigger'>soundLevelMeter.stand4</property>
+		<property key='speaker.range'>15</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='240'>
+		<classname>BaseSpeaker</classname>
+		<position x='-18.5' y='1.85' z='116.65'/>
+		<property key='speaker.sound'>/sound/clack2.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
+		<property key='speaker.range'>30</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='241'>
+		<classname>BaseSpeaker</classname>
+		<position x='17' y='1.6' z='118.15'/>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.trigger'>soundLevelMeter.stand3</property>
+		<property key='speaker.range'>15</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='242'>
+		<classname>BaseSpeaker</classname>
+		<position x='17' y='1.85' z='118.15'/>
+		<property key='speaker.sound'>/sound/clack2.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
+		<property key='speaker.range'>30</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='243'>
+		<classname>BaseSpeaker</classname>
+		<position x='17' y='1.6' z='81.1'/>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.trigger'>soundLevelMeter.stand2</property>
+		<property key='speaker.range'>15</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='244'>
+		<classname>BaseSpeaker</classname>
+		<position x='17' y='1.85' z='81.1'/>
+		<property key='speaker.sound'>/sound/clack2.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
+		<property key='speaker.range'>30</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='245'>
+		<classname>BaseSpeaker</classname>
+		<position x='-1.1' y='1.6' z='89.25'/>
+		<property key='speaker.sound'>/sound/clack.ogg</property>
+		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.trigger'>soundLevelMeter.done</property>
+		<property key='speaker.range'>15</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='247'>
+		<classname>TriggerPlayerRuns</classname>
+		<position x='-1.75' y='0.8' z='89.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='target'>playerRuns</property>
+	</object>
+	<object id='249'>
+		<classname>TriggerConversation</classname>
+		<position x='-2.15' y='0.8' z='89.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.addPlayer'></property>
+		<property key='conversation.topic'>playerRuns</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.trigger'>@playerRuns &#38; !soundLevelMeter.done &#38; (soundLevelMeter.stand1 | soundLevelMeter.stand2 | soundLevelMeter.stand3 | soundLevelMeter.stand4)</property>
+	</object>
+	<object id='24b'>
+		<classname>TriggerConversation</classname>
+		<position x='-2.55' y='0.8' z='89.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.topic'>caughtPlayer</property>
+		<property key='conversation.trigger'>caughtPlayer &#38; !soundLevelMeter.done</property>
+	</object>
+	<object id='24c'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='8.05' y='2.5' z='104.15'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='24d'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='0.7' y='2.5' z='104.9'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='24e'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='7.9' y='2.5' z='91.65'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='24f'>
+		<classname>Railing2</classname>
+		<position x='2.9' y='0' z='93'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='250'>
+		<classname>Railing2</classname>
+		<position x='2.9' y='0' z='99'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='251'>
+		<classname>Railing2</classname>
+		<position x='-4.9' y='0' z='93'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='252'>
+		<classname>Railing2</classname>
+		<position x='-4.9' y='0' z='99'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='253'>
+		<classname>SpeakerMount1</classname>
+		<position x='-4.9' y='0' z='93'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.882353' g='0.0980392' b='0.764706'/>
+		</texture>
+	</object>
+	<object id='254'>
+		<classname>SpeakerMount1</classname>
+		<position x='-4.9' y='0' z='99'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.439216' g='0.0901961' b='0.882353'/>
+		</texture>
+	</object>
+	<object id='255'>
+		<classname>SpeakerMount1</classname>
+		<position x='2.9' y='0' z='99'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.0862745' g='0.301961' b='0.882353'/>
+		</texture>
+	</object>
+	<object id='256'>
+		<classname>SpeakerMount1</classname>
+		<position x='2.9' y='0' z='93'/>
+		<texture name='base'>
+			<skin>/material/metal/paintedRough.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.0156863' g='0.458824' b='0.12549'/>
+		</texture>
+	</object>
+	<object id='257'>
+		<classname>SpawnPoint</classname>
+		<position x='-1' y='0' z='98'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='name'>soundLevelMeter.player2</property>
+	</object>
+	<object id='258'>
+		<classname>TriggerConversation</classname>
+		<position x='-2.95' y='0.8' z='89.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.topic'>playerSucceeded</property>
+		<property key='conversation.trigger'>soundLevelMeter.done</property>
+	</object>
+	<object id='259'>
+		<classname>TriggerTouch</classname>
+		<position x='-2.5332e-07' y='0.25' z='130.3'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>soundLevelMeter.exit</property>
+	</object>
+	<object id='25a'>
+		<classname>TouchStand</classname>
+		<position x='-2.5332e-07' y='0' z='130.5'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='trigger'>@soundLevelMeter.exit</property>
+		<property key='skinOff'>/material/miscLabel/exit.deskin</property>
+		<property key='skinOn'>/material/miscLabel/exit.deskin</property>
+		<texture name='panel'>
+			<skin>/material/miscLabel/exit.deskin</skin>
+		</texture>
+	</object>
+	<object id='25b'>
+		<classname>TriggerConversation</classname>
+		<position x='0.55' y='0.8' z='130.45'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.topic'>exitExampleApp</property>
+		<property key='conversation.trigger'>@soundLevelMeter.exit</property>
+	</object>
+	<object id='25c'>
+		<classname>TriggerConversation</classname>
+		<position x='-9.7' y='0.8' z='1.65'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.topic'>introduction</property>
+		<property key='conversation.trigger'>introduction&#38;enableExplications</property>
+	</object>
+	<object id='25d'>
+		<classname>CeilingLampHallway</classname>
+		<position x='-11.55' y='2.5' z='1'/>
+	</object>
+	<object id='25e'>
+		<classname>TriggerTouch</classname>
+		<position x='-9.9' y='0.45' z='1'/>
+		<scaling x='0.1' y='1' z='2'/>
+		<property key='touching.target'>introduction</property>
+	</object>
+	<object id='25f'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-9.25' y='1.3' z='1.77'/>
+		<property key='convoCoordSystem.name'>introduction poi1</property>
+	</object>
+	<object id='260'>
+		<classname>InfoConvoCoordSystem</classname>
+		<position x='-8.95' y='2.05' z='0.22'/>
+		<property key='convoCoordSystem.name'>introduction poi2</property>
+	</object>
+	<object id='261'>
+		<classname>SpawnPoint</classname>
+		<position x='1.25' y='0' z='-1.75'/>
+		<rotation x='0' y='150' z='0'/>
+		<property key='name'>debug3</property>
+	</object>
+	<object id='262'>
+		<classname>CeilingLampRoom2</classname>
+		<position x='23.25' y='2.5' z='101.1'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	
+	<decal>
+		<skin>/decal/cave/material.deskin</skin>
+		<position x='13.05' y='2.25' z='34.5'/>
+		<rotation x='-0.000312359' y='-90' z='-0'/>
+		<size x='15' y='4' z='0.1'/>
+	</decal>
+	<decal>
+		<skin>/decal/cave/material.deskin</skin>
+		<position x='26.95' y='2.25' z='34.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<size x='15' y='4' z='0.1'/>
+	</decal>
+</world>

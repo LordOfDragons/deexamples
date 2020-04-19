@@ -1,0 +1,78 @@
+pin Dragengine.Scenery
+pin Dragengine.LoadSave
+
+
+// Dragoness actor element class. Example of an NPC type actor.
+class DragonessClass extends BaseActorClass
+	public static var String FOOTSTEPS_WALK = "walk"
+	public static var String FOOTSTEPS_RUN = "run"
+	
+	public static var String animatorDefault = "default"
+	public static var String animatorSitDown = "sitDown"
+	public static var String animatorSitting = "sitting"
+	public static var String animatorSittingGestureTurnAround = "gesture sitting turnAround"
+	public static var String animatorSittingGestureMeBest = "gesture sitting meBest"
+	public static var String animatorSittingGestureSeeUpRight = "gesture sitting seeUpRight"
+	public static var String animatorSittingGestureTalk = "gesture sitting talk"
+	public static var String animatorSittingGestureExamineClose = "gesture sitting examineClose"
+	public static var String animatorSittingGestureSnip = "gesture sitting snip"
+	public static var String animatorSittingGestureClearHold = "gesture sitting clearHold"
+	
+	public var ECPConversation conversation
+	public var ECPSoundList footStepSounds
+	
+	
+	
+	// Create dragoness actor element class
+	public func new() super("Dragoness")
+		var Loaders loaders = BaseGameApp.getApp().getLoaders()
+		
+		// Foot step sounds to play. Randomly chosen
+		footStepSounds = ECPSoundList.new("footStepSounds")
+		footStepSounds.addPath("/sound/clicking1.ogg")
+		footStepSounds.addPath("/sound/clicking2.ogg")
+		footStepSounds.addPath("/sound/clicking3.ogg")
+		footStepSounds.addPath("/sound/clicking4.ogg")
+		addProperty(footStepSounds)
+		
+		// make the actor walking faster than the player so he can not just walk away
+		getPlayerInputMove().getSpeedWalk().setValue(1.25)  // player uses 1.25
+		
+		// Set the resources to use. The rig is only used for animation and has no physical
+		// properties. This is because this actor only uses an AI collider
+		var String path = "/model/dragoness/"
+		getComponent().setCommonPath(path, "dragoness.demodel", "dragoness.deskin", "dragoness.derig")
+		
+		// Conversation to use if the player interacts with this actor
+		conversation = ECPConversation.new("conversation", loaders.getConversation(), path + "dragoness.deconvo")
+		addProperty(conversation)
+		
+		// Add animators to load. This way we can switch between them by using an identifier.
+		var ECPAnimatorMap animators = getActorAnimated().getAnimators()
+		path = path + "animators/"
+		animators.setPathAt(animatorDefault, path + "default.deanimator")
+		animators.setPathAt(animatorSitDown, path + "sitdown.deanimator")
+		animators.setPathAt(animatorSitting, path + "sitting.deanimator")
+		animators.setPathAt(animatorSittingGestureTurnAround, path + "sittingGestureTurnAround.deanimator")
+		animators.setPathAt(animatorSittingGestureMeBest, path + "sittingGestureMeBest.deanimator")
+		animators.setPathAt(animatorSittingGestureSeeUpRight, path + "sittingGestureSeeUpRight.deanimator")
+		animators.setPathAt(animatorSittingGestureTalk, path + "sittingGestureTalk.deanimator")
+		animators.setPathAt(animatorSittingGestureExamineClose, path + "sittingGestureExamineClose.deanimator")
+		animators.setPathAt(animatorSittingGestureSnip, path + "sittingGestureSnip.deanimator")
+		animators.setPathAt(animatorSittingGestureClearHold, path + "sittingGestureClearHold.deanimator")
+		
+		// By setting controller mappings the ECBehaviorActorAnimated deals with all for us
+		getActorAnimated().setDefaultControllerMappings()
+		
+		// Set up conversation actor
+		getConversationActor().getActorId().setValue(StringID.new("dragoness"))
+		getConversationActor().getName().setValue(UnicodeString.newFromUTF8("???"))
+		getConversationActor().getSubtitleSelectorId().setValue("dragoness")
+		getConversationActor().getRegisterConversationActor().setValue(true) // enables actor to be found by conversations
+	end
+	
+	// Create Dragoness instance
+	protected func Element createElement()
+		return Dragoness.new(this)
+	end
+end

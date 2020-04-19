@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<conversation>
+	<file id='system'>
+		<topic id='showBindings'>
+			<actions>
+				<comment>
+					<comment>A simple conversation script showing some basic bindings.</comment>
+				</comment>
+				<actorSpeak>
+					<actor>system</actor>
+					<textBoxText>Movement: Forward {binding:moveForward}, Backwards {binding:moveBackward}, Left {binding:moveLeft}, Right {binding:moveRight}, Run {binding:toggleRun}<br/>Looking: Left-Right {binding:analogLookLR}, Up-Down {binding:analogLookUD}</textBoxText>
+					<minSpeechTime>20</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+	</file>
+</conversation>

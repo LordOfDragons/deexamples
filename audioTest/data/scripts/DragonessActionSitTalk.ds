@@ -1,0 +1,43 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+// Dragoness action sitting around waiting for player to talk to it.
+// 
+// Example of an actor action waiting for the player to "use" it to start a conversation.
+// The player is responsible to start the conversation. This action just makes the actor
+// sit around and wait for better days.
+// 
+class DragonessActionSitTalk extends DragonessAction
+	// Create dragoness actor action
+	public func new()
+	end
+	
+	
+	
+	// Action has been set as active action in an actor.
+	public func void activate(BehaviorElement actor)
+		super.activate(actor)
+		
+		// use sitting around gesture poses
+		conversationActor.getConversationActor().setGesturePoses((actor cast Dragoness).gesturePosesSit)
+		
+		// no foot steps
+		footSteps.clearActiveConfiguration()
+	end
+	
+	// Init animator. Here we set the sitting pretty animator and assign the controller
+	// mappings so the locomotion does all the heavy lifting for us
+	protected func void initAnimator()
+		actorAnimated.setActiveAnimatorID(DragonessClass.animatorSitting)
+	end
+	
+	
+	
+	// Checks if player can talk to dragoness. Default implementation returns false.
+	// Actions where player can talk to dragoness implement this method and return true.
+	public func bool canTalk()
+		return true
+	end
+end

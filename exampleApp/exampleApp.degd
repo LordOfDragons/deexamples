@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gameDefinition>
+	<identifier/>
+	<description>Game project quickstart.</description>
+	<basePath>/localhome/roland/encrypted/mp/progs/quickstart/data</basePath>
+	<vfsPath>/</vfsPath>
+	<scriptModule>DragonScript</scriptModule>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<categories>
+		<classes>
+			<category>
+				<name>ExampleApp</name>
+				<autoCategorize>/content/models/*</autoCategorize>
+			</category>
+		</classes>
+		<skins>
+			<category>
+				<name>ExampleApp</name>
+				<autoCategorize>/content/materials/*</autoCategorize>
+			</category>
+		</skins>
+		<skies>
+			<category>
+				<name>ExampleApp</name>
+				<autoCategorize>/content/skies/*</autoCategorize>
+			</category>
+		</skies>
+		<particleEmitters>
+			<category>
+				<name>ExampleApp</name>
+				<autoCategorize>/content/emitters/*</autoCategorize>
+			</category>
+		</particleEmitters>
+	</categories>
+	<findPathClasses>/content/models</findPathClasses>
+	<findPathSkins>/content/materials</findPathSkins>
+	<findPathSkies>/content/skies</findPathSkies>
+	<class name='CowardlyActor'>
+		<description>Cowardly actor</description>
+		<canInstanciate>false</canInstanciate>
+		<inherit name='BaseActor'>
+		</inherit>
+		<component>
+			<model>/content/models/suzanne/suzanne.demodel</model>
+			<skin>/content/models/suzanne/coward.deskin</skin>
+			<rig>/content/models/suzanne/suzanne.derig</rig>
+			<static>true</static>
+		</component>
+		<category>ExampleApp</category>
+	</class>
+</gameDefinition>

@@ -1,0 +1,49 @@
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.Preloading
+
+
+// Touch stand. Supports changing "panel" skin if trigger expression changes
+class TouchStand extends BehaviorElement implements ECBehaviorTriggered.Listener
+	public var ECBehaviorComponent.Instance component
+	public var int textureIndex
+	public var Skin skinOn
+	public var Skin skinOff
+	
+	
+	// Create element
+	public func new(TouchStandClass eclass) super(eclass)
+		component = eclass.component.instance(this)
+	end
+	
+	// Init element
+	public func void init(StubElement stub)
+		var TouchStandClass eclass = getClass() cast TouchStandClass
+		skinOn = eclass.skinOn.getSkin(stub, eclass)
+		skinOff = eclass.skinOff.getSkin(stub, eclass)
+		
+		super.init(stub)
+		
+		// Store component aside and find index of texture to manipulate
+		textureIndex = component.getComponent().indexOfTextureNamed("panel")
+		
+		// Set skin for false state. If the trigger is true when added to the game world
+		// the listener will be called but not if it is off
+		component.getComponent().setTextureSkinAt(textureIndex, skinOff, 0)
+		
+		// Add ourself as listener for triggered events
+		ECBehaviorTriggered.getInstanceIn(this).addListener(this)
+	end
+	
+	
+	// Trigger expression changed to true
+	public func void triggerExpressionTrue(ECBehaviorTriggered.Instance instance)
+		component.getComponent().setTextureSkinAt(textureIndex, skinOn, 0)
+	end
+	
+	// Trigger expression changed to false
+	public func void triggerExpressionFalse(ECBehaviorTriggered.Instance instance)
+		component.getComponent().setTextureSkinAt(textureIndex, skinOff, 0)
+	end
+end

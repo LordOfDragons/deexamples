@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<animator>
+	<display>
+		<model>/model/dragoness/dragoness.demodel</model>
+		<skin>/model/dragoness/dragoness.deskin</skin>
+		<rig>/model/dragoness/dragoness.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>/model/dragoness/dragoness.derig</rig>
+	<animation>/model/dragoness/dragoness.deanim</animation>
+	
+	<controller>
+		<name>idle</name>
+		<limits min='0' max='2'/>
+		<clamp>false</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+	</controller>
+	
+	<controller>
+		<name>move.walk</name>
+		<limits min='0' max='2'/>
+		<clamp>false</clamp>
+		<locomotionAttribute>displacement</locomotionAttribute>
+	</controller>
+	
+	<controller>
+		<name>move.velocity</name>
+		<limits min='-1.25' max='1.25'/>
+		<locomotionAttribute>relativeMovingSpeed</locomotionAttribute>
+	</controller>
+	
+	<controller>
+		<name>look.horizontal</name>
+		<limits min='-90' max='90'/>
+		<locomotionAttribute>lookLeftRight</locomotionAttribute>
+	</controller>
+	
+	<controller>
+		<name>look.vertical</name>
+		<limits min='-80' max='80'/>
+		<locomotionAttribute>lookUpDown</locomotionAttribute>
+	</controller>
+	
+	<link>
+		<name>playback idle</name>
+		<controller>0</controller>
+	</link>
+	
+	<link>
+		<name>look.horizontal</name>
+		<controller>3</controller>
+	</link>
+	
+	<link>
+		<name>look.vertical</name>
+		<controller>4</controller>
+	</link>
+	
+	<link>
+		<name>select moving type</name>
+		<controller>2</controller>
+	</link>
+	
+	<link>
+		<name>playback walk</name>
+		<controller>1</controller>
+	</link>
+	
+	<link>
+		<name>playback walk backward</name>
+		<controller>1</controller>
+		<curve>
+			<interpolation>linear</interpolation>
+			<point>
+				<coordinates x='0' y='1'/>
+				<handle1 x='0' y='1'/>
+				<handle2 x='0' y='1'/>
+			</point>
+			<point>
+				<coordinates x='1' y='0'/>
+				<handle1 x='1' y='0'/>
+				<handle2 x='1' y='0'/>
+			</point>
+		</curve>
+	</link>
+	
+	<ruleGroup>
+		<name>movement</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		
+		<ruleAnimation>
+			<name>walk backward</name>
+			<blendMode>blend</blendMode>
+			<blendFactor>1</blendFactor>
+			<target name='blendFactor'>
+			</target>
+			<moveName>walk</moveName>
+			<moveTime>0</moveTime>
+			<target name='moveTime'>
+				<link>5</link>
+			</target>
+		</ruleAnimation>
+		
+		<ruleAnimation>
+			<name>idle</name>
+			<blendMode>blend</blendMode>
+			<blendFactor>1</blendFactor>
+			<target name='blendFactor'>
+			</target>
+			<moveName>idle</moveName>
+			<moveTime>0</moveTime>
+			<target name='moveTime'>
+				<link>0</link>
+			</target>
+		</ruleAnimation>
+		
+		<ruleAnimation>
+			<name>move.walk</name>
+			<blendMode>blend</blendMode>
+			<blendFactor>1</blendFactor>
+			<target name='blendFactor'>
+			</target>
+			<moveName>walk</moveName>
+			<moveTime>0</moveTime>
+			<target name='moveTime'>
+				<link>4</link>
+			</target>
+		</ruleAnimation>
+		<applicationType>selection</applicationType>
+		<target name='selection'>
+			<link>3</link>
+		</target>
+	</ruleGroup>
+	
+	<ruleAnimationDifference>
+		<name>look.vertical</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<bone>neck</bone>
+		<bone>neck2</bone>
+		<bone>neck3</bone>
+		<bone>neck4</bone>
+		<bone>neck5</bone>
+		<bone>neck6</bone>
+		<bone>neck.head</bone>
+		<bone>head</bone>
+		<bone>shield1</bone>
+		<bone>shield2</bone>
+		<bone>shield3</bone>
+		<leadingMoveName>sitting ud</leadingMoveName>
+		<leadingMoveTime>0.5</leadingMoveTime>
+		<referenceMoveName>sitting ud</referenceMoveName>
+		<referenceMoveTime>0.5</referenceMoveTime>
+		<enablePosition>false</enablePosition>
+		<target name='leadingMoveTime'>
+			<link>2</link>
+		</target>
+		<target name='referenceMoveTime'>
+		</target>
+	</ruleAnimationDifference>
+	
+	<ruleBoneTransformator>
+		<name>look.horizontal</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<bone>neck3</bone>
+		<bone>neck4</bone>
+		<bone>neck5</bone>
+		<minimumTranslation x='0' y='0' z='0'/>
+		<maximumTranslation x='0' y='0' z='0'/>
+		<minimumRotation x='0' y='-30' z='0'/>
+		<maximumRotation x='0' y='30' z='0'/>
+		<minimumScaling x='1' y='1' z='1'/>
+		<maximumScaling x='1' y='1' z='1'/>
+		<cframe>component</cframe>
+		<targetBone/>
+		<target name='translation'>
+		</target>
+		<target name='rotation'>
+			<link>1</link>
+		</target>
+		<target name='scaling'>
+		</target>
+	</ruleBoneTransformator>
+</animator>

@@ -1,0 +1,203 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Gui
+pin Dragengine.Networking
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Add support to elements to colorized a texture synchronized with BehaviorClaimable.
+ * 
+ * The color to use is taken from the player having claimed the claimable element.
+ */
+class BehaviorColorizeClaimed extends DefaultECBehavior
+	/**
+	 * Behavior instance.
+	 */
+	class Instance extends DefaultECBehaviorInstance
+		/**
+		 * Listen to claimable changes.
+		 */
+		class ClaimListener extends BehaviorClaimable.DefaultListener
+			protected var Instance instance
+			
+			public func new( Instance instance )
+				this.instance = instance
+			end
+			
+			/**
+			 * Claimed player changed.
+			 */
+			public func void claimedChanged( BehaviorClaimable.Instance instance )
+				this.instance.onClaimedChanged()
+			end
+		end
+		
+		
+		
+		/** Behavior. */
+		public var BehaviorColorizeClaimed behavior
+		
+		/** Claimable behavior. */
+		public var BehaviorClaimable.Instance claimable
+		
+		/** Dynamic skin behavior. */
+		public var ECBehaviorDynamicSkin.Instance dynamicSkin
+		
+		/** Index of renderable or -1 if something went wrong. */
+		public var int renderableIndex
+		
+		
+		
+		/**
+		 * Create behavior instance
+		 */
+		public func new( BehaviorColorizeClaimed behavior, BehaviorElement element ) super( element )
+			this.behavior = behavior
+		end
+		
+		/**
+		 * Dispose of behavior element. To avoid problems always add a dispose method
+		 * and clear all variables storing references to other behavior instances.
+		 */
+		public func void dispose()
+			claimable = null
+			dynamicSkin = null
+			
+			// Always super call dispose() to avoid leaking
+			super.dispose()
+		end
+		
+		
+		
+		/**
+		 * Initialize behavior instance from stub.
+		 */
+		public func void init( StubElement stub )
+			// Store behavior instance we need
+			claimable = behavior.claimable.instance( getElement() )
+			dynamicSkin = behavior.dynamicSkin.instance( getElement() )
+			
+			// Add renderable to work with. Renderables are added with a name but we have to
+			// store the index of the renderable to modify it later. All behaviors manipulating
+			// dynamic skins add their renderables one after the other. Behaviors are not
+			// allowed to remove renderables to not upset the index of other behaviors
+			var String name = behavior.renderable.getValue( stub )
+			renderableIndex = dynamicSkin.getDynamicSkin().getRenderableCount()
+			dynamicSkin.getDynamicSkin().addRenderable( name, DynamicSkinRenderableType.color )
+			
+			// Add listener to claimable
+			claimable.addListener( ClaimListener.new( this ) )
+		end
+		
+		
+		
+		/**
+		 * Claimed claimable.
+		 */
+		public func void onClaimedChanged()
+			if renderableIndex == -1
+				return
+			end
+			
+			var Color color = Color.black
+			
+			if claimable.playerNumber > 0
+				var PlayerState playerState = GameApp.getGameApp().gameState.getPlayerWithNumber( claimable.playerNumber )
+				if playerState != null
+					color = playerState.color
+				end
+			end
+			
+			dynamicSkin.getDynamicSkin().setColorAt( renderableIndex, color )
+		end
+	end
+	
+	
+	
+	/** Claimable behavior. */
+	public var BehaviorClaimable claimable
+	
+	/** Dynamic skin. */
+	public var ECBehaviorDynamicSkin dynamicSkin
+	
+	/** Name of renderable. */
+	public var ECPString renderable
+	
+	
+	
+	
+	/** Create behavior. */
+	public func new( BehaviorElementClass eclass, BehaviorClaimable claimable, \
+	ECBehaviorDynamicSkin dynamicSkin ) super( eclass )
+		if claimable == null
+			throw EInvalidParam.new( "claimable" )
+		end
+		if dynamicSkin == null
+			throw EInvalidParam.new( "dynamicSkin" )
+		end
+		
+		this.claimable = claimable
+		this.dynamicSkin = dynamicSkin
+		
+		// Create renderable name class property
+		renderable = ECPString.new( "colorizeClaimed.renderable", "tint" )
+		
+		// Add behavior to element class. This should always come last
+		eclass.addBehavior( this )
+	end 
+	
+	/** Dispose of behavior. */
+	public func void dispose()
+		dynamicSkin = null
+		claimable = null
+		super.dispose()
+	end
+	
+	
+	
+	/** Get instance from element. */
+	public func Instance instance( BehaviorElement element )
+		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
+	end
+	
+	
+	
+	/** Get instance in element or null if absent. */
+	static public func Instance getInstanceIn( BehaviorElement element )
+		return element.findInstance( block ECBehaviorInstance each
+			return each castable Instance
+		end ) cast Instance
+	end
+	
+	
+	
+	/** \brief Create Behavior instance. */
+	public func ECBehaviorInstance createInstance( BehaviorElement element )
+		return Instance.new( this, element )
+	end
+end

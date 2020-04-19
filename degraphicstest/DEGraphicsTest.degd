@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<gameDefinition>
+	<identifier>DEGraphicsTest</identifier>
+	<description>Game project DEGraphicsTest.</description>
+	<basePath>/home/roland/progs/degraphicstest/data</basePath>
+	<scriptModule>DragonScript</scriptModule>
+	<categories>
+		<classes>
+			<category>
+				<name>GraphicTest</name>
+			</category>
+		</classes>
+		<skins>
+			<category>
+				<name>GraphicTest</name>
+			</category>
+		</skins>
+		<skies>
+			<category>
+				<name>GraphicTest</name>
+			</category>
+		</skies>
+	</categories>
+</gameDefinition>

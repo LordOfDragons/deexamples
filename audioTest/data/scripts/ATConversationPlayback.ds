@@ -1,0 +1,26 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+
+
+// Conversation playback extending BaseConversationPlayback with game specific features.
+// If you need custom game commands or game conditions this is a class you want to overwrite.
+// If you do not need these features just using BaseConversationPlayback is enough.
+class ATConversationPlayback extends BaseConversationPlayback
+	public func new(Conversation conversation) super(conversation)
+	end
+	
+	// Game command send by the conversation script.
+	public func void gameCommand(String command)
+		// fade over black using windowOverBlack in GameApp
+		if command.equals("fadeOverBlack")
+			GameApp.getGameApp().windowOverBlack.startFading()
+			
+		elif command.equals("exitExampleApp")
+			BaseGameApp.getApp().quitGame()
+		end
+	end
+	
+	// Game condition command send by the conversation script.
+// 	public func bool conditionGameCommand(String command)
+// 	end
+end

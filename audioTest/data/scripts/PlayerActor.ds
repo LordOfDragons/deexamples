@@ -1,0 +1,177 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+// Player actor.
+// 
+// BaseActor does the heavy lifting so we can add what we need easily. This is a simple
+// implementation so only one BaseActorAction is used.
+// 
+// The WindowTrackerMap placed here is a quick solution. A better solution would be to
+// add some kind of HUD Panel to the WindowGameWorld and changing the WindowTrackerMap
+// to be a PanelTrackerMap placed in the HUD Panel.
+class PlayerActor extends BaseActor
+	// Conversation actor command "stopMoving"
+	class CCStopMoving implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			(instance.getElement() cast PlayerActor).getPlayerInputMove().reset()
+		end
+	end
+	
+	// Conversation actor command "teleport <position>"
+	// - position: Target position in the form "x y z"
+	class CCTeleport implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			var PlayerActor player = instance.getElement() cast PlayerActor
+			var GameWorld gameWorld = player.getGameWorld()
+			gameWorld.getSpawnPoints().getNamed(arguments.getAt(1) cast String).spawn(gameWorld, player)
+			player.teleportAdjustActor()
+		end
+	end
+	
+	// Conversation actor command "forceBodyAdjustment"
+	class CCForceBodyAdjustment implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			(instance.getElement() cast PlayerActor).getLocomotion().getLocomotion().forceBodyAdjustment()
+		end
+	end
+	
+	// Conversation actor command "showTrackerMapWindow <id-origin> <id-right> <id-down>"
+	// - id-origin: ID of conversation coordinate system marking map top-left position
+	// - id-right: ID of conversation coordinate system marking map top-right position
+	// - id-down: ID of conversation coordinate system marking map bottm-left position
+	class CCShowTrackerMapWindow implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			var PlayerActor player = instance.getElement() cast PlayerActor
+			var ConversationCoordSystemList ccslist = player.getGameWorld().getConvoCoordSystemList()
+			var StringID idOrigin = StringID.new(arguments.getAt(1) cast String)
+			var StringID idRight = StringID.new(arguments.getAt(2) cast String)
+			var StringID idDown = StringID.new(arguments.getAt(3) cast String)
+			var DVector origin = ccslist.getAt(idOrigin).getMatrix().getPosition()
+			var DVector right = ccslist.getAt(idRight).getMatrix().getPosition()
+			var DVector down = ccslist.getAt(idDown).getMatrix().getPosition()
+			player.showTrackerMapWindow(origin, right, down)
+		end
+	end
+	
+	// Conversation actor command "closeTrackerMapWindow"
+	class CCCloseTrackerMapWindow implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			(instance.getElement() cast PlayerActor).closeTrackerMapWindow()
+		end
+	end
+	
+	
+	public var ECBehaviorLookAt.Instance lookAt
+	
+	public var WindowTrackerMap windowTrackMap
+	public var bool updateConvoPlayback
+	
+	
+	// Create PlayerActor
+	public func new(PlayerActorClass eclass) super(eclass)
+	end
+	
+	// Initialize from stub.
+	public func void init(StubElement stub)
+		super.init(stub)
+		
+		var PlayerActorClass eclass = getClass() cast PlayerActorClass
+		
+		// Store look-at behavior
+		lookAt = eclass.lookAt.instance( this )
+		
+		// Init foot steps behavior. We use one for walking and one for running. For example purpose
+		// the volumes are exagerated to make running heard better by the NPC than walking.
+		var WeightedRandomList footStepSounds = WeightedRandomList.new()
+		eclass.footStepSounds.forEach(block Sound each
+			footStepSounds.add(each, 1)
+		end )
+		
+		var ECBehaviorFootSteps.Configuration footStepsConfig
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(PlayerActorClass.FOOTSTEPS_WALK)
+		footStepsConfig.setInterval(0.6)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.5, footStepSounds, 0.075, 20))
+		getFootSteps().addConfiguration(footStepsConfig)
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(PlayerActorClass.FOOTSTEPS_RUN)
+		footStepsConfig.setInterval(0.4)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.3, footStepSounds, 0.3, 40))
+		getFootSteps().addConfiguration(footStepsConfig)
+		
+		// Add commands to conversation actor which can be used by conversation scripts
+		getConversationActor().addCommand("stopMoving", CCStopMoving.new())
+		getConversationActor().addCommand("teleport", CCTeleport.new())
+		getConversationActor().addCommand("forceBodyAdjustment", CCForceBodyAdjustment.new())
+		getConversationActor().addCommand("showTrackerMapWindow", CCShowTrackerMapWindow.new())
+		getConversationActor().addCommand("closeTrackerMapWindow", CCCloseTrackerMapWindow.new())
+		
+		// set player action. the BAAFirstPerson is a good basic action to start out with.
+		// PlayerActorAction extends this with support for commands used in conversation.
+		getAIAction().setAction(PlayerActorAction.new())
+	end
+	
+	
+	// Convenience method to get the current player
+	static public func PlayerActor getPlayer()
+		return BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement() cast PlayerActor
+	end
+	
+	
+	
+	// Show tracker map window. Closes the window first if present.
+	public func void showTrackerMapWindow(DVector origin, DVector right, DVector down)
+		closeTrackerMapWindow()
+		
+		windowTrackMap = WindowTrackerMap.new(BaseGameApp.getApp().getDesktop(), origin, right, down, \
+			ECBehaviorConversationActor.instanceFromConvoActor( \
+				getGameWorld().getConvoActorList().getAt(StringID.new("dragoness"))) \
+			.getElement() cast Dragoness)
+	end
+	
+	// Close tracker map window if present
+	public func void closeTrackerMapWindow()
+		if windowTrackMap != null
+			windowTrackMap.close()
+			windowTrackMap = null
+		end
+	end
+	
+	
+	// Thinking. Add support to update conversation playback. Used for conversations started by
+	// player. If playback becomes null the conversation finished.
+	public func void think(float elapsed)
+		if updateConvoPlayback
+			var ConversationPlayback playback = getConversationActor().getConversationActor().getPlayback()
+			if playback != null
+				playback.update(elapsed)
+			else
+				updateConvoPlayback = false
+			end
+		end
+		
+		super.think( elapsed )
+	end
+	
+	// Remove from game world
+	public func void removeFromGameWorld()
+		closeTrackerMapWindow()
+		
+		if updateConvoPlayback
+			var ConversationPlayback playback = getConversationActor().getConversationActor().getPlayback()
+			if playback != null
+				playback.dispose()
+			end
+		end
+		
+		super.removeFromGameWorld()
+	end
+end

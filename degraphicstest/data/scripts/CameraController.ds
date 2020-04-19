@@ -1,0 +1,157 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Controls game world camera using bindings.
+ */
+class CameraController extends ElementCameraDirector
+	/**
+	 * \brief Mouse input listener.
+	 * 
+	 * Added to WindowUI to handle movement of camera if no widget element is hit.
+	 */
+	protected class HandleMouseInput extends DefaultMouseListener
+		/** \brief Modes. */
+		public enum Mode
+			none
+			rotate
+			move
+			pan
+		end
+		
+		private var CameraController pController
+		private var Mode pMode
+		
+		
+		
+		/** \brief Create mouse listener. */
+		public func new( CameraController controller )
+			pController = controller
+			pMode = Mode.none
+		end
+		
+		
+		
+		/** \brief Mouse button has been pressed. */
+		public func void onButtonPress( MouseEvent event )
+			if event.getButton() != InputEventMouseButton.right
+				return
+			end
+			
+			var Widget window = ( event.getSource() cast Widget ).getWindow()
+			var Desktop desktop = window.getDesktop()
+			desktop.warpCenterMouseIn( window )
+			desktop.setIsMouseHidden( true )
+			
+			var bool shift = ( event.getModifiers() & InputEventModifier.shift ) != 0
+			var bool control = ( event.getModifiers() & InputEventModifier.control ) != 0
+			
+			if shift
+				pMode = Mode.pan
+				
+			elif control
+				pMode = Mode.move
+				
+			else
+				pMode = Mode.rotate
+			end
+			
+			
+		end
+		
+		/** \brief Mouse button has been released. */
+		public func void onButtonRelease( MouseEvent event )
+			if event.getButton() != InputEventMouseButton.right
+				return
+			end
+			
+			pMode = Mode.none
+			
+			var Widget window = ( event.getSource() cast Widget ).getWindow()
+			var Desktop desktop = window.getDesktop()
+			desktop.warpCenterMouseIn( window )
+			desktop.setIsMouseHidden( false )
+		end
+		
+		/** \brief Mouse has moved. */
+		public func void onMouseMove( MouseEvent event )
+			if pMode == Mode.none
+				return
+			end
+			
+			var Window window = ( event.getSource() cast Widget ).getWindow()
+			var Point center = window.getSize() / 2
+			var Point difference = event.getPosition() - center
+			
+			// warping produces mouse events. if this would be used onMouseMove would
+			// be called again causing a stack over-flow. this could be prevented by
+			// adding a re-entrant protection of some sort to onMouseMove. it is though
+			// simpler to use set the mouse location which does not produce events
+			//window.getDesktop().warpCenterMouseIn( window )
+			window.getDesktop().setMouseLocation( window.getScreenPosition() + center )
+			
+			select pMode
+			case Mode.rotate
+				pController.setAzimuth( pController.getAzimuth() - 0.1 * difference.getX() )
+				pController.setElevation( pController.getElevation() - 0.1 * difference.getY() )
+				
+			case Mode.move
+				var DMatrix matrix = pController.getCameraMatrix()
+				pController.setPivot( matrix * DVector.new( 0.0, 0.0, -0.01 * difference.getY() ) )
+				
+			case Mode.pan
+				var DMatrix matrix = pController.getCameraMatrix()
+				pController.setPivot( matrix * DVector.new( -0.01 * difference.getX(), 0.01 * difference.getY(), 0.0 ) )
+			end
+		end
+	end
+	
+	
+	
+	/** \brief Create test world. */
+	public func new() super( null )
+		setFov( 70 )
+		setLowestIntensity( 20 )
+		setHighestIntensity( 20 )
+		setDistance( 0 )  // orbit distance
+		setElevation( 0 )
+		setAzimuth( 0 )
+		setPivot( DVector.new( 0, 1.6, 0 ) )
+	end
+	
+	
+	
+	/**
+	 * \brief Attach to window.
+	 * 
+	 * Adds listeners to handle events in the window used to control camera.
+	 */
+	public func void attachToWindow( Window window )
+		window.addMouseListener( HandleMouseInput.new( this ) )
+	end
+end

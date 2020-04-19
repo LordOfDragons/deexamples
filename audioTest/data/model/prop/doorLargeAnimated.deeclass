@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='DoorLargeAnimated' class='TwoStateAnimatedElement'>
+	<string name='component.audioModel'>door2.demodel</string>
+	<string name='component.rig'>door2.derig</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.model'>door2.demodel</string>
+	<string name='twoStateAnimated.animator'>door2.deanimator</string>
+	<map name='component.textureReplacements'>
+		<map key='frame'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.560784' g='0' b='0.0352941'/>
+			<map key='transform'>
+				<vector2 key='scale' x='8' y='8'/>
+			</map>
+		</map>
+		<map key='door side'>
+			<string key='skin'>/material/metal/matte.deskin</string>
+			<color key='tint' r='0.054902' g='0.054902' b='0.054902'/>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+		<map key='door'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.560784' g='0.498039' b='0'/>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

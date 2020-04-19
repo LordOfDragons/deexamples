@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+	<profile>
+		<name>Default</name>
+		<description>Default profile.</description>
+		<scriptDirectory>/scripts</scriptDirectory>
+		<gameObject>GraphicsTestApp</gameObject>
+		<pathConfig>/config</pathConfig>
+		<pathCapture>/capture</pathCapture>
+		<identifier>9f1cc757-b948-43a9-8217-287cad02f62e</identifier>
+		<aliasIdentifier>degraphicstest</aliasIdentifier>
+		<title>Drag[en]gine GraphicsTest</title>
+		<gameDescription>Default profile.</gameDescription>
+		<creator>Drag[en]gine</creator>
+		<website>dragengine.rptd.ch</website>
+		<icon>/images/icon64.png</icon>
+		<excludePattern>/develop</excludePattern>
+		<delgaPath>distribute/DEGraphicsTest.delga</delgaPath>
+	</profile>
+</project>

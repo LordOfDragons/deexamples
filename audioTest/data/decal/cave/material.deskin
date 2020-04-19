@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<value property='reflectivity'>0</value>
+		<value property='roughness'>1</value>
+		<color property='normal' r='0.5' g='0.5' b='1' a='1'/>
+		<image property='height'>height.png</image>
+		<value property='height.offset'>-0.5</value>
+		<value property='height.scale'>0.25</value>
+		<image property='emissivity'>emissivity.jpg</image>
+		<value property='emissivity.intensity'>1</value>
+	</texture>
+</skin>

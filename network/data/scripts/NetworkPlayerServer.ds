@@ -1,0 +1,166 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui
+pin Dragengine.Networking
+pin Dragengine.Preloading
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Server side network player.
+ */
+class NetworkPlayerServer extends NetworkPlayer
+	/** Create network player. */
+	public func new( Connection connection, PlayerState playerState ) super( connection )
+		this.playerState = playerState
+	end
+	
+	/** Dispose of network player. */
+	public func void dispose()
+		super.dispose()
+		GameApp.getGameApp().gameState.players.remove( playerState )
+		playerState.dispose()
+	end
+	
+	
+	
+	/**
+	 * Disconnect with sending message.
+	 */
+	public func void disconnect()
+		super.disconnect()
+		GameApp.getGameApp().gameServer.removePlayer( this )
+	end
+	
+	
+	
+	/**
+	 * Send join message to client.
+	 */
+	public func void sendMessageJoin( String pathWorld )
+		GameApp.getGameApp().getConsole().addMessage( "sendMessageJoin '" + pathWorld + "'" )
+		var NetworkMessage message = NetworkMessage.new()
+		var FileWriter writer = message.getWriter( false )
+		writer.writeByte( NetworkPlayer.MessageCode.join.order() )
+		writer.writeByte( pProtocolVersion )
+		playerState.id.writeToFile( writer )
+		writer.writeString8( GameState.getGameState().pathWorldFile )
+		pConnection.sendReliableMessage( message )
+	end
+	
+	/**
+	 * Send player joined message to client.
+	 */
+	public func void sendMessagePlayerJoined( PlayerState playerState )
+		GameApp.getGameApp().getConsole().addMessage( "sendMessagePlayerJoined " + playerState.id )
+		var NetworkMessage message = NetworkMessage.new()
+		var FileWriter writer = message.getWriter( false )
+		writer.writeByte( NetworkPlayer.MessageCode.playerJoined.order() )
+		playerState.id.writeToFile( writer )
+		writer.writeString16( playerState.name.toUTF8() )
+		pConnection.sendReliableMessage( message )
+	end
+	
+	/**
+	 * Send player left message to client.
+	 */
+	public func void sendMessagePlayerLeft( PlayerState playerState )
+		GameApp.getGameApp().getConsole().addMessage( "sendMessagePlayerLeft " + playerState.id )
+		var NetworkMessage message = NetworkMessage.new()
+		var FileWriter writer = message.getWriter( false )
+		writer.writeByte( NetworkPlayer.MessageCode.playerLeft.order() )
+		playerState.id.writeToFile( writer )
+		pConnection.sendReliableMessage( message )
+	end
+	
+	/**
+	 * Send spawn actor message to client.
+	 */
+	public func void sendMessageSpawnActor( PlayerState playerState, String name )
+		GameApp.getGameApp().getConsole().addMessage( "sendMessageSpawn id=" \
+			+ playerState.id + " spawn='" + name + "'" )
+		var NetworkMessage message = NetworkMessage.new()
+		var FileWriter writer = message.getWriter( false )
+		writer.writeByte( NetworkPlayer.MessageCode.spawnActor.order() )
+		playerState.id.writeToFile( writer )
+		writer.writeString8( name )
+		pConnection.sendReliableMessage( message )
+	end
+	
+	
+	
+	/**
+	 * \brief Connection has been closed by the local or remote host.
+	 */
+	public func void connectionClosed()
+		var GameApp app = GameApp.getGameApp()
+		app.getConsole().addMessage( "connectionClosed" )
+		dispose()
+	end
+	
+	/** \brief A long message is in progress of receiving. */
+	public func void messageProgress( int bytesReceived )
+		GameApp.getGameApp().getConsole().addMessage( "messageProgress " + bytesReceived )
+	end
+	
+	/** \brief A message has been received. */
+	public func void messageReceived( NetworkMessage message )
+		var GameApp app = GameApp.getGameApp()
+		var FileReader reader = message.getReader()
+		var NetworkPlayer.MessageCode code = NetworkPlayer.MessageCode.withOrder( reader.readByte() )
+		
+		app.getConsole().addMessage( "messageReceived " + code )
+		
+		select code
+		case NetworkPlayer.MessageCode.networkState
+			app.getNetworkStateTracker().receiveMessage( pConnection, reader )
+			
+		case NetworkPlayer.MessageCode.loadWorldFinished
+			app.getConnectionTracker().add( pConnection )
+			
+			// create actor and link state
+			playerState.createActor()
+			
+			// spawn actor at the desired place according to game rules
+			app.gameServer.spawnPlayer( playerState, "player" + ( app.gameServer.getPlayerCount() + 1 ) )
+			
+		else
+			dispose()
+		end
+	end
+	
+	/**
+	 * \brief Host send state to link.
+	 * \param networkState Network state to use for this side of the link.
+	 * \param message Additional information.
+	 * \returns true to accept the link or false to deny it.
+	 */
+	public func bool linkState( NetworkState state, NetworkMessage message )
+		return false
+	end
+end

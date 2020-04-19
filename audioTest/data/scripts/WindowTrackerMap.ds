@@ -1,0 +1,93 @@
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+// window with map tracking player and dragoness position while held by player. activated
+// and deactivated by conversation player commands. the two tracked positions are two
+// DisplayImage set to reflect the tracker positions. as additional information for the
+// player to see how the audio hearing works the dragoness position also changes color
+// from green to red to signal how well the player is heard in his current position.
+// the window is styled using the selector "Window.TrackerMap". the window is placed in
+// the upper right corner upon showing.
+// 
+// The solution used here is a simple one. A more extendible design could involve using
+// models like RangeModel. In that case the window would just update according to models
+// changing values while some other script tracks the positions and updates the models
+// accordingly.
+class WindowTrackerMap extends Window
+	protected var DisplayImage dotPlayer
+	protected var DisplayImage dotDragoness
+	protected var ColorRamp rampHearLevel
+	protected var DMatrix matrixWorldToMap
+	protected var Dragoness dragoness
+	
+	
+	// create window and show it in desktop. places the window in the upper right corner.
+	// origin is the upper-left map corner in world coordinates. right is the upper-right
+	// map corner in world coordinates. down is the lower-left map corner in world coordinates.
+	public func new(Desktop desktop, DVector origin, DVector right, DVector down, Dragoness dragoness)
+		this.dragoness = dragoness
+		
+		//rampHearLevel = ColorRamp.new(Color.green, 0.0, Color.yellow, 0.05, Color.red, 0.1)
+		rampHearLevel = ColorRamp.new(Color.green, -60.0, Color.yellow, -42.0, Color.red, -24.0)
+		
+		var Image imageMap = Image.new("/ui/trackerMap.png")
+		var Image imageDot = Image.new("/ui/trackerMapDot.png")
+		var Point size = imageMap.getSize()
+		
+		setDesignerSelector("Window.TrackerMap")
+		setLayout(Layouts.FixedMinimalLayout.new())
+		addWidget(DisplayImage.new(imageMap))
+		addWidget(dotPlayer = DisplayImage.new(imageDot))
+		addWidget(dotDragoness = DisplayImage.new(imageDot))
+		
+		dotPlayer.setColorTransformation(ColorMatrix.newScaling(Color.new(0.5, 0.5, 1.0)))
+		
+		setSize(size)
+		setPosition(Point.new(desktop.getWidth() - size.getX() - 50, 50))
+		
+		right = right - origin
+		down = down - origin
+		var float lenRight = right.getLength()
+		var float lenDown = down.getLength()
+		right = right.normalize()
+		down = down.normalize()
+		matrixWorldToMap = DMatrix.newCamera(origin, down % right, -down) \
+			* DMatrix.newScaling((size.getX() cast float) / lenRight, \
+				(size.getY() cast float) / -lenDown, 1.0)
+		
+		onFrameUpdate(0)
+		
+		desktop.addWindow(this)
+		setCanMove(false)
+		setCanResize(false)
+		setCanActivate(false)
+		setCanClose(false)
+		setCanMaximize(false)
+		setCanMinimize(false)
+		setVisible(true)
+		
+		GameApp.getGameApp().windowOverBlack.moveToTop()
+		
+		startFrameUpdater()  // call onFrameUpdate() every frame update
+	end
+	
+	// called every frame update. requires startFrameUpdater() to be called.
+	public func void onFrameUpdate(float elapsed)
+		// use dB instead of volume. gives a better coloring
+		var float volume = DEMath.log10(dragoness.hearPlayerVolume) * 20
+		
+		var Point positionPlayer = worldToMap(PlayerActor.getPlayer().getPosition())
+		dotPlayer.setPosition(positionPlayer - dotPlayer.getSize() / 2)
+		
+		var Point positionDragoness = worldToMap(dragoness.getPosition())
+		dotDragoness.setPosition(positionDragoness - dotDragoness.getSize() / 2)
+		dotDragoness.setColorTransformation(ColorMatrix.newScaling(rampHearLevel.blend(volume)))
+	end
+	
+	protected func Point worldToMap(DVector position)
+		position = matrixWorldToMap * position
+		return Point.new((position.getX() + 0.5) cast int, (position.getY() + 0.5) cast int)
+	end
+end

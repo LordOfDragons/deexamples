@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+	<profile>
+		<name>Default</name>
+		<description>Default profile.</description>
+		<scriptDirectory>/scripts</scriptDirectory>
+		<gameObject>VideoPlayerApp</gameObject>
+		<pathConfig>/config</pathConfig>
+		<pathCapture>/capture</pathCapture>
+		<identifier>4384e79c-14db-4f09-bb79-2cf53555ce96</identifier>
+		<aliasIdentifier>devideoplayer</aliasIdentifier>
+		<title>Video Player</title>
+		<gameDescription>Example Project showing the use of DisplayVideo widget.</gameDescription>
+		<creator>Drag[en]gine</creator>
+		<website>dragengine.rptd.ch</website>
+		<icon>/content/images/icon64.png</icon>
+		<windowSize x='1024' y='786'/>
+		<delgaPath>distribute/DEVideoPlayer.delga</delgaPath>
+	</profile>
+</project>

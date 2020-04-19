@@ -1,0 +1,81 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Scenery
+
+
+/**
+ * Player actor. Extends BaseActor with networking behaviors and game specific behaviors.
+ * Actor can represent the local player or a connected player depending if a Connection
+ * instance is provided during init() time. ECBehaviorNetworkState takes care of this.
+ */
+public class PlayerActorClass extends BaseActorClass
+	/**
+	 * Behavior providing basic networking support to player.
+	 */
+	public var ECBehaviorNetworkState networkState
+	
+	/**
+	 * Behavior giving player the ability to kick the play ball.
+	 */
+	public var BehaviorKick kick
+	
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super( "PlayerActor" )
+		getComponent().setCommonPath( "/content/models/player", "player.demodel", "player.deskin", "player.derig" )
+		
+// 		getActorMover().getSpeed().setValue( 4 )
+// 		getPlayerInputMove().getSpeedWalk().setValue( 4 )
+// 		getPlayerInputMove().getSpeedRun().setValue( 4 )
+		
+		// It is fine to have this behavior on element classes even though they are not
+		// used in online play. This allows using the same element classes for both online
+		// and offline play without needing extra logic. All network related behaviors only
+		// take effect if during creation time of the element if
+		// StubElement.getEnableNetworking() is true
+		networkState = ECBehaviorNetworkState.new( this, \
+			NetworkPlayer.LinkCode.player.order() cast byte, \
+			NetworkPlayer.MessageCode.networkState.order() cast byte )
+		
+		// Synchronize position and orientation of element
+		ECBehaviorNStateGeometry.new( this, networkState )
+		
+		// Synchronize locomotion
+		ECBehaviorNStateLocomotion.new( this, networkState, getLocomotion() )
+		
+		// Kick behavior
+		kick = BehaviorKick.new( this, getColliderAI(), getLocomotion(), networkState )
+	end
+	
+	/**
+	 * Create element.
+	 */
+	protected func Element createElement()
+		return PlayerActor.new( this )
+	end
+end

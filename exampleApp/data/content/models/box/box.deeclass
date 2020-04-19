@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='PropBox' class='SimpleElement'>
+	<string name='component.model'>box.demodel</string>
+	<string name='component.skin'>/content/materials/concrete/material.deskin</string>
+	<string name='component.rig'>box.derig</string>
+</elementClass>

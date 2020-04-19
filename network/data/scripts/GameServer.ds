@@ -1,0 +1,211 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Gui
+pin Dragengine.Networking
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Server listening for connections and adding players to the game session if accepted.
+ * 
+ * Stores a Server instance used to listen for connections and a ServerListener to process
+ * incoming connection request.
+ */
+class GameServer implements ServerListener
+	/**
+	 * Server instance.
+	 */
+	private var Server pServer
+	
+	/**
+	 * Session name.
+	 */
+	private var String pSessionName
+	
+	/**
+	 * Connected players.
+	 */
+	private var Array pPlayers
+	
+	
+	
+	/**
+	 * Create game server and start listening for connections.
+	 */
+	public func new( String sessionName ) this( sessionName, "127.0.0.1" /* "*" */ )
+	end
+	
+	public func new( String sessionName, String listenAddress )
+		pSessionName = sessionName
+		pServer = Server.new()
+		pPlayers = Array.new()
+		
+		try
+			pServer.setServerListener( this )
+			pServer.listenOn( listenAddress )
+			
+		catch Exception e
+			dispose()
+			throw
+		end
+	end
+	
+	/**
+	 * Dispose of game server.
+	 */
+	public func void dispose()
+		while pPlayers.getCount() > 0
+			( pPlayers.getAt( pPlayers.getCount() - 1 ) cast NetworkPlayerServer ).dispose()
+		end
+		
+		GameApp.getGameApp().getConnectionTracker().removeAll()
+		
+		if pServer != null
+			pServer.stopListening()
+			pServer.setServerListener( null )
+			pServer = null
+		end
+	end
+	
+	
+	
+	/**
+	 * Count of players.
+	 */
+	public func int getPlayerCount()
+		return pPlayers.getCount()
+	end
+	
+	/**
+	 * Player at index.
+	 */
+	public func NetworkPlayerServer getPlayerAt( int index )
+		return pPlayers.getAt( index ) cast NetworkPlayerServer
+	end
+	
+	/**
+	 * Player with identifier.
+	 */
+	public func NetworkPlayerServer getPlayerWithID( UniqueID id )
+		return pPlayers.find( block NetworkPlayerServer each
+			return each.playerState.id.equals( id )
+		end ) cast NetworkPlayerServer
+	end
+	
+	/**
+	 * Add player if absent. Assign it a color from the game state.
+	 */
+	public func void addPlayer( NetworkPlayerServer player )
+		if pPlayers.has( player )
+			return
+		end
+		
+		pPlayers.forEach( block NetworkPlayerServer each
+			each.sendMessagePlayerJoined( player.playerState )
+		end )
+		
+		pPlayers.add( player )
+		
+		GameApp.getGameApp().getConsole().addMessage( "Player joined" )
+	end
+	
+	/**
+	 * Remove player if present. Dispose is not called on player.
+	 */
+	public func void removePlayer( NetworkPlayerServer player )
+		if not pPlayers.has( player )
+			return
+		end
+		
+		pPlayers.remove( player )
+		GameApp.getGameApp().getConsole().addMessage( "Player left" )
+		
+		pPlayers.forEach( block NetworkPlayerServer each
+			each.sendMessagePlayerLeft( player.playerState )
+		end )
+	end
+	
+	/**
+	 * Run block on each network player.
+	 */
+	public func void forEachPlayer( Block ablock )
+		pPlayers.forEach( ablock )
+	end
+	
+	
+	
+	/**
+	 * Spawn player.
+	 */
+	public func void spawnPlayer( PlayerState playerState, String spawnName )
+		pPlayers.forEach( block NetworkPlayerServer each
+			each.sendMessageSpawnActor( playerState, spawnName )
+		end )
+		playerState.spawnActor( spawnName )
+	end
+	
+	
+	
+	/**
+	 * \brief Client connected.
+	 * 
+	 * Start processing client to add him to the game. Typically this means assigning the
+	 * connection instance to a new player instance and calling Connection.setConnectionListener()
+	 * somewhere down the line. Call Connection.disconnect() to reject the client.
+	 * 
+	 * If an exception is thrown or no listener is set client is disconnected.
+	 */
+	public func void clientConnected( Connection connection )
+		var GameApp app = GameApp.getGameApp()
+		app.getConsole().addMessage( "Client connected from '" + connection.getRemoteAddress() + "'" )
+		
+		var PlayerState playerState = PlayerState.new( app.getIDGenerator().nextID() )
+		
+		// Find first unused player number. Could be also allowing player to choose
+		for playerState.number = 1 to 9
+			if app.gameState.getPlayerWithNumber( playerState.number ) == null
+				break
+			end
+		end
+		
+		// Assign player color depending on the number. 8 players are supported like this
+		playerState.color = app.gameState.playerColors.getAt( playerState.number ) cast Color
+		
+		// Add player to game state
+		app.gameState.players.add( playerState )
+		
+		var NetworkPlayerServer networkPlayer = NetworkPlayerServer.new( connection, playerState )
+		addPlayer( networkPlayer )
+		networkPlayer.sendMessageJoin( app.gameState.pathWorldFile )
+		
+		app.gameState.players.forEach( block PlayerState each
+			if each != playerState
+				networkPlayer.sendMessagePlayerJoined( each )
+			end
+		end )
+	end
+end

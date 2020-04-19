@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='1' g='1' b='1' a='1'/>
+		<image property='emissivity'>flame1_emissivity.png</image>
+		<value property='emission.intensity'>20</value>
+		<value property='shadow.none'>1</value>
+		<value property='solidity'>0</value>
+	</texture>
+</skin>

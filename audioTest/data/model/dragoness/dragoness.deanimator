@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE animator SYSTEM 'EpsylonAnimator.dtd'>
+<animator>
+	<display>
+		<model>/model/dragoness/dragoness.demodel</model>
+		<skin>/model/dragoness/dragoness.deskin</skin>
+		<rig>/model/dragoness/dragoness.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>/model/dragoness/dragoness.derig</rig>
+	<animation>/model/dragoness/dragoness.deanim</animation>
+	
+	<controller>
+		<name>idle</name>
+		<limits min='0' max='2'/>
+		<clamp>0</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<link>
+		<name>idle</name>
+		<controller>0</controller>
+		<mapping x='0' y='0'/>
+		<mapping x='1' y='1'/>
+	</link>
+	
+	<ruleAnimation>
+		<name>idle</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<moveName>idle</moveName>
+		<moveTime>0</moveTime>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+		<target name='moveTime'>
+			<link>0</link>
+		</target>
+	</ruleAnimation>
+</animator>

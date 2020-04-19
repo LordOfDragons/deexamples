@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='skin'>
+		<color property='color' r='0.792157' g='0.25098' b='0.898039' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.15</value>
+		<color property='absorption' r='0.733333' g='0.254902' b='0.101961' a='1'/>
+		<value property='absorption.range'>0.05</value>
+	</texture>
+	<texture name='belly'>
+		<color property='color' r='1' g='0.490196' b='0' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.15</value>
+		<color property='absorption' r='0.733333' g='0.254902' b='0.101961' a='1'/>
+		<value property='absorption.range'>0.05</value>
+	</texture>
+	<texture name='belly rim'>
+		<color property='color' r='0.305882' g='0.152941' b='0.00392157' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.35</value>
+	</texture>
+	<texture name='blades'>
+		<color property='color' r='0.905882' g='1' b='0.337255' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0.35</value>
+	</texture>
+	<texture name='plates'>
+		<color property='color' r='0.333333' g='0.0117647' b='0.396078' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.35</value>
+	</texture>
+	<texture name='horn'>
+		<color property='color' r='0.819608' g='0.694118' b='0.694118' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.15</value>
+	</texture>
+	<texture name='tooth'>
+		<color property='color' r='0.941176' g='0.92549' b='0.74902' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0</value>
+	</texture>
+	<texture name='nose'>
+		<color property='color' r='0.337255' g='0' b='0' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.5</value>
+	</texture>
+	<texture name='tongue'>
+		<color property='color' r='0.74902' g='0.0745098' b='0.0745098' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.1</value>
+	</texture>
+	<texture name='mouth'>
+		<color property='color' r='0.313726' g='0.0235294' b='0.0235294' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.05</value>
+	</texture>
+	<texture name='eye'>
+		<image property='color'>eye_color.jpg</image>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0</value>
+		<image property='emissivity'>eye_color.jpg</image>
+		<value property='emissivity.intensity'>10</value>
+	</texture>
+	<texture name='fins'>
+		<color property='color' r='0.356863' g='0.815686' b='0.815686' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.15</value>
+		<color property='absorption' r='0.737255' g='0.27451' b='0.168627' a='1'/>
+		<value property='absorption.range'>0.05</value>
+	</texture>
+	<texture name='bracelet'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<color property='reflectivity' r='0.94902' g='0.690196' b='0.141176' a='1'/>
+		<value property='roughness'>0.025</value>
+	</texture>
+	<texture name='ruby'>
+		<color property='color' r='0.819608' g='0' b='0.337255' a='1'/>
+		<color property='reflectivity' r='0.75' g='0.25' b='0.25' a='1'/>
+		<value property='roughness'>0</value>
+		<value property='transparency'>0.9</value>
+		<image property='environmentroom'>ruby.png3d</image>
+		<color property='environmentroom.size' r='1' g='0.5' b='0' a='1'/>
+		<color property='normal' r='0.5' g='0.5' b='1' a='1'/>
+	</texture>
+	<texture name='saphire'>
+		<color property='color' r='0.0588235' g='0.321569' b='0.729412' a='1'/>
+		<color property='reflectivity' r='0.266667' g='0.54902' b='0.894118' a='1'/>
+		<value property='roughness'>0</value>
+		<value property='transparency'>0.9</value>
+		<image property='environmentroom'>sapphire.png3d</image>
+		<color property='environmentroom.size' r='1' g='0.5' b='0' a='1'/>
+		<color property='normal' r='0.5' g='0.5' b='1' a='1'/>
+	</texture>
+	<texture name='diamond'>
+		<color property='color' r='0.1' g='0.1' b='0.1' a='1'/>
+		<color property='reflectivity' r='0.65' g='0.65' b='0.65' a='1'/>
+		<value property='roughness'>0</value>
+		<value property='transparency'>0.35</value>
+		<image property='environmentroom'>diamond.png3d</image>
+		<color property='environmentroom.size' r='1' g='0.5' b='0' a='1'/>
+		<color property='normal' r='0.5' g='0.5' b='1' a='1'/>
+	</texture>
+	<texture name='bandana'>
+		<color property='color' r='0' g='0.478431' b='0.909804' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0.35</value>
+	</texture>
+	<texture name='shield'>
+		<image property='color'>shield_color.png</image>
+		<value property='reflectivity'>0.23</value>
+		<image property='roughness'>shield_roughness.png</image>
+		<image property='transparency'>shield_transparency.png</image>
+		<color property='normal' r='0.5' g='0.5' b='1' a='1'/>
+		<value property='roughness.remap.lower'>0</value>
+		<value property='roughness.remap.upper'>0.25</value>
+	</texture>
+	<texture name='shield rim'>
+		<color property='color' r='0.152941' g='0.109804' b='0.0196078' a='1'/>
+		<color property='reflectivity' r='0.94902' g='0.690196' b='0.141176' a='1'/>
+		<value property='roughness'>0.1</value>
+	</texture>
+	<texture name='wing outside'>
+		<color property='absorption' r='0.733333' g='0.254902' b='0.101961' a='1'/>
+		<value property='absorption.range'>0.05</value>
+		<color property='color' r='0.356863' g='0.815686' b='0.984314' a='1'/>
+		<value property='roughness'>0.15</value>
+		<value property='reflectivity'>0.17</value>
+	</texture>
+	<texture name='wing inside'>
+		<color property='color' r='0.0352941' g='0.509804' b='0.686275' a='1'/>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.15</value>
+		<color property='absorption' r='0.733333' g='0.254902' b='0.101961' a='1'/>
+		<value property='absorption.range'>0.05</value>
+	</texture>
+</skin>

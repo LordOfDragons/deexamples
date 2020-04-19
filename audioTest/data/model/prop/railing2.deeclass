@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Railing2' class='SimpleElement'>
+	<string name='component.model'>railing2.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>railing2.derig</string>
+	<string name='navigationSpace.blockerShape'>box:position,0,0.4,0:extends,2,0.5,2</string>
+	<integer name='navigationSpace.blockerPriority'>10</integer>
+	<map name='component.textureReplacements'>
+		<map key='pole'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.0470588' g='0.0470588' b='0.203922'/>
+			<map key='transform'>
+				<vector2 key='scale' x='4' y='4'/>
+			</map>
+		</map>
+		<map key='pole top'>
+			<string key='skin'>/material/metal/gold.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='ornament'>
+			<string key='skin'>/material/metal/gold.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='railing'>
+			<string key='skin'>/material/metal/gold.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

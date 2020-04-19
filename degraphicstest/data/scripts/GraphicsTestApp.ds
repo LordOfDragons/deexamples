@@ -1,0 +1,168 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Commands
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Drag[en]gine Graphics Test Application.
+ */
+class GraphicsTestApp extends BaseGameApp
+	private var WindowUI pWindowUI
+	private var CameraController pCameraController
+	
+	
+	
+	/**
+	 * \brief Create Application.
+	 */
+	public func new()
+		pathDesktopGuiTheme = "/ui/main.guitheme"
+		
+		pathLanguagePacks = "/langpacks"
+		defaultLanguagePackName = UnicodeString.newFromUTF8( "English" )
+	end
+	
+	
+	
+	/** \brief Get graphics test app. */
+	static public func GraphicsTestApp getGTApp()
+		return BaseGameApp.getApp() cast GraphicsTestApp
+	end
+	
+	/** \brief User interface window. */
+	public func WindowUI getWindowUI()
+		return pWindowUI
+	end
+	
+	/**
+	 * \brief Update binding manager with new parameters.
+	 * 
+	 * Removes all bindings linked to parameters present in the binding manager. Then adds
+	 * all non-null bindings from all parameters found in WindowUI test configuration.
+	 * 
+	 * Commands are not added to the command manager. This is only required for editing
+	 * the bindings and is done in a copy of the command manager.
+	 */
+	public func void updateBindings()
+		// remove all bindings using commands of type CommandToggleParameter
+		var BindingManager bindingManager = getBindingManager()
+		var Array collect = Array.new()
+		
+		bindingManager.forEachButtonBinding( block Binding each
+			if each.getCommand() != null and each.getCommand() castable CommandToggleParameter
+				collect.add( each )
+			end
+		end )
+		collect.forEach( block Binding each
+			bindingManager.removeButtonBinding( each )
+		end )
+		
+		// add non-null bindings found in all parameters of the test configuration
+		pWindowUI.getTestConfiguration().forEachParameter( block TestParameter each
+			if each.getBinding() != null
+				bindingManager.addButtonBinding( each.getBinding() )
+			end
+		end )
+	end
+	
+	
+	
+	/**
+	 * \brief Initialize game.
+	 */
+	public func void initGame()
+		super.initGame()
+		
+		WindowLogo.showDragengineLogo( this.getDesktop(), BlockActionListener.new( \
+			block ActionEvent event
+				launchApplication()
+			end ) )
+	end
+	
+	/**
+	 * \brief Launch example application.
+	 * 
+	 * Called after logo windows are finished.
+	 */
+	public func void launchApplication()
+		setInputProcessor( UIInputProcessor.new( getDesktop() ) )
+		
+		getWindowGameWorld().addWidget( ShoutConsole.new( getConsole() ) )
+		
+		pCameraController = CameraController.new()
+		getWindowGameWorld().setCameraDirector( pCameraController )
+		
+		pWindowUI = WindowUI.new()
+		getDesktop().addWindow( pWindowUI )
+		pWindowUI.init()  // to make sure getWindowUI() works if required
+		pCameraController.attachToWindow( pWindowUI )
+		
+		pWindowUI.grabFocus()
+	end
+	
+	/**
+	 * \brief Called by the game engine to clean up before the game exits.
+	 * 
+	 * Subclas has to super-call this method last after cleaing up.
+	 * 
+	 * After this super-call BaseGameApp.getApp() returns null.
+	 */
+	public func void cleanUp()
+		pCameraController = null
+		pWindowUI = null
+		super.cleanUp()
+	end
+	
+	/** \brief Create commands and add them to command list. */
+	protected func void createAndAddCommands()
+		var CommandManager commandManager = this.getCommandManager()
+		commandManager.add( CommandQuitGame.new() )
+		commandManager.add( CommandScreenshot.new( this.getScreenshotCreator() ) )
+		commandManager.add( CommandEditTestConfiguration.new() )
+	end
+	
+	/** \brief Create default bindings. */
+	public func DefaultBindingHelper defaultBindings()
+		var DefaultBindingHelper helper = DefaultBindingHelper.new()
+		
+		if helper.hasKeyboard()
+			helper.keyboardBindKeyCode( InputEventKey.escape, "quit" )
+			helper.keyboardBindKeyCode( InputEventKey.q, "quit" )
+			helper.keyboardBindKeyCode( InputEventKey.f10, "screenshot" )
+			helper.keyboardBindKeyCode( InputEventKey.f2, "editTestConfig" )
+		end
+		
+		return helper
+	end
+	
+	
+	
+	/** \brief Finish loading game world. */
+	public func void finishLoadGameWorld( TestWorld testWorld )
+		finishLoadGameWorld()
+		pWindowUI.onLoadingTestWorldFinished( testWorld )
+	end
+end

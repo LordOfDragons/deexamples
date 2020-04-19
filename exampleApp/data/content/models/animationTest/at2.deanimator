@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<animator>
+	<display>
+		<model>at2.demodel</model>
+		<skin>at2.deskin</skin>
+		<rig>at2.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>at2.derig</rig>
+	<animation>at2.deanim</animation>
+	
+	<controller>
+		<name>playback</name>
+		<limits min='0' max='10'/>
+		<clamp>0</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<link>
+		<name>playback</name>
+		<controller>0</controller>
+		<curve>
+			<interpolation>linear</interpolation>
+			<point>
+				<coordinates x='0' y='0'/>
+				<handle1 x='-0.25' y='0'/>
+				<handle2 x='0.25' y='0'/>
+			</point>
+			<point>
+				<coordinates x='1' y='1'/>
+				<handle1 x='0.75' y='1'/>
+				<handle2 x='1.25' y='1'/>
+			</point>
+		</curve>
+	</link>
+	
+	<ruleAnimation>
+		<name>animation</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<moveName>animation1</moveName>
+		<moveTime>0</moveTime>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+		<target name='moveTime'>
+			<link>0</link>
+		</target>
+	</ruleAnimation>
+</animator>

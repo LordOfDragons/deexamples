@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Desk' class='SimpleElement'>
+	<string name='component.model'>desk.demodel</string>
+	<string name='component.audioModel'>desk.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>desk.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='top'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0' g='0.0196078' b='0.258824'/>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+		<map key='support'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.054902' g='0.054902' b='0.054902'/>
+			<map key='transform'>
+				<vector2 key='scale' x='4' y='4'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

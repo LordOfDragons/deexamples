@@ -1,0 +1,182 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.Preloading
+
+
+/**
+ * \brief Control widget cycling through skies.
+ */
+class CycleSkyWidget extends Panel
+	/** \brief Pick value from list action. */
+	class SelectFromList extends DefaultMouseListener implements WindowDialog.ResultListener
+		private var CycleSkyWidget pController
+		
+		public func new( CycleSkyWidget controller )
+			pController = controller
+		end
+		
+		public func void onButtonRelease( MouseEvent event )
+			var WindowUI window = GraphicsTestApp.getGTApp().getWindowUI()
+			var TestWorld world = window.getActiveWorld()
+			WindowDialog.chooseList( window, \
+				"Select Sky", "Select sky.", null, world.getModelSkies(), \
+				DefaultListElementRenderer.new( String.new( 'X', 30 ) ), \
+				null, null, this )
+		end
+		
+		public func void onResult( Object result )
+			var int index = result cast int
+			if index == -1
+				return
+			end
+			
+			var TestWorld world = GraphicsTestApp.getGTApp().getWindowUI().getActiveWorld()
+			world.setActiveSky( world.getModelSkies().getAt( index ) cast TestWorldSky )
+			pController.onActiveSkyChanged()
+		end
+	end
+	
+	/** \brief Activate previous value. */
+	class ActivatePrevValue implements ActionListener
+		private var CycleSkyWidget pController
+		
+		public func new( CycleSkyWidget controller )
+			pController = controller
+		end
+		
+		public func void onAction( ActionEvent event )
+			var TestWorld world = GraphicsTestApp.getGTApp().getWindowUI().getActiveWorld()
+			var int index = -1
+			
+			if world.getActiveSky() != null
+				index = world.getModelSkies().indexOf( world.getActiveSky() )
+			end
+			
+			if index != -1
+				world.setActiveSky( world.getModelSkies().getAt( ( index + 1 ) \
+					% world.getModelSkies().getCount() ) cast TestWorldSky )
+				
+			else
+				world.setActiveSky( world.getModelSkies().getAt( 0 ) cast TestWorldSky )
+			end
+			
+			pController.onActiveSkyChanged()
+		end
+	end
+	
+	/** \brief Activate next value. */
+	class ActivateNextValue implements ActionListener
+		private var CycleSkyWidget pController
+		
+		public func new( CycleSkyWidget controller )
+			pController = controller
+		end
+		
+		public func void onAction( ActionEvent event )
+			var TestWorld world = GraphicsTestApp.getGTApp().getWindowUI().getActiveWorld()
+			var int index = -1
+			
+			if world.getActiveSky() != null
+				index = world.getModelSkies().indexOf( world.getActiveSky() )
+			end
+			
+			if index != -1
+				world.setActiveSky( world.getModelSkies().getAt( \
+					( index - 1 + world.getModelSkies().getCount() ) \
+						% world.getModelSkies().getCount() ) cast TestWorldSky )
+				
+			else
+				world.setActiveSky( world.getModelSkies().getAt( 0 ) cast TestWorldSky )
+			end
+			
+			pController.onActiveSkyChanged()
+		end
+	end
+	
+	
+	
+	private var DefaultTextModel pModelName
+	
+	
+	
+	/**
+	 * \brief Create user interface window.
+	 */
+	public func new()
+		var TestWorld world = GraphicsTestApp.getGTApp().getWindowUI().getActiveWorld()
+		
+		if world != null and world.getActiveSky() != null
+			pModelName = DefaultTextModel.new( world.getActiveSky().getDisplayName() )
+			
+		else
+			pModelName = DefaultTextModel.new( "- - -" )
+		end
+		
+		runWhileBlockingLayout( block
+			buildContent()
+		end )
+	end
+	
+	
+	
+	/** \brief Active sky changed. */
+	public func void onActiveSkyChanged()
+		var WindowUI window = GraphicsTestApp.getGTApp().getWindowUI()
+		var TestWorld world = window.getActiveWorld()
+		
+		if world != null and world.getActiveSky() != null
+			pModelName.setText( world.getActiveSky().getDisplayName() )
+			
+		else
+			pModelName.setText( "- - -" )
+		end
+		
+		window.onActiveSkyChanged()
+	end
+	
+	/** \brief Build content (called by constructor). */
+	protected func void buildContent()
+		setDesignerSelector( "Panel.WorldController.CycleControl" )
+		setLayout( BoxLayout.new( LayoutAxis.x ) )
+		
+		var Label label = Label.new( "Sky" )
+		label.setDesignerSelector( "Label.WorldController.Name" )
+		addWidget( label )
+		
+		var Button button = Button.new( "<", ActivatePrevValue.new( this ) )
+		button.setDesignerSelector( "Button.WorldController.PrevValue" )
+		addWidget( button )
+		
+		label = Label.new( pModelName )
+		label.setDesignerSelector( "Label.WorldController.Value" )
+		label.addMouseListener( SelectFromList.new( this ) )
+		addWidget( label )
+		
+		button = Button.new( ">", ActivateNextValue.new( this ) )
+		button.setDesignerSelector( "Button.WorldController.NextValue" )
+		addWidget( button )
+	end
+end

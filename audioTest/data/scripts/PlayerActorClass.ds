@@ -1,0 +1,46 @@
+pin Dragengine.Scenery
+
+
+// Player actor element class. Rather basic since we are not using a player model.
+class PlayerActorClass extends BaseActorClass
+	public static var String FOOTSTEPS_WALK = "walk"
+	public static var String FOOTSTEPS_RUN = "run"
+	
+	public var ECBehaviorLookAt lookAt
+	
+	public var ECPSoundList footStepSounds
+	
+	
+	
+	// Create player actor element class
+	public func new() super("PlayerActor")
+		// Add Look-At behavior
+		lookAt = ECBehaviorLookAt.new(this, getColliderAI(), null, getLocomotion())
+		lookAt.getRange().setValue(1.5)
+		lookAt.getOrigin().setVector(Vector.new(0, 1.65, 0))
+		
+		// Foot step sounds to play. Randomly chosen
+		footStepSounds = ECPSoundList.new("footStepSounds")
+		footStepSounds.addPath("/sound/step1.ogg")
+		footStepSounds.addPath("/sound/step2.ogg")
+		footStepSounds.addPath("/sound/step3.ogg")
+		footStepSounds.addPath("/sound/step4.ogg")
+		addProperty(footStepSounds)
+		
+		// Make sure we have walk and run speed as we need it
+		getPlayerInputMove().getSpeedWalk().setValue(1.25)
+		getPlayerInputMove().getSpeedRun().setValue(4)
+		
+		// Make player available to conversations. Requires conv-actor to have an ID.
+		// in conversation scripts we then control the player actor using the identifier
+		// "player". The name is the display name of the actor and is a unicode string.
+		getConversationActor().getActorId().setValue(StringID.new("player"))
+		getConversationActor().getName().setValue(UnicodeString.newFromUTF8("Player"))
+		getConversationActor().getRegisterConversationActor().setValue(true) // enables actor to be found by conversations
+	end
+	
+	// Create PlayerActor instance
+	protected func Element createElement()
+		return PlayerActor.new(this)
+	end
+end

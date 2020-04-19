@@ -1,0 +1,98 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * \brief Test configuration.
+ * 
+ * Contains TestParameter for the user to change parameters at run-time.
+ */
+class TestConfiguration
+	private var Array pParameters
+	
+	
+	
+	/** \brief Create test configuration. */
+	public func new()
+		pParameters = Array.new()
+	end
+	
+	/** \brief Create copy of test configuration. */
+	public func new( TestConfiguration config )
+		pParameters = config.pParameters.map( block TestParameter each
+			return TestParameter.new( each )
+		end )
+	end
+	
+	
+	
+	/** \brief Number of parameters. */
+	public func int getParameterCount()
+		return pParameters.getCount()
+	end
+	
+	/** \brief Parameter at index. */
+	public func TestParameter getParameterAt( int index )
+		return pParameters.getAt( index ) cast TestParameter
+	end
+	
+	/** \brief Test parameter by name or \em null if absent. */
+	public func TestParameter getParameterNamed( String name )
+		return pParameters.find( block TestParameter each
+			return each.getName().equals( name )
+		end ) cast TestParameter
+	end
+	
+	/** \brief Add parameter. */
+	public func void addParameter( TestParameter parameter )
+		if getParameterNamed( parameter.getName() ) != null
+			throw EInvalidParam.new()
+		end
+		pParameters.add( parameter )
+	end
+	
+	/** \brief Remove parameter. */
+	public func void removeParameter( TestParameter parameter )
+		pParameters.remove( parameter )
+	end
+	
+	/** \brief Remove all parameters. */
+	public func void removeAllParameters()
+		pParameters.removeAll()
+	end
+	
+	/** \brief Visit parameters with block with parameter TestParameter. */
+	public func void forEachParameter( Block ablock )
+		pParameters.forEach( ablock )
+	end
+	
+	/** \brief Set active value for all parameters. */
+	public func void activateAllFromModule()
+		pParameters.forEach( block TestParameter each
+			each.activateFromModule()
+		end )
+	end
+end

@@ -1,0 +1,51 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.TriggerSystem
+
+
+// Dragoness action sitting down. Transmition from DragonessActionHearPlayer to DragonessActionSitTalk.
+class DragonessActionSitDown extends DragonessAction
+	private var AnimatorController controller
+	
+	
+	// Create dragoness actor action
+	public func new()
+	end
+	
+	
+	
+	// Action has been set as active action in an actor.
+	public func void activate(BehaviorElement actor)
+		super.activate(actor)
+		
+		actorMover.stopMoving()
+		playerInputMove.reset()
+		
+		conversationActor.getConversationActor().setGesturePoses(null)
+	end
+	
+	// Init animator
+	protected func void initAnimator()
+		actorAnimated.setActiveAnimatorID(DragonessClass.animatorSitDown)
+		
+		// Set up controller mappings
+		controller = actorAnimated.getControllerNamed("interaction")
+	end
+	
+	
+	
+	// Think. If animation is finished switches to DragonessActionSitTalk.
+	public func void think(float elapsed)
+		super.think(elapsed)
+		
+		if controller.isAtUpper()
+			aiAction.setAction(DragonessActionSitTalk.new())
+			
+			// Calling aiFinished() is required for transition actions or chains of actions
+			// to tell the AI that it can continue. In example it is not required since it
+			// is not used but it is placed here to show how it should be usually done.
+			aiFinished()
+		end
+	end
+end

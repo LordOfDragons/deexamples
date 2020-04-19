@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='MovingRoomBlock' class='SimpleElementOnRail'>
+	<string name='component.rig'>movingRoomBlock.derig</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<boolean name='component.renderEnvMap'>0</boolean>
+	<string name='component.model'>movingRoomBlock.demodel</string>
+	<string name='component.audioModel'>movingRoomBlock.demodel</string>
+	<float name='moveOnRail.velocity'>0.5</float>
+	<map name='component.textureReplacements'>
+		<map key='material'>
+			<string key='skin'>/material/wallpaper/material.deskin</string>
+			<color key='tint' r='0.513726' g='0.6' b='1'/>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

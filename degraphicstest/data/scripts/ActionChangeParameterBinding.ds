@@ -1,0 +1,119 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+pin Dragengine.Commands
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Listeners
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+/**
+ * \brief Action changing TestParameter binding.
+ */
+class ActionChangeParameterBinding extends DefaultActionListener implements WindowDialog.ResultListener
+	private var TestParameter pParameter
+	private var WindowCaptureBinding.CaptureResult pReassignCaptured
+	
+	
+	
+	/**
+	 * \brief Create action.
+	 */
+	public func new( TestParameter parameter )
+		pParameter = parameter
+	end
+	
+	
+	
+	/**
+	 * \brief Perform action (DefaultActionListener).
+	 */
+	public func void onAction( ActionEvent event )
+		WindowCaptureBinding.captureInput( \
+			BaseGameApp.getApp().getBindingManager(), \
+			EditBindingsListModelEntry.InputSource.axis, \
+			BaseGameApp.getApp().getDesktop().getActiveWindow(), \
+			"Change Binding", \
+			"Push Button to Set", \
+			this ) // <= this class also implements the result listener
+	end
+	
+	/**
+	 * \brief Dialog closed with result (ResultListener).
+	 */
+	public func void onResult( Object result )
+		if result == null
+			return
+		end
+		
+		var WindowCaptureBinding.CaptureResult captured = result cast WindowCaptureBinding.CaptureResult
+		var BindingManager bindingManager = BaseGameApp.getApp().getBindingManager()
+		var int deviceIndex = captured.getDeviceIndex()
+		var int sourceIndex = captured.getSourceIndex()
+		
+		// make sure only button is used
+		if captured.getInputSource() != EditBindingsListModelEntry.InputSource.button
+			return
+		end
+		
+		// remove binding if assigned
+		var Binding binding = bindingManager.findButtonBinding( deviceIndex, sourceIndex )
+		if binding != null
+			if binding.getCommand() == pParameter.getCommand()
+				return  // same binding, nothing changed
+			end
+			
+			if pReassignCaptured == null
+				askUserReassignBinding( captured, binding.getCommand() )
+				return
+			end
+			
+			bindingManager.removeButtonBinding( binding )
+		end
+		
+		// add binding
+		var InputDevice device = bindingManager.getDeviceAt( deviceIndex )
+		var InputDeviceButton button = device.getButtonAt( sourceIndex )
+		binding = Binding.new( device.getID(), button.getID(), pParameter.getCommand(), false )
+		bindingManager.addButtonBinding( binding )
+		
+		// assign binding to parameter
+		pParameter.setBinding( binding )
+	end
+	
+	/** \brief Ask user to reassign binding. */
+	protected func void askUserReassignBinding( \
+	WindowCaptureBinding.CaptureResult captured, Command command )
+		pReassignCaptured = captured
+		
+		WindowDialog.question( \
+			BaseGameApp.getApp().getDesktop().getActiveWindow(), \
+			"Replace Binding", "Binding already assigned to '" \
+				+ command.getName() + "'.\n" + "Do you want to re-assign?", \
+			null, \
+			Array.newWith( \
+				WindowDialog.ButtonConfiguration.new( "Yes", true ), \
+				WindowDialog.ButtonConfiguration.new( "No", false) ), \
+			this ) // <= call outself again with pReassignCaptured set
+	end
+end

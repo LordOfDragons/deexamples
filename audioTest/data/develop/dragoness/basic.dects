@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<conversationTestSetup>
+	<actor>
+		<id>player</id>
+		<aliasID/>
+		<position x='0' y='0' z='5'/>
+		<orientation x='0' y='180' z='0'/>
+		<model/>
+		<skin/>
+		<rig/>
+		<speechAnimation/>
+		<eyesAnimator/>
+		<facePoseAnimator/>
+		<boneHeadRotator/>
+	</actor>
+	<actor>
+		<id>dragoness</id>
+		<aliasID>dragoness voice</aliasID>
+		<position x='0' y='0' z='2'/>
+		<orientation x='0' y='0' z='0'/>
+		<model>/model/dragoness/dragoness.demodel</model>
+		<skin>/model/dragoness/dragoness.deskin</skin>
+		<rig>/model/dragoness/dragoness.derig</rig>
+		<speechAnimation/>
+		<eyesAnimator/>
+		<facePoseAnimator/>
+		<boneHeadRotator>head rotator</boneHeadRotator>
+		<pose name='default'>
+			<animator>/model/dragoness/animators/sitting.deanimator</animator>
+			<controller index='0'>
+				<update>elapsedTime</update>
+				<value>0</value>
+				<vector x='0' y='0' z='0'/>
+			</controller>
+			<controller index='1'>
+				<update>headLeftRight</update>
+				<value>0</value>
+				<vector x='0' y='0' z='0'/>
+			</controller>
+			<controller index='2'>
+				<update>headUpDown</update>
+				<value>0</value>
+				<vector x='0' y='0' z='0'/>
+			</controller>
+			<gesture name='turn around'>/model/dragoness/animators/sittingGestureTurnAround.deanimator</gesture>
+			<gesture name='me best'>/model/dragoness/animators/sittingGestureMeBest.deanimator</gesture>
+			<gesture name='clear hold'>/model/dragoness/animators/sittingGestureClearHold.deanimator</gesture>
+			<gesture name='talk'>/model/dragoness/animators/sittingGestureTalk.deanimator</gesture>
+			<gesture name='examine close'>/model/dragoness/animators/sittingGestureExamineClose.deanimator</gesture>
+			<gesture name='see up right'>/model/dragoness/animators/sittingGestureSeeUpRight.deanimator</gesture>
+			<gesture name='snip'>/model/dragoness/animators/sittingGestureSnip.deanimator</gesture>
+		</pose>
+		<activePose>default</activePose>
+	</actor>
+	<gameState>
+	</gameState>
+</conversationTestSetup>

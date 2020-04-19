@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE gameProject SYSTEM 'DragengineGameProject'>
+<gameProject>
+	<name>Example App</name>
+	<description>Example Application project for using DragonScript Module based on BaseGameApp.</description>
+	<dataDirectory>data</dataDirectory>
+	<cacheDirectory>cache</cacheDirectory>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<projectGameDefinition>exampleApp.degd</projectGameDefinition>
+	<scriptModule>DragonScript</scriptModule>
+</gameProject>

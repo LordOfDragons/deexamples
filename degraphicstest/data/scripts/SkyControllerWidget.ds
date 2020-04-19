@@ -1,0 +1,89 @@
+/* 
+ * Drag[en]gine Graphics Test
+ *
+ * Copyright (C) 2018, Plüss Roland ( roland@rptd.ch )
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.Preloading
+
+
+/**
+ * \brief Control widget changing sky controller value.
+ */
+class SkyControllerWidget extends Panel implements RangeModelListener
+	private var SkyController pController
+	private var DefaultRangeModel pModelValue
+	
+	
+	
+	/**
+	 * \brief Create user interface window.
+	 */
+	public func new( SkyController controller, String name )
+		pController = controller
+		pModelValue = DefaultRangeModel.new( 0, 1000, 200, 500, 1 )
+		pModelValue.addListener( this )
+		
+		runWhileBlockingLayout( block
+			buildContent( name )
+		end )
+	end
+	
+	/** \brief Dispose of widget. */
+	public func void dispose()
+		super.dispose()
+		pModelValue = null
+	end
+	
+	
+	
+	/** \brief Minimum, maximum or page size changed. */
+	public func void rangeChanged( RangeModel rangeModel )
+	end
+	
+	/** \brief Value changed. */
+	public func void valueChanged( RangeModel rangeModel )
+		pController.setValue( DEMath.linearStep( rangeModel.getValue() cast float, \
+			rangeModel.getMinimum() cast float, rangeModel.getMaximum() cast float, \
+			pController.getLower(), pController.getUpper() ) )
+	end
+	
+	
+	
+	/** \brief Build content (called by constructor). */
+	protected func void buildContent( String name )
+		setDesignerSelector( "Panel.WorldController.CycleControl" )
+		setLayout( BoxLayout.new( LayoutAxis.x ) )
+		
+		var Label label = Label.new( name )
+		label.setDesignerSelector( "Label.WorldController.Name" )
+		addWidget( label )
+		
+		var ScrollBar scrollBar = ScrollBar.new( Orientation.horizontal, pModelValue )
+		scrollBar.setDesignerSelector( "ScrollBar.WorldController" )
+		var Panel panel = Panel.new()
+		panel.setLayout( BoxLayout.new( LayoutAxis.x ) )
+		panel.addWidget( scrollBar )
+		panel.setDesignerSelector( "Panel.ScrollBar.WorldController" )
+		addWidget( panel )
+	end
+end

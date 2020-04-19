@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	<box>
+		<position x='0' y='19' z='0'/>
+		<halfExtends x='25' y='1' z='25'/>
+		<rotation x='0' y='-0' z='-0'/>
+		<property>ceiling</property>
+	</box>
+	<box>
+		<position x='-23.36' y='9' z='15.51'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='0' y='153' z='-0'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-15.51' y='9' z='-23.36'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='0' y='-117' z='-0'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='15.51' y='9' z='23.36'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='0' y='63.4' z='-0'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='23.36' y='9' z='-15.51'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='0' y='-26.6' z='-0'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-15.51' y='9' z='23.36'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='9.55e-08' y='-63.4' z='-2.86e-07'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='23.36' y='9' z='15.51'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='3.82e-07' y='-153' z='-1.91e-07'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='15.51' y='9' z='-23.36'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='2.86e-07' y='117' z='9.55e-08'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-23.36' y='9' z='-15.51'/>
+		<halfExtends x='1' y='9' z='6.009'/>
+		<rotation x='0' y='26.6' z='-0'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-1.907e-06' y='9' z='26'/>
+		<halfExtends x='1' y='9' z='11'/>
+		<rotation x='-4.27e-07' y='-90' z='4.27e-07'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-1.907e-06' y='9' z='-26'/>
+		<halfExtends x='1' y='9' z='11'/>
+		<rotation x='-4.27e-07' y='90' z='-4.27e-07'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='26' y='9' z='-4.06e-06'/>
+		<halfExtends x='1' y='9' z='11'/>
+		<rotation x='-8.54e-07' y='180' z='-6.45e-14'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-26' y='9' z='0'/>
+		<halfExtends x='1' y='9' z='11'/>
+		<rotation x='0' y='-0' z='-0'/>
+		<property>wall</property>
+	</box>
+	<box>
+		<position x='-13.93' y='0.04148' z='-20.36'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.152' y='-117' z='-20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='-20.36' y='0.04148' z='13.93'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.152' y='153' z='-20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='13.93' y='0.04148' z='20.36'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.152' y='63' z='-20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='20.36' y='0.04148' z='-13.93'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.152' y='-27' z='-20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='-13.93' y='0.04148' z='20.36'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.15' y='-63' z='20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='20.36' y='0.04148' z='13.93'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.15' y='-153' z='20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='13.93' y='0.04148' z='-20.36'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.15' y='117' z='20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='-20.36' y='0.04148' z='-13.93'/>
+		<halfExtends x='3.361' y='1' z='5.789'/>
+		<rotation x='0.15' y='27' z='20.4'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='9.537e-06' y='0.04565' z='22.81'/>
+		<halfExtends x='3.361' y='1' z='10.22'/>
+		<rotation x='0' y='-90' z='21.8'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='22.81' y='0.04565' z='-5.722e-06'/>
+		<halfExtends x='3.361' y='1' z='10.22'/>
+		<rotation x='1.71e-06' y='180' z='21.8'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='-1.907e-06' y='0.04565' z='-22.81'/>
+		<halfExtends x='3.361' y='1' z='10.22'/>
+		<rotation x='5.45e-07' y='90' z='21.8'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='-22.81' y='0.04565' z='1.614e-07'/>
+		<halfExtends x='3.361' y='1' z='10.22'/>
+		<rotation x='-4.59e-12' y='8.55e-09' z='21.8'/>
+		<property>border</property>
+	</box>
+	<box>
+		<position x='0' y='-1' z='0'/>
+		<halfExtends x='20' y='1' z='20'/>
+		<rotation x='0' y='-0' z='-0'/>
+		<property>field</property>
+	</box>
+</rig>

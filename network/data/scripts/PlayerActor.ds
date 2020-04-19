@@ -1,0 +1,138 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Networking
+pin Dragengine.Utils
+
+
+/**
+ * Player actor. Extends BaseActor with networking behaviors and game specific behaviors.
+ */
+class PlayerActor extends BaseActor
+	/**
+	 * Network state behavior listener to modify the link request. This is required because
+	 * by default all link requests are read only. While this is correct for nearly all
+	 * situations there is one where this does not work and this is the one and only state
+	 * the player has to modify. This listener request to disable read only mode then.
+	 */
+	class PrepareWritableState extends ECBehaviorNetworkState.DefaultListener
+		public func new()
+		end
+		
+		public func bool writableLink( ECBehaviorNetworkState.Instance instance, Connection connection )
+			// to figure out if we need to make the state writable check if the connection
+			// to create the link for is the one the player state is linked to.
+			var StubElement stub = instance.getElement().getStub()
+			var String value = stub.getPropertyValueFor( "playerID", null )
+			var UniqueID id = UniqueID.newFromHexString( value )
+			var NetworkPlayerServer player = GameApp.getGameApp().gameServer.getPlayerWithID( id )
+			
+			return player != null and player.getConnection() == connection
+		end
+	end
+	
+	
+	
+	/**
+	 * Network state behavior instance.
+	 */
+	public var ECBehaviorNetworkState.Instance networkState
+	
+	/**
+	 * Behavior giving player the ability to kick the play ball.
+	 */
+	public var BehaviorKick.Instance kick
+	 
+	/**
+	 * Player state this actor belongs to.
+	 */
+	public var PlayerState playerState
+	
+	
+	
+	/**
+	 * Create element.
+	 */
+	public func new( PlayerActorClass eclass ) super( eclass )
+		// Switch to running
+		getPlayerInputMove().setRun( true )
+		
+		// Store the network state behavior instance aside
+		networkState = eclass.networkState.instance( this )
+		
+		// add listener to figure out which link has to be writable
+		networkState.addListener( PrepareWritableState.new() )
+		
+		// Store kick behavior
+		kick = eclass.kick.instance( this )
+	end
+	
+	
+	
+	/**
+	 * Initialize from stub.
+	 */
+	public func void init( StubElement stub )
+		super.init( stub )
+		
+		// Find player state
+		var UniqueID playerID = UniqueID.newFromHexString( stub.getPropertyValueFor( "playerID", null ) )
+		playerState = GameState.getGameState().getPlayer( playerID )
+		playerState.actor = this
+		
+		// If this is not the local player ensure network state is read-only.
+		// 
+		// For client players this is always the case because they obtain network states from
+		// the server which are marked read-only.
+		// 
+		// For server states this does not work since all creates states are read-write by
+		// default. We have to set all of them read-only except for the server player itself.
+		// 
+		// By setting it by default we are fine in both cases. This extra line is only required
+		// for the PlayerActor element. For all other elements the default behavior is correct.
+		networkState.setReadOnly( not playerState.isLocal() )
+		
+		// Set action and AI to use. If read-only use BaseActorAction to allow important
+		// behaviors to work while not doing updates potentially breaking things
+		if networkState.getReadOnly()
+			getAIAction().setAction( BaseActorAction.new() )
+			
+		else
+			getAIAction().setAction( PlayerAction.new() )
+		end
+	end
+	
+	/**
+	 * Dispose of element.
+	 */
+	public func void dispose()
+		if playerState != null
+			playerState.actor = null
+			playerState = null
+		end
+		super.dispose()
+	end
+end

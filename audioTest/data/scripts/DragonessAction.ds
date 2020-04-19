@@ -1,0 +1,70 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.TriggerSystem
+
+
+// Dragoness base action. Adds command and conditions supported beyond BAAFirstPerson.
+// These can be either called by game scripts or by conversation scripts. There are two
+// main ways how this can be used.
+// 
+// Run for all, deny for some
+// --------------------------
+// This is best used for commands and conditions which nearly all actor specific actions
+// support with only some actions not allowing them. These actions will overwrite the
+// offending methods and either leave them empty or handle them like calling a method on
+// the actor AI telling it whatever it wanted to do failed or always returning false in
+// case of conditions.
+// 
+// Deny for all, run for some
+// --------------------------
+// The opposite of the above which is best used for commands and conditions which are valid
+// only for specific actions. The default implementation is here the handling of the command
+// not supported situation while the specific actions will implement the desired actions.
+// 
+// Some examples to illistrate this.
+// 
+// The command "stopMoving" clears player movement input causing the actor to stop moving.
+// This command is usually working for all actions so using first method is the best choice.
+// 
+// The condition "canTalk" checks if the actor is able to talk to the player. This is best
+// done using the second method because only one action in this example is supposed to
+// allow players to talk to here. Hence the default implementation returns false while only
+// the specific implementation returns true.
+// 
+class DragonessAction extends BAAFirstPerson
+	// Create dragoness action
+	public func new()
+	end
+	
+	
+	// Teleport dragoness to a spawn point
+	public func void teleport(SpawnPoint spawnPoint)
+		spawnPoint.spawn(actor.getGameWorld(), actor)
+		(actor cast Dragoness).teleportAdjustActor()
+	end
+	
+	// Activate named action. This is one way to switch between actions the actor should use.
+	// Another approach is using a BehaviorTree and jumping to rules using an ID. This example
+	// here shows the non-behavior-tree way.
+	public func void switchAction(String actionName)
+		if actionName.equals("hearPlayer")
+			aiAction.setAction(DragonessActionHearPlayer.new())
+			
+		elif actionName.equals("sitTalk")
+			aiAction.setAction(DragonessActionSitTalk.new())
+			
+		elif actionName.equals("sitDown")
+			aiAction.setAction(DragonessActionSitDown.new())
+			
+		else
+			throw EInvalidParam.new("Unknown actionName '" + actionName + "'")
+		end
+	end
+	
+	// Checks if player can talk to dragoness. Default implementation returns false.
+	// Actions where player can talk to dragoness implement this method and return true.
+	public func bool canTalk()
+		return false
+	end
+end

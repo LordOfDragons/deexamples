@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<value property='color'>0</value>
+		<value property='reflectivity'>0</value>
+		<value property='roughness'>1</value>
+		<constructed property='emissivity'>
+			<size x='512' y='256'/>
+			<image>
+				<size x='512' y='256'/>
+				<path>/material/roomLabel/baseEmissivity.jpg</path>
+			</image>
+			<text>
+				<position x='41' y='75'/>
+				<size x='440' y='112'/>
+				<path>/font/roomLabel.defont</path>
+				<fontSize>109</fontSize>
+				<text>Thickness</text>
+				<color r='0.141176' g='0.141176' b='0'/>
+			</text>
+		</constructed>
+		<value property='emissivity.intensity'>2</value>
+		<value property='sound.none'>1</value>
+	</texture>
+</skin>

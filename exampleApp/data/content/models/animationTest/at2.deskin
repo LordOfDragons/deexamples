@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='screen'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0.1</value>
+		<image property='emissivity'>../../materials/waveMonitor/wave.png</image>
+		<value property='emissivity.intensity'>4</value>
+		<value property='hint.nocompression'>1</value>
+		<mapped property='texcoord.offset'>
+			<red>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='-0.5'/>
+						<handle1 x='-0.25' y='-0.5'/>
+						<handle2 x='0.25' y='-0.5'/>
+					</point>
+					<point>
+						<coordinates x='1' y='0.5'/>
+						<handle1 x='0.75' y='0.5'/>
+						<handle2 x='1.25' y='0.5'/>
+					</point>
+				</curve>
+				<inputType>bonePositionX</inputType>
+				<inputLower>-0.35</inputLower>
+				<inputUpper>0.35</inputUpper>
+				<bone>dial1</bone>
+			</red>
+			<green>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='0'/>
+						<handle1 x='-0.25' y='0'/>
+						<handle2 x='0.25' y='0'/>
+					</point>
+				</curve>
+			</green>
+			<blue>
+			</blue>
+			<alpha>
+			</alpha>
+		</mapped>
+	</texture>
+	<texture name='glowers'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<image property='roughness'>../../materials/glower/roughness.jpg</image>
+		<value property='roughness.remap.lower'>0</value>
+		<value property='roughness.remap.upper'>0.1</value>
+		<image property='emissivity'>../../materials/glower/emissivity.jpg</image>
+		<value property='emissivity.intensity'>4</value>
+		<mapped property='emissivity.tint' renderable='tint'>
+			<red>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='0'/>
+						<handle1 x='-0.25' y='0'/>
+						<handle2 x='0.25' y='0'/>
+					</point>
+					<point>
+						<coordinates x='0.5' y='1'/>
+						<handle1 x='0.45' y='1'/>
+						<handle2 x='0.55' y='1'/>
+					</point>
+					<point>
+						<coordinates x='1' y='0'/>
+						<handle1 x='0.75' y='0'/>
+						<handle2 x='1.25' y='0'/>
+					</point>
+				</curve>
+				<inputType>boneRotationY</inputType>
+				<bone>dial2</bone>
+			</red>
+			<green>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='0'/>
+						<handle1 x='-0.25' y='0'/>
+						<handle2 x='0.25' y='0'/>
+					</point>
+				</curve>
+			</green>
+			<blue>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='1'/>
+						<handle1 x='-0.25' y='1'/>
+						<handle2 x='0.25' y='1'/>
+					</point>
+					<point>
+						<coordinates x='0.5' y='0'/>
+						<handle1 x='0.45' y='0'/>
+						<handle2 x='0.55' y='0'/>
+					</point>
+					<point>
+						<coordinates x='1' y='1'/>
+						<handle1 x='0.95' y='1'/>
+						<handle2 x='1.05' y='1'/>
+					</point>
+				</curve>
+				<inputType>boneRotationY</inputType>
+				<bone>dial2</bone>
+			</blue>
+			<alpha>
+			</alpha>
+		</mapped>
+	</texture>
+	<texture name='glowers2'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<image property='roughness'>../../materials/glower/roughness.jpg</image>
+		<value property='roughness.remap.lower'>0</value>
+		<value property='roughness.remap.upper'>0.1</value>
+		<image property='emissivity'>../../materials/glower/emissivity.jpg</image>
+		<value property='emissivity.intensity'>4</value>
+		<mapped property='emissivity.tint' renderable='tint'>
+			<red>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='0'/>
+						<handle1 x='-0.25' y='0'/>
+						<handle2 x='0.25' y='0'/>
+					</point>
+					<point>
+						<coordinates x='1' y='1'/>
+						<handle1 x='0.75' y='1'/>
+						<handle2 x='1.25' y='1'/>
+					</point>
+				</curve>
+				<inputType>boneRotationY</inputType>
+				<bone>dial3</bone>
+			</red>
+			<green>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='1'/>
+						<handle1 x='-0.25' y='1'/>
+						<handle2 x='0.25' y='1'/>
+					</point>
+					<point>
+						<coordinates x='1' y='0'/>
+						<handle1 x='0.75' y='0'/>
+						<handle2 x='1.25' y='0'/>
+					</point>
+				</curve>
+				<inputType>boneRotationY</inputType>
+				<bone>dial3</bone>
+			</green>
+			<blue>
+				<curve>
+					<interpolation>linear</interpolation>
+					<point>
+						<coordinates x='0' y='0'/>
+						<handle1 x='-0.25' y='0'/>
+						<handle2 x='0.25' y='0'/>
+					</point>
+				</curve>
+			</blue>
+			<alpha>
+			</alpha>
+		</mapped>
+	</texture>
+</skin>

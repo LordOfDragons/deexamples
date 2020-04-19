@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<constructed property='color'>
+			<size x='256' y='256'/>
+			<color r='0.67451' g='1' b='0.713726'/>
+			<text>
+				<position x='24' y='86'/>
+				<size x='214' y='93'/>
+				<path>/font/roomLabel.defont</path>
+				<fontSize>85</fontSize>
+				<text>Active</text>
+				<color r='1' g='0.172549' b='0.0980392'/>
+			</text>
+		</constructed>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.5</value>
+		<value property='sound.none'>1</value>
+	</texture>
+</skin>

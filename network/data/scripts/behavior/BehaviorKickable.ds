@@ -1,0 +1,230 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Behavior for elements able to be kicked by elements supporting BehaviorKick.
+ * 
+ * Inter-element interactions are best modeled using a pair of behaviors. One behavior
+ * is the actio and the other behavior the reactio. Typically the actio behavior
+ * initiates the interaction while the reactio or another behavior listening to it
+ * performs the actual action. This decouples elements allowing to achieve various
+ * interactions with less code.
+ * 
+ * The BehaviorKickable applies the impulse to the ECBehaviorCollider present in the
+ * owner element.
+ * 
+ * Adding listener support allows to attach later on new behaviors extending on the
+ * present functionality.
+ */
+class BehaviorKickable extends DefaultECBehavior
+	/**
+	 * Listener.
+	 */
+	interface Listener
+		/**
+		 * Element has been kicked with a certain impulse. Power is a percentage value
+		 * in the range from 0 to 1 independent of the actual impulse.
+		 */
+		func void kickedBy( Instance instance, BehaviorKick.Instance kicker, Vector impulse, float power )
+	end
+	
+	/**
+	 * Default implementation of Listener. It is recommended to provide a default
+	 * implementation even for a single function interface since this allows to
+	 * extend the interface in the future without breaking implementors.
+	 */
+	class DefaultListener implements Listener
+		/**
+		 * Create default listener.
+		 */
+		public func new()
+		end
+		
+		/**
+		 * Element has been kicked with a certain impulse. Power is a percentage value
+		 * in the range from 0 to 1 independent of the actual impulse.
+		 * 
+		 * Default implementation does nothing.
+		 */
+		public func void kickedBy( Instance instance, BehaviorKick.Instance kicker, Vector impulse, float power )
+		end
+	end
+	
+	
+	
+	/**
+	 * Behavior instance.
+	 */
+	class Instance extends DefaultECBehaviorInstance
+		/** Behavior. */
+		public var BehaviorKickable behavior
+		
+		/** Collider behavior instance. */
+		public var ECBehaviorCollider.Instance collider
+		
+		/** Listeners. */
+		private var Array pListeners
+		
+		
+		
+		/**
+		 * Create behavior instance
+		 */
+		public func new( BehaviorKickable behavior, BehaviorElement element ) super( element )
+			this.behavior = behavior
+			pListeners = Array.new()
+		end
+		
+		/**
+		 * Initialize behavior instance from stub.
+		 */
+		public func void init( StubElement stub )
+			// There are two ways we can obtain behaviors present in the owner element.
+			// 
+			// By storing the ECBehaviorCollider in BehaviorKickable we can use
+			// ECBehaviorCollider.instance() to retrieve the collider behavior instance
+			// for the owner element. This is the fastest solution and recommended since
+			// this way you know already at behavior creation time if the required
+			// behaviors are present. It also makes it clear to users what behaviors are
+			// required
+			// 
+			// The second way is to call ECBehaviorCollider.getInstanceIn() on the owner
+			// element. This does not required to store the ECBehaviorCollider in
+			// BehaviorKickable but requires iterating over behaviors in the owner element
+			// to find the matching one. This is slightly slower and runs the risk for
+			// users to forget adding required behaviors to elements.
+			// 
+			// Using the first mentioned way is the preferred solution
+			collider = behavior.collider.instance( getElement() )
+		end
+		
+		/**
+		 * Dispose of behavior element. To avoid problems always add a dispose method
+		 * and clear all variables storing references to other behavior instances.
+		 */
+		public func void dispose()
+			collider = null
+			pListeners = null
+			
+			// Always super call dispose() to avoid leaking
+			super.dispose()
+		end
+		
+		
+		
+		/**
+		 * Element is kicked by BehaviorKick with certain impulse. Power is a percentage
+		 * value in the range from 0 to 1 independent of the actual impulse. Applies
+		 * the impulse to the collider behavior and calls Listener.kickedBy() on all listeners.
+		 */
+		public func void kick( BehaviorKick.Instance kicker, Vector impulse, float power )
+			// Apply impulse to collider
+			if kicker.networkState.getIsServer()
+				collider.getCollider().applyImpuls( impulse )
+			end
+			
+			// Notify listeners
+			pListeners.forEach( block Listener each
+				each.kickedBy( this, kicker, impulse, power )
+			end )
+		end
+		
+		
+		
+		/**
+		 * Add listener.
+		 */
+		public func void addListener( Listener listener )
+			if listener == null
+				throw EInvalidParam.new()
+			end
+			pListeners.add( listener )
+		end
+		
+		/**
+		 * Remove listener.
+		 */
+		public func void removeListener( Listener listener )
+			pListeners.remove( listener )
+		end
+	end
+	
+	
+	
+	/** Collider behavior. */
+	public var ECBehaviorCollider collider
+	
+	
+	
+	/** Create behavior. */
+	public func new( BehaviorElementClass eclass, ECBehaviorCollider collider ) super( eclass )
+		if collider == null
+			throw ENullPointer.new( "collider" )
+		end
+		this.collider = collider
+		
+		// Modify the collider to have the kickable category bit set. Keep in mind
+		// that collision filters have category and filter bits which have to match.
+		// For kicking to work the kickable has GameApp.CollisionFilterBit.kickable
+		// set as category and the kick behavior as filter
+		collider.getCollider().collisionCategorySetBit( GameApp.CollisionFilterBit.kickable )
+		
+		// Add behavior to element class. This should always come last
+		eclass.addBehavior( this )
+	end 
+	
+	/** Dispose of behavior. */
+	public func void dispose()
+		collider = null
+		super.dispose()
+	end
+	
+	
+	
+	/** Get instance from element. */
+	public func Instance instance( BehaviorElement element )
+		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
+	end
+	
+	
+	
+	/** Get instance in element or null if absent. */
+	static public func Instance getInstanceIn( BehaviorElement element )
+		return element.findInstance( block ECBehaviorInstance each
+			return each castable Instance
+		end ) cast Instance
+	end
+	
+	
+	
+	/** \brief Create Behavior instance. */
+	public func ECBehaviorInstance createInstance( BehaviorElement element )
+		return Instance.new( this, element )
+	end
+end

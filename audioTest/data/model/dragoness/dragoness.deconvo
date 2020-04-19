@@ -1,0 +1,1441 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<conversation>
+	
+	<target name='player head'>
+		<actor>player</actor>
+		<position x='0' y='1.65' z='0'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='dragoness close'>
+		<actor>dragoness</actor>
+		<bone>head</bone>
+		<position x='0' y='0' z='0.2'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='dragoness medium'>
+		<actor>dragoness</actor>
+		<bone>neck2</bone>
+		<position x='0' y='0' z='0'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='poi 1'>
+		<coordSystem>poi 1</coordSystem>
+		<position x='0' y='0' z='0'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='poi 2'>
+		<coordSystem>poi 2</coordSystem>
+		<position x='0' y='0' z='0'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='poi 3'>
+		<coordSystem>poi 3</coordSystem>
+		<position x='0' y='0' z='0'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='poi 4'>
+		<coordSystem>poi 4</coordSystem>
+		<position x='0' y='0' z='0'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='dragoness head'>
+		<actor>dragoness</actor>
+		<bone>head</bone>
+		<position x='0' y='0' z='0.2'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='dragoness far away'>
+		<actor>dragoness</actor>
+		<position x='0' y='1.65' z='20'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='player forward'>
+		<actor>player</actor>
+		<position x='0' y='1.65' z='10'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='player forward up'>
+		<actor>player</actor>
+		<position x='0' y='10' z='10'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	<target name='dragoness convo'>
+		<actor>dragoness</actor>
+		<position x='0' y='1.65' z='1.3'/>
+		<orientation x='0' y='0' z='0'/>
+	</target>
+	
+	<cameraShot name='player first person'>
+		<actorCount>1</actorCount>
+		<cameraTarget>player head</cameraTarget>
+		<offsetCameraFrom x='0' y='0' z='0'/>
+		<offsetCameraTo x='0' y='0' z='0'/>
+		<cameraOrbitFrom x='0' y='0' z='0'/>
+		<cameraOrbitTo x='0' y='0' z='0'/>
+		<cameraDistanceFrom>0</cameraDistanceFrom>
+		<cameraDistanceTo>0</cameraDistanceTo>
+		<lookAtTarget>dragoness close</lookAtTarget>
+		<offsetLookAtFrom x='0' y='0' z='0'/>
+		<offsetLookAtTo x='0' y='0' z='0'/>
+		<positionFrom x='0' y='0' z='0'/>
+		<positionTo x='0' y='0' z='0'/>
+		<rotationFrom x='0' y='0' z='0'/>
+		<rotationTo x='0' y='0' z='0'/>
+		<tiltFrom>0</tiltFrom>
+		<tiltTo>0</tiltTo>
+		<fovFrom>90</fovFrom>
+		<fovTo>90</fovTo>
+		<lockUpAxis>false</lockUpAxis>
+		<alignTargets>false</alignTargets>
+		<relativeToLookAt>false</relativeToLookAt>
+		<lockCameraTarget>false</lockCameraTarget>
+		<lockLookAtTarget>true</lockLookAtTarget>
+	</cameraShot>
+	
+	<gesture name='turn around'>
+		<animator>turn around</animator>
+	</gesture>
+	<gesture name='me best'>
+		<animator>me best</animator>
+		<hold>true</hold>
+	</gesture>
+	<gesture name='clear hold'>
+		<animator>clear hold</animator>
+	</gesture>
+	<gesture name='see up right'>
+		<animator>see up right</animator>
+		<hold>true</hold>
+	</gesture>
+	<gesture name='talk'>
+		<animator>talk</animator>
+		<hold>true</hold>
+	</gesture>
+	<gesture name='examine close'>
+		<animator>examine close</animator>
+		<hold>true</hold>
+	</gesture>
+	<gesture name='snip'>
+		<animator>snip</animator>
+		<hold>true</hold>
+	</gesture>
+	
+	<lookAt name='dragoness close'>
+		<target>dragoness close</target>
+	</lookAt>
+	<lookAt name='dragoness medium'>
+		<target>dragoness medium</target>
+	</lookAt>
+	<lookAt name='poi 1'>
+		<target>poi 1</target>
+	</lookAt>
+	<lookAt name='poi 2'>
+		<target>poi 2</target>
+	</lookAt>
+	<lookAt name='poi 3'>
+		<target>poi 3</target>
+	</lookAt>
+	<lookAt name='poi 4'>
+		<target>poi 4</target>
+	</lookAt>
+	<lookAt name='dragoness head'>
+		<target>dragoness head</target>
+	</lookAt>
+	<lookAt name='player head'>
+		<target>player head</target>
+	</lookAt>
+	<lookAt name='dragoness far away'>
+		<target>dragoness far away</target>
+	</lookAt>
+	<lookAt name='player forward'>
+		<target>player forward</target>
+	</lookAt>
+	<lookAt name='player forward up'>
+		<target>player forward up</target>
+	</lookAt>
+	<lookAt name='dragoness convo'>
+		<target>dragoness convo</target>
+	</lookAt>
+	
+	<file id='*testing'>
+		<topic id='test1'>
+			<actions>
+				<cameraShot>
+					<name>player first person</name>
+					<duration>5</duration>
+					<cameraTarget>player head</cameraTarget>
+					<lookAtTarget>dragoness medium</lookAtTarget>
+				</cameraShot>
+			</actions>
+		</topic>
+	</file>
+	<file id='explain'>
+		<topic id='commonRoom'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>roomCommon speaker</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>This is a common room with walls having common absorption properties.</textBoxText>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>But it has no furniture so it is still quite reverberant.</textBoxText>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='openings'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>openings speaker</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>In this room the speaker is shielded leaving some openings.</textBoxText>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>As a result the sound is heard differently while moving around the room.</textBoxText>
+					<minSpeechTime>7</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='thickness'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>thickness speaker</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>In this room the speaker is fully shielded by walls of varying thickness.</textBoxText>
+					<minSpeechTime>7</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>The low frequencies pass the walls easily but not the high ones.</textBoxText>
+					<minSpeechTime>7</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='furnishedRoom'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>furnishedRoom speaker1</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>furnishedRoom speaker2</coordSystem>
+					<aliasID>poi 2</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>furnishedRoom seats1</coordSystem>
+					<aliasID>poi 3</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>furnishedRoom seats2</coordSystem>
+					<aliasID>poi 4</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+						<entry pause='1' duration='2'>poi 2</entry>
+						<entry pause='1' duration='2'>poi 3</entry>
+						<entry pause='1' duration='4'>poi 4</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>This room is like the common room but furnished.</textBoxText>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>The furniture is more absorbant so the reverberance is mostly gone.</textBoxText>
+					<minSpeechTime>7</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='smallReverberant'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>smallReverberant speaker</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Not quite the restroom yet but the accustics are there.</textBoxText>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>The smaller size and tiled walls make this room noisy. I don't like it.</textBoxText>
+					<minSpeechTime>8</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='largeReverberant'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>largeReverberant speaker</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>largeReverberant wall1</coordSystem>
+					<aliasID>poi 2</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>largeReverberant wall2</coordSystem>
+					<aliasID>poi 3</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+						<entry pause='2' duration='3'>poi 2</entry>
+						<entry pause='2' duration='6'>poi 3</entry>
+						<entry pause='2' duration='3'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>You found my most loved room. The rocks around the caverns have such a nice effect on the sound.</textBoxText>
+					<minSpeechTime>11</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>The large reverb is so soothing isn't it? Just don't dare enter my private quarters.</textBoxText>
+					<minSpeechTime>9</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='movingSound'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>movingSound stand</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>movingSound plan</coordSystem>
+					<aliasID>poi 2</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>movingSound speaker</coordSystem>
+					<aliasID>poi 3</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+						<entry pause='1' duration='2'>poi 3</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>This room is about sounds moving around you.</textBoxText>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='2'>poi 2</entry>
+					</headLookAts>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Look at the floor plan to see the path the sound is going to move along.</textBoxText>
+					<minSpeechTime>7</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1.5'>poi 1</entry>
+						<entry pause='1' duration='1.5'>poi 3</entry>
+						<entry pause='1' duration='1.5'>poi 1</entry>
+					</headLookAts>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Touch the stand to make the speaker start moving forth and back the path.</textBoxText>
+					<minSpeechTime>7</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='movingBoxes'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>movingBoxes stand</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>movingBoxes box1</coordSystem>
+					<aliasID>poi 2</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>movingBoxes box2</coordSystem>
+					<aliasID>poi 3</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+						<entry pause='1' duration='3'>poi 2</entry>
+						<entry pause='2' duration='4'>poi 3</entry>
+						<entry pause='1' duration='3'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>This room is a lot larger than it looks like but you will just see for yourself.</textBoxText>
+					<minSpeechTime>8</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Touch the stand and each time the room will change size with the sound changing too.</textBoxText>
+					<minSpeechTime>8</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='animatedGeometry'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>animatedGeometry stand</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>animatedGeometry door1</coordSystem>
+					<aliasID>poi 2</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>animatedGeometry door2</coordSystem>
+					<aliasID>poi 3</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>poi 1</entry>
+						<entry pause='1' duration='3'>poi 2</entry>
+						<entry pause='2' duration='4'>poi 3</entry>
+						<entry pause='1' duration='3'>poi 1</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>In this room the obstacles are not moving but changing as they are animated.</textBoxText>
+					<minSpeechTime>8</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Touch the stand to open the doors in sequence and listen how this affects the sound.</textBoxText>
+					<minSpeechTime>9</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+	</file>
+	<file id='conversation'>
+		<topic id='talk'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<ifElse>
+					<waitForActor>false</waitForActor>
+					<case>
+						<condition>
+							<actorInConversation>
+								<actor>dragoness</actor>
+								<negate>true</negate>
+							</actorInConversation>
+						</condition>
+						<actions>
+							<actorAdd>
+								<waitForActor>false</waitForActor>
+								<actor>dragoness</actor>
+							</actorAdd>
+						</actions>
+					</case>
+				</ifElse>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>0.5</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>dragoness convo</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<actor>dragoness</actor>
+					<headLookAts>
+						<entry duration='1'>player head</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<ifElse>
+					<case>
+						<condition>
+							<actorParameter>
+								<actor>dragoness</actor>
+								<operator>equal</operator>
+								<parameter>soundLevelMeter retry</parameter>
+								<testValue>1</testValue>
+							</actorParameter>
+						</condition>
+						<actions>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>So you want to try my little game again, don't you?</textBoxText>
+								<gestures>
+									<entry duration='0.85'>me best</entry>
+								</gestures>
+								<minSpeechTime>5</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>Do you want to hear my instructions again?</textBoxText>
+								<gestures>
+									<entry duration='0.85'>talk</entry>
+								</gestures>
+								<minSpeechTime>5</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+						</actions>
+					</case>
+					<else>
+						<setActorParameter>
+							<actor>dragoness</actor>
+							<name>soundLevelMeter retry</name>
+							<operator>set</operator>
+							<value>1</value>
+						</setActorParameter>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<textBoxText>So this is my little guest.</textBoxText>
+							<gestures>
+								<entry duration='0.85'>examine close</entry>
+							</gestures>
+							<minSpeechTime>4.5</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<textBoxText>I hoped for something more interesting.</textBoxText>
+							<gestures>
+								<entry duration='0.85'>snip</entry>
+							</gestures>
+							<minSpeechTime>5.5</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<gestures>
+								<entry duration='0.85'>clear hold</entry>
+							</gestures>
+							<minSpeechTime>2</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<textBoxText>Who I am? You would not even be able to spell my name.</textBoxText>
+							<gestures>
+								<entry duration='0.85'>me best</entry>
+							</gestures>
+							<minSpeechTime>6</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<textBoxText>It is enough for you to know that I am running the show here.</textBoxText>
+							<gestures>
+								<entry pause='5' duration='0.85'>clear hold</entry>
+							</gestures>
+							<minSpeechTime>6</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<textBoxText>And now you are about to enter my little game.</textBoxText>
+							<gestures>
+								<entry duration='0.85'>see up right</entry>
+							</gestures>
+							<minSpeechTime>5</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+						<actorSpeak>
+							<delay>0.5</delay>
+							<actor>dragoness</actor>
+							<textBoxText>Do you want to hear my instructions?</textBoxText>
+							<gestures>
+								<entry duration='0.85'>talk</entry>
+							</gestures>
+							<minSpeechTime>4</minSpeechTime>
+							<useSpeechAnimation>false</useSpeechAnimation>
+						</actorSpeak>
+					</else>
+				</ifElse>
+				<actorSpeak>
+					<actor>dragoness</actor>
+					<gestures>
+						<entry duration='0.85'>clear hold</entry>
+					</gestures>
+					<minSpeechTime>0.85</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<playerChoice>
+					<option>
+						<text>Please explain me how his works</text>
+						<actions>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>This little game of mine will be about Non-Player Hearing.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>me best</entry>
+								</gestures>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>The Drag[en]gine also provides Sound Level Meters.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>talk</entry>
+								</gestures>
+								<minSpeechTime>5</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>This allows NPCs to hear traced sound as you do.</textBoxText>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>I will be using this to hear you moving around the room.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>examine close</entry>
+									<entry pause='4' duration='0.85'>clear hold</entry>
+								</gestures>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>I'll give you a Top-Down view of the room and our locations.</textBoxText>
+								<gestures>
+									<entry pause='1.5' duration='0.85'>see up right</entry>
+								</gestures>
+								<minSpeechTime>7</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorCommand>
+								<waitForActor>false</waitForActor>
+								<delay>2</delay>
+								<actor>player</actor>
+								<command>showTrackerMapWindow trackerMap.origin trackerMap.right trackerMap.down</command>
+							</actorCommand>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>There are 4 stands in each corner and 1 final stand in the center.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>talk</entry>
+								</gestures>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>You have to touch each stand in the corners before touching the final stand in the center.</textBoxText>
+								<minSpeechTime>8</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>When I can hear you I will start moving towards you.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>examine close</entry>
+								</gestures>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>When I can not hear you I will stop moving.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>clear hold</entry>
+								</gestures>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>And if I catch up with you, I'll bite your ass!</textBoxText>
+								<gestures>
+									<entry duration='0.85'>snip</entry>
+									<entry pause='4.5' duration='0.85'>clear hold</entry>
+								</gestures>
+								<minSpeechTime>6</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>Furthermore all stands reset and you have to start all over.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>talk</entry>
+								</gestures>
+								<minSpeechTime>7</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+							<actorSpeak>
+								<delay>0.5</delay>
+								<actor>dragoness</actor>
+								<textBoxText>I'll move as fast as you walk but don't think about running or I'll reset all stands.</textBoxText>
+								<gestures>
+									<entry duration='0.85'>snip</entry>
+									<entry pause='7' duration='0.85'>clear hold</entry>
+								</gestures>
+								<minSpeechTime>9</minSpeechTime>
+								<useSpeechAnimation>false</useSpeechAnimation>
+							</actorSpeak>
+						</actions>
+					</option>
+					<option>
+						<text>No, let's begin</text>
+						<actions>
+							<actorCommand>
+								<waitForActor>false</waitForActor>
+								<actor>player</actor>
+								<command>showTrackerMapWindow trackerMap.origin trackerMap.right trackerMap.down</command>
+							</actorCommand>
+						</actions>
+					</option>
+				</playerChoice>
+				<actorSpeak>
+					<delay>1.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>For an extra challenge I can remove the map. Then you have to listen where I am.</textBoxText>
+					<gestures>
+						<entry duration='0.85'>see up right</entry>
+					</gestures>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<playerChoice>
+					<option>
+						<text>No. I need the extra help from the map.</text>
+					</option>
+					<option>
+						<text>Yes. I take on that challenge.</text>
+						<actions>
+							<actorCommand>
+								<waitForActor>false</waitForActor>
+								<actor>player</actor>
+								<command>closeTrackerMapWindow</command>
+							</actorCommand>
+						</actions>
+					</option>
+				</playerChoice>
+				<actorSpeak>
+					<actor>dragoness</actor>
+					<gestures>
+						<entry duration='0.85'>clear hold</entry>
+					</gestures>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>1</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Well then, let's start my little game, shall we?</textBoxText>
+					<gestures>
+						<entry duration='0.85'>me best</entry>
+					</gestures>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<gameCommand>
+					<delay>1</delay>
+					<command>fadeOverBlack</command>
+				</gameCommand>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<delay>0.75</delay>
+					<actor>player</actor>
+					<command>teleport soundLevelMeter.player</command>
+				</actorCommand>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+					<command>teleport soundLevelMeter.dragoness</command>
+				</actorCommand>
+				<trigger>
+					<name>soundLevelMeter.finished</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>caughtPlayer</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand1</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand2</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand3</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand4</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand5</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.done</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.reset</name>
+					<action>fullReset</action>
+				</trigger>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+					<command>switchAction hearPlayer</command>
+				</actorCommand>
+				<actorRemove>
+					<waitForActor>false</waitForActor>
+					<delay>0.75</delay>
+					<actor>dragoness</actor>
+				</actorRemove>
+			</actions>
+		</topic>
+		<topic id='playerRuns'>
+			<actions>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.reset</name>
+					<action>pulse</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand1</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand2</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand3</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand4</name>
+					<action>fullReset</action>
+				</trigger>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Bad little human! Did I not tell you to not run?</textBoxText>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='caughtPlayer'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<wait>
+					<waitForActor>false</waitForActor>
+					<condition>
+						<actorInConversation>
+							<actor>dragoness</actor>
+						</actorInConversation>
+					</condition>
+					<interval>0.2</interval>
+				</wait>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.reset</name>
+					<action>pulse</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand1</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand2</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand3</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.stand4</name>
+					<action>fullReset</action>
+				</trigger>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>dragoness convo</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>You little human though you can get away from me, not?</textBoxText>
+					<gestures>
+						<entry duration='0.85'>examine close</entry>
+						<entry pause='3.5' duration='0.85'>clear hold</entry>
+					</gestures>
+					<headLookAts>
+						<entry duration='0.85'>player head</entry>
+					</headLookAts>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>forceBodyAdjustment</command>
+				</actorCommand>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>You remember my rules, don't you?</textBoxText>
+					<gestures>
+						<entry duration='5'>turn around</entry>
+					</gestures>
+					<headLookAts>
+						<entry pause='4.5' duration='0.5'>player head</entry>
+					</headLookAts>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>dragoness medium</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='3'>dragoness far away</entry>
+					</headLookAts>
+					<minSpeechTime>3</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='0.25'>player forward up</entry>
+						<entry duration='0.5'>player forward</entry>
+					</headLookAts>
+					<minSpeechTime>0.75</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='2'>dragoness convo</entry>
+					</headLookAts>
+					<minSpeechTime>1.75</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<actor>dragoness</actor>
+					<textBoxText>I could do this all day long.</textBoxText>
+					<gestures>
+						<entry duration='0.85'>snip</entry>
+						<entry pause='4.5' duration='0.85'>clear hold</entry>
+					</gestures>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<snippet>
+					<delay>0.5</delay>
+					<file>conversation</file>
+					<topic>talk</topic>
+				</snippet>
+			</actions>
+		</topic>
+		<topic id='playerSucceeded'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<wait>
+					<waitForActor>false</waitForActor>
+					<condition>
+						<actorInConversation>
+							<actor>dragoness</actor>
+						</actorInConversation>
+					</condition>
+					<interval>0.2</interval>
+				</wait>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+					<command>switchAction sitDown</command>
+				</actorCommand>
+				<gameCommand>
+					<delay>1</delay>
+					<command>fadeOverBlack</command>
+				</gameCommand>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<delay>0.75</delay>
+					<actor>player</actor>
+					<command>teleport soundLevelMeter.player2</command>
+				</actorCommand>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+					<command>teleport soundLevelMeter.dragoness</command>
+				</actorCommand>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+					<command>switchAction sitTalk</command>
+				</actorCommand>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>caughtPlayer</name>
+					<action>fullReset</action>
+				</trigger>
+				<trigger>
+					<waitForActor>false</waitForActor>
+					<name>soundLevelMeter.finished</name>
+					<action>fire</action>
+				</trigger>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>closeTrackerMapWindow</command>
+				</actorCommand>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1'>dragoness convo</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>1.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>You have passed my little game, I will give you that much.</textBoxText>
+					<gestures>
+						<entry duration='0.85'>talk</entry>
+					</gestures>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>If you want to repeat my little game come talk to me.</textBoxText>
+					<gestures>
+						<entry duration='0.85'>me best</entry>
+					</gestures>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Otherwise I've unlocked the exits.</textBoxText>
+					<gestures>
+						<entry duration='0.85'>see up right</entry>
+					</gestures>
+					<minSpeechTime>4</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>You can venture back to the other rooms or touch the exit stand to exit the example application.</textBoxText>
+					<gestures>
+						<entry duration='0.85'>talk</entry>
+					</gestures>
+					<minSpeechTime>8</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<actor>dragoness</actor>
+					<gestures>
+						<entry duration='0.85'>clear hold</entry>
+					</gestures>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+		<topic id='exitExampleApp'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<playerChoice>
+					<delay>0.5</delay>
+					<option>
+						<text>Exit Example Application</text>
+						<actions>
+							<gameCommand>
+								<command>exitExampleApp</command>
+							</gameCommand>
+						</actions>
+					</option>
+					<option>
+						<text>Nah... I want to continue exploring a bit.</text>
+					</option>
+				</playerChoice>
+			</actions>
+		</topic>
+		<topic id='introduction'>
+			<actions>
+				<actorCommand>
+					<waitForActor>false</waitForActor>
+					<actor>player</actor>
+					<command>stopMoving</command>
+				</actorCommand>
+				<actorAdd>
+					<waitForActor>false</waitForActor>
+					<actor>dragoness</actor>
+				</actorAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>introduction poi1</coordSystem>
+					<aliasID>poi 1</aliasID>
+				</coordSystemAdd>
+				<coordSystemAdd>
+					<waitForActor>false</waitForActor>
+					<coordSystem>introduction poi2</coordSystem>
+					<aliasID>poi 2</aliasID>
+				</coordSystemAdd>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>What do we have here... A new guest.</textBoxText>
+					<minSpeechTime>5</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<waitForActor>false</waitForActor>
+					<delay>1</delay>
+					<actor>player</actor>
+					<headLookAts>
+						<entry duration='1.5'>poi 1</entry>
+						<entry pause='2' duration='1.5'>poi 2</entry>
+						<entry pause='2' duration='2'>player forward</entry>
+					</headLookAts>
+					<minSpeechTime>1</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>So you would like to hear what the Drag[en]gine Audio System can do, right?</textBoxText>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+				<actorSpeak>
+					<delay>0.5</delay>
+					<actor>dragoness</actor>
+					<textBoxText>Well then. Enter the rooms ahead and I'll give a short explanation.</textBoxText>
+					<minSpeechTime>6</minSpeechTime>
+					<useSpeechAnimation>false</useSpeechAnimation>
+				</actorSpeak>
+			</actions>
+		</topic>
+	</file>
+</conversation>

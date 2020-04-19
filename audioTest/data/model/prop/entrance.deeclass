@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Entrance' class='SimpleElement'>
+	<string name='component.model'>entrance.demodel</string>
+	<string name='component.occlusionMesh'>entrance.deoccmesh</string>
+	<string name='component.audioModel'>entrance.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>entrance.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='material'>
+			<string key='skin'>/material/concrete/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

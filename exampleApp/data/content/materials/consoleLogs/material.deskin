@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0.0627451' g='0.0627451' b='0.0627451' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0.1</value>
+		<constructed property='emissivity'>
+			<size x='500' y='500'/>
+			<text>
+				<position x='0' y='200'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Booting kernel Example3E...</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='225'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Loading Remote Control Module...</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='250'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Checking Module Parameters...</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='275'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Warning! Invalid Calibration Value Detected!</text>
+				<color r='0.992157' g='1' b='0'/>
+			</text>
+			<text>
+				<position x='0' y='300'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Correcting Calibration Value...</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='325'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Error! Failed Correcting Calibration Value!</text>
+				<color r='1' g='0' b='0'/>
+			</text>
+			<text>
+				<position x='0' y='350'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Activating Fallback Calibration Process.</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='375'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Fallback Calibration Process Finished.</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='400'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Resume Boot Process.</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='425'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Starting Engine Controller.</text>
+				<color r='1' g='1' b='1'/>
+			</text>
+			<text>
+				<position x='0' y='450'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Error! Failed Starting Engine Controller.</text>
+				<color r='1' g='0' b='0'/>
+			</text>
+			<text>
+				<position x='0' y='475'/>
+				<size x='500' y='25'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>25</fontSize>
+				<text>Panic! Unrecoverable Error! Rebooting System!</text>
+				<color r='1' g='0' b='0'/>
+			</text>
+		</constructed>
+		<value property='emissivity.intensity'>4</value>
+		<value property='texcoord.clamp'>1</value>
+		<mapped property='texcoord.offset'>
+			<green>
+				<curve>
+					<interpolation>constant</interpolation>
+					<point>
+						<coordinates x='0' y='-0.6'/>
+						<handle1 x='-0.25' y='-0.6'/>
+						<handle2 x='0.25' y='-0.6'/>
+					</point>
+					<point>
+						<coordinates x='0.025' y='-0.55'/>
+						<handle1 x='-0.025' y='-0.55'/>
+						<handle2 x='0.075' y='-0.55'/>
+					</point>
+					<point>
+						<coordinates x='0.1' y='-0.5'/>
+						<handle1 x='0.05' y='-0.5'/>
+						<handle2 x='0.15' y='-0.5'/>
+					</point>
+					<point>
+						<coordinates x='0.175' y='-0.45'/>
+						<handle1 x='0.125' y='-0.45'/>
+						<handle2 x='0.225' y='-0.45'/>
+					</point>
+					<point>
+						<coordinates x='0.35' y='-0.4'/>
+						<handle1 x='0.3' y='-0.4'/>
+						<handle2 x='0.4' y='-0.4'/>
+					</point>
+					<point>
+						<coordinates x='0.45' y='-0.35'/>
+						<handle1 x='0.4' y='-0.35'/>
+						<handle2 x='0.5' y='-0.35'/>
+					</point>
+					<point>
+						<coordinates x='0.5' y='-0.3'/>
+						<handle1 x='0.45' y='-0.3'/>
+						<handle2 x='0.55' y='-0.3'/>
+					</point>
+					<point>
+						<coordinates x='0.55' y='-0.25'/>
+						<handle1 x='0.5' y='-0.25'/>
+						<handle2 x='0.6' y='-0.25'/>
+					</point>
+					<point>
+						<coordinates x='0.65' y='-0.2'/>
+						<handle1 x='0.6' y='-0.2'/>
+						<handle2 x='0.7' y='-0.2'/>
+					</point>
+					<point>
+						<coordinates x='0.7' y='-0.15'/>
+						<handle1 x='0.65' y='-0.15'/>
+						<handle2 x='0.75' y='-0.15'/>
+					</point>
+					<point>
+						<coordinates x='0.775' y='-0.1'/>
+						<handle1 x='0.725' y='-0.1'/>
+						<handle2 x='0.825' y='-0.1'/>
+					</point>
+					<point>
+						<coordinates x='0.8' y='-0.05'/>
+						<handle1 x='0.75' y='-0.05'/>
+						<handle2 x='0.85' y='-0.05'/>
+					</point>
+					<point>
+						<coordinates x='0.85' y='0'/>
+						<handle1 x='0.8' y='0'/>
+						<handle2 x='0.9' y='0'/>
+					</point>
+				</curve>
+				<inputUpper>30</inputUpper>
+			</green>
+		</mapped>
+	</texture>
+</skin>

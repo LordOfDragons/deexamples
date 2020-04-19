@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<particleEmitter>
+	<controller>
+		<name>velocity</name>
+		<lower>0</lower>
+		<upper>12</upper>
+		<frozen>false</frozen>
+		<clamp>true</clamp>
+		<linkToTime>false</linkToTime>
+	</controller>
+	<burstLifetime>1</burstLifetime>
+	<emitBurst>false</emitBurst>
+	
+	<type>
+		<name>smoke</name>
+		<skin>trail.deskin</skin>
+		<model></model>
+		<modelSkin></modelSkin>
+		<castFrom>vertex</castFrom>
+		<trailEmitter></trailEmitter>
+		<physicsSize>0</physicsSize>
+		<collisionResponse>physical</collisionResponse>
+		<collisionEmitter></collisionEmitter>
+		<emitMinImpulse>0.01</emitMinImpulse>
+		
+		<parameter id='timeToLive'>
+			<value>1.5</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='interval'>
+			<value>0.5</value>
+			<spread>0</spread>
+			<controllerValue>0</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='0.8'/>
+					<handle1 x='-0.0290237' y='0.801214'/>
+					<handle2 x='0.02' y='0.798786'/>
+				</point>
+				<point>
+					<coordinates x='0.05' y='0.25'/>
+					<handle1 x='0.039314' y='0.302657'/>
+					<handle2 x='0.060686' y='0.197343'/>
+				</point>
+				<point>
+					<coordinates x='0.1' y='0.125'/>
+					<handle1 x='0.0707124' y='0.157736'/>
+					<handle2 x='0.129288' y='0.0922638'/>
+				</point>
+				<point>
+					<coordinates x='0.25' y='0.04'/>
+					<handle1 x='0.186016' y='0.052889'/>
+					<handle2 x='0.313984' y='0.027111'/>
+				</point>
+				<point>
+					<coordinates x='0.5' y='0.038'/>
+					<handle1 x='0.402375' y='0.0429035'/>
+					<handle2 x='0.597625' y='0.0330965'/>
+				</point>
+				<point>
+					<coordinates x='0.75' y='0.03'/>
+					<handle1 x='0.675462' y='0.0319482'/>
+					<handle2 x='0.824538' y='0.0280518'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0.025'/>
+					<handle1 x='0.92876' y='0.0245899'/>
+					<handle2 x='1.07124' y='0.0254101'/>
+				</point>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='particleCount'>
+			<value>1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='castAngleX'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='castAngleY'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='size'>
+			<value>0.15</value>
+			<spread>0</spread>
+			<controllerValue>0</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.5' y='1.00787'/>
+				</point>
+				<point>
+					<coordinates x='1' y='2'/>
+					<handle1 x='0.75' y='1'/>
+					<handle2 x='1.12074' y='3.53543'/>
+				</point>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.401055' y='1.02362'/>
+				</point>
+				<point>
+					<coordinates x='1' y='4'/>
+					<handle1 x='0.726913' y='2.66535'/>
+					<handle2 x='1.05' y='4'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='red'>
+			<value>1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='green'>
+			<value>1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='blue'>
+			<value>1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='transparency'>
+			<value>1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+				<point>
+					<coordinates x='0' y='1'/>
+					<handle1 x='-0.05' y='1'/>
+					<handle2 x='0.212401' y='0.996063'/>
+				</point>
+				<point>
+					<coordinates x='1' y='0'/>
+					<handle1 x='0.699208' y='0.00393701'/>
+					<handle2 x='1.05' y='0'/>
+				</point>
+			</curveProgress>
+		</parameter>
+		<parameter id='emissivity'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='mass'>
+			<value>0.2</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='rotation'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='linearVelocity'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='angularVelocity'>
+			<value>0</value>
+			<spread>8</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='brownMotion'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='damping'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='drag'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='gravityX'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='gravityY'>
+			<value>0.5</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='gravityZ'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='localGravity'>
+			<value>1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='elasticity'>
+			<value>0.1</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='roughness'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+		<parameter id='emitDirection'>
+			<value>0</value>
+			<spread>0</spread>
+			<controllerValue>-1</controllerValue>
+			<controllerSpread>-1</controllerSpread>
+			<curveValue>
+				<interpolation>bezier</interpolation>
+			</curveValue>
+			<curveSpread>
+				<interpolation>bezier</interpolation>
+			</curveSpread>
+			<curveProgress>
+				<interpolation>bezier</interpolation>
+			</curveProgress>
+		</parameter>
+	</type>
+</particleEmitter>

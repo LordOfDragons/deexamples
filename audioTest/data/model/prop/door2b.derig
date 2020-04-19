@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	<box>
+		<position x='1.09' y='1' z='0'/>
+		<halfExtends x='0.25' y='1' z='0.11'/>
+		<rotation x='0' y='-90' z='-0'/>
+	</box>
+	<box>
+		<position x='3.815e-06' y='2.08' z='-3.815e-06'/>
+		<halfExtends x='0.25' y='0.1' z='1.2'/>
+		<rotation x='0' y='-90' z='-0'/>
+	</box>
+	<box>
+		<position x='-1.09' y='1' z='0'/>
+		<halfExtends x='0.25' y='1' z='0.11'/>
+		<rotation x='0' y='-90' z='-0'/>
+	</box>
+</rig>

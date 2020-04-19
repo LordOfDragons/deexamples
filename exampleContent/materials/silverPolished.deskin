@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<color property='reflectivity' r='0.972549' g='0.952941' b='0.917647' a='1'/>
+		<value property='reflectivity.multiplier'>1</value>
+		<value property='roughness'>0</value>
+	</texture>
+</skin>

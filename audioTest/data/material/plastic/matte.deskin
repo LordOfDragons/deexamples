@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='1' g='1' b='1' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0.1</value>
+		<color property='color.tint' r='1' g='1' b='1' a='1' renderable='tint'/>
+	</texture>
+</skin>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<image property='color'>color.jpg</image>
+		<constructed property='reflectivity'>
+			<size x='512' y='512'/>
+			<image>
+				<size x='512' y='512'/>
+				<colorize r='0.227451' g='0.227451' b='0.227451'/>
+				<path>color.jpg</path>
+			</image>
+		</constructed>
+		<value property='roughness'>0</value>
+		<color property='color.tint' r='0.784314' g='0.784314' b='0.784314' a='1' renderable='tint'/>
+		<image property='ambient.occlusion'>ao.jpg</image>
+		<image property='normal'>normal.jpg</image>
+	</texture>
+</skin>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	
+	<bone name='origin'>
+		<position x='0.0' y='0.0' z='0.0'/>
+		<rotation x='0.0' y='0.0' z='-0.0'/>
+		<mass>1</mass>
+		<centralMassPoint x='0' y='0' z='0'/>
+		<dynamic>false</dynamic>
+		<ikX>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikX>
+		<ikY>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikY>
+		<ikZ>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikZ>
+		<box>
+			<position x='0' y='0.9' z='0'/>
+			<halfExtends x='0.5' y='0.9' z='0.2'/>
+			<rotation x='0' y='-180' z='-0'/>
+		</box>
+	</bone>
+	
+	<bone name='dial1'>
+		<parent>origin</parent>
+		<position x='0.0' y='0.545' z='0.113'/>
+		<rotation x='0.0' y='-0.0' z='-0.0'/>
+		<mass>1</mass>
+		<centralMassPoint x='0' y='0' z='0'/>
+		<dynamic>false</dynamic>
+		<ikX>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikX>
+		<ikY>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikY>
+		<ikZ>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikZ>
+	</bone>
+	
+	<bone name='dial2'>
+		<parent>origin</parent>
+		<position x='0.239' y='1.603' z='0.115'/>
+		<rotation x='90.0' y='0.0' z='180.0'/>
+		<mass>1</mass>
+		<centralMassPoint x='0' y='0' z='0'/>
+		<dynamic>false</dynamic>
+		<ikX>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikX>
+		<ikY>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikY>
+		<ikZ>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikZ>
+	</bone>
+	
+	<bone name='dial3'>
+		<parent>origin</parent>
+		<position x='-0.239' y='1.603' z='0.115'/>
+		<rotation x='90.0' y='0.0' z='180.0'/>
+		<mass>1</mass>
+		<centralMassPoint x='0' y='0' z='0'/>
+		<dynamic>false</dynamic>
+		<ikX>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikX>
+		<ikY>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikY>
+		<ikZ>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikZ>
+	</bone>
+</rig>

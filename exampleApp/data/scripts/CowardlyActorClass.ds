@@ -1,0 +1,31 @@
+namespace Example
+
+pin Dragengine.Scenery
+
+
+/**
+ * Cowardly actor element class.
+ * 
+ * Subclassed to create CowardlyActor.
+ */
+public class CowardlyActorClass extends BaseActorClass
+	/**
+	 * Create element class.
+	 */
+	public func new() super( "CowardlyActor" )
+		this.getComponent().setCommonPath( "/content/models/suzanne", \
+			"suzanne.demodel", "coward.deskin", "suzanne.derig" )
+		
+		// make actor moving faster than player so he can flee a bit
+		getActorMover().getSpeed().setValue( 1.5 )
+		getPlayerInputMove().getSpeedWalk().setValue( 1.5 )
+		getPlayerInputMove().getSpeedRun().setValue( 5 )
+	end
+	
+	/**
+	 * Create element.
+	 */
+	protected func Element createElement()
+		return CowardlyActor.new( this )
+	end
+end

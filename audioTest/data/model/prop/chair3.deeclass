@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Chair3' class='SimpleElement'>
+	<string name='component.model'>chair.demodel</string>
+	<string name='component.audioModel'>chair.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>chair.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='support'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.054902' g='0.054902' b='0.054902'/>
+			<map key='transform'>
+				<vector2 key='scale' x='4' y='4'/>
+			</map>
+		</map>
+		<map key='seat'>
+			<string key='skin'>/material/seat/material.deskin</string>
+			<color key='tint' r='0' g='0.364706' b='0.156863'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

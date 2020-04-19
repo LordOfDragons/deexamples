@@ -1,0 +1,51 @@
+Some notes about the materials and their effects on sound.
+
+carpet:
+	good absorption of high frequencies. very low absoirption of low frequencies.
+	placing this material in a room to reduce high frequencies. transmission similar
+	to concrete.
+
+ceramicTiles:
+	low absorption and very reflective. good for bathroom and other small reverberant
+	rooms. transmission similar to concrete.
+
+concrete, wallpaper:
+	common wall material having low absorption and an average transmission. most materials
+	have the transmission parameters of concrete while adding their own absorption ontop of it.
+
+drapery:
+	similar to carpet in that is absorbs high frequencies well but not so well low frequencies.
+	this material uses same transmission as concrete which signifies the drapery is afixed to
+	a wall.
+	
+	if you want the drapery to be hanging out in open space it depends on how the model is
+	shaped.
+	
+	if you have a model with single sided textures and an enclosed model then there is no need
+	to do much changing on the transmission parameters. this is because the thickness between
+	the boundaing faces is small and does not have much effect.
+	
+	if you have a model with double sided textures you need to add a "thickness" texture
+	property to explicitly set the thickness of the fabric. otherwise the audio module has
+	no chance to figure out how thick the material is the sound is passing through. here too
+	the transmission parameters are not required to be changed since the thickness is small.
+
+fibrePanel:
+	has very strong absorption for high frequencies and low absorption for low frequencies.
+	a typical sound proof material. this material matches a 25mm plate. by simulating a 100mm
+	plate set the lower absorption factor close to the upper one which makes the plate absorb
+	low frequencies as well as high frequencies.
+	
+	using such a material removes reverberation from your rooms a lot making them sound like
+	an anechoic chamber. useful to create eerie effects.
+	
+	transmission is set to concrete. if you reduce the transmission range too this creates
+	a room which is like a sound enclosure letting no sound escape and having no reverb
+
+seat:
+	seats have an above average absorption of low frequencies and an above good absorption of
+	high frequencies. this is a good example for props placed in a room affecting the sound
+	in the room by the presence. without such props rooms with regular walls exhibit a reverbant
+	nature. place props like this in the room and the reverbe vanishes quickly.
+
+the other materials are similar to one of the examples above

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<constructed property='color'>
+			<size x='256' y='256'/>
+			<color r='1' g='0.992157' b='0.882353'/>
+			<text>
+				<position x='29' y='44'/>
+				<size x='204' y='93'/>
+				<path>/font/roomLabel.defont</path>
+				<fontSize>85</fontSize>
+				<text>Touch</text>
+				<color r='0' g='0.321569' b='0.666667'/>
+			</text>
+			<text>
+				<position x='67' y='131'/>
+				<size x='136' y='110'/>
+				<path>/font/roomLabel.defont</path>
+				<fontSize>95</fontSize>
+				<text>Me</text>
+				<color r='0' g='0.321569' b='0.666667'/>
+			</text>
+		</constructed>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.5</value>
+		<value property='sound.none'>1</value>
+	</texture>
+</skin>

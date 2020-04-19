@@ -1,0 +1,195 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+// Dragoness actor.
+// 
+// This is an example of an NPC type actor. Since this actor is showing only a limited
+// set of behaviors no BehaviorTree is used. Instead for each behavior one actor action
+// is used. For more complex behaviors the use of a BehaviorTree could be useful.
+// 
+// Registers itself in game world with conversation actor id "dragoness".
+class Dragoness extends BaseActor
+	// Conversation actor command "teleport <spawn-point-id>"
+	class CCTeleport implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			var Dragoness dragoness = instance.getElement() cast Dragoness
+			var String spawnPointName = arguments.getAt(1) cast String
+			var SpawnPoint spawnPoint = dragoness.getGameWorld().getSpawnPoints().getNamed(spawnPointName)
+			(dragoness.getAIAction().getAction() cast DragonessAction).teleport(spawnPoint)
+		end
+	end
+	
+	// Conversation actor command "switchAction <action-name>"
+	class CCSwitchAction implements ECBehaviorConversationActor.ConversationCommand
+		public func new(): end
+		public func void runCommand(ECBehaviorConversationActor.Instance instance, Array arguments)
+			var String actionName = arguments.getAt(1) cast String
+			var Dragoness dragoness = instance.getElement() cast Dragoness
+			(dragoness.getAIAction().getAction() cast DragonessAction).switchAction(actionName)
+		end
+	end
+	
+	// Conversation actor condition "canTalk"
+	class CCCanTalk implements ECBehaviorConversationActor.ConversationCondition
+		public func new(): end
+		public func bool evaluateCondition(ECBehaviorConversationActor.Instance instance, Array arguments)
+			return ((instance.getElement() cast Dragoness).getAIAction().getAction() cast DragonessAction).canTalk()
+		end
+	end
+	
+	
+	
+	public var Conversation conversation
+	
+	public var SoundLevelMeter soundLevelMeter
+	public var float hearPlayerVolume
+	
+	public var ConversationGesturePoseList gesturePosesSit
+	public var ConversationGesturePoseList gesturePosesMove
+	
+	
+	// Create Dragoness
+	public func new(DragonessClass eclass) super(eclass)
+		conversation = eclass.conversation.getConversation()
+		hearPlayerVolume = 0
+	end
+	
+	
+	// Initialize from stub.
+	public func void init(StubElement stub)
+		super.init(stub)
+		
+		var DragonessClass eclass = getClass() cast DragonessClass
+		
+		// Create foot steps. Exagerated on purpse for the example
+		var WeightedRandomList footStepSounds = WeightedRandomList.new()
+		eclass.footStepSounds.forEach(block Sound each
+			footStepSounds.add(each, 1)
+		end )
+		
+		var ECBehaviorFootSteps.Configuration footStepsConfig
+		var float volume = 0.2 //0.1
+		var float range = 30
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(DragonessClass.FOOTSTEPS_WALK)
+		footStepsConfig.setInterval(1.6)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.528, footStepSounds, volume, range))
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.768, footStepSounds, volume, range))
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(1.328, footStepSounds, volume, range))
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(1.568, footStepSounds, volume, range))
+		getFootSteps().addConfiguration(footStepsConfig)
+		
+		// Modify conversation actor created by ECBehaviorConversationActor. BaseActor sets the
+		// head look-at playback to a fixed height above the ground. For the dragoness we use
+		// though a rotator bone. This requires setting the name of the rotator bone and
+		// clearing the rotator matrix
+		var ConversationHeadLookAtPlayback headLookAtPlayback = \
+			getConversationActor().getConversationActor().getHeadLookAtPlayback() cast ConversationHeadLookAtPlayback
+		headLookAtPlayback.setBoneRotator("head rotator")
+		headLookAtPlayback.setRotatorMatrix(DMatrix.new())
+		
+		// Add commands to conversation actor which can be used by conversation scripts
+		getConversationActor().addCommand("teleport", CCTeleport.new())
+		getConversationActor().addCommand("switchAction", CCSwitchAction.new())
+		getConversationActor().addCondition("canTalk", CCCanTalk.new())
+		
+		// Set up gesture poses for the conversation actor. For simple situations you can use
+		// one gesture pose list and fill it with gesture poses used in conversation scripts.
+		// 
+		// In this example though we use multiple gesture pose lists for different "states"
+		// of the actor. This can be for example a set of gesture poses for an actor standing
+		// around and one for the actor sitting on a chair. In such a scenario not all
+		// gestures can be played back on the actor in any of the two states. The gesture
+		// pose lists could be stored as class variables and switched when certain actor
+		// actions are activated. By switching the entire gesture pose list changing the
+		// exhibited gesture poses is fast, reusable and logical to use.
+		var ECBehaviorActorAnimated.Instance actorAnimated = getActorAnimated()
+		gesturePosesSit = ConversationGesturePoseList.new()
+		gesturePosesSit.add(StringID.new("turn around"), \
+			DragonessClass.animatorSittingGestureTurnAround,\
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureTurnAround))
+		gesturePosesSit.add(StringID.new("me best"), \
+			DragonessClass.animatorSittingGestureMeBest, \
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureMeBest))
+		gesturePosesSit.add(StringID.new("see up right"), \
+			DragonessClass.animatorSittingGestureSeeUpRight, \
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureSeeUpRight))
+		gesturePosesSit.add(StringID.new("talk"), \
+			DragonessClass.animatorSittingGestureTalk, \
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureTalk))
+		gesturePosesSit.add(StringID.new("examine close"), \
+			DragonessClass.animatorSittingGestureExamineClose, \
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureExamineClose))
+		gesturePosesSit.add(StringID.new("snip"), \
+			DragonessClass.animatorSittingGestureSnip, \
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureSnip))
+		gesturePosesSit.add(StringID.new("clear hold"), \
+			DragonessClass.animatorSittingGestureClearHold, \
+			actorAnimated.getAnimatorWithId(DragonessClass.animatorSittingGestureClearHold))
+		
+		gesturePosesMove = ConversationGesturePoseList.new()
+		
+		getConversationActor().getConversationActor().setGesturePoses(gesturePosesSit)
+		
+		// Create sound level meter which allow dragoness to hear the player. We keep the
+		// hearing distance low for this example. The sound level meter is attached to
+		// the AI collider. This way the sound level meter automatically moves. For added
+		// fun we could also attach the sound level meter to the component collider head
+		// bone instead. This would be the most true experience possible. This version
+		// is commented out below in case you would like to experiment with it
+		soundLevelMeter = SoundLevelMeter.new()
+		soundLevelMeter.setAudibleDistance(50)
+		soundLevelMeter.setLayerMask(LayerMask.newWith(BaseGameApp.WorldLayerBit.audio))
+		getColliderAI().getCollider().attachStatic(soundLevelMeter, Vector.new(0, 1.65, 0), Quaternion.new())
+		//(getCollider() cast ColliderComponent).attachBone(soundLevelMeter, \
+		//	"head", Vector.new(), Quaternion.new())
+		
+		soundLevelMeter.setEnabled(false)  // disable until used
+		
+		// Adjust the navigator query distance to be larger since we use a rather narrow
+		// navigation mesh for this example
+		getNavigator().getNavigator().setMaxOutsideDistance(2)
+		
+		// Set sitting and talk action
+		getAIAction().setAction(DragonessActionSitTalk.new())
+	end
+	
+	// Initialize AI collider shape. For this actor we need an elongated box shape. This is a
+	// more complicated shape than the simple capsule shape used by the super class but needed
+	protected func void initColliderShape(StubElement stub)
+		var ShapeList shape = ShapeList.new()
+		shape.addBox(Vector.new(0, 1, 0), Vector.new(0.7, 1, 1.8))
+		getColliderAI().getCollider().setShape(shape)
+	end
+	
+	
+	
+	// Thinking.
+	public func void think(float elapsed)
+		super.think(elapsed)
+	end
+	
+	
+	// Add element to game world.
+	public func void addToGameWorld()
+		super.addToGameWorld()
+		getGameWorld().getWorld().addSoundLevelMeter(soundLevelMeter)
+	end
+	
+	// Remove element from game world.
+	public func void removeFromGameWorld()
+		getGameWorld().getWorld().removeSoundLevelMeter(soundLevelMeter)
+		super.removeFromGameWorld()
+	end
+	
+	
+	
+	// Visit element. Use our visitor extension to allow detecting this class
+	public func void visit(ElementVisitor visitor)
+		(visitor cast ATElementVisitor).visitDragoness(this)
+	end
+end

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gameProject>
+	<name>Video Player</name>
+	<description>Example Project showing the use of DisplayVideo widget.</description>
+	<dataDirectory>data</dataDirectory>
+	<cacheDirectory>cache</cacheDirectory>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<projectGameDefinition>Video Player.degd</projectGameDefinition>
+	<scriptModule>DragonScript</scriptModule>
+</gameProject>

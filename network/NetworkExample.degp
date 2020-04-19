@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gameProject>
+	<name>NetworkExample</name>
+	<description>Example for using network support in the Drag[en]gine Game Engine.</description>
+	<dataDirectory>data</dataDirectory>
+	<cacheDirectory>cache</cacheDirectory>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<projectGameDefinition>NetworkExample.degd</projectGameDefinition>
+	<scriptModule>DragonScript</scriptModule>
+</gameProject>

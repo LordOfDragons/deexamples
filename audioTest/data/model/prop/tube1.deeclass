@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='Tube1' class='SimpleElement'>
+	<string name='component.model'>tube1.demodel</string>
+	<string name='component.audioModel'>tube1.demodel</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.rig'>tube1.derig</string>
+	<map name='component.textureReplacements'>
+		<map key='tube'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.596078' g='0.172549' b='0'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+		<map key='support'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0' g='0.109804' b='0.635294'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

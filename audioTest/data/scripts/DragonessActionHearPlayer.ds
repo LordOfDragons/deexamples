@@ -1,0 +1,264 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.TriggerSystem
+
+
+// Dragoness action hearing player approaching his position.
+// 
+// Used for the SoundLevelMeter example. The actor enables the sound level meter and
+// examines in regular intervals how well it hears the player. Whenever it hears the
+// player the actor moves towards the position. If the player is not audible the
+// actor stops moving. If the actor can see the player it also keeps moving.
+// 
+// For this action we use the BAAFirstPerson as base so the actor can move.
+class DragonessActionHearPlayer extends DragonessAction implements SoundLevelMeterListener
+	public var float updateInterval
+	public var float updateElapsed
+	public var float looseTrackElapsed
+	public var float looseTrackTime
+	public var float hearingThreshold
+	public var DVector approachPosition
+	public var float capturePlayerDistance
+	
+	protected var ECBehaviorNavigator.Instance navigator
+	
+	private var float hearBurstVolume
+	
+	
+	// Create dragoness actor action
+	public func new()
+		hearingThreshold = 0.01  // -40dB to give player a chance :D
+		updateInterval = 1
+		updateElapsed = 0
+		looseTrackTime = 1 //1.5
+		looseTrackElapsed = 0
+		hearBurstVolume = 0
+		capturePlayerDistance = 3.5
+	end
+	
+	
+	
+	// Action has been set as active action in an actor.
+	public func void activate(BehaviorElement actor)
+		super.activate(actor)
+		
+		var Dragoness dragoness = actor cast Dragoness
+		dragoness.soundLevelMeter.setListener(this)
+		dragoness.soundLevelMeter.setEnabled(true)
+		
+		var ConversationActor convoActor = conversationActor.getConversationActor()
+		convoActor.getGesturePlayback().removeAllGestures()
+		convoActor.setGesturePoses(dragoness.gesturePosesMove)
+	end
+	
+	// Retrieve and store required and optional behavior instances from the actor element
+	protected func void initBehaviors()
+		super.initBehaviors()
+		navigator = (actor cast Dragoness).getNavigator()
+	end
+	
+	// Action has been unset as active action in an actor.
+	public func void deactivate()
+		var Dragoness dragoness = actor cast Dragoness
+		dragoness.soundLevelMeter.setEnabled(false)
+		dragoness.soundLevelMeter.setListener(null)
+		
+		super.deactivate()
+	end
+	
+	// Init animator
+	protected func void initAnimator()
+		actorAnimated.setActiveAnimatorID(DragonessClass.animatorDefault)
+	end
+	
+	// Init locomotion. Reduce turning speed a bit
+	protected func void initLocomotion()
+		super.initLocomotion()
+		locomotion.getLocomotion().setAdjustTimeOrientation( 2 )
+	end
+	
+	
+	
+	// Think. Calls updateHearPlayer() and updateApproachPlayer() in regular intervals.
+	// 
+	// In this example we use a simple solution just examing the audible speakers after a set
+	// interval of time elapses. We can do this since we listen only for the player. In more
+	// sophisticated situations it might be useful to track speakers (and therefore elements)
+	// becoming audible or inaudible similar to how TouchSensors tracks colliders entering
+	// and leaving. By examining all heard speakers you could create AIs which area really
+	// something else than common game engines allow for.
+	public func void think(float elapsed)
+		updateElapsed += elapsed
+		looseTrackElapsed += elapsed
+		if updateElapsed >= updateInterval
+			updateElapsed = 0
+			updateHearPlayer()
+			updateApproachPlayer(elapsed)
+		end
+		
+		super.think(elapsed)
+		
+		footSteps()
+		checkCaptured()
+	end
+	
+	// Check if dragoness got close enough to player. If this happens the dragoness stops
+	// moving, the sit-down action is activated and the "caughtPlayer" trigger target is
+	// fired. Doing so allows to fire a ConversationTrigger which runs the conversation
+	// while the action changes.
+	protected func void checkCaptured()
+		var PlayerActor player = PlayerActor.getPlayer()
+		
+		if (player.getPosition() - actor.getPosition()).getLength() > capturePlayerDistance
+			return
+		end
+		
+		// We could use the BaseActorMover getDistanceToGoal but since we update the goal
+		// position only in larger intervals the result is potentially wrong with a moving
+		// player. For this reason we do a full navigation path finding here although it
+		// is potentially an expensive operation. Doing this often for many actors is most
+		// probably a bad idea but doing it once per frame update is not a problem
+		var Navigator navigator = navigator.getNavigator()
+		var NavigationInfo navinfo = navigator.nearestPoint(player.getPosition(), 10)
+		if navinfo == null
+			return
+		end
+		var NavigatorPath path = NavigatorPath.new()
+		navigator.findPath(path, actor.getPosition(), navinfo.getPosition())
+		
+		if path.getLength() > capturePlayerDistance
+			return
+		end
+		
+		switchAction("sitDown")
+		
+		/*
+		// This code here makes dragoness turn to the player position so she is facing the player
+		// at the start of the conversation without turning while already sitting. This is an
+		// example of how the conversation playback head look-at can be used outside conversation.
+		// For this we clear the playback and assign a new target to look at. Because dragoness
+		// is moving she will start turning right away.
+		conversationActor.getHeadLookAtPlayback().clearLookAtState()
+		
+		// Player is usually moving so we place the target a bit ahead of the player
+		var DMatrix targetMatrix = DMatrix.newTranslation(0.0, 0.0, 1.0) * player.getElementMatrix()
+		
+		// Create target which is a ConversationCustomTarget. This requires a matrix
+		var ConversationCustomTarget customTarget = ConversationCustomTarget.new(targetMatrix)
+		
+		// Create playback look-at using the custom target.
+		var ConversationPlaybackLookAt lookAt = ConversationPlaybackLookAt.new(customTarget)
+		
+		// Create strip which describes the blending parameters. Here a 1s transition is used
+		var ConversationStrip strip = ConversationStrip.new(StringID.new(), 0.0, 1.0)
+		
+		// Add the playback look-at using the strip. We could add multiple such playbacks to
+		// create a chain of looking at something if desired.
+		conversationActor.getHeadLookAtPlayback().addLookAt(lookAt, strip)
+		*/
+		
+		// Set the orientation required to face the player during the conversation. This is done
+		// by calculating the desired actor relative orientation targeting a point slightly ahead
+		// of the player since he could be moving. This is the look left-right angle. This would
+		// though only make the actor look at this location. By calling forceBodyAdjustment() the
+		// locomotion is forced to adjust the body until the looking left-right become 0.
+		// Doing it this way lets the locomotion do a smooth turning
+		var Locomotion locomotion = locomotion.getLocomotion()
+		var DVector direction = (player.getElementMatrix() * actor.getInverseElementMatrix()) * DVector.new(0, 0, 0.5)
+		var float orientation = -DEMath.atan2(direction.getX(), direction.getZ())
+		var float lookHorizontal = DEMath.normalize(orientation, -180.0, 180.0)
+		locomotion.setLookHorizontalGoal(orientation)
+		locomotion.forceBodyAdjustment()
+		
+		BaseGameApp.getApp().getTriggerTable().getOrAddNamed(StringID.new("caughtPlayer")).fire()
+	end
+	
+	// Update hearing the player. For this we look for a speaker owned by the player.
+	protected func void updateHearPlayer()
+		var Dragoness dragoness = actor cast Dragoness
+		var int i, count = dragoness.soundLevelMeter.getAudibleSpeakerCount()
+		var PlayerActor player = PlayerActor.getPlayer()
+		var SoundLevelMeterSpeaker speaker
+		
+		var float volume = hearBurstVolume
+		hearBurstVolume = 0
+		
+		for i = 0 to count
+			speaker = dragoness.soundLevelMeter.getAudibleSpeakerAt(i)
+			if player == speaker.getSpeaker().getOwner()
+				volume = DEMath.max(volume, speaker.getVolume())
+			end
+		end
+		
+		dragoness.hearPlayerVolume = volume
+// 		BaseGameApp.getApp().getConsole().addMessage("updateHearPlayer " + player.getPosition() + " " + volume)
+	end
+	
+	// Update approaching player. Updates first the loosing track time. This ensures the
+	// actor keeps following the last known position for a short time after becoming
+	// inaudible. Calls moveTo() or stopMoving() depending if still approaching.
+	protected func void updateApproachPlayer(float elapsed)
+		if (actor cast Dragoness).hearPlayerVolume > 0.001
+			looseTrackElapsed = 0
+			
+			// The navigation space for the dragoness is smaller than where the player can go
+			// to. Use the navigator to find the closest point inside the navigation space.
+			// This prevents the dragoness from taking strange path
+			var NavigationInfo navinfo = navigator.getNavigator().nearestPoint(PlayerActor.getPlayer().getPosition(), 10)
+			if navinfo != null
+				moveTo(navinfo.getPosition())
+			end
+			
+		else
+			if looseTrackElapsed > looseTrackTime
+				stopMoving()
+			end
+		end
+	end
+	
+	// Move towards player. Uses navigator to find a suitable path
+	protected func void moveTo(DVector position)
+		approachPosition = position
+		actorMover.moveTo(position, 1)
+	end
+	
+	// Stop moving
+	protected func void stopMoving()
+		actorMover.stopMoving()
+		playerInputMove.reset()
+		approachPosition = null
+	end
+	
+	// Update foot steps
+	public func void footSteps()
+		// if going to stop moving stop foot steps. otherwise use the appropriate steps
+		if locomotion.getLocomotion().getMovingSpeed() < 0.01
+			footSteps.clearActiveConfiguration()
+			
+		else
+			footSteps.setActiveConfigurationWithID(DragonessClass.FOOTSTEPS_WALK, true)
+		end
+	end
+	
+	
+	
+	// Speaker become audible.
+	public func void speakerAudible( SoundLevelMeterSpeaker speaker )
+		// We do not know when the Audio Module processes sound level meters. By using the
+		// volumes of the currently audible speakers in the sensor is nothing but a snapshot
+		// of a specific point in time. This allows short lived sounds (burst sounds) to
+		// go unnoticed. If we only want to look for long lastnig sound events this approach
+		// is viable. But if we want to also hear short lived sound events like a single
+		// foot step as used here we need to do a little bit more. We keep track of the
+		// maximum volume of speakers becoming audible. Combined with the snapshot this
+		// captures all sound events, long lasting ones as well as short lasting ones
+		if PlayerActor.getPlayer() == speaker.getSpeaker().getOwner()
+			hearBurstVolume = DEMath.max(hearBurstVolume, speaker.getVolume())
+		end
+	end
+	
+	// Speaker became inaudible.
+	public func void speakerInaudible( Speaker speaker )
+	end
+end

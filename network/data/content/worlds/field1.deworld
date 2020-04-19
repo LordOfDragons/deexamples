@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<world>
+	<gravity x='0' y='-9.81' z='0'/>
+	<ambientLight r='1' g='1' b='1'/>
+	<nextObjectID>c</nextObjectID>
+	
+	<object id='1'>
+		<classname>SimpleElement</classname>
+		<position x='0' y='0' z='0'/>
+		<property key='component.model'>/content/models/playfield/playfield.demodel</property>
+		<property key='component.rig'>/content/models/playfield/playfield.derig</property>
+		<texture name='field'>
+			<skin>/content/materials/grass/material.deskin</skin>
+		</texture>
+		<texture name='border'>
+			<skin>/content/materials/grass/material.deskin</skin>
+		</texture>
+		<texture name='wall'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+		<texture name='spectators'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+		<texture name='spectator wall'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+		<texture name='ceiling'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+	</object>
+	<object id='2'>
+		<classname>SpawnPoint</classname>
+		<position x='0' y='0.1' z='12'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='name'>player1</property>
+	</object>
+	<object id='3'>
+		<classname>SpawnPoint</classname>
+		<position x='0' y='0.1' z='-12'/>
+		<property key='name'>player2</property>
+	</object>
+	<object id='4'>
+		<classname>SpawnPoint</classname>
+		<position x='18' y='0' z='0'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='name'>player3</property>
+	</object>
+	<object id='5'>
+		<classname>SpawnPoint</classname>
+		<position x='-12' y='0.1' z='0'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='name'>player4</property>
+	</object>
+	<object id='6'>
+		<classname>SpawnPoint</classname>
+		<position x='0' y='5' z='0'/>
+		<property key='name'>ball1</property>
+	</object>
+	<object id='7'>
+		<classname>BaseSky</classname>
+		<position x='0' y='15' z='0'/>
+		<property key='sky.path'>/content/skies/default/default.desky</property>
+	</object>
+	<object id='8'>
+		<classname>PlayerPlatform</classname>
+		<position x='0' y='0' z='12'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='claim.touchSensor.shape'>box:position,0,0.3,0:extends,4,0.2,3</property>
+		<property key='claim.playerNumber'>1</property>
+	</object>
+	<object id='9'>
+		<classname>PlayerPlatform</classname>
+		<position x='0' y='0' z='-12'/>
+		<property key='claim.touchSensor.shape'>box:position,0,0.3,0:extends,4,0.2,3</property>
+		<property key='claim.playerNumber'>2</property>
+	</object>
+	<object id='a'>
+		<classname>PlayerPlatform</classname>
+		<position x='-12' y='0' z='0'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='claim.touchSensor.shape'>box:position,0,0.3,0:extends,4,0.2,3</property>
+		<property key='claim.playerNumber'>3</property>
+	</object>
+	<object id='b'>
+		<classname>PlayerPlatform</classname>
+		<position x='12' y='0' z='0'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='claim.touchSensor.shape'>box:position,0,0.3,0:extends,4,0.2,3</property>
+		<property key='claim.playerNumber'>4</property>
+	</object>
+</world>

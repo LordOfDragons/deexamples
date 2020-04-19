@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE skin SYSTEM 'DragengineSkin.dtd'>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<value property='reflectivity'>0.23</value>
+		<image property='roughness'>roughness.jpg</image>
+		<value property='roughness.remap.lower'>0.4</value>
+		<value property='roughness.remap.upper'>0.8</value>
+		<image property='emissivity'>emissivity.jpg</image>
+		<color property='emissivity.tint' r='0.5' g='0.5' b='0.5' a='1' renderable='tint'/>
+		<value property='emissivity.intensity'>10</value>
+	</texture>
+</skin>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<image property='color'>electricity.png</image>
+		<image property='solidity'>solidity_triangle.png</image>
+		<value property='solidity.masked'>1</value>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0</value>
+		<value property='sound.none'>1</value>
+	</texture>
+</skin>

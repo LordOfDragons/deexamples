@@ -1,0 +1,21 @@
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+// If players runs fire a trigger target
+class TriggerPlayerRunsClass extends BehaviorElementClass
+	public var ECPString target
+	
+	
+	// Create element class
+	public func new() super("TriggerPlayerRuns")
+		addProperty(target = ECPString.new("target", null))
+	end
+	
+	
+	// Create element instance
+	protected func Element createElement()
+		return TriggerPlayerRuns.new(this)
+	end
+end

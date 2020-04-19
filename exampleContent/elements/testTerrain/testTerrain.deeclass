@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='IGDETestTerrain' class='SimpleElement'>
+	<string name='component.model'>testTerrain.demodel</string>
+	<string name='component.rig'>testTerrain.derig</string>
+	<string name='navigationSpace.path'>testTerrain.denavspace</string>
+	<map name='component.textureReplacements'>
+		<map key='floor'>
+			<string key='skin'>material/floor/material.deskin</string>
+		</map>
+		<map key='wall'>
+			<string key='skin'>material/wall/material.deskin</string>
+		</map>
+		<map key='wall base'>
+			<string key='skin'>material/wall/material.deskin</string>
+		</map>
+		<map key='wall inset'>
+			<string key='skin'>material/wallInset/material.deskin</string>
+		</map>
+	</map>
+</elementClass>

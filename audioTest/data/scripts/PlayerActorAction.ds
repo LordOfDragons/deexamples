@@ -1,0 +1,128 @@
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+// Player action.
+// 
+// In a typical game scenario there is one player action subclass for each action the
+// player can do. Such scenarios can be interacting with a world prop or having a
+// conversation with an actor.
+// 
+// In this test application things are kept simple so only one actor action is used
+// for the player.
+class PlayerActorAction extends BAAFirstPerson implements BAAInteract
+	// Visitor for using primaryAction on. Visiting is the best way to interact with
+	// elements of any kind.
+	class InteractPrimaryAction extends ATElementVisitor
+		public var PlayerActor player
+		
+		public func new(PlayerActor player)
+			this.player = player
+		end
+		
+		public func void visitDragoness(Dragoness dragoness)
+			talkToActor(dragoness.getConversationActor(), dragoness.conversation)
+		end
+		
+		// Talk to actor.
+		public func void talkToActor(ECBehaviorConversationActor.Instance actor, Conversation conversation)
+			// Check if the actor actor can talk. This is an example on how the conversation
+			// commands can be used outside conversation scripts to query unknown actors
+			var ConversationActor convoActor = actor.getConversationActor()
+			if convoActor == null or not convoActor.conditionCommand("canTalk")
+				return
+			end
+			
+			// Start conversation with actor. There are different ways how this can be done
+			// depending on how conversation scripts are organized.
+			// 
+			// If you use one conversation script for multiple actors it is useful to use
+			// a topic group for each actor for example named after conversation actor id.
+			// The topic could then be something like "conversation". You can then simply
+			// start a conversation with topic group convoActor.getID() and topic
+			// "conversation". Alternatively you could also use a fixed name for the topic
+			// group and the actor id as topic. It all comes down to how you want to organize
+			// your conversation scripts.
+			// 
+			// Another solution is to use one conversation script for each actor in the game.
+			// This is a commonly chosen solution since it allows to have individual conversation
+			// scripts the conversation artist can edit individually. In this case the same
+			// topig group and topic is used for starting the conversation. In this example
+			// we use the topic group "conversation" and the topic "talk".
+			// 
+			// For BehaviorElement you can check if the ECBehaviorConversation is present.
+			// This behavior stores topic group and topic itself which can be convenient.
+			// You can even subclass ECBehaviorConversation to add additional properties
+			// like for example setting specific conversation variables.
+			var BaseConversationPlayback playback = GameApp.getGameApp().createConversationPlayback(conversation)
+			playback.setCameraDirector(null)
+			
+			try
+				var ConversationTopicGroup topicGroup = conversation.getTopicGroupWithID(StringID.new("conversation"))
+				var ConversationTopic topic = topicGroup.getTopicWithID(StringID.new("talk"))
+				playback.setTopic(topicGroup, topic)
+				playback.addActor(player.getConversationActor().getConversationActor())
+				playback.addActor(convoActor)
+				playback.setRunning( true )
+				
+			catch Exception e
+				playback.dispose()
+				throw
+			end
+			
+			player.updateConvoPlayback = true
+		end
+	end
+	
+	
+	
+	// Create player actor action
+	public func new()
+	end
+	
+	
+	
+	// Think
+	public func void think(float elapsed)
+		super.think(elapsed)
+		
+		footSteps()
+	end
+	
+	// Update foot steps
+	public func void footSteps()
+		// if going to stop moving stop foot steps. otherwise use the appropriate steps
+		if getLocomotion().getLocomotion().getMovingSpeed() < 0.01
+			getFootSteps().clearActiveConfiguration()
+			
+		elif getPlayerInputMove().getRun()
+			getFootSteps().setActiveConfigurationWithID(PlayerActorClass.FOOTSTEPS_RUN, true)
+			
+		else
+			getFootSteps().setActiveConfigurationWithID(PlayerActorClass.FOOTSTEPS_WALK, true)
+		end
+	end
+	
+	
+	
+	/** \brief Start primary action. */
+	public func void primaryActionStart()
+		var PlayerActor actor = getActor() cast PlayerActor
+		if actor.lookAt.hasLookAtElement()
+			actor.lookAt.getLookAtElement().visit(InteractPrimaryAction.new(actor))
+		end
+	end
+	
+	/** \brief Stop primary action. */
+	public func void primaryActionStop()
+	end
+	
+	/** \brief Start secondary action. */
+	public func void secondaryActionStart()
+	end
+	
+	/** \brief Stop secondary action. */
+	public func void secondaryActionStop()
+	end
+end

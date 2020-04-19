@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE animator SYSTEM 'EpsylonAnimator.dtd'>
+<animator>
+	<display>
+		<model>/model/dragoness/dragoness.demodel</model>
+		<skin>/model/dragoness/dragoness.deskin</skin>
+		<rig>/model/dragoness/dragoness.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>/model/dragoness/dragoness.derig</rig>
+	<animation>/model/dragoness/dragoness.deanim</animation>
+	
+	<controller>
+		<name>idle</name>
+		<limits min='0' max='4'/>
+		<clamp>0</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>look.horizontal</name>
+		<limits min='-90' max='90'/>
+		<locomotionAttribute>lookHorizontal</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>look.vertical</name>
+		<limits min='-80' max='80'/>
+		<locomotionAttribute>lookVertical</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>gesture.progress</name>
+		<limits min='0' max='0.85'/>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<controller>
+		<name>gesture.playback</name>
+		<limits min='0' max='5'/>
+		<clamp>0</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+		<locomotionLeg>0</locomotionLeg>
+	</controller>
+	
+	<link>
+		<name>playback gesture</name>
+		<controller>4</controller>
+	</link>
+	
+	<link>
+		<name>gesture blend</name>
+		<controller>3</controller>
+		<curve>
+			<interpolation>bezier</interpolation>
+			<point>
+				<coordinates x='0' y='0'/>
+				<handle1 x='0' y='0'/>
+				<handle2 x='0' y='0'/>
+			</point>
+			<point>
+				<coordinates x='0.204188' y='0.151079'/>
+				<handle1 x='0.0965373' y='0.00168289'/>
+				<handle2 x='0.401408' y='0.424779'/>
+			</point>
+			<point>
+				<coordinates x='0.706806' y='0.827338'/>
+				<handle1 x='0.491549' y='0.544248'/>
+				<handle2 x='0.83492' y='0.995824'/>
+			</point>
+			<point>
+				<coordinates x='1' y='1'/>
+				<handle1 x='1' y='1'/>
+				<handle2 x='1' y='1'/>
+			</point>
+		</curve>
+	</link>
+	
+	<ruleStateSnapshot>
+		<name>captured state</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+		</target>
+		<useLastState>0</useLastState>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+	</ruleStateSnapshot>
+	
+	<ruleAnimation>
+		<name>gesture</name>
+		<blendMode>blend</blendMode>
+		<blendFactor>1</blendFactor>
+		<target name='blendFactor'>
+			<link>1</link>
+		</target>
+		<moveName>sitting gesture mebest</moveName>
+		<moveTime>0</moveTime>
+		<enablePosition>1</enablePosition>
+		<enableOrientation>1</enableOrientation>
+		<enableSize>0</enableSize>
+		<target name='moveTime'>
+			<link>0</link>
+		</target>
+	</ruleAnimation>
+</animator>

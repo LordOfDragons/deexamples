@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<configuration>
+	<parameter name='Render Down-Scale'>
+		<moduleParameter>renderDownScale</moduleParameter>
+		<value>
+			<name>1x</name>
+			<value>1</value>
+		</value>
+		<value>
+			<name>2x</name>
+			<value>2</value>
+		</value>
+		<value>
+			<name>4x</name>
+			<value>4</value>
+		</value>
+		<value>
+			<name>8x</name>
+			<value>8</value>
+		</value>
+		<defaultValue>1</defaultValue>
+	</parameter>
+	<parameter name='Shadow Map Size'>
+		<moduleParameter>shadowMapSize</moduleParameter>
+		<value>
+			<name>Very Low</name>
+			<value>veryLow</value>
+		</value>
+		<value>
+			<name>Low</name>
+			<value>low</value>
+		</value>
+		<value>
+			<name>Medium</name>
+			<value>medium</value>
+		</value>
+		<value>
+			<name>High</name>
+			<value>high</value>
+		</value>
+		<value>
+			<name>Very High</name>
+			<value>veryHigh</value>
+		</value>
+		<defaultValue>high</defaultValue>
+	</parameter>
+	<parameter name='Show Debug Info'>
+		<sendCommand>dm_enable</sendCommand>
+		<sendCommand>dm_show_debug_info 1</sendCommand>
+		<sendCommand>dm_debug_info_details {value}</sendCommand>
+		<value>
+			<name>Basic</name>
+			<value>m w</value>
+		</value>
+		<value>
+			<name>More</name>
+			<value>m w sg l lsky</value>
+		</value>
+		<value>
+			<name>Off</name>
+			<value>-all</value>
+		</value>
+		<defaultValue>Off</defaultValue>
+	</parameter>
+</configuration>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	
+	<bone name='door.r'>
+		<position x='1.0' y='0.0' z='0.0'/>
+		<rotation x='0.0' y='90.0' z='-0.0'/>
+		<mass>1</mass>
+		<centralMassPoint x='0' y='0' z='0'/>
+		<dynamic>false</dynamic>
+		<ikX>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikX>
+		<ikY>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikY>
+		<ikZ>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikZ>
+		<box>
+			<position x='-1.907e-06' y='1' z='0.5'/>
+			<halfExtends x='0.15' y='1' z='0.5'/>
+			<rotation x='0' y='-1.02e-06' z='-0'/>
+		</box>
+	</bone>
+	
+	<bone name='door.l'>
+		<position x='-1.0' y='0.0' z='0.0'/>
+		<rotation x='0.0' y='-90.0' z='-0.0'/>
+		<mass>1</mass>
+		<centralMassPoint x='0' y='0' z='0'/>
+		<dynamic>false</dynamic>
+		<ikX>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikX>
+		<ikY>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikY>
+		<ikZ>
+			<lower>1</lower>
+			<upper>0</upper>
+			<resistance>0</resistance>
+			<locked>0</locked>
+		</ikZ>
+		<box>
+			<position x='3.89e-06' y='1' z='0.5'/>
+			<halfExtends x='0.15' y='1' z='0.5'/>
+			<rotation x='0' y='-180' z='-0'/>
+		</box>
+	</bone>
+</rig>

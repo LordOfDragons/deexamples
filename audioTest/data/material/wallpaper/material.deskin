@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<image property='color'>color.jpg</image>
+		<value property='color.tint' renderable='tint'>1</value>
+		<image property='normal'>normal.jpg</image>
+		<value property='reflectivity'>0.17</value>
+		<image property='roughness'>roughness.jpg</image>
+		<value property='roughness.remap.lower'>0.8</value>
+		<value property='roughness.remap.upper'>1</value>
+		<value property='sound.absorption'>0.12</value>
+		<value property='sound.absorption.lower'>0.353</value>
+		<value property='sound.absorption.upper'>1.765</value>
+		<value property='sound.transmission'>0.3</value>
+		<value property='sound.transmission.lower'>2.8</value>
+		<value property='sound.transmission.upper'>0.28</value>
+	</texture>
+</skin>

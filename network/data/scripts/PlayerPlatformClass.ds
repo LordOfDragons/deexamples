@@ -1,0 +1,61 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Scenery
+
+
+/**
+ * Play platform.
+ * 
+ * Gives points to player if ball is located inside touch sensor.
+ */
+public class PlayerPlatformClass extends BehaviorElementClass
+	public var ECBehaviorComponent component
+	public var ECBehaviorCollider collider
+	public var ECBehaviorNetworkState networkState
+	public var BehaviorClaim claim
+	
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super( "PlayerPlatform" )
+		// Add component behavior defining the visual aspects
+		component = ECBehaviorComponent.new( this, null )
+		component.setCommonPath( "/content/models/platform", "platform.demodel", \
+			"platform.deskin", "platform.derig" )
+		
+		// Add collider behavior defining the physical aspects.
+		collider = ECBehaviorCollider.new( this, component )
+		
+		// Add network state behavior enabling networking support
+		networkState = ECBehaviorNetworkState.new( this, \
+			NetworkPlayer.LinkCode.object.order() cast byte, \
+			NetworkPlayer.MessageCode.networkState.order() cast byte )
+		
+		// Add support to be claim ball
+		claim = BehaviorClaim.new( this, networkState )
+	end
+end

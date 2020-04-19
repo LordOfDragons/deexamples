@@ -1,0 +1,66 @@
+/* 
+ * Drag[en]gine Network Examine.
+ *
+ * Copyright (C) 2020, Roland Plüss (roland@rptd.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+
+namespace NetworkExample
+
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Networking
+pin Dragengine.Utils
+
+
+/**
+ * Player action. Implements BAAInteract to allow players to use a primary and secondary
+ * action they can trigger.
+ * 
+ * The primary action is kicking the ball if it is close to the player. The longer the
+ * button is pressed before releasing the stronger the kick.
+ * 
+ * The secondary action is not used.
+ */
+class PlayerAction extends BAAFirstPerson implements BAAInteract
+	/**
+	 * Create player action.
+	 */
+	public func new()
+	end
+	
+	
+	
+	/** Start primary action. */
+	public func void primaryActionStart()
+		( getActor() cast PlayerActor ).kick.start()
+	end
+	
+	/** Stop primary action. */
+	public func void primaryActionStop()
+		( getActor() cast PlayerActor ).kick.stop()
+	end
+	
+	/** Start secondary action. */
+	public func void secondaryActionStart()
+	end
+	
+	/** Stop secondary action. */
+	public func void secondaryActionStop()
+	end
+end

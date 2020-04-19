@@ -1,0 +1,158 @@
+namespace Example
+
+pin Dragengine.CameraDirectors
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Example application.
+ */
+class ExampleApp extends BaseGameApp
+	private class StartGame extends WindowGameWorld.Loader
+		public func new( WindowGameWorld window, String pathWorld ) super( window )
+			setPathWorld( pathWorld )
+		end
+		
+		public func void onLoadWorldFinished()
+			var ExampleApp app = BaseGameApp.getApp() cast ExampleApp
+			var GameWorld gameWorld = getStubWorld().getGameWorld()
+			
+			// create player actor. for this a stub is first created which we can modify
+			// properties in. this allows to fine tune elements before creating them
+			var ElementClass eclass = app.getElementClassList().getNamed( "Actor" )
+			var UniqueID id = app.getIDGenerator().nextID()
+			var StubElement stub = StubElement.new( eclass, id )
+			
+			// set unique conversation actor ID so we can use the actor in conversations
+			stub.setPropertyValueFor( "convoActor.id", "player" )
+			stub.setPropertyValueFor( "convoActor.name", "Player" )
+			stub.setPropertyBoolFor( "convoActor.registerConvoActor", true )
+			
+			// now the player actor can be created using the stub
+			var BaseActor player = stub.createElement() cast BaseActor
+			
+			// give player actor basic first-persons support
+			player.getAIAction().setAction( BAAFirstPerson.new() )
+			
+			// spawn player actor at named spawn point
+			gameWorld.getSpawnPoints().getNamed( "player" ).spawn( gameWorld, player )
+			
+			// take control of player actor
+			player.getPlayerControllable().takeControl()
+			
+			// finish and start running
+			getWindow().setCameraDirector( PlayerControlledActorCameraDirector.new() )
+			
+			super.onLoadWorldFinished()
+			app.setInputProcessorBindings()
+			app.finishLoadGameWorld()
+		end
+		
+		public func void onLoadWorldFailed()
+			super.onLoadWorldFailed()
+			BaseGameApp.getApp().cancelLoadGameWorld()
+			Engine.quit()
+		end
+	end
+	
+	/**
+	 * Create example application.
+	 */
+	public func new()
+		pathDesktopGuiTheme = "/content/ui/main.guitheme.xml"
+		pathLanguagePacks = "/content/langpacks"
+		defaultLanguagePackName = UnicodeString.newFromUTF8( "English" )
+	end
+	
+	/**
+	 * Initialize application.
+	 */
+	public func void initGame()
+		super.initGame()
+		
+		// Start game by showing the Drag[en]gine Game Engine logo and optionally other logos
+		// you would like to show. WindowLogo.show*() does all the work of showing a logo or
+		// video with optional sound. Once the window is finished (the user can skip it)
+		// the provided action listener is called. This can be creating a class implementing
+		// ActionListener interface or by using BlockActionListener. This is a convenience
+		// class allowing to use a block as an action and is suitable for quick code insertion
+		// like this. Using a class implementing ActionListener is though favorable since it
+		// makes it easier to chain actions in an understandable way.
+		// 
+		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
+		// engine but we highly appreciate it if you do so.
+		
+		WindowLogo.showDragengineLogo( this.getDesktop(), BlockActionListener.new( \
+			block ActionEvent event
+				launchApplication()
+			end ) )
+	end
+	
+	/**
+	 * \brief Launch example application.
+	 * 
+	 * Called after logo windows are finished.
+	 */
+	public func void launchApplication()
+		getWindowGameWorld().addWidget( ShoutConsole.new( getConsole() ) )
+		
+		/*
+		// Strings can be translated using getTranslationManager(). To change the language
+		// provided assign language pack to the translation manager.
+		getConsole().addMessage( "Translation for 'HelloWorld' = '" \
+			+ getTranslationManager().translate( "HelloWorld" )  + "'" )
+		*/
+		
+		// Sometimes it can be useful to get some overview of element classes used in a project
+		// especially if the project becomes bigger and more complex. For this purpose a debug
+		// class exists: Dragengine.Debugging.DebugElementClassInfo . If prints out complete
+		// element class information into either a file or into the console. Such a file can
+		// be put into project documentation to be used by coders and artists as reference
+		// material.
+		// 
+		// The example below creates such a file. It will be written to the "capture" directory.
+		// When run from the IGDE the capture directory can be found in the "cache" directory
+		// inside the project directory. When run as installed product the "capture" directory
+		// will be found inside the user data directory. Drag[en]gine Launchers will help you
+		// find this directory easily.
+		/*
+		var Dragengine.Debugging.DebugElementClassInfo debugInfo = \
+			Dragengine.Debugging.DebugElementClassInfo.new()
+		debugInfo.print( Dragengine.Debugging.DebugElementClassInfo.FileWriterOut \
+			.new( "/capture/elementClassInfo.txt" ), this.getElementClassList() )
+		*/
+		
+		startLoadGameWorld( StartGame.new( getWindowGameWorld(), "/content/worlds/hub.deworld" ) )
+	end
+	
+	/**
+	 * Create element classes and add them to element class list.
+	 */
+	protected func void createAndAddElementClasses()
+		super.createAndAddElementClasses()
+		
+		// Add scripted element classes. These can be used by XML element classes below
+		var ElementClassList eclist = getElementClassList()
+		eclist.add( CowardlyActorClass.new() )
+		
+		// Add XML element classes by recursively scanning directory for *.deeclass files.
+		// These require scripted element classes as parent classes. Using *.deeclass
+		// files you can easily add content with needing to write scripted classes.
+		getLoaders().getElementClass().addXmlElementClasses(eclist, "/content/models", true)
+		
+		// You will see also the directories /content/materials and /content/skies.
+		// These two directories are only automatically scanned by the IGDE Editor.
+		// For games you do not have to specify them anywhere are they are loaded
+		// by the individual element classes
+	end
+	
+	/**
+	 * Clean up.
+	 */
+	public func void cleanUp()
+		super.cleanUp()
+	end
+end

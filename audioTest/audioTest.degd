@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE gameDefinition SYSTEM 'DragengineGameDefinition.dtd'>
+<gameDefinition>
+	<identifier>audioTest</identifier>
+	<description>Game project audioTest.</description>
+	<basePath>/home/roland/progs/deexamples/audioTest/data</basePath>
+	<vfsPath>/</vfsPath>
+	<scriptModule>DragonScript</scriptModule>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<categories>
+		<classes>
+			<category>
+				<name>AudioTest</name>
+				<autoCategorize>/model/*</autoCategorize>
+			</category>
+		</classes>
+		<skins>
+			<category>
+				<name>AudioTest</name>
+				<autoCategorize>/material/*</autoCategorize>
+			</category>
+		</skins>
+	</categories>
+	<findPathClasses>/model</findPathClasses>
+	<findPathSkins>/material</findPathSkins>
+	<class name='Dragoness'>
+		<description>Dragoness actor.</description>
+		<inherit name='BaseActor'>
+		</inherit>
+		<component>
+			<model>/model/dragoness/dragoness.demodel</model>
+			<skin>/model/dragoness/dragoness.deskin</skin>
+			<rig>/model/dragoness/dragoness.derig</rig>
+			<renderEnvMap>false</renderEnvMap>
+			<affectsAudio>false</affectsAudio>
+		</component>
+		<category>AudioTest</category>
+	</class>
+	<class name='TouchStand'>
+		<description>Touch stand with support to change display if trigger changes.</description>
+		<inherit name='ECBehaviorComponent'>
+			<propertyPrefix>component.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCollider'>
+			<propertyPrefix>collider.</propertyPrefix>
+		</inherit>
+		<component>
+			<model>/model/prop/touchMe.demodel</model>
+			<skin>/shareddata/materials/empty.deskin</skin>
+			<rig>/model/prop/touchMe.derig</rig>
+			<texture name='case'>
+				<skin>/material/plastic/matte.deskin</skin>
+				<tint r='0.756863' g='0.921569' b='1'/>
+			</texture>
+			<texture name='panel'>
+				<skin>/material/miscLabel/touchMe.deskin</skin>
+			</texture>
+			<link target='model' property='model'/>
+			<link target='skin' property='skin'/>
+			<link target='rig' property='rig'/>
+			<link target='affectsAudio' property='affectsAudio'/>
+		</component>
+		<property name='trigger'>
+			<description>Trigger expression to change display skin.</description>
+			<type>triggerExpression</type>
+		</property>
+		<property name='skinOn'>
+			<description>Skin if trigger expression is on.</description>
+			<type>path</type>
+			<pathPatternType>skin</pathPatternType>
+			<default>/material/miscLabel/active.deskin</default>
+		</property>
+		<property name='skinOff'>
+			<description>Skin if trigger expression is off.</description>
+			<type>path</type>
+			<pathPatternType>skin</pathPatternType>
+			<default>/material/miscLabel/touchMe.deskin</default>
+		</property>
+		<propertyValue name='affectsAudio'>0</propertyValue>
+		<category>AudioTest</category>
+	</class>
+	<class name='TriggerPlayerRuns'>
+		<description>If players runs fire a trigger target</description>
+		<billboard>
+			<skin>/igde/billboards/evaluate.deskin</skin>
+			<size x='0.25' y='0.25'/>
+			<locked>false</locked>
+			<spherical>false</spherical>
+			<partialHide>true</partialHide>
+			<renderEnvMap>false</renderEnvMap>
+		</billboard>
+		<property name='target'>
+			<description>Trigger target to mirror player run state.</description>
+			<type>triggerTarget</type>
+		</property>
+		<category>AudioTest</category>
+	</class>
+	<class name='CeilingLamp'>
+		<description>Ceiling lamp</description>
+		<inherit name='SimpleElement'>
+		</inherit>
+		<inherit name='ECBehaviorLight'>
+			<propertyPrefix>light.</propertyPrefix>
+		</inherit>
+		<component>
+			<model>/model/prop/ceilingLamp.demodel</model>
+			<skin>/shareddata/materials/empty.deskin</skin>
+			<rig>/model/prop/ceilingLamp.derig</rig>
+			<texture name='light'>
+				<skin>/material/lightGrid/material.deskin</skin>
+				<tint r='1' g='0.854902' b='0.462745'/>
+			</texture>
+			<link target='model' property='component.model'/>
+			<link target='skin' property='component.skin'/>
+			<link target='rig' property='component.rig'/>
+			<link target='occlusionMesh' property='component.occlusionMesh'/>
+			<link target='audioModel' property='component.audioModel'/>
+			<link target='renderEnvMap' property='component.renderEnvMap'/>
+			<link target='affectsAudio' property='component.affectsAudio'/>
+		</component>
+		<light>
+			<position x='0' y='-0.3' z='0'/>
+			<orientation x='-90' y='0' z='0'/>
+			<color r='1' g='1' b='1'/>
+			<intensity>1</intensity>
+			<range>10</range>
+			<ambientRatio>0.25</ambientRatio>
+			<hintMovement>static</hintMovement>
+			<hintParameter>static</hintParameter>
+			<link target='type' property='light.type'/>
+			<link target='color' property='light.color'/>
+			<link target='intensity' property='light.intensity'/>
+			<link target='range' property='light.range'/>
+			<link target='ambientRatio' property='light.ambientRatio'/>
+			<link target='halfIntensityDistance' property='light.halfIntensityDistance'/>
+			<link target='spotAngle' property='light.spotAngle'/>
+			<link target='spotRatio' property='light.spotRatio'/>
+			<link target='spotSmoothness' property='light.spotSmoothness'/>
+			<link target='spotExponent' property='light.spotExponent'/>
+			<link target='lightSkin' property='light.lightSkin'/>
+			<link target='activated' property='light.activated'/>
+			<link target='castShadows' property='light.castShadows'/>
+			<link target='hintShadowImportance' property='light.hintShadowImportance'/>
+		</light>
+		<propertyValue name='component.model'>/model/prop/ceilingLamp.demodel</propertyValue>
+		<propertyValue name='light.ambientRatio'>0.25</propertyValue>
+		<propertyValue name='component.skin'>/shareddata/materials/empty.deskin</propertyValue>
+		<propertyValue name='component.rig'>/model/prop/ceilingLamp.derig</propertyValue>
+		<category>AudioTest</category>
+	</class>
+</gameDefinition>

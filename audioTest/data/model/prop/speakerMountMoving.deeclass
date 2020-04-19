@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<elementClass name='SpeakerMountMoving' class='SimpleElementOnRail'>
+	<boolean name='component.affectsAudio'>0</boolean>
+	<string name='component.rig'>speaker2.derig</string>
+	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
+	<string name='component.model'>speaker2.demodel</string>
+	<float name='moveOnRail.velocity'>1</float>
+	<map name='component.textureReplacements'>
+		<map key='base'>
+			<string key='skin'>/material/concrete/material.deskin</string>
+			<map key='transform'>
+				<vector2 key='scale' x='2' y='2'/>
+			</map>
+		</map>
+		<map key='speake case'>
+			<string key='skin'>/material/metal/paintedRough.deskin</string>
+			<color key='tint' r='0.262745' g='0.0156863' b='0.0156863'/>
+			<map key='transform'>
+				<vector2 key='scale' x='16' y='16'/>
+			</map>
+		</map>
+		<map key='speaker grid'>
+			<string key='skin'>/material/speakerGrid/material.deskin</string>
+			<color key='tint' r='0.643137' g='0.643137' b='0.643137'/>
+			<map key='transform'>
+				<vector2 key='scale' x='1' y='1'/>
+			</map>
+		</map>
+	</map>
+</elementClass>

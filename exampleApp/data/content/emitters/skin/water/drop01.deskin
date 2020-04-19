@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE skin SYSTEM "DragengineSkin.dtd">
+<skin>
+	<texture name="particle">
+		<fullAlpha/>
+		<image property="color">drop01_diffuse.png</image>
+		<image property="transparency">drop01_transp.png</image>
+		<!-- <image property="transparency">drop01_mask.png</image> -->
+		<value property="specularity">0.5</value>
+		<value property="shadow.none">1</value>
+	</texture>
+</skin>
