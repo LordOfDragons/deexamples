@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>44</nextObjectID>
+	<nextObjectID>46</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -605,6 +605,32 @@
 		<position x='-12' y='0' z='-10'/>
 		<texture name='content'>
 			<skin>/content/materials/signs/speaker.deskin</skin>
+		</texture>
+	</object>
+	<object id='44'>
+		<classname>InfoSign</classname>
+		<position x='-16' y='0' z='2'/>
+		<rotation x='0' y='-90' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/outline.deskin</skin>
+		</texture>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.2' g='0.188235' b='0.188235'/>
+		</texture>
+	</object>
+	<object id='45'>
+		<classname>SimpleElement</classname>
+		<position x='-16' y='0' z='5'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughOutlined.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.831373' g='0.686275' b='0.117647'/>
 		</texture>
 	</object>
 	
