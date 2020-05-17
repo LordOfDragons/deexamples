@@ -149,6 +149,16 @@
 		<color parameter='normal.textColor' r='1' g='1' b='1'/>
 	</designer>
 	
+	<designer name='Image.ListRenderer.IconList' type='Image'>
+		<colorMatrix parameter='normal.imageColorTransform'/>
+	</designer>
+	
+	<designer name='Image.ListRenderer.IconList.Selected' type='Image'>
+		<colorMatrix parameter='normal.imageColorTransform'>
+			<scale r='0.5' g='0.5' b='1'/>
+		</colorMatrix>
+	</designer>
+	
 	
 	<!--
 	Import definitions for the canvas creator test. Importing allows to split complex

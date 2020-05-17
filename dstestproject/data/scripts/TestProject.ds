@@ -95,7 +95,7 @@ class TestProject extends BaseGameApp
 	 */
 	private func void addLogoWindow()
 		var Window window = Window.new()
-		window.setEnabled( false )
+		window.setCanActivate( false )
 		window.setCanFocus( false )
 		window.setLayout( Layouts.BoxLayout.new( Layouts.LayoutAxis.x, 0 ) )
 		window.setDesignerSelector( "LogoWindow" )

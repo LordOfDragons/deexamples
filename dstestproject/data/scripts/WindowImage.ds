@@ -81,16 +81,13 @@ class WindowImage extends Window
 	
 	
 	
-	/** \brief Repeat mode list model. */
 	private var DefaultListModel pModelRepeatModes
+	private var FrameUpdateListener pUpdaterRotation
 	
 	
 	
 	/** \brief Create game. */
-	public func new() super( 0, 0, 300, 300 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Image" )
-		
+	public func new() super( 0, 0, 600, 300 )
 		this.pModelRepeatModes = DefaultListModel.new()
 		this.pModelRepeatModes.add( NamedRepeatMode.new( "Repeat Once", RepeatMode.once ) )
 		this.pModelRepeatModes.add( NamedRepeatMode.new( "Stretch in both directions", RepeatMode.stretch ) )
@@ -98,28 +95,52 @@ class WindowImage extends Window
 		this.pModelRepeatModes.add( NamedRepeatMode.new( "Tile along Y direction", RepeatMode.tileY ) )
 		this.pModelRepeatModes.add( NamedRepeatMode.new( "Tile along both directions", RepeatMode.tile ) )
 		
-		this.createContent( this )
+		this.runWhileBlockingLayout( block
+			this.setDesignerSelector( "WindowPadding" )
+			this.setTitle( "Image" )
+			this.createContent( this )
+		end )
+	end
+	
+	/** \brief Dispose of widget. */
+	public func void dispose()
+		if this.pUpdaterRotation != null
+			this.pUpdaterRotation.giveUp()
+			this.pUpdaterRotation = null
+		end
+		super.dispose()
 	end
 	
 	
 	
 	/** \brief Add content. */
 	private func void createContent( Container content )
-		content.setLayout( BorderLayout.new( 5 ) )
+		content.setLayout( GridLayout.new( 2, 1 ) )
 		
-		// combo box line
-		var Panel row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
-		row.addWidget( Label.new( "Repeat Mode:" ) )
-		var ComboBox comboBox = ComboBox.new( this.pModelRepeatModes )
-		row.addWidget( comboBox )
-		content.addWidget( row, BorderLayout.Area.top )
+		// regular image
+		content.addWidget( Panel.new( BorderLayout.new( 5 ), block Panel p
+			// combo box line
+			p.addWidget( Panel.new( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ), block Panel p2
+				p2.addWidget( Label.new( "Repeat Mode:" ) )
+				p2.addWidget( ComboBox.new( this.pModelRepeatModes ) )
+			end ), BorderLayout.Area.top )
+			
+			// image
+			var DisplayImage displayImage = DisplayImage.new( Image.new( "/images/colorful.png" ) )
+			p.addWidget( displayImage, BorderLayout.Area.content )
+			this.pModelRepeatModes.addListener( SelectionListenerRepeatMode.new( displayImage ) )
+		end ) )
 		
-		// image
-		var Image image = Image.new( "/images/colorful.png" )
-		var DisplayImage displayImage = DisplayImage.new( image )
-		content.addWidget( displayImage, BorderLayout.Area.content )
-		
-		this.pModelRepeatModes.addListener( SelectionListenerRepeatMode.new( displayImage ) )
+		// rotating image
+		content.addWidget( Panel.new( BoxLayout.new( LayoutAxis.x ), block Panel p
+			var DisplayRotatingImage displayImage = DisplayRotatingImage.new( Image.new( "/images/colorful.png" ) )
+			//displayImage.setScale( 4 )
+			//displayImage.setImageOffset( Vector2.new( 0.5, 0 ) )
+			p.addWidget( displayImage )
+			this.pUpdaterRotation = BlockFrameUpdateListener.new( block float elapsed
+				displayImage.setRotation( displayImage.getRotation() + elapsed * 45 )
+			end )
+			this.pModelRepeatModes.addListener( SelectionListenerRepeatMode.new( displayImage ) )
+		end ) )
 	end
 end
