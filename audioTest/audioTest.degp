@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE gameProject SYSTEM 'DragengineGameProject'>
 <gameProject>
 	<name>audioTest</name>
 	<description>Example project testing different audio situations.</description>
@@ -7,5 +6,5 @@
 	<cacheDirectory>cache</cacheDirectory>
 	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
 	<projectGameDefinition>audioTest.degd</projectGameDefinition>
-	<scriptModule>DragonScript</scriptModule>
+	<scriptModule version='1.1'>DragonScript</scriptModule>
 </gameProject>

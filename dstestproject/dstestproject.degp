@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE gameProject SYSTEM 'DragengineGameProject'>
 <gameProject>
 	<name>DragonScript Test Project</name>
-	<description></description>
+	<description/>
 	<dataDirectory>data</dataDirectory>
 	<cacheDirectory>cache</cacheDirectory>
 	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
 	<projectGameDefinition>dstestproject.degd</projectGameDefinition>
-	<scriptModule>DragonScript</scriptModule>
+	<scriptModule version='1.1'>DragonScript</scriptModule>
 </gameProject>
