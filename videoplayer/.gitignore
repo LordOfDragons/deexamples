@@ -2,3 +2,4 @@ local
 cache
 distribute
 testRun.log
+*.kdev*
