@@ -1,0 +1,123 @@
+namespace Example
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+
+
+/**
+ * Listener factory example element class.
+ * 
+ * This element class uses listener factories to create a composed behavior. Using
+ * listener factories allows to add custom behavior to a behavior element without
+ * writing a custom ECBehavior. This is faster and less complex task. Listener
+ * factories can be shared across elements which you can not do using behaviors.
+ * Development teams can store listener factories in helper classes building a
+ * repertoire of reusable listener factories they often use.
+ * 
+ * At the base this classes uses ECBehaviorLight and ECBehaviorParticleEmitter.
+ * The particle emitter is triggered by a trigger expression. The lights are disabled.
+ * It would be possible to assign to the lights the same trigger expression but for
+ * this example we want to do this using listeners. For the lights listener factories
+ * are used which enable a light when the particle emitter starts casting and disables
+ * the light if the last particle died.
+ * 
+ * \par Excercise for the reader
+ * 
+ * Try adding support to play a sound file (for example '/content/sound/birds.ogg')
+ * when a particle burst is cast stopping the sound when all particles died.
+ */
+public class ListenerFactoryExampleClass extends SimpleElementClass
+	/**
+	 * This is the listener synchronizing the lights enabled state to the particle emitter lifetime.
+	 */
+	class SyncLightsToParticles extends ECBehaviorParticleEmitter.DefaultListener
+		/**
+		 * The factory to create our listener.
+		 */
+		class Factory implements ECBehaviorParticleEmitter.ListenerFactory
+			private var ECBehaviorLight light
+			
+			/** Create listener factory using desired light behavior. */
+			public func new( ECBehaviorLight light )
+				this.light = light
+			end
+			
+			/** Create listener looking up the light instance using the behavior we have stored. */
+			public func ECBehaviorParticleEmitter.Listener createListener( ECBehaviorParticleEmitter.Instance instance )
+				return SyncLightsToParticles.new( light.instance( instance.getElement() ) )
+			end
+		end
+		
+		private var ECBehaviorLight.Instance light
+		
+		/** Create listener using light behavior instance to operate on. */
+		public func new( ECBehaviorLight.Instance light )
+			this.light = light
+		end
+		
+		/** Start casting particles. Enable light. */
+		public func void startCasting( ECBehaviorParticleEmitter.Instance instance )
+			light.setActivated( true )
+		end
+		
+		/** Last particle of a burst emission died. Disable light. */
+		public func void lastParticleDied( ECBehaviorParticleEmitter.Instance instance )
+			light.setActivated( false )
+		end
+	end
+	
+	
+	public var ECBehaviorParticleEmitter particleEmitter
+	public var ECBehaviorLight light1
+	public var ECBehaviorLight light2
+	public var ECBehaviorLightDimmer dimmer1
+	public var ECBehaviorLightDimmer dimmer2
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super( "ListenerFactoryExample" )
+		// For this example we use suzanne. The call setCommonPath() receives as first
+		// argument the directory to find the resource in followed by the model, skin
+		// and rig resource relative path.
+		getComponent().setCommonPath( "/content/models/suzanne", \
+			"suzanne.demodel", "coward.deskin", "suzanne.derig" )
+		
+		// Create the particle emitter using the explosion particle emitter and attach
+		// it to the top of suzanne pointing upwards. We want to use the base application
+		// trigger table for this.
+		particleEmitter = ECBehaviorParticleEmitter.new( this, getCollider(), \
+			BaseGameApp.getApp().getLoaders(), BaseGameApp.getApp().getTriggerTable() )
+		particleEmitter.getParticleEmitter().getParticleEmitter().setPath( \
+			"/content/emitters/explosion/explosion.depemit" )
+		particleEmitter.getAttach().getPosition().setVector( Vector.new( 0, 2, 0 ) )
+		particleEmitter.getAttach().getOrientation().setVector( Vector.new( 90, 0, 0 ) )
+		
+		// Create two lights one attached to each eye of suzanne. We do not use the
+		// base application trigger table for the lights
+		light1 = ECBehaviorLight.new( this, getCollider(), "left" )
+		light1.getAttach().getPosition().setVector( Vector.new( -0.36, 1.24, 0.9 ) )
+		light1.getLight().getColor().setColor( Color.red )
+		light1.getLight().getIntensity().setValue( 15 )
+		light1.getLight().getHalfIntensityDistance().setValue( 0.4 )
+		light1.getLight().getRange().setValue( 0.8 )
+		light1.getLight().getActivated().setValue( false )
+		
+		light2 = ECBehaviorLight.new( this, getCollider(), "right" )
+		light2.getAttach().getPosition().setVector( Vector.new( 0.36, 1.24, 0.9 ) )
+		light2.getLight().getColor().setColor( Color.blue )
+		light2.getLight().getIntensity().setValue( 15 )
+		light2.getLight().getHalfIntensityDistance().setValue( 0.4 )
+		light2.getLight().getRange().setValue( 0.8 )
+		light2.getLight().getActivated().setValue( false )
+		
+		// For the fun of it add dimmers for the two lights
+		dimmer1 = ECBehaviorLightDimmer.new( this, light1, "left" )
+		dimmer2 = ECBehaviorLightDimmer.new( this, light2, "right" )
+		
+		// Now create and add the listener factories handling the lights
+		particleEmitter.addListenerFactory( SyncLightsToParticles.Factory.new( light1 ) )
+		particleEmitter.addListenerFactory( SyncLightsToParticles.Factory.new( light2 ) )
+	end
+end

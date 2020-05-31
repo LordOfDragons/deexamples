@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>46</nextObjectID>
+	<nextObjectID>49</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -633,6 +633,30 @@
 			<tint r='0.831373' g='0.686275' b='0.117647'/>
 		</texture>
 	</object>
+	<object id='46'>
+		<classname>ListenerFactoryExample</classname>
+		<position x='-16' y='0' z='9'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='particleEmitter.trigger'>@triggerListenerFactory</property>
+	</object>
+	<object id='47'>
+		<classname>InfoSign</classname>
+		<position x='-16' y='0' z='12'/>
+		<rotation x='0' y='-90' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/listenerFactories.deskin</skin>
+		</texture>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.2' g='0.188235' b='0.188235'/>
+		</texture>
+	</object>
+	<object id='48'>
+		<classname>TriggerTouch</classname>
+		<position x='-12.5' y='1' z='9.05'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>triggerListenerFactory</property>
+	</object>
 	
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
@@ -655,6 +679,12 @@
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
 		<position x='2.3' y='0.1' z='-8'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='-12.5' y='0.1' z='9'/>
 		<rotation x='89.6948' y='-63.435' z='-116.565'/>
 		<size x='1' y='1' z='0.2'/>
 	</decal>

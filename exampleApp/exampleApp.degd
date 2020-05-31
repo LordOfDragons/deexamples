@@ -48,4 +48,44 @@
 		</component>
 		<category>ExampleApp</category>
 	</class>
+	<class name='ListenerFactoryExample'>
+		<description>Cowardly actor</description>
+		<canInstanciate>false</canInstanciate>
+		<inherit name='SimpleElement'>
+		</inherit>
+		<inherit name='ECBehaviorParticleEmitter'>
+			<propertyPrefix>particleEmitter.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorLight'>
+			<propertyPrefix>light(left).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorLight'>
+			<propertyPrefix>light(right).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorLightDimmer'>
+			<propertyPrefix>lightDimmer(left).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorLightDimmer'>
+			<propertyPrefix>lightDimmer(right).</propertyPrefix>
+		</inherit>
+		<propertyValue name='light(left).color'>1 0 0</propertyValue>
+		<propertyValue name='light(right).color'>0 1 0</propertyValue>
+		<propertyValue name='light(left).position'>-0.36 1.24 0.9</propertyValue>
+		<propertyValue name='particleEmitter.orientation'>90 0 0</propertyValue>
+		<propertyValue name='light(right).activated'>0</propertyValue>
+		<propertyValue name='light(right).range'>0.8</propertyValue>
+		<propertyValue name='light(left).activated'>0</propertyValue>
+		<propertyValue name='light(right).halfIntensityDistance'>0.4</propertyValue>
+		<propertyValue name='particleEmitter.path'>/content/emitters/explosion/explosion.depemit</propertyValue>
+		<propertyValue name='component.rig'>/content/models/suzanne/suzanne.derig</propertyValue>
+		<propertyValue name='light(right).position'>0.36, 1.24, 0.9</propertyValue>
+		<propertyValue name='light(right).intensity'>15</propertyValue>
+		<propertyValue name='component.skin'>/content/models/suzanne/coward.deskin</propertyValue>
+		<propertyValue name='light(left).intensity'>15</propertyValue>
+		<propertyValue name='component.model'>/content/models/suzanne/suzanne.demodel</propertyValue>
+		<propertyValue name='light(left).halfIntensityDistance'>0.4</propertyValue>
+		<propertyValue name='particleEmitter.position'>0 2 0</propertyValue>
+		<propertyValue name='light(left).range'>0.8</propertyValue>
+		<category>ExampleApp</category>
+	</class>
 </gameDefinition>

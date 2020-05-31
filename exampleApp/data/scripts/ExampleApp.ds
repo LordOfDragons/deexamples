@@ -137,6 +137,7 @@ class ExampleApp extends BaseGameApp
 		// Add scripted element classes. These can be used by XML element classes below
 		var ElementClassList eclist = getElementClassList()
 		eclist.add( CowardlyActorClass.new() )
+		eclist.add( ListenerFactoryExampleClass.new() )
 		
 		// Add XML element classes by recursively scanning directory for *.deeclass files.
 		// These require scripted element classes as parent classes. Using *.deeclass
