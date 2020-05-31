@@ -21,6 +21,8 @@ pin Dragengine.Scenery
  * are used which enable a light when the particle emitter starts casting and disables
  * the light if the last particle died.
  * 
+ * See https://youtu.be/XEGm5uL2zyc for an example video of the this class in action.
+ * 
  * \par Excercise for the reader
  * 
  * Try adding support to play a sound file (for example '/content/sound/birds.ogg')
