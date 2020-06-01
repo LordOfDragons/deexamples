@@ -113,10 +113,6 @@ class PlayerActor extends BaseActor
 		getConversationActor().addCommand("forceBodyAdjustment", CCForceBodyAdjustment.new())
 		getConversationActor().addCommand("showTrackerMapWindow", CCShowTrackerMapWindow.new())
 		getConversationActor().addCommand("closeTrackerMapWindow", CCCloseTrackerMapWindow.new())
-		
-		// set player action. the BAAFirstPerson is a good basic action to start out with.
-		// PlayerActorAction extends this with support for commands used in conversation.
-		getAIAction().setAction(PlayerActorAction.new())
 	end
 	
 	

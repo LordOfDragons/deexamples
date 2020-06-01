@@ -115,13 +115,10 @@ class PlayerActor extends BaseActor
 		// for the PlayerActor element. For all other elements the default behavior is correct.
 		networkState.setReadOnly( not playerState.isLocal() )
 		
-		// Set action and AI to use. If read-only use BaseActorAction to allow important
-		// behaviors to work while not doing updates potentially breaking things
+		// If read-only replace action with BaseActorAction to allow important behaviors to
+		// work while not doing updates potentially breaking things
 		if networkState.getReadOnly()
 			getAIAction().setAction( BaseActorAction.new() )
-			
-		else
-			getAIAction().setAction( PlayerAction.new() )
 		end
 	end
 	

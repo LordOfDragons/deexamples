@@ -34,8 +34,9 @@ class ExampleApp extends BaseGameApp
 			// now the player actor can be created using the stub
 			var BaseActor player = stub.createElement() cast BaseActor
 			
-			// give player actor basic first-persons support
-			player.getAIAction().setAction( BAAFirstPerson.new() )
+			// the ECBehaviorActorAIAction behavior is configured in the Actor element class
+			// to use BAAFirstPerson as action and BAAIBehaviorTree as AI. this avoids the
+			// need to manually assign action and AI instances on the created element.
 			
 			// spawn player actor at named spawn point
 			gameWorld.getSpawnPoints().getNamed( "player" ).spawn( gameWorld, player )

@@ -10,6 +10,18 @@ pin Dragengine.Utils
 // sit around and wait for better days.
 // 
 class DragonessActionSitTalk extends DragonessAction
+	// Factory for creating action
+	public class Factory implements ECBehaviorActorAIAction.ActionFactory
+		public func new()
+		end
+		
+		public func BaseActorAction createAction( ECBehaviorActorAIAction.Instance instance )
+			return DragonessActionSitTalk.new()
+		end
+	end
+	
+	
+	
 	// Create dragoness actor action
 	public func new()
 	end

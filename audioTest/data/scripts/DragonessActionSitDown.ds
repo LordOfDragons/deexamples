@@ -6,6 +6,18 @@ pin Dragengine.TriggerSystem
 
 // Dragoness action sitting down. Transmition from DragonessActionHearPlayer to DragonessActionSitTalk.
 class DragonessActionSitDown extends DragonessAction
+	// Factory for creating action
+	public class Factory implements ECBehaviorActorAIAction.ActionFactory
+		public func new()
+		end
+		
+		public func BaseActorAction createAction( ECBehaviorActorAIAction.Instance instance )
+			return DragonessActionSitDown.new()
+		end
+	end
+	
+	
+	
 	private var AnimatorController controller
 	
 	

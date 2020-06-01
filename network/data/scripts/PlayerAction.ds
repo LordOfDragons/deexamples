@@ -38,6 +38,18 @@ pin Dragengine.Utils
  * The secondary action is not used.
  */
 class PlayerAction extends BAAFirstPerson implements BAAInteract
+	/** \brief Factory for creating action. */
+	public class Factory implements ECBehaviorActorAIAction.ActionFactory
+		public func new()
+		end
+		
+		public func BaseActorAction createAction( ECBehaviorActorAIAction.Instance instance )
+			return PlayerAction.new()
+		end
+	end
+	
+	
+	
 	/**
 	 * Create player action.
 	 */

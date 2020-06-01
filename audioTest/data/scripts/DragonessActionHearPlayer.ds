@@ -13,6 +13,18 @@ pin Dragengine.TriggerSystem
 // 
 // For this action we use the BAAFirstPerson as base so the actor can move.
 class DragonessActionHearPlayer extends DragonessAction implements SoundLevelMeterListener
+	// Factory for creating action
+	public class Factory implements ECBehaviorActorAIAction.ActionFactory
+		public func new()
+		end
+		
+		public func BaseActorAction createAction( ECBehaviorActorAIAction.Instance instance )
+			return DragonessActionHearPlayer.new()
+		end
+	end
+	
+	
+	
 	public var float updateInterval
 	public var float updateElapsed
 	public var float looseTrackElapsed

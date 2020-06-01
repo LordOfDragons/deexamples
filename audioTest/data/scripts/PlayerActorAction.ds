@@ -12,6 +12,16 @@ pin Dragengine.Utils
 // In this test application things are kept simple so only one actor action is used
 // for the player.
 class PlayerActorAction extends BAAFirstPerson implements BAAInteract
+	// Factory for creating action
+	public class Factory implements ECBehaviorActorAIAction.ActionFactory
+		public func new()
+		end
+		
+		public func BaseActorAction createAction( ECBehaviorActorAIAction.Instance instance )
+			return PlayerActorAction.new()
+		end
+	end
+	
 	// Visitor for using primaryAction on. Visiting is the best way to interact with
 	// elements of any kind.
 	class InteractPrimaryAction extends ATElementVisitor

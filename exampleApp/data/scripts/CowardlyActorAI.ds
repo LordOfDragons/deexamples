@@ -14,6 +14,18 @@ pin Dragengine.Utils
  */
 class CowardlyActorAI extends BAAIBehaviorTree
 	/**
+	 * \brief Factory for creating action
+	 */
+	public class Factory implements ECBehaviorActorAIAction.AIFactory
+		public func new()
+		end
+		
+		public func BaseActorAI createAI( ECBehaviorActorAIAction.Instance instance )
+			return CowardlyActorAI.new()
+		end
+	end
+	
+	/**
 	 * \brief Base action for actions moving somewhere.
 	 */
 	private abstract class BaseActionMove extends BTActionAI

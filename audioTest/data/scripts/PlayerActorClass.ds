@@ -37,6 +37,10 @@ class PlayerActorClass extends BaseActorClass
 		getConversationActor().getActorId().setValue(StringID.new("player"))
 		getConversationActor().getName().setValue(UnicodeString.newFromUTF8("Player"))
 		getConversationActor().getRegisterConversationActor().setValue(true) // enables actor to be found by conversations
+		
+		// set action to start out with. the default AI is a behavior tree which we can
+		// keep since for the active player actor the AI instance is not used at all
+		getAIAction().setActionFactory(PlayerActorAction.Factory.new())
 	end
 	
 	// Create PlayerActor instance

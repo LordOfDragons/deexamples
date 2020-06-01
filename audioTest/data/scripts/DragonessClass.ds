@@ -69,6 +69,10 @@ class DragonessClass extends BaseActorClass
 		getConversationActor().getName().setValue(UnicodeString.newFromUTF8("???"))
 		getConversationActor().getSubtitleSelectorId().setValue("dragoness")
 		getConversationActor().getRegisterConversationActor().setValue(true) // enables actor to be found by conversations
+		
+		// set action to start out with. the defatul AI is a behavior tree which we can
+		// keep since it does nothing if no behavior tree is loaded
+		getAIAction().setActionFactory(DragonessActionSitTalk.Factory.new())
 	end
 	
 	// Create Dragoness instance

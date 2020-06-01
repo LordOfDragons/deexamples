@@ -153,9 +153,6 @@ class Dragoness extends BaseActor
 		// Adjust the navigator query distance to be larger since we use a rather narrow
 		// navigation mesh for this example
 		getNavigator().getNavigator().setMaxOutsideDistance(2)
-		
-		// Set sitting and talk action
-		getAIAction().setAction(DragonessActionSitTalk.new())
 	end
 	
 	// Initialize AI collider shape. For this actor we need an elongated box shape. This is a

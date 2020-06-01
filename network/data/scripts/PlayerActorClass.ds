@@ -53,6 +53,10 @@ public class PlayerActorClass extends BaseActorClass
 // 		getPlayerInputMove().getSpeedWalk().setValue( 4 )
 // 		getPlayerInputMove().getSpeedRun().setValue( 4 )
 		
+		// set action to start out with. the default AI is BAAIBehaviorTree which we can
+		// keep since it does nothing if no behavior tree is loaded
+		getAIAction().setActionFactory( PlayerAction.Factory.new() )
+		
 		// It is fine to have this behavior on element classes even though they are not
 		// used in online play. This allows using the same element classes for both online
 		// and offline play without needing extra logic. All network related behaviors only
