@@ -50,7 +50,6 @@
 	</class>
 	<class name='ListenerFactoryExample'>
 		<description>Cowardly actor</description>
-		<canInstanciate>false</canInstanciate>
 		<inherit name='SimpleElement'>
 		</inherit>
 		<inherit name='ECBehaviorParticleEmitter'>
