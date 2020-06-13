@@ -66,11 +66,17 @@ class WindowCanvasCreator extends Window
 		row = Panel.new()
 		row.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
 		content.addWidget( row )
+		
 		widget = Widget.new()
 		widget.setDesignerSelector( "WindowCanvasCreator.Canvas2a" )
 		row.addWidget( widget )
+		
 		widget = Widget.new()
 		widget.setDesignerSelector( "WindowCanvasCreator.Canvas2b" )
+		row.addWidget( widget )
+		
+		widget = Widget.new()
+		widget.setDesignerSelector( "WindowCanvasCreator.Canvas2c" )
 		row.addWidget( widget )
 		
 		// theme1
