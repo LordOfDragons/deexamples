@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>49</nextObjectID>
+	<nextObjectID>4d</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -656,6 +656,57 @@
 		<position x='-12.5' y='1' z='9.05'/>
 		<scaling x='0.7' y='2' z='0.7'/>
 		<property key='touching.target'>triggerListenerFactory</property>
+	</object>
+	<object id='49'>
+		<classname>SimpleElement</classname>
+		<position x='-11' y='0' z='15'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughRim.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+			<tint r='0.145098' g='0.0901961' b='0.509804'/>
+		</texture>
+	</object>
+	<object id='4a'>
+		<classname>InfoSign</classname>
+		<position x='-14' y='0' z='15'/>
+		<rotation x='0' y='180' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/rim.deskin</skin>
+		</texture>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.2' g='0.188235' b='0.188235'/>
+		</texture>
+	</object>
+	<object id='4b'>
+		<classname>SimpleElement</classname>
+		<position x='-8' y='0' z='15'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/ghost.deskin</skin>
+			<transform>
+				<scaling u='4' v='4'/>
+			</transform>
+		</texture>
+	</object>
+	<object id='4c'>
+		<classname>InfoSign</classname>
+		<position x='-5' y='0' z='15'/>
+		<rotation x='0' y='180' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/rimGhost.deskin</skin>
+		</texture>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.2' g='0.188235' b='0.188235'/>
+		</texture>
 	</object>
 	
 	<decal>
