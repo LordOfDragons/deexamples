@@ -3,7 +3,7 @@
 	<capsule>
 		<position x='0' y='0.9' z='0'/>
 		<rotation x='0' y='0' z='0'/>
-		<halfHeight>0.9</halfHeight>
+		<halfHeight>0.6</halfHeight>
 		<radius>0.3</radius>
 	</capsule>
 </rig>
