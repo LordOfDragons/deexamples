@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>4d</nextObjectID>
+	<nextObjectID>4e</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -706,6 +706,17 @@
 		<texture name='case'>
 			<skin>/content/materials/metalPainted/rough.deskin</skin>
 			<tint r='0.2' g='0.188235' b='0.188235'/>
+		</texture>
+	</object>
+	<object id='4d'>
+		<classname>PhysicsElement</classname>
+		<position x='0.3' y='1' z='15'/>
+		<property key='component.model'>/content/models/sphere/sphere.demodel</property>
+		<property key='collider.weight'>2</property>
+		<property key='component.rig'>/content/models/sphere/sphere.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.196078' g='0.854902' b='0.192157'/>
 		</texture>
 	</object>
 	

@@ -31,6 +31,9 @@ class ExampleApp extends BaseGameApp
 			stub.setPropertyValueFor( "convoActor.name", "Player" )
 			stub.setPropertyBoolFor( "convoActor.registerConvoActor", true )
 			
+			// to support physical objects being pushed by the actor assign a rig.
+			stub.setPropertyValueFor( "component.rig", "/content/models/player/player.derig" )
+			
 			// now the player actor can be created using the stub
 			var BaseActor player = stub.createElement() cast BaseActor
 			
