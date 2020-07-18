@@ -37,7 +37,7 @@
 	<findPathSkies>/content/skies</findPathSkies>
 	<class name='CowardlyActor'>
 		<description>Cowardly actor</description>
-		<canInstanciate>false</canInstanciate>
+		<canInstantiate>false</canInstantiate>
 		<inherit name='BaseActor'>
 		</inherit>
 		<component>

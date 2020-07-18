@@ -3,4 +3,5 @@
 	<string name='component.model'>box.demodel</string>
 	<string name='component.skin'>/content/materials/concrete/material.deskin</string>
 	<string name='component.rig'>box.derig</string>
+	<string name='component.audioModel'>box.demodel</string>
 </elementClass>

@@ -330,7 +330,7 @@ class BehaviorClaim extends DefaultECBehavior
 		
 		touchSensor.getCollisionFilter().setCollisionFilter( CollisionFilter.new( \
 			LayerMask.newWith( GameApp.CollisionFilterBit.claimable ), \
-			LayerMask.newWith( BaseGameApp.CollisionFilterBit.geometry ) ) )
+			LayerMask.newWith( BaseGameApp.CollisionFilterBit.dynamic ) ) )
 		
 		// Add behavior to element class. This should always come last
 		eclass.addBehavior( this )

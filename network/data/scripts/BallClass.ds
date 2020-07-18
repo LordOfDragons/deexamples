@@ -60,11 +60,23 @@ public class BallClass extends BehaviorElementClass
 		component = ECBehaviorComponent.new( this, null )
 		component.setCommonPath( "/content/models/ball", "ball.demodel", "ball.deskin", "ball.derig" )
 		
-		// Add collider behavior defining the physical aspects.
+		// Add collider behavior defining the physical aspects
 		collider = ECBehaviorCollider.new( this, component )
 		collider.getCollider().getPhysicsType().setEnumeration( CollisionResponse.dynamic )
 		collider.getCollider().getWeight().setValue( 1 )
-// 		collider.getCollider().getCollisionFilter()
+		
+		// Change the collision filter. The default collision filter is suitable for static
+		// geometry. For dynamic geometry we want to use a different collision category
+		// and collision filter. See PhysicsElementClass for an example of such a filter
+		var LayerMask lmCategory = LayerMask.newWith( BaseGameApp.CollisionFilterBit.dynamic )
+		
+		var LayerMask lmFilter = LayerMask.new()
+		lmFilter.setBit( BaseGameApp.CollisionFilterBit.dynamic )
+		lmFilter.setBit( BaseGameApp.CollisionFilterBit.geometry )
+		lmFilter.setBit( BaseGameApp.CollisionFilterBit.actor )
+		lmFilter.setBit( BaseGameApp.CollisionFilterBit.particle )
+		
+		collider.getCollider().setCollisionFilter( CollisionFilter.new( lmCategory, lmFilter ) )
 		
 		// Add dynamic skin
 		dynamicSkin = ECBehaviorDynamicSkin.new( this, component )

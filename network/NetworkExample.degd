@@ -40,7 +40,7 @@
 	<class name='BehaviorClaim'>
 		<description>Add support to elements to claim elements supporting BehaviorClaimable if touching.</description>
 		<ghost>true</ghost>
-		<canInstanciate>false</canInstanciate>
+		<canInstantiate>false</canInstantiate>
 		<defaultInheritPropertyPrefix>claim.</defaultInheritPropertyPrefix>
 		<inherit name='ECBehaviorTouchSensor'>
 			<propertyPrefix>touchSensor.</propertyPrefix>

@@ -355,7 +355,7 @@ class BehaviorKick extends DefaultECBehavior
 			// we would check into the direction the actor is moving but we like to use the
 			// direction he is looking. To do this local direction is disabled using
 			// setLocalDirection(false) and the test direction is updated during think().
-			var LayerMask cfCategory = LayerMask.newWith( BaseGameApp.CollisionFilterBit.actorAI )
+			var LayerMask cfCategory = LayerMask.newWith( BaseGameApp.CollisionFilterBit.actor )
 			var LayerMask cfFilter = LayerMask.newWith( GameApp.CollisionFilterBit.kickable )
 			var CollisionFilter filter = CollisionFilter.new( cfCategory, cfFilter )
 			

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>4e</nextObjectID>
+	<nextObjectID>58</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -598,7 +598,7 @@
 		<position x='-10' y='1.8' z='-10'/>
 		<property key='speaker.sound'>/content/sound/birds.ogg</property>
 		<property key='speaker.volume'>1</property>
-		<property key='speaker.range'>5</property>
+		<property key='speaker.range'>15</property>
 	</object>
 	<object id='43'>
 		<classname>InfoSign</classname>
@@ -717,6 +717,78 @@
 		<texture name='material'>
 			<skin>/content/materials/concrete/material.deskin</skin>
 			<tint r='0.196078' g='0.854902' b='0.192157'/>
+		</texture>
+	</object>
+	<object id='4f'>
+		<classname>PropBox</classname>
+		<position x='-9.5' y='0' z='-13'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='50'>
+		<classname>PropBox</classname>
+		<position x='-7.5' y='0' z='-12'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='51'>
+		<classname>PropBox</classname>
+		<position x='-7.5' y='0' z='-10'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='52'>
+		<classname>PropBox</classname>
+		<position x='-11.5' y='0' z='-13'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='53'>
+		<classname>PropBox</classname>
+		<position x='-13.5' y='0' z='-12'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='54'>
+		<classname>PropBox</classname>
+		<position x='-14.5' y='0' z='-10'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='55'>
+		<classname>PropBox</classname>
+		<position x='-7.5' y='0' z='-8'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='56'>
+		<classname>PropBox</classname>
+		<position x='-8.5' y='0' z='-6'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='57'>
+		<classname>PropBox</classname>
+		<position x='-15.5' y='0' z='-8'/>
+		<texture name='material'>
+			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
+			<tint r='0.466667' g='0.466667' b='0.466667'/>
 		</texture>
 	</object>
 	
