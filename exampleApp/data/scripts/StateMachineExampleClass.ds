@@ -6,28 +6,20 @@ pin Dragengine.StateMachineSystem
 
 
 /**
- * Listener factory example element class.
+ * State machine example element class.
  * 
- * This element class uses listener factories to create a composed behavior. Using
- * listener factories allows to add custom behavior to a behavior element without
- * writing a custom ECBehavior. This is faster and less complex task. Listener
- * factories can be shared across elements which you can not do using behaviors.
- * Development teams can store listener factories in helper classes building a
- * repertoire of reusable listener factories they often use.
+ * This element class uses ECBehaviorStateMachine to do the logic using a state machine
+ * file (*.desm). This works similar to behavior trees. The ECBehaviorStateMachine
+ * loads the state machine and creates an SMContext allowing events to be send to the
+ * state machine immediately.
  * 
- * At the base this classes uses ECBehaviorLight and ECBehaviorParticleEmitter.
- * The particle emitter is triggered by a trigger expression. The lights are disabled.
- * It would be possible to assign to the lights the same trigger expression but for
- * this example we want to do this using listeners. For the lights listener factories
- * are used which enable a light when the particle emitter starts casting and disables
- * the light if the last particle died.
- * 
- * See https://youtu.be/XEGm5uL2zyc for an example video of this class in action.
+ * See https://t.co/gN5xrSHnNP for an example video of this class in action.
  * 
  * \par Excercise for the reader
  * 
- * Try adding support to play a sound file (for example '/content/sound/birds.ogg')
- * when a particle burst is cast stopping the sound when all particles died.
+ * Try extending the state machine with condition transitions to block events to be
+ * processed or processing them differently. Use for this SMCondition implementing
+ * class and modify the state machine file /content/stateMachines/colorizer.desm .
  */
 public class StateMachineExampleClass extends SimpleElementClass
 	/** ECBehaviorTriggered listener sending event to state machine. */
