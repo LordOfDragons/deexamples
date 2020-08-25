@@ -49,7 +49,7 @@
 		</enterAction>
 		
 		<transition event='red' state='on off on'/>
-			<transition event='green' state='off on on'/>
+		<transition event='green' state='off on on'/>
 		<transition event='blue' state='off off off'/>
 	</state>
 	
