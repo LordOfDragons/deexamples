@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<stateMachine>
+	<!--
+	This example state machine supports three events "red", "green" and "blue".
+	Each time the events are received the respective color component is toggled
+	on and off. Each state denotes one color combination and the allowed
+	transitions between them.
+	
+	The states are named "R G B" where RGB is "on" or "off". The initial state
+	is "on on on" hence white colored.
+	
+	Transitions can have actions and conditions like this:
+	<transition event='do it' state='next state'>
+		<condition name='only if true'/>
+		<action name='some action'/>
+		<action name='another action'/>
+	</transition>
+	
+	Nested conditions are supported using:
+	<conditionMode>anyTrue</conditionMode>
+	<condition>condition1</condition>
+	<condition>condition2</condition>
+	
+	Where these modes are supported:
+	- allTrue: no condition returns false
+	- anyTrue: at least one condition returns true
+	- anyFalse: at least one condition returns false
+	- allFalse: no condition returns true
+	
+	If complex conditions are required it is best to model them in the
+	game scripts as a separate named condition. This increases the
+	flexibility and avoids complicated XML for non-trivial situations
+	-->
+	<initialState>on on on</initialState>
+	
+	<state id='off off off'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>0 0 0</parameter>
+		</enterAction>
+		
+		<transition event='red' state='on off off'/>
+		<transition event='green' state='off on off'/>
+		<transition event='blue' state='off off on'/>
+	</state>
+	
+	<state id='off off on'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>0 0 1</parameter>
+		</enterAction>
+		
+		<transition event='red' state='on off on'/>
+			<transition event='green' state='off on on'/>
+		<transition event='blue' state='off off off'/>
+	</state>
+	
+	<state id='off on off'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>0 1 0</parameter>
+		</enterAction>
+		
+		<transition event='red' state='on on off'/>
+		<transition event='green' state='off off off'/>
+		<transition event='blue' state='off on on'/>
+	</state>
+	
+	<state id='off on on'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>0 1 1</parameter>
+		</enterAction>
+		
+		<transition event='red' state='on on on'/>
+		<transition event='green' state='off off on'/>
+		<transition event='blue' state='off on off'/>
+	</state>
+	
+	<state id='on off off'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>1 0 0</parameter>
+		</enterAction>
+		
+		<transition event='red' state='off off off'/>
+		<transition event='green' state='on on off'/>
+		<transition event='blue' state='on off on'/>
+	</state>
+	
+	<state id='on off on'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>1 0 1</parameter>
+		</enterAction>
+		
+		<transition event='red' state='off off on'/>
+		<transition event='green' state='on on on'/>
+		<transition event='blue' state='on off off'/>
+	</state>
+	
+	<state id='on on off'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>1 1 0</parameter>
+		</enterAction>
+		
+		<transition event='red' state='off on off'/>
+		<transition event='green' state='on off off'/>
+		<transition event='blue' state='on on on'/>
+	</state>
+	
+	<state id='on on on'>
+		<enterAction name='changeColor'>
+			<parameter name='color'>1 1 1</parameter>
+		</enterAction>
+		
+		<transition event='red' state='off on on'/>
+		<transition event='green' state='on off on'/>
+		<transition event='blue' state='on on off'/>
+	</state>
+</stateMachine>

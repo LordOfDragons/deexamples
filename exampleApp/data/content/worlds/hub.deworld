@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>58</nextObjectID>
+	<nextObjectID>60</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -791,6 +791,66 @@
 			<tint r='0.466667' g='0.466667' b='0.466667'/>
 		</texture>
 	</object>
+	<object id='58'>
+		<classname>InfoSign</classname>
+		<position x='14' y='0' z='-25'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/statemachine.deskin</skin>
+		</texture>
+	</object>
+	<object id='59'>
+		<classname>PropBox</classname>
+		<position x='11' y='-1' z='-26'/>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.854902' g='0.192157' b='0.192157'/>
+		</texture>
+	</object>
+	<object id='5a'>
+		<classname>PropBox</classname>
+		<position x='9' y='-1' z='-26'/>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.192157' g='0.854902' b='0.309804'/>
+		</texture>
+	</object>
+	<object id='5b'>
+		<classname>PropBox</classname>
+		<position x='7' y='-1' z='-26'/>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.192157' g='0.447059' b='0.854902'/>
+		</texture>
+	</object>
+	<object id='5c'>
+		<classname>StateMachineExample</classname>
+		<position x='9' y='0' z='-28'/>
+		<property key='trigger(red)'>@stateMachine.red</property>
+		<property key='stateMachine.path'>/content/stateMachines/colorizer.desm</property>
+		<property key='trigger(green)'>@stateMachine.green</property>
+		<property key='trigger(blue)'>@stateMachine.blue</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+	</object>
+	<object id='5d'>
+		<classname>TriggerTouch</classname>
+		<position x='11' y='1' z='-24.4'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>stateMachine.red</property>
+	</object>
+	<object id='5e'>
+		<classname>TriggerTouch</classname>
+		<position x='9' y='1' z='-24.4'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>stateMachine.green</property>
+	</object>
+	<object id='5f'>
+		<classname>TriggerTouch</classname>
+		<position x='7' y='1' z='-24.4'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>stateMachine.blue</property>
+	</object>
 	
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
@@ -819,6 +879,24 @@
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
 		<position x='-12.5' y='0.1' z='9'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='11' y='0.1' z='-24.4'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='9' y='0.1' z='-24.4'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='7' y='0.1' z='-24.4'/>
 		<rotation x='89.6948' y='-63.435' z='-116.565'/>
 		<size x='1' y='1' z='0.2'/>
 	</decal>

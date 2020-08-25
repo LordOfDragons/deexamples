@@ -49,7 +49,7 @@
 		<category>ExampleApp</category>
 	</class>
 	<class name='ListenerFactoryExample'>
-		<description>Cowardly actor</description>
+		<description>Listener factory example</description>
 		<inherit name='SimpleElement'>
 		</inherit>
 		<inherit name='ECBehaviorParticleEmitter'>
@@ -85,6 +85,30 @@
 		<propertyValue name='light(left).halfIntensityDistance'>0.4</propertyValue>
 		<propertyValue name='particleEmitter.position'>0 2 0</propertyValue>
 		<propertyValue name='light(left).range'>0.8</propertyValue>
+		<category>ExampleApp</category>
+	</class>
+	<class name='StateMachineExample'>
+		<description>State machine example</description>
+		<inherit name='SimpleElement'>
+		</inherit>
+		<inherit name='ECBehaviorStateMachine'>
+			<propertyPrefix>stateMachine.</propertyPrefix>
+		</inherit>
+		<property name='trigger(red)'>
+			<description>Trigger red event</description>
+			<type>triggerExpression</type>
+		</property>
+		<property name='trigger(green)'>
+			<description>Trigger green event</description>
+			<type>triggerExpression</type>
+		</property>
+		<property name='trigger(blue)'>
+			<description>Trigger blue event</description>
+			<type>triggerExpression</type>
+		</property>
+		<propertyValue name='component.rig'>/content/models/suzanne/suzanne.derig</propertyValue>
+		<propertyValue name='component.skin'>/content/models/suzanne/coward.deskin</propertyValue>
+		<propertyValue name='component.model'>/content/models/suzanne/suzanne.demodel</propertyValue>
 		<category>ExampleApp</category>
 	</class>
 </gameDefinition>

@@ -1,0 +1,127 @@
+namespace Example
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.StateMachineSystem
+
+
+/**
+ * Listener factory example element class.
+ * 
+ * This element class uses listener factories to create a composed behavior. Using
+ * listener factories allows to add custom behavior to a behavior element without
+ * writing a custom ECBehavior. This is faster and less complex task. Listener
+ * factories can be shared across elements which you can not do using behaviors.
+ * Development teams can store listener factories in helper classes building a
+ * repertoire of reusable listener factories they often use.
+ * 
+ * At the base this classes uses ECBehaviorLight and ECBehaviorParticleEmitter.
+ * The particle emitter is triggered by a trigger expression. The lights are disabled.
+ * It would be possible to assign to the lights the same trigger expression but for
+ * this example we want to do this using listeners. For the lights listener factories
+ * are used which enable a light when the particle emitter starts casting and disables
+ * the light if the last particle died.
+ * 
+ * See https://youtu.be/XEGm5uL2zyc for an example video of this class in action.
+ * 
+ * \par Excercise for the reader
+ * 
+ * Try adding support to play a sound file (for example '/content/sound/birds.ogg')
+ * when a particle burst is cast stopping the sound when all particles died.
+ */
+public class StateMachineExampleClass extends SimpleElementClass
+	/** ECBehaviorTriggered listener sending event to state machine. */
+	class SendEventListener extends ECBehaviorTriggered.DefaultListener
+		public var ECBehaviorStateMachine.Instance stateMachine
+		public var String event
+		
+		/** \brief Create listener. */
+		public func new( ECBehaviorStateMachine.Instance stateMachine, String event )
+			this.stateMachine = stateMachine
+			this.event = event
+		end
+		
+		/** \brief Trigger expression changed to true. */
+		public func void triggerExpressionTrue( ECBehaviorTriggered.Instance instance )
+			stateMachine.runEvent( event )
+		end
+	end
+	
+	/** Action changing component texture color. */
+	class ChangeColorAction implements SMAction
+		protected var ECBehaviorComponent.Instance component
+		
+		/** \brief Create action. */
+		public func new( ECBehaviorComponent.Instance component )
+			this.component = component
+		end
+		
+		/** \brief Run action. */
+		public func void runAction( SMContext context, Dictionary parameters )
+			// Each element class has an instance of CodecPropertyString. This instance
+			// is used to work complex data send through stub property strings.
+			// But we can also use it here to decode the action parameter
+			var Color color = ElementClass.getSharedCodecPropertyString().decodeColor3( \
+				parameters.getAt( "color" ).toString() )
+			
+			// Assign the color to the first texture. Create for this a dynamic skin
+			// with renderable named "tint".
+			var DynamicSkin dynamicSkin = component.getComponent().getTextureDynamicSkinAt( 0 )
+			if dynamicSkin == null
+				// not present yet. create it
+				dynamicSkin = DynamicSkin.new()
+				dynamicSkin.addRenderable( "tint", DynamicSkinRenderableType.color )
+				component.getComponent().setTextureDynamicSkinAt( 0, dynamicSkin )
+			end
+			
+			dynamicSkin.setColorAt( 0, color )
+		end
+	end
+	
+	
+	public var ECBehaviorStateMachine stateMachine
+	public var ECBehaviorTriggered triggerRed
+	public var ECBehaviorTriggered triggerGreen
+	public var ECBehaviorTriggered triggerBlue
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super( "StateMachineExample" )
+		// For this example we use suzanne. The call setCommonPath() receives as first
+		// argument the directory to find the resource in followed by the model, skin
+		// and rig resource relative path.
+		getComponent().setCommonPath( "/content/models/suzanne", \
+			"suzanne.demodel", "coward.deskin", "suzanne.derig" )
+		
+		// Create state machine behavior. This takes care of the logic.
+		stateMachine = ECBehaviorStateMachine.new( this )
+		
+		// Add a factory to assigne the actions and conditions we want to use.
+		// For this example we use only actions. The block factory is the fastest
+		// solution. Better is using ECBehaviorStateMachine.ActionConditionFactory
+		// implementing classes since this allows reusing across elements
+		stateMachine.addActionConditionFactory( block ECBehaviorStateMachine.Instance instance
+			instance.setAction( "changeColor", ChangeColorAction.new( getComponent().instance( instance.getElement() ) ) )
+		end )
+		
+		// Add trigger behaviors used to send the events to the state machine. This uses
+		// blocks to create listeners quickly. Using ECBehaviorTriggered.ListenerFactory
+		// implementing classes is recommended for better reusability
+		triggerRed = ECBehaviorTriggered.new( this, "red" )
+		triggerRed.addListenerFactory( block ECBehaviorTriggered.Instance instance
+			return SendEventListener.new( stateMachine.instance( instance.getElement() ), "red" )
+		end )
+		
+		triggerGreen = ECBehaviorTriggered.new( this, "green" )
+		triggerGreen.addListenerFactory( block ECBehaviorTriggered.Instance instance
+			return SendEventListener.new( stateMachine.instance( instance.getElement() ), "green" )
+		end )
+		
+		triggerBlue = ECBehaviorTriggered.new( this, "blue" )
+		triggerBlue.addListenerFactory( block ECBehaviorTriggered.Instance instance
+			return SendEventListener.new( stateMachine.instance( instance.getElement() ), "blue" )
+		end )
+	end
+end
