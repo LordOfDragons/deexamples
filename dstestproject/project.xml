@@ -12,7 +12,7 @@
 		<title>DragonScript Test Project</title>
 		<gameDescription>DragonScript Test Project</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/images/icon64.png</icon>
 		<windowSize x='1024' y='800'/>
 		<excludePattern>/dynmusic/local</excludePattern>
@@ -33,7 +33,7 @@
 		<title>DragonScript Test Project</title>
 		<gameDescription>DragonScript Test Project</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/images/icon64.png</icon>
 		<windowSize x='1024' y='800'/>
 		<excludePattern>/announcer/local/__*</excludePattern>

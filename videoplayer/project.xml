@@ -12,7 +12,7 @@
 		<title>Video Player</title>
 		<gameDescription>Example Project showing the use of DisplayVideo widget.</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/content/images/icon64.png</icon>
 		<windowSize x='1024' y='786'/>
 		<delgaPath>distribute/DEVideoPlayer.delga</delgaPath>

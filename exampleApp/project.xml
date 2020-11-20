@@ -12,7 +12,7 @@
 		<title>Drag[en]gine Example Application</title>
 		<gameDescription>Example Application project for using DragonScript Module based on BaseGameApp.</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/content/images/icon64.png</icon>
 		<excludePattern>/develop</excludePattern>
 		<delgaPath>distribute/DEExampleApp.delga</delgaPath>

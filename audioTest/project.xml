@@ -12,7 +12,7 @@
 		<title>Drag[en]gine Audio Test - Development</title>
 		<gameDescription>Development profile for the example application.<br/><br/>This is an example on how script debug stuff can be added to game projects in an easy to use way. To use this two profiles are required and scripts inside a specific directory. In this example the directory is called "develop" and is located under the script directory.<br/><br/>The debug profile uses GameAppDebug as the application class. This subclass works like the GameApp class but adds debug specific stuff.<br/><br/>The release profile uses GameApp and excludes the "develop" directory. This will run the project without any debug code and no debug script code will be present in the distribution DELGA file while still present in the game project.<br/><br/>You can use more than one profile each using different application classes for specific situation like using target platform specific handling.</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/images/icon64.png</icon>
 		<delgaPath>distribute/DEAudioTest-Dev.delga</delgaPath>
 	</profile>
@@ -28,7 +28,7 @@
 		<title>Drag[en]gine Audio Test</title>
 		<gameDescription>Example project testing different audio situations.</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/images/icon64.png</icon>
 		<excludePattern>/develop</excludePattern>
 		<excludePattern>/scripts/develop</excludePattern>

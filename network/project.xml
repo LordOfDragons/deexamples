@@ -12,7 +12,7 @@
 		<title>Drag[en]gine Network Example - Development</title>
 		<gameDescription>Development</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/content/images/icon64.png</icon>
 		<delgaPath>distribute/DENetworkExample-Dev.delga</delgaPath>
 	</profile>
@@ -28,7 +28,7 @@
 		<title>Drag[en]gine Network Example</title>
 		<gameDescription>Example for using network support in the Drag[en]gine Game Engine.</gameDescription>
 		<creator>Drag[en]gine</creator>
-		<website>dragengine.rptd.ch</website>
+		<website>https://dragondreams.ch</website>
 		<icon>/content/images/icon64.png</icon>
 		<excludePattern>/develop</excludePattern>
 		<delgaPath>distribute/DENetworkExample.delga</delgaPath>
