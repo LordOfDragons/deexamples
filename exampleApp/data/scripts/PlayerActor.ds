@@ -1,0 +1,25 @@
+namespace Example
+
+pin Dragengine.Scenery
+
+
+/**
+ * Player actor element.
+ * 
+ * This is the typical way to create your own player actor by extending BaseActor.
+ * It is not required to create an own element class but it allows to retrieve and
+ * store behavior instances so you do not have to look them up.
+ */
+public class PlayerActor extends BaseActor
+	public var ECBehaviorLookAt.Instance lookAt
+	public var ECBehaviorOccupier.Instance occupier
+	
+	
+	/**
+	 * Create element and store behaviors. Using instance() call is fast.
+	 */
+	public func new(PlayerActorClass eclass) super(eclass)
+		lookAt = eclass.lookAt.instance(this)
+		occupier = eclass.occupier.instance(this)
+	end
+end

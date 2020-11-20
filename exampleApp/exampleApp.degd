@@ -37,6 +37,7 @@
 	<findPathSkies>/content/skies</findPathSkies>
 	<class name='CowardlyActor'>
 		<description>Cowardly actor</description>
+		<scaleMode>uniform</scaleMode>
 		<canInstantiate>false</canInstantiate>
 		<inherit name='BaseActor'>
 		</inherit>
@@ -45,11 +46,13 @@
 			<skin>/content/models/suzanne/coward.deskin</skin>
 			<rig>/content/models/suzanne/suzanne.derig</rig>
 			<static>true</static>
+			<lightShadowIgnore>false</lightShadowIgnore>
 		</component>
 		<category>ExampleApp</category>
 	</class>
 	<class name='ListenerFactoryExample'>
 		<description>Listener factory example</description>
+		<scaleMode>uniform</scaleMode>
 		<inherit name='SimpleElement'>
 		</inherit>
 		<inherit name='ECBehaviorParticleEmitter'>
@@ -89,6 +92,7 @@
 	</class>
 	<class name='StateMachineExample'>
 		<description>State machine example</description>
+		<scaleMode>uniform</scaleMode>
 		<inherit name='SimpleElement'>
 		</inherit>
 		<inherit name='ECBehaviorStateMachine'>
@@ -106,9 +110,43 @@
 			<description>Trigger blue event</description>
 			<type>triggerExpression</type>
 		</property>
-		<propertyValue name='component.rig'>/content/models/suzanne/suzanne.derig</propertyValue>
-		<propertyValue name='component.skin'>/content/models/suzanne/coward.deskin</propertyValue>
 		<propertyValue name='component.model'>/content/models/suzanne/suzanne.demodel</propertyValue>
+		<propertyValue name='component.skin'>/content/models/suzanne/coward.deskin</propertyValue>
+		<propertyValue name='component.rig'>/content/models/suzanne/suzanne.derig</propertyValue>
+		<category>ExampleApp</category>
+	</class>
+	<class name='InteractionSpotExample'>
+		<description>Interaction spot example element class</description>
+		<scaleMode>uniform</scaleMode>
+		<inherit name='AnimatedElement'>
+		</inherit>
+		<inherit name='BehaviorInteractToggle'>
+			<propertyPrefix>interactToggle.</propertyPrefix>
+		</inherit>
+		<propertyValue name='component.rig'>/content/models/animationTest/at2.derig</propertyValue>
+		<propertyValue name='interactionSpot.lookAt'>0 1.4 0.2</propertyValue>
+		<propertyValue name='animated.animator'>/content/models/animationTest/at2.deanimator</propertyValue>
+		<propertyValue name='component.skin'>/content/models/animationTest/at2.deskin</propertyValue>
+		<propertyValue name='component.model'>/content/models/animationTest/at2.demodel</propertyValue>
+		<category>ExampleApp</category>
+	</class>
+	<class name='BehaviorInteractToggle'>
+		<description>Behavior allowing player to toggle an element.</description>
+		<scaleMode>uniform</scaleMode>
+		<ghost>true</ghost>
+		<canInstantiate>false</canInstantiate>
+		<defaultInheritPropertyPrefix>interactToggle.</defaultInheritPropertyPrefix>
+		<inherit name='ECBehaviorInteractPrompt'>
+			<propertyPrefix>interactPrompt(use).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorInteractionSpot'>
+			<propertyPrefix>interactionSpot(interactToggle).</propertyPrefix>
+		</inherit>
+		<propertyValue name='interactionSpot(interactToggle).position'>0 0 0.5</propertyValue>
+		<propertyValue name='interactPrompt(use).verb'>Toggle</propertyValue>
+		<propertyValue name='interactionSpot(interactToggle).orientation'>0 180 0</propertyValue>
+		<propertyValue name='interactPrompt(use).image'>/content/images/interactToggle.png</propertyValue>
+		<propertyValue name='interactionSpot(interactToggle).lookAt'>0 1.6 0.2</propertyValue>
 		<category>ExampleApp</category>
 	</class>
 </gameDefinition>

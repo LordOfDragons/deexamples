@@ -1,0 +1,118 @@
+namespace Example
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+
+
+/**
+ * Interaction spot example element class.
+ * 
+ * This element class uses ECBehaviorInteractSpot behavior to tell the player actor
+ * where it has to be positioned to interact with this element.
+ * 
+ * Interaction spots solve typical problems with player or other actors interacting
+ * with elements.
+ * 
+ * To interact with the element actors have to claim the spot first. This is done
+ * by actors using ECBehaviorOccupier behavior. Only one ECBehaviorOccupier can
+ * claim an ECBehaviorInteractSpot at any time. This ensures multiple actors can
+ * not try to use the same element colliding with each other.
+ * 
+ * Both behaviors support listeners to track if an ECBehaviorOccupier is currently
+ * occupying an ECBehaviorInteractSpot. Both behaviors notify listeners if an actor
+ * claims or releases the spot.
+ * 
+ * As an example this class adds a listener which shouts to the console if an actor
+ * claims and releases the interaction spot.
+ * 
+ * Using
+ * See https://youtu.be/XEGm5uL2zyc for an example video of this class in action.
+ */
+public class InteractionSpotExampleClass extends AnimatedElementClass
+	/**
+	 * This is an example listener shouting to the console if actors claim and release the spot
+	 */
+	class ShoutClaimRelease extends ECBehaviorInteractionSpot.DefaultListener
+		/** Create listener. */
+		public func new()
+		end
+		
+		/**
+		 * Actor claimed interaction spot.
+		 */
+		public func void spotClaimed(ECBehaviorInteractionSpot.Instance instance, ECBehaviorOccupier.Instance occupier)
+			BaseGameApp.getApp().getConsole().addMessage(occupier.getElement().getClass().getClassname() + " claimed spot")
+		end
+		
+		/**
+		 * Actor released interaction spot.
+		 */
+		public func void spotReleased(ECBehaviorInteractionSpot.Instance instance, ECBehaviorOccupier.Instance occupier)
+			BaseGameApp.getApp().getConsole().addMessage(occupier.getElement().getClass().getClassname() + " released spot")
+		end
+	end
+	
+	
+	public var BehaviorInteractToggle interactToggle
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super("InteractionSpotExample")
+		// For this example we use one of the animated texture models and skins.
+		// The call setCommonPath() receives as first argument the directory to find
+		// the resource in followed by the model, skin and rig resource relative path.
+		// 
+		// We use this skin since it is animated allowing the player to see if the
+		// element is in active or inactive state
+		getComponent().setCommonPath("/content/models/animationTest", \
+			"at2.demodel", "at2.deskin", "at2.derig")
+		
+		// Assign navigation blocker to make actors move around. The shape consists of
+		// a single box penetrating the ground which is roughly 0.3m larger than the
+		// outer model surface. 0.3m is the default radius used by BaseActor.
+		var ShapeList shape = ShapeList.new()
+		shape.addBox( Vector.new(0, 0.3, -0.05), Vector.new(0.8, 0.5, 0.5))
+		getNavigationSpace().getNavigationSpace().getBlockerShape().setShapeList( shape )
+		
+		// There is also a second way to avoid actors moving into objects and this is
+		// the avoid-actor behavior. You should use one or the other but not both at
+		// the same time. Navigation blocker is well suited for stationary objects
+		// since it alters the navigation space touched by it. Avoid-actor on the other
+		// hand does not alter the navigation space it touches but adds a dynamic box
+		// actors can avoid while moving. This is suitable for non-stationary objects.
+		// Both use ShapeList so the same code as above applies just with a different
+		// behavior. If you want to use the actor-avoid need to use a different base
+		// class since SimpleElementClass provides the navigation blocker way
+		
+		// The base class provides the ECBehaviorAnimated behavior. We adjust here
+		// the parameters to use our animator. By default the animator is not playing.
+		// We are going to toggle the playing state as part of the interaction.
+		// 
+		// The ECBehaviorAnimated behavior contains an ECComposeAnimator retrieved
+		// by the first getAnimator() call. This groups animator specific element
+		// class properties to allow reusing them easily across various element classes.
+		getAnimated().getAnimator().getAnimator().setPath("/content/models/animationTest/at2.deanimator")
+		
+		// Add our interaction behavior. This is detected by the player to apply the interaction
+		interactToggle = BehaviorInteractToggle.new(this, getAnimated())
+		
+		// BehaviorInteractToggle adds an interaction spot. The BaseActor uses a
+		// collider with a radius of 0.3m . We require the player to be placed 0.8m
+		// in front of the element. The actor is required to be oriented to look at
+		// the element. This is done by using a rotation of 180 degrees along the
+		// Y-Axis. We also define a position the player is looking at while moving
+		// into position. For first person oriented interactions this is a good
+		// idea to use in general.
+		interactToggle.interactionSpot.getPosition().setVector(Vector.new(0, 0, 0.8))
+		interactToggle.interactionSpot.getLookAt().setVector(Vector.new(0, 1.4, 0.2))
+		
+		// Now add an example listener to shout to the console if the player claims
+		// and releases the spot. We use the Block version of addListenerFactory.
+		// For a simple listener like this it is the quicker way to do it
+		interactToggle.interactionSpot.addListenerFactory(block ECBehaviorInteractionSpot.Instance instance
+			return ShoutClaimRelease.new()
+		end)
+	end
+end

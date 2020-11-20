@@ -2,6 +2,7 @@
 <elementClass name='InfoSign' class='SimpleElement'>
 	<string name='component.model'>sign.demodel</string>
 	<string name='component.rig'>sign.derig</string>
+	<string name='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,0.35</string>
 	<map name='component.textureReplacements'>
 		<map key='case'>
 			<string key='skin'>/content/materials/metalPainted/rough.deskin</string>

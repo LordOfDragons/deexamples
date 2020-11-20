@@ -1,0 +1,168 @@
+namespace Example
+
+pin Dragengine.ConversationSystem
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * \brief Action for PlayerActor interacting with BehaviorInteractToggle.
+ * 
+ * Uses the BAAFirstPerson as base class. This provides basic handling suitable for first
+ * person type 3D games.
+ * 
+ * Does not implement BAAInteract. By not implementing this interface primary and secondary
+ * commands are not delivered to this class. This allows to create classes with only the
+ * required input commands supported.
+ * 
+ * This action is an example for a multi-phase action using a state enumeration. This is
+ * the most basic scneario. You could also replace this with a more elaborate StateMachine
+ * or even BehaviorTree version. These versions are useful especially if behaviors are
+ * written providing actions and conditions for StateMachine or BehaviorTree.
+ * 
+ * The action starts out by using the actor mover to move the actor near the interaction
+ * spot. Actor mover uses the navigator behavior and thus is able to navigate around
+ * obstacles and stationary scene geometry. The Drag[en]gine automatic navigation mesh
+ * calculation support makes this simple to use.
+ * 
+ * Once near to the interaction zone the align actor behavior is used to move the actor
+ * into the exact position with the exact orientation required for our interaction.
+ * Align actor works different from actor mover. It moves the actor in a straight line
+ * towards the target position while adjusting the orientation and looking direction to
+ * line up with the desired parameters. Align actor should not be used if too far away
+ * since it is not able to use the navigator and can easily get your actor stuck. It is
+ * though a great behavior to bridge that final gap in a gentle way.
+ * 
+ * Once aligned the interaction is triggered. In this example this is only calling toggle()
+ * on the interaction behavior and activating a new action. In a more realistic scenario
+ * this can be a longer action potentially spawning across more states.
+ */
+class PlayerActionInteractToggle extends BAAFirstPerson
+	/** Definition of states. */
+	public enum State
+		/** Moving to target using actor mover. */
+		moving
+		
+		/** Aligning to spot using align actor. */
+		aligning
+		
+		/** Interacting. */
+		interact
+	end
+	
+	
+	public var ECBehaviorActorMover.Instance actorMover
+	public var ECBehaviorAlignActor.Instance alignActor
+	public var ECBehaviorOccupier.Instance occupier
+	public var BehaviorInteractToggle.Instance interactToggle
+	public var State state
+	
+	
+	/**
+	 * \brief Create Action operating BehaviorInteractToggle.
+	 */
+	public func new(BehaviorInteractToggle.Instance interactToggle)
+		this.interactToggle = interactToggle
+	end
+	
+	
+	
+	/**
+	 * Find and store behaviors. This is for convenience. By storing behavior instances
+	 * aside you can access them later on, including subclasses.
+	 */
+	protected func void initBehaviors()
+		super.initBehaviors()
+		
+		actorMover = (actor cast PlayerActor).getActorMover()
+		alignActor = (actor cast PlayerActor).getAlignActor()
+		occupier = (actor cast PlayerActor).occupier
+	end
+	
+	
+	
+	/**
+	 * Action became the active actor action. Start moving to the interaction spot.
+	 */
+	public func void activate(BehaviorElement actor)
+		super.activate(actor)
+		
+		// Claim interaction spot. If not possible stop the action
+		if not interactToggle.interactionSpot.canClaim(occupier)
+			aiAction.setAction(PlayerAction.new())
+			return
+		end
+		
+		interactToggle.interactionSpot.claim(occupier)
+		
+		// Move towards spot until close enough. Actor mover uses the actor navigator
+		// and thus is able to navigate safely to the desired spot.
+		actorMover.moveTo(interactToggle.interactionSpot.getWorldMatrix().getPosition(), 0.3)
+		state = State.moving
+		
+		// The base class sets up looking direction adjustment time to 0 for player actor.
+		// This makes mouse movement of player apply immediately but for moving using the
+		// actor mover this looks strange. Switch to a smooth looking direction adjustment.
+		// This can be done by calling initLocomotion(). This works since the base class
+		// calls first initLocomotion() and if the actor is player controlled also
+		// initLocomotionPlayer()
+		initLocomotion()
+	end
+	
+	/**
+	 * Per frame update thinking for player controlled actors only
+	 */
+	public func void playerThink(float elapsed)
+		select state
+		case State.moving
+			// Wait until the actor stopped moving
+			if actorMover.hasGoal()
+				return
+			end
+			
+			// From now on we can use again the snappy player looking direction adjustment
+			initLocomotionPlayer()
+			
+			// Set the target to move to. This method variation expects the position and
+			// orientation relative to the target element which is how ECBehaviorInteractionSpot
+			// stores the parameters. ECBehaviorAlignActor expects a single orientation value
+			// which is the actor orientation along the Y-Axis. ECBehaviorInteractionSpot
+			// though stores a full orientation since it can be used for more than human actors
+			alignActor.setTarget(interactToggle.getElement(), \
+				DVector.new(interactToggle.interactionSpot.getPosition()), \
+				interactToggle.interactionSpot.getOrientation().getEulerAngles().getY())
+			
+			// ECBehaviorInteractionSpot provides also support to set look-at position.
+			// This is especially useful for first person view to make the player look
+			// at an appropriate location when interacting
+			if interactToggle.interactionSpot.getLookAt() != null
+				alignActor.setLookAt(interactToggle.interactionSpot.getLookAtWorld())
+			end
+			
+			// Start aligning actor
+			alignActor.startAligning()
+			state = State.aligning
+			
+		case State.aligning
+			// Wait until the actor stopped moving
+			if alignActor.isAligning()
+				return
+			end
+			
+			// The look-at used during aligning sticks to the actor until cleared
+			conversationActor.getConversationActor().getHeadLookAtPlayback().clearLookAtState()
+			state = State.interact
+			
+		case State.interact
+			// Interact with the element
+			interactToggle.toggle()
+			
+			// Release the interaction zone
+			interactToggle.interactionSpot.release()
+			
+			// Activate basic player action
+			aiAction.setAction(PlayerAction.new())
+		end
+	end
+end

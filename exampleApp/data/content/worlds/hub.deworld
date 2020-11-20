@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>60</nextObjectID>
+	<nextObjectID>62</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -196,6 +196,7 @@
 		<classname>SimpleElement</classname>
 		<position x='2.6' y='0' z='-3.5'/>
 		<property key='component.model'>/content/models/animationTest/at.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,0.8,0.5,0.5</property>
 		<property key='component.rig'>/content/models/animationTest/at.derig</property>
 		<texture name='case'>
 			<skin>/content/materials/metalPainted/rough.deskin</skin>
@@ -214,11 +215,12 @@
 	<object id='1d'>
 		<classname>AnimatedElement</classname>
 		<position x='3.8' y='0' z='-3.5'/>
-		<property key='component.model'>/content/models/animationTest/at2.demodel</property>
-		<property key='animated.animator'>/content/models/animationTest/at2.deanimator</property>
-		<property key='animated.playing'>1</property>
-		<property key='component.skin'>/content/models/animationTest/at2.deskin</property>
 		<property key='component.rig'>/content/models/animationTest/at2.derig</property>
+		<property key='animated.animator'>/content/models/animationTest/at2.deanimator</property>
+		<property key='component.skin'>/content/models/animationTest/at2.deskin</property>
+		<property key='component.model'>/content/models/animationTest/at2.demodel</property>
+		<property key='animated.playing'>1</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,0.8,0.5,0.5</property>
 		<texture name='case'>
 			<skin>/content/materials/metalPainted/rough.deskin</skin>
 			<tint r='0.176471' g='0.184314' b='0.368627'/>
@@ -801,6 +803,7 @@
 	<object id='59'>
 		<classname>PropBox</classname>
 		<position x='11' y='-1' z='-26'/>
+		<property key='navigationSpace.blockerShape'>box:position,0,1.3,-0.05:extends,1.3,0.5,1.3</property>
 		<texture name='material'>
 			<skin>/content/materials/concrete/material.deskin</skin>
 			<tint r='0.854902' g='0.192157' b='0.192157'/>
@@ -809,6 +812,7 @@
 	<object id='5a'>
 		<classname>PropBox</classname>
 		<position x='9' y='-1' z='-26'/>
+		<property key='navigationSpace.blockerShape'>box:position,0,1.3,-0.05:extends,1.3,0.5,1.3</property>
 		<texture name='material'>
 			<skin>/content/materials/concrete/material.deskin</skin>
 			<tint r='0.192157' g='0.854902' b='0.309804'/>
@@ -817,6 +821,7 @@
 	<object id='5b'>
 		<classname>PropBox</classname>
 		<position x='7' y='-1' z='-26'/>
+		<property key='navigationSpace.blockerShape'>box:position,0,1.3,-0.05:extends,1.3,0.5,1.3</property>
 		<texture name='material'>
 			<skin>/content/materials/concrete/material.deskin</skin>
 			<tint r='0.192157' g='0.447059' b='0.854902'/>
@@ -850,6 +855,29 @@
 		<position x='7' y='1' z='-24.4'/>
 		<scaling x='0.7' y='2' z='0.7'/>
 		<property key='touching.target'>stateMachine.blue</property>
+	</object>
+	<object id='60'>
+		<classname>InfoSign</classname>
+		<position x='2.3' y='0' z='-25'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/interactionSpot.deskin</skin>
+		</texture>
+	</object>
+	<object id='61'>
+		<classname>InteractionSpotExample</classname>
+		<position x='0.2' y='0' z='-25'/>
+		<texture name='case'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.176471' g='0.184314' b='0.368627'/>
+		</texture>
+		<texture name='panel'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.819608' g='0.831373' b='0.741176'/>
+		</texture>
+		<texture name='needle'>
+			<skin>/content/materials/metalPainted/rough.deskin</skin>
+			<tint r='0.52549' g='0' b='0'/>
+		</texture>
 	</object>
 	
 	<decal>

@@ -12,43 +12,34 @@ pin Dragengine.Utils
  */
 class ExampleApp extends BaseGameApp
 	private class StartGame extends WindowGameWorld.Loader
-		public func new( WindowGameWorld window, String pathWorld ) super( window )
-			setPathWorld( pathWorld )
+		public func new(WindowGameWorld window, String pathWorld) super(window)
+			setPathWorld(pathWorld)
 		end
 		
 		public func void onLoadWorldFinished()
 			var ExampleApp app = BaseGameApp.getApp() cast ExampleApp
 			var GameWorld gameWorld = getStubWorld().getGameWorld()
 			
-			// create player actor. for this a stub is first created which we can modify
-			// properties in. this allows to fine tune elements before creating them
-			var ElementClass eclass = app.getElementClassList().getNamed( "Actor" )
+			// Create player actor using our PlayerActorClass element class.
+			var ElementClass eclass = app.getElementClassList().getNamed("PlayerActor")
 			var UniqueID id = app.getIDGenerator().nextID()
-			var StubElement stub = StubElement.new( eclass, id )
+			var StubElement stub = StubElement.new(eclass, id)
 			
-			// set unique conversation actor ID so we can use the actor in conversations
-			stub.setPropertyValueFor( "convoActor.id", "player" )
-			stub.setPropertyValueFor( "convoActor.name", "Player" )
-			stub.setPropertyBoolFor( "convoActor.registerConvoActor", true )
-			
-			// to support physical objects being pushed by the actor assign a rig.
-			stub.setPropertyValueFor( "component.rig", "/content/models/player/player.derig" )
-			
-			// now the player actor can be created using the stub
-			var BaseActor player = stub.createElement() cast BaseActor
+			// Now the player actor can be created using the stub
+			var PlayerActor player = stub.createElement() cast PlayerActor
 			
 			// the ECBehaviorActorAIAction behavior is configured in the Actor element class
 			// to use BAAFirstPerson as action and BAAIBehaviorTree as AI. this avoids the
 			// need to manually assign action and AI instances on the created element.
 			
 			// spawn player actor at named spawn point
-			gameWorld.getSpawnPoints().getNamed( "player" ).spawn( gameWorld, player )
+			gameWorld.getSpawnPoints().getNamed("player").spawn(gameWorld, player)
 			
 			// take control of player actor
 			player.getPlayerControllable().takeControl()
 			
 			// finish and start running
-			getWindow().setCameraDirector( PlayerControlledActorCameraDirector.new() )
+			getWindow().setCameraDirector(PlayerControlledActorCameraDirector.new())
 			
 			super.onLoadWorldFinished()
 			app.setInputProcessorBindings()
@@ -68,7 +59,7 @@ class ExampleApp extends BaseGameApp
 	public func new()
 		pathDesktopGuiTheme = "/content/ui/main.guitheme.xml"
 		pathLanguagePacks = "/content/langpacks"
-		defaultLanguagePackName = UnicodeString.newFromUTF8( "English" )
+		defaultLanguagePackName = UnicodeString.newFromUTF8("English")
 	end
 	
 	/**
@@ -89,10 +80,10 @@ class ExampleApp extends BaseGameApp
 		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
 		// engine but we highly appreciate it if you do so.
 		
-		WindowLogo.showDragengineLogo( this.getDesktop(), BlockActionListener.new( \
+		WindowLogo.showDragengineLogo(this.getDesktop(), BlockActionListener.new(\
 			block ActionEvent event
 				launchApplication()
-			end ) )
+			end))
 	end
 	
 	/**
@@ -101,13 +92,13 @@ class ExampleApp extends BaseGameApp
 	 * Called after logo windows are finished.
 	 */
 	public func void launchApplication()
-		getWindowGameWorld().addWidget( ShoutConsole.new( getConsole() ) )
+		getWindowGameWorld().addWidget(ShoutConsole.new(getConsole()))
 		
 		/*
 		// Strings can be translated using getTranslationManager(). To change the language
 		// provided assign language pack to the translation manager.
-		getConsole().addMessage( "Translation for 'HelloWorld' = '" \
-			+ getTranslationManager().translate( "HelloWorld" )  + "'" )
+		getConsole().addMessage("Translation for 'HelloWorld' = '" \
+			+ getTranslationManager().translate("HelloWorld")  + "'")
 		*/
 		
 		// Sometimes it can be useful to get some overview of element classes used in a project
@@ -125,11 +116,11 @@ class ExampleApp extends BaseGameApp
 		/*
 		var Dragengine.Debugging.DebugElementClassInfo debugInfo = \
 			Dragengine.Debugging.DebugElementClassInfo.new()
-		debugInfo.print( Dragengine.Debugging.DebugElementClassInfo.FileWriterOut \
-			.new( "/capture/elementClassInfo.txt" ), this.getElementClassList() )
+		debugInfo.print(Dragengine.Debugging.DebugElementClassInfo.FileWriterOut \
+			.new("/capture/elementClassInfo.txt"), this.getElementClassList())
 		*/
 		
-		startLoadGameWorld( StartGame.new( getWindowGameWorld(), "/content/worlds/hub.deworld" ) )
+		startLoadGameWorld(StartGame.new(getWindowGameWorld(), "/content/worlds/hub.deworld"))
 	end
 	
 	/**
@@ -140,9 +131,11 @@ class ExampleApp extends BaseGameApp
 		
 		// Add scripted element classes. These can be used by XML element classes below
 		var ElementClassList eclist = getElementClassList()
-		eclist.add( CowardlyActorClass.new() )
-		eclist.add( ListenerFactoryExampleClass.new() )
-		eclist.add( StateMachineExampleClass.new() )
+		eclist.add(PlayerActorClass.new())
+		eclist.add(CowardlyActorClass.new())
+		eclist.add(ListenerFactoryExampleClass.new())
+		eclist.add(StateMachineExampleClass.new())
+		eclist.add(InteractionSpotExampleClass.new())
 		
 		// Add XML element classes by recursively scanning directory for *.deeclass files.
 		// These require scripted element classes as parent classes. Using *.deeclass

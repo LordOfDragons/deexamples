@@ -1,0 +1,104 @@
+namespace Example
+
+pin Dragengine.Commands
+pin Dragengine.Gui
+pin Dragengine.Scenery
+
+
+/**
+ * Player actor element class.
+ * 
+ * This is the typical way to create your own player actor by extending BaseActorClass
+ * and adding the behaviors specific for your game. The BaseActorClass provides a basic
+ * set of behaviors typically used in 3D type games.
+ * 
+ * If you want full control you can subclass BehaviorElement and add all the behaviors
+ * you want. The provided basic AI and Action classes though work best using BaseActorClass
+ * although they can be used with any BehaviorElement as long as the required behaviors
+ * are present.
+ */
+public class PlayerActorClass extends BaseActorClass
+	public var ECBehaviorLookAt lookAt
+	public var ECBehaviorPlayerLookAtInteractPrompt playerLookAtInteractPrompt
+	public var ECBehaviorOccupier occupier
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super("PlayerActor")
+		// Set conversation actor identifier. This allows to script the player actor
+		// inside a conversation script using the "player" actor identifier
+		getConversationActor().getActorId().setValue("player")
+		
+		// Set the conversation actor name. This is the name shown in conversation
+		// scripts if the player speaks
+		getConversationActor().getName().setValue(UnicodeString.newFromUTF8("Player"))
+		
+		// Register conversation actor upon entering the game world and unregister
+		// if he leaves. Registering is required if you want to add the player to
+		// a conversation using the "Add Actor" conversation script action. If you
+		// add it manually then this is not required. Setting this to true is though
+		// what you usually want
+		getConversationActor().getRegisterConversationActor().setValue(true)
+		
+		// To support physical objects being pushed by the actor assign a rig. The
+		// second getComponent() call retrieves the ECComposeComponent instance.
+		// Compose instances group a set of element class properties so they can
+		// be easily reused across element classes
+		getComponent().getComponent().getRig().setPath("/content/models/player/player.derig")
+		
+		// Add support to track what element the player is looking at. This behavior
+		// requires a bunch of other behaviors to work. BaseActorClass has added
+		// them already so jump the bandwagon
+		lookAt = ECBehaviorLookAt.new(this, getColliderAI(), getComponent(), getLocomotion())
+		
+		// Add support to show interaction prompts on screen. This behavior show
+		// ECBehaviorInteractPrompt instances found in the element the player is
+		// looking at right now. This behavior requires a bunch of settings which
+		// is why it looks daunting at first but it makes it also quite powerful.
+		// 
+		// BindingManager and CommandManager are used to look up the binding the
+		// player has to use to activate the action, like key or mouse button.
+		// 
+		// The uiContainer is the UI widget to add the Prompt UI Widget to. This has
+		// to be a container. The uiContainerAddSettings are optional layout parameters
+		// used while adding the Prompt UI Widget to the container. You need to set
+		// this only if you use a layout manager supporting such parameters.
+		// 
+		// The controller factory knows how to create and update the Prompt UI Widget.
+		// The PanelInteractPromptController is the default implementation of the
+		// controller and places the prompt in the middle of the uiContainer.
+		// If you want to use an own Prompt UI Widget you have to create a subclass
+		// of the PromptController and PromptControllerFactory. If you just want to
+		// style the prompt without changing the layout you can do this using the
+		// "PanelInteractPrompt" widget designer selector. See
+		// https://github.com/LordOfDragons/dragengine/blob/master/src/modules/scripting/dragonscript/data/guithemes/modern/modern.guitheme.xml#L489
+		// for an example.
+		var BindingManager bindingManager = BaseGameApp.getApp().getBindingManager()
+		var CommandManager commandManager = BaseGameApp.getApp().getCommandManager()
+		var Container uiContainer = BaseGameApp.getApp().getPanelHud().getCenter()
+		var Object uiContainerAddSettings = null
+		var ECBehaviorPlayerLookAtInteractPrompt.PromptControllerFactory controller = \
+			PanelInteractPromptController.ControllerFactory.new()
+		
+		playerLookAtInteractPrompt = ECBehaviorPlayerLookAtInteractPrompt.new( this, \
+			getPlayerControllable(), lookAt, controller, \
+			uiContainer, uiContainerAddSettings, commandManager, bindingManager)
+		
+		// Add occupier behavior. This allows the actor to claim interaction spots
+		occupier = ECBehaviorOccupier.new(this)
+		
+		// Set the default actor action. When done in the element class a factory has
+		// to be used
+		getAIAction().setActionFactory(PlayerAction.Factory.new())
+	end
+	
+	
+	/**
+	 * Overrides BaseActorClass.createElement(). Create subclass of BaseActor for convenience.
+	 */
+	protected func Element createElement()
+		return PlayerActor.new(this)
+	end
+end

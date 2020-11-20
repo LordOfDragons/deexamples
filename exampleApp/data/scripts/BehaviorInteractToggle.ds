@@ -1,0 +1,180 @@
+namespace Example
+
+pin Dragengine.Scenery
+
+
+/**
+ * \brief Behavior allowing player to toggle an element.
+ * 
+ * Example behavior for allowing player to interact with an element by toggling an
+ * ECBehaviorAnimated instance. In general you want to create behaviors to represent
+ * player interaction. This allows to check elements for supported interaction
+ * behaviors and using them accordingly.
+ * 
+ * Creating behaviors is rather simple. You need the behavior itself as well as an
+ * Instance subclass. The behavior you add then to element classes you which to
+ * bestow the interaction support to. At run-time the Instance is accessed to carry
+ * out the interaction.
+ * 
+ * There are various ways how behaviors can be created. In particular they can be
+ * nested if done properly. A typical example of nesting is the use of
+ * ECBehaviorInteractPrompt. You can add the prompt behavior to the class you add
+ * BehaviorInteractToggle to but all BehaviorInteractToggle use such a prompt.
+ * It is better to make BehaviorInteractToggle add the ECBehaviorInteractPrompt.
+ * This way when you add BehaviorInteractToggle to an element class all the necessary
+ * sub behaviors required to do the behavior are added automatically.
+ * 
+ * In general the following rules for sub behaviors are recommended:
+ * 
+ * 1) Multiple behaviors require a specific other behavior.
+ *    In this case it is best to create the behavior in the element class and handing
+ *    it over to the behaviors require it. Most behaviors provided in the Drag[en]gine
+ *    game engine follow this rule.
+ * 
+ * 2) Behavior requires unique instances of sub behaviors not shared with others.
+ *    In this case it is best to create the sub behaviors in the behavior constructor.
+ *    This ensures sub behaviors are created and that each behavior has its own set
+ *    of sub behaviors.
+ * 
+ * A note about nesting behaviors. To avoid name collisions it is best to prefix the
+ * sub behavior identifiers and element class property names. There are two ways
+ * this prefixing can be done: either "interactPrompt(interactToggle.use)" or
+ * "interactToggle.interactPrompt(use)". The game scripts can operate with both.
+ * The IGDE can also operate with both but if you want to create the behaviors in
+ * your game definition using the first version you can run into potential problems
+ * due to the way subclassing is represented. By using the second solution you are
+ * safe against such problems but it needs a little bit more care to do right.
+ */
+class BehaviorInteractToggle extends DefaultECBehavior
+	/**
+	 * Instance of behavior. This is used at run-time to access the functionality.
+	 */
+	public class Instance extends DefaultECBehaviorInstance
+		/** The animated behavior instance. */
+		public var ECBehaviorAnimated.Instance animated
+		
+		/** Interaction spot instance. */
+		public var ECBehaviorInteractionSpot.Instance interactionSpot
+		
+		
+		/**
+		 * Create instance. The behavior is used to look up and store required instances
+		 */
+		public func new(BehaviorInteractToggle behavior, BehaviorElement element) super(element)
+			// Look up the instance and store it. Using instance() is fast
+			animated = behavior.animated.instance(element)
+			interactionSpot = behavior.interactionSpot.instance(element)
+		end
+		 
+		/**
+		 * Overrides DefaultECBehaviorInstance.dispose(). As with
+		 * BehaviorInteractToggle.dispose() this is used to avoid leaking.
+		 */
+		public func void dispose()
+			animated = null
+			interactionSpot = null
+			
+			// Never forget the super call
+			super.dispose()
+		end
+		
+		
+		
+		/**
+		 * Toggle element. This is called by the player if the element is used.
+		 */
+		public func void toggle()
+			// Simply toggle the animated behavior
+			animated.setPlaying(not animated.getPlaying())
+		end
+	end
+	
+	
+	public var ECBehaviorAnimated animated
+	public var ECBehaviorInteractionSpot interactionSpot
+	public var ECBehaviorInteractPrompt prompt
+	
+	
+	/**
+	 * \brief Create behavior.
+	 */
+	public func new(BehaviorElementClass eclass, ECBehaviorAnimated animated) super(eclass)
+		// Put aside the behavior. We use it in the Instance to obtain the animated instance
+		this.animated = animated
+		
+		// Add the interaction spot. Set some basic parameters. Usually the element
+		// class using this behavior sets the parameters to match the model used
+		interactionSpot = ECBehaviorInteractionSpot.new(eclass, "interactToggle", "interactionSpot(interactToggle)")
+		interactionSpot.getPosition().setVector(Vector.new(0, 0, 0.5))
+		interactionSpot.getOrientation().setVector(Vector.new(0, 180, 0))
+		interactionSpot.getLookAt().setVector(Vector.new(0, 1.6, 0))
+		
+		// Add an interact prompt telling the player he can use this object. Using
+		// ECBehaviorInteractPrompt makes it simple to create prompts with the
+		// behavior doing the heavy lifting. You only have to provide the information
+		// to display and the behavior does the rest.
+		// 
+		// In general you want to give the behavior a unique identifier. If you only
+		// use one interact prompt it is possible to use no identifier. It is though
+		// recommended to use unique identifiers since this way you can easily add
+		// more interact prompts later on.
+		// 
+		// The main parameter is the Verb, which shows to the player what is going
+		// to happen if he uses the element. This is typically a single word.
+		// Optionally an image can be assigned to be shown along side the Verb.
+		// The description can be used to give a more detailed description of what
+		// the interaction is going to do. If the description is displayed and where
+		// is defined by the UI Widget showing prompts. For this example only a Verb
+		// is used.
+		// 
+		// There are two ways the behavior can be prefixed:
+		// 1) "interactPrompt(interactToggle.use)"
+		// 2) "interactToggle.interactPrompt(use)"
+		// 
+		// The first example would look like this:
+		//   prompt = ECBehaviorInteractPrompt.new(eclass, "interactToggle.use")
+		// 
+		// While simple it has a subtle disadvantage by using it in the IGDE to set
+		// object properties. The second solution is recommended albeit being slightly
+		// less simple to do since you need to prefix both identifier and sub-identifiers.
+		// As you can see the two versions are slightly different
+		prompt = ECBehaviorInteractPrompt.new(eclass, "interactToggle.use", "interactPrompt(interactToggle.use)" )
+		prompt.getVerb().setValue(UnicodeString.newFromUTF8("Toggle"))
+		prompt.getImage().setPath("/content/images/interactToggle.png")
+		//prompt.getDescription().setValue(UnicodeString.newFromUTF8("Toggle the animation on/off"))
+		
+		// Add this behavior to the element class
+		eclass.addBehavior(this)
+	end
+	
+	/**
+	 * Dispose of the behavior. This is used to break reference loops avoiding leaking.
+	 * It is not required to clear all stored behaviors but doing so ensures you never
+	 * end up with surprises.
+	 */
+	public func void dispose()
+		animated = null
+		interactionSpot = null
+		prompt = null
+		
+		// Never forget the super call
+		super.dispose()
+	end
+	
+	/**
+	 * Get instance in element if present. This is a convenience method which is
+	 * recommended to be added to each behavior you want to look up in various places.
+	 */
+	public static func Instance getInstanceIn(BehaviorElement element)
+		return element.findInstance(block ECBehaviorInstance each
+			return each castable Instance
+		end) cast Instance
+	end
+	
+	/**
+	 * Create instance.
+	 */
+	public func ECBehaviorInstance createInstance(BehaviorElement element)
+		return Instance.new(this, element)
+	end
+end

@@ -1,0 +1,102 @@
+namespace Example
+
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * \brief Base action for PlayerActor.
+ * 
+ * Uses the BAAFirstPerson as base class. This provides basic handling suitable for first
+ * person type 3D games.
+ * 
+ * By implementing BAAInteract this action supports CommandsBAAInteract bindings. This
+ * allows to react to a primary and secondary action, which is typically the left and
+ * right mous button.
+ */
+class PlayerAction extends BAAFirstPerson implements BAAInteract
+	/**
+	 * \brief Factory for creating action
+	 */
+	public class Factory implements ECBehaviorActorAIAction.ActionFactory
+		public func new()
+		end
+		
+		public func BaseActorAction createAction(ECBehaviorActorAIAction.Instance instance)
+			return PlayerAction.new()
+		end
+	end
+	
+	
+	
+	public var ECBehaviorLookAt.Instance lookAt
+	
+	
+	
+	/**
+	 * \brief Create Actionn.
+	 */
+	public func new()
+	end
+	
+	
+	
+	/**
+	 * Find and store behaviors. This is for convenience. By storing behavior instances
+	 * aside you can access them later on, including subclasses.
+	 */
+	protected func void initBehaviors()
+		super.initBehaviors()
+		
+		lookAt = (actor cast PlayerActor).lookAt
+	end
+	
+	
+	/**
+	 * Implements BAAInteract.primaryActionStart().
+	 */
+	public func void primaryActionStart()
+		// Check what element the player is looking at
+		var BehaviorElement target = lookAt.getLookAtBehaviorElement()
+		if target == null
+			return // Nothing of interest looked at
+		end
+		
+		// There are various ways on how to figure out what to do with the element being
+		// looked at.
+		// 
+		// One way is to use an ElementVisitor subclass. This requires individual
+		// BehaviorElement subclasses to call the visitor subclass methods. This is an
+		// elaborate solution which highest control but requires some work to set up.
+		// 
+		// Another way is to look at the behaviors supported by the element and using
+		// this to figure out what action to do. This is a flexible solution and allows
+		// to evaluate what to do on the behaviors supported by an element instead of
+		// the element type itself.
+		var BehaviorInteractToggle.Instance interactToggle = BehaviorInteractToggle.getInstanceIn(target)
+		if interactToggle != null
+			// This element supports the toggle interaction. So do it and exit
+			aiAction.setAction(PlayerActionInteractToggle.new(interactToggle))
+			return
+		end
+	end
+	
+	/**
+	 * Implements BAAInteract.primaryActionStop().
+	 */
+	public func void primaryActionStop()
+	end
+	
+	/**
+	 * Implements BAAInteract.secondaryActionStart().
+	 */
+	public func void secondaryActionStart()
+	end
+	
+	/**
+	 * Implements BAAInteract.secondaryActionStop().
+	 */
+	public func void secondaryActionStop()
+	end
+end
