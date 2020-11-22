@@ -128,6 +128,7 @@
 		<propertyValue name='animated.animator'>/content/models/animationTest/at2.deanimator</propertyValue>
 		<propertyValue name='component.skin'>/content/models/animationTest/at2.deskin</propertyValue>
 		<propertyValue name='component.model'>/content/models/animationTest/at2.demodel</propertyValue>
+		<propertyValue name='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,0.8,0.5,0.5</propertyValue>
 		<category>ExampleApp</category>
 	</class>
 	<class name='BehaviorInteractToggle'>
