@@ -136,6 +136,7 @@ class ExampleApp extends BaseGameApp
 		eclist.add(ListenerFactoryExampleClass.new())
 		eclist.add(StateMachineExampleClass.new())
 		eclist.add(InteractionSpotExampleClass.new())
+		eclist.add(CustomColorExampleClass.new())
 		
 		// Add XML element classes by recursively scanning directory for *.deeclass files.
 		// These require scripted element classes as parent classes. Using *.deeclass

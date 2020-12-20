@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>62</nextObjectID>
+	<nextObjectID>65</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -878,6 +878,25 @@
 			<skin>/content/materials/metalPainted/rough.deskin</skin>
 			<tint r='0.52549' g='0' b='0'/>
 		</texture>
+	</object>
+	<object id='62'>
+		<classname>CustomColorExample</classname>
+		<position x='-4' y='0' z='-25'/>
+	</object>
+	<object id='63'>
+		<classname>InfoSign</classname>
+		<position x='-6.15' y='0' z='-24'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/customColor.deskin</skin>
+		</texture>
+	</object>
+	<object id='64'>
+		<classname>CustomColorExample</classname>
+		<position x='-8.3' y='0' z='-25'/>
+		<property key='renderableCustomColor(color3).image'>/content/models/customColor/color3Masked.png</property>
+		<property key='renderableCustomColor(color2).image'>/content/models/customColor/color2Masked.png</property>
+		<property key='renderableCustomColor(color5).image'>/content/models/customColor/color5Masked.png</property>
+		<property key='renderableCustomColor(color4).image'>/content/models/customColor/color4Masked.png</property>
 	</object>
 	
 	<decal>

@@ -1,0 +1,127 @@
+namespace Example
+
+pin Dragengine.Gui
+pin Dragengine.Scenery
+
+
+/**
+ * Custom color example element class.
+ * 
+ * This element class uses ECBehaviorCustomColor and ECBehaviorRenderableCustomColor
+ * to allow the player to choose custom colors on a box.
+ * 
+ * Custom colors are typically used in games to allow the player to customize his
+ * player actor. ECBehaviorRenderableCustomColor allows to use any number of custom
+ * colors without needing to deal with shaders or packing masks into image channels.
+ * 
+ * This example uses 5 custom colors. The skin of the element contains a single
+ * texture with a rendeable "color" texture property. The renderable canvas defines
+ * as background color to use. The custom colors are applied on top of this base
+ * color to produce the final "color" texture property.
+ * 
+ * You might be tempted to use "color.tint" as renderable but this is not going to
+ * Work. "color.tint" is a single color texture property which tints the entire
+ * image. Instead you fully define the "color" texture property leaving "color.tint"
+ * for what it is supposed to do.
+ * 
+ * Each custom color has a mask image named "color1.png" to "color5.png". Each custom
+ * color colorized the masked portion of the image.
+ * 
+ * An alternate version can be used with each custom color affecting an individual
+ * texture in the skin. This way no mask image is required. To use this version you
+ * have to assign an individual renderable to each texture, one for each custom color.
+ * Multi-texture solutions are faster and require less GPU memory since no texture
+ * has to be rendered in memory.
+ * 
+ * To change the custom colors use the element. A simple dialog shows which contains
+ * the colors the player can change.
+ * 
+ * Using
+ * See https://youtu.be/XEGm5uL2zyc for an example video of this class in action.
+ */
+public class CustomColorExampleClass extends SimpleElementClass
+	public var ECBehaviorDynamicSkin dynamicSkin
+	public var ECBehaviorRenderableCanvas renderableCanvas
+	public var ECBehaviorCustomColor color1
+	public var ECBehaviorCustomColor color2
+	public var ECBehaviorCustomColor color3
+	public var ECBehaviorCustomColor color4
+	public var ECBehaviorCustomColor color5
+	
+	
+	/**
+	 * Create element class.
+	 */
+	public func new() super("CustomColorExample")
+		var String basePath = "/content/models/customColor/"
+		
+		// For this example we use the box model with a custom color enabled skin.
+		// The call setCommonPath() receives as first argument the directory to find
+		// the resource in followed by the model, skin and rig resource relative path.
+		// Since we need a custom skin use the absolute path
+		// element is in active or inactive state
+		getComponent().setCommonPath("/content/models/box", "box.demodel", \
+			basePath + "customColor.deskin", "box.derig")
+		
+		// Create the custom colors. Each behavior needs an own identifier. For each
+		// custom color assign a text and default color
+		color1 = ECBehaviorCustomColor.new(this, "color1")
+		color1.getName().setValue("Background")
+		color1.getDefaultColor().setColor(Color.darkBlue)
+		
+		color2 = ECBehaviorCustomColor.new(this, "color2")
+		color2.getName().setValue("Dragoness")
+		color2.getDefaultColor().setColor(Color.new(0.85, 0.3, 1))
+		
+		color3 = ECBehaviorCustomColor.new(this, "color3")
+		color3.getName().setValue("Text Left")
+		color3.getDefaultColor().setColor(Color.new(0.33, 0.44, 0.7))
+		
+		color4 = ECBehaviorCustomColor.new(this, "color4")
+		color4.getName().setValue("Text Right")
+		color4.getDefaultColor().setColor(Color.new(0.8, 0.8, 0.8))
+		
+		color5 = ECBehaviorCustomColor.new(this, "color5")
+		color5.getName().setValue("Text Center")
+		color5.getDefaultColor().setColor(Color.new(0.65, 0.65, 0.65))
+		
+		// By default all colors can be chosen freely. Optionally you can define a
+		// list of allowed colors. This way the player can be limited to choose
+		// only from this list of colors
+		// 
+		// The current example does use this in the color dialog. This is left as
+		// an excercise for the user to implement
+		color1.getAllowedColors().addColor(Color.darkBlue)
+		color1.getAllowedColors().addColor(Color.darkGray)
+		color1.getAllowedColors().addColor(Color.darkGreen)
+		color1.getAllowedColors().addColor(Color.darkRed)
+		color1.getAllowedColors().addColor(Color.white)
+		color1.getAllowedColors().addColor(Color.black)
+		
+		// Add dynamic skin behavior. This is the base behavior to use to allow all
+		// kinds of dynamic skin content to be set at runtime
+		dynamicSkin = ECBehaviorDynamicSkin.new(this, getComponent())
+		
+		// Add renderable canvas behavior. This modifies the "customColor" renderable
+		// defined in the skin file. You need one per renderable you want to modify.
+		// Since we use only one renderable canvas here we are not required to set
+		// an identifier. It is though good practice to set one
+		renderableCanvas = ECBehaviorRenderableCanvas.new(this, dynamicSkin, "customColor")
+		renderableCanvas.getRenderable().setValue("customColor")
+		renderableCanvas.getSize().setPoint(Point.new(512, 512))
+		renderableCanvas.getBackgroundColor().setColor(Color.white)
+		
+		// Add behaviors to apply the custom colors to the renderable canvas
+		ECBehaviorRenderableCustomColor.new(this, color1, renderableCanvas, basePath + "color1.png", "color1")
+		ECBehaviorRenderableCustomColor.new(this, color2, renderableCanvas, basePath + "color2.png", "color2")
+		ECBehaviorRenderableCustomColor.new(this, color3, renderableCanvas, basePath + "color3.png", "color3")
+		ECBehaviorRenderableCustomColor.new(this, color4, renderableCanvas, basePath + "color4.png", "color4")
+		ECBehaviorRenderableCustomColor.new(this, color5, renderableCanvas, basePath + "color5.png", "color5")
+		
+		// Add behavior for player to interact with this element. Adjust the
+		// interaction zone to work with the box
+		var BehaviorChangeCustomColors ccc = BehaviorChangeCustomColors.new(this)
+		ccc.interactionSpot.getPosition().setVector(Vector.new(0, 0, 3))
+		ccc.interactionSpot.getLookAt().setVector(Vector.new(0.5, 1, 1))
+	end
+end

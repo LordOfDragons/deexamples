@@ -1,0 +1,361 @@
+namespace Example
+
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.Utils
+
+
+/**
+ * Action for PlayerActor interacting with BehaviorCustomColor.
+ * 
+ * This action moves the player to a specific interaction spot and then 
+ */
+class PlayerActionCustomColor extends BAAFirstPerson
+	/** Definition of states. */
+	enum State
+		/** Moving to target using actor mover. */
+		moving
+		
+		/** Aligning to spot using align actor. */
+		aligning
+		
+		/** Interacting. */
+		interact
+	end
+	
+	/** Dialog to edit custom colors. */
+	class DialogEditColors extends Window
+		/**
+		 * List element renderer supporting elements of type ECBehaviorCustomColor.Instance .
+		 * Uses DefaultListElementRenderer as base which uses a single Label. This could
+		 * be extended to changed to create a Panel with a Label and Widget showing the
+		 * selected color as background color. For this example it is kept simple.
+		 * As an excercise you can try applying this change
+		 */
+		class CustomColorElementRenderer extends DefaultListElementRenderer
+			/** Create element renderer. */
+			public func new()
+			end
+			
+			/** Overrides DefaultListElementRenderer.updateRenderer() */
+			public func void updateRenderer(ListBox listBox, Widget renderer, Object element, bool selected, bool focused)
+				var String text
+				
+				if element != null
+					text = (element cast ECBehaviorCustomColor.Instance).getName().toUTF8()
+					
+				else
+					// in this renderer element is null to measure the default size
+					text = String.new('X', 10)
+				end
+				
+				super.updateRenderer(listBox, renderer, text, selected, focused)
+			end
+		end
+		
+		/** Listener for custom color list. */
+		class SelectCustomColor extends DefaultListModelListener
+			var DialogEditColors dialog
+			
+			public func new(DialogEditColors dialog)
+				this.dialog = dialog
+			end
+			
+			/** Overrides DefaultListModelListener.selectionChanged() */
+			public func void selectionChanged(ListModel listModel)
+				if listModel.getSelected() != -1
+					dialog.setActiveCustomColor(listModel.getAt(listModel.getSelected()) cast ECBehaviorCustomColor.Instance)
+					
+				else
+					dialog.setActiveCustomColor(null)
+				end
+			end
+		end
+		
+		/** Listener for color slider change. */
+		class ChangeColor extends DefaultRangeModelListener
+			var DialogEditColors dialog
+			
+			public func new(DialogEditColors dialog)
+				this.dialog = dialog
+			end
+			
+			/** Overrides DefaultRangeModelListener.valueChanged() */
+			public func void valueChanged(RangeModel rangeModel)
+				dialog.applyColor()
+			end
+		end
+		
+		
+		public var DefaultListModel modelCustomColors
+		public var DefaultRangeModel modelRed
+		public var DefaultRangeModel modelGreen
+		public var DefaultRangeModel modelBlue
+		public var ECBehaviorCustomColor.Instance activeCustomColor
+		
+		
+		/** Create dialog and display it on the desktop. */
+		public func new(BehaviorChangeCustomColors.Instance behavior) super(20, 100, 400, 400)
+			// Create list model containing all custom colors
+			modelCustomColors = DefaultListModel.new(behavior.customColors)
+			modelCustomColors.addListener(SelectCustomColor.new(this))
+			
+			// Create range models for each color slider. We use a range from 0 to 100
+			// to represent the color. 20 and 1 are the step sizes (page and normal).
+			// 0 is the default value which is not important here
+			var ChangeColor changeColor = ChangeColor.new(this)
+			
+			modelRed = DefaultRangeModel.new(0, 100, 20, 0, 1)
+			modelRed.addListener(changeColor)
+			
+			modelGreen = DefaultRangeModel.new(0, 100, 20, 0, 1)
+			modelGreen.addListener(changeColor)
+			
+			modelBlue = DefaultRangeModel.new(0, 100, 20, 0, 1)
+			modelBlue.addListener(changeColor)
+			
+			// Add content composing of the list of custom colors in the upper half
+			// and color sliders in the lower half. Using runWhileBlockingLayout()
+			// improves performance since it avoids UI updates to be called all the
+			// time while the UI is build up
+			runWhileBlockingLayout(block
+				// Use border layout with 5 pixel spacing between elements
+				setLayout(BorderLayout.new(5))
+				
+				// Some other parameters
+				setTitle("Select Custom Colors")
+				
+				// Add list of custom colors in the top area of the layout
+				addWidget(ListBox.new(modelCustomColors, CustomColorElementRenderer.new()), BorderLayout.Area.top)
+				
+				// Add color sliders in the content area of the layout. The Panel.new()
+				// overload with Layout and Block is a convenience call to create panels
+				// quickly with boiler plate code hidden. It also allows to code nested
+				// UI in a more comprehensible way.
+				// 
+				// Here a FormLayout is used. This layout is convenient for creating form
+				// like layouts with pairs of elements arranged in rows. The left and right
+				// element of the pair are aligned horizontally to create a pleasant layout
+				addWidget(Panel.new(FormLayout.new(true, 5, 2), block Panel p
+					p.addWidget(Label.new("Red:"))
+					p.addWidget(ScrollBar.new(Orientation.horizontal, modelRed))
+					
+					p.addWidget(Label.new("Green:"))
+					p.addWidget(ScrollBar.new(Orientation.horizontal, modelGreen))
+					
+					p.addWidget(Label.new("Blue:"))
+					p.addWidget(ScrollBar.new(Orientation.horizontal, modelBlue))
+				end), BorderLayout.Area.content)
+				
+				// Add a close button in the bottom area
+				addWidget(Button.new("Close", CloseWindowActionListener.new(this)), BorderLayout.Area.bottom)
+				
+				// Creating DefaultListModel also sets the initial selection before
+				// listeners can be added. Update now to make sure all is ready
+				if modelCustomColors.getSelected() != -1
+					setActiveCustomColor(modelCustomColors.getAt(modelCustomColors.getSelected()) cast ECBehaviorCustomColor.Instance)
+				end
+			end)
+			
+			// Layout window. Required to be called if runWhileBlockingLayout().
+			// This way the layout is updated once
+			doLayout()
+			
+			// Make window initially visible when added to desktop
+			setVisible(true)
+			
+			// Add window to desktop and switch controls over to widget input
+			BaseGameApp.getApp().setInputProcessorDesktop()
+			BaseGameApp.getApp().getDesktop().addWindow(this)
+			grabFocus()
+			
+			// Limit the mouse location to the window. This is done because the world render
+			// window underneath has no mouse pointer assigned in the XML GuiTheme. If the
+			// player moves the mouse outside the window the mouse pointer would vanish
+			// potentially causing confusion.
+			// 
+			// There are different ways how this can be handled. This solution here is
+			// a quick one which makes it also clear what the player can do. For a full
+			// UI the user often interacts with it is better to assign a mouse pointer to
+			// the GuiTheme of the render window. For FPS type games though you usually
+			// want to hide it
+			BaseGameApp.getApp().getDesktop().setMouseArea(getBoundary())
+		end
+		
+		/**
+		 * Dispose of widget. Breaks reference loops to avoid leaking.
+		 */
+		public func void dispose()
+			modelCustomColors = null
+			modelRed = null
+			modelGreen = null
+			modelBlue = null
+			
+			super.dispose()
+		end
+		
+		/**
+		 * Overrides Window.onClosing() to switch input binding back to game.
+		 */
+		public func void onClosing(WindowEvent event)
+			super.onClosing(event)
+			BaseGameApp.getApp().getDesktop().setMouseArea(null)
+			BaseGameApp.getApp().setInputProcessorBindings()
+		end
+		
+		
+		/** Set active custom color behavior. */
+		public func void setActiveCustomColor(ECBehaviorCustomColor.Instance customColor)
+			// Clear activeCustomColor avoids changing range model changing custom color
+			activeCustomColor = null
+			
+			// Update range model
+			var Color color = Color.white
+			
+			if customColor != null
+				color = customColor.getColorOrDefault()
+			end
+			
+			modelRed.setValue((color.getRed() * 100) cast int)
+			modelGreen.setValue((color.getGreen() * 100) cast int)
+			modelBlue.setValue((color.getBlue() * 100) cast int)
+			
+			// Set activeCustomColor to make range models update custom color from now on
+			activeCustomColor = customColor
+		end
+		
+		/** Apply color. Called by range listeners if color changed. */
+		public func void applyColor()
+			if activeCustomColor != null
+				activeCustomColor.setColor(Color.new(modelRed.getValue() * 0.01, \
+					modelGreen.getValue() * 0.01, modelBlue.getValue() * 0.01))
+			end
+		end
+	end
+	
+	
+	
+	public var ECBehaviorActorMover.Instance actorMover
+	public var ECBehaviorAlignActor.Instance alignActor
+	public var ECBehaviorOccupier.Instance occupier
+	public var BehaviorChangeCustomColors.Instance changeCustomColors
+	public var State state
+	public var DialogEditColors dialog
+	
+	
+	/**
+	 * \brief Create Action operating BehaviorChangeCustomColors.
+	 */
+	public func new(BehaviorChangeCustomColors.Instance changeCustomColors)
+		this.changeCustomColors = changeCustomColors
+	end
+	
+	
+	
+	/**
+	 * Find and store behaviors. This is for convenience. By storing behavior instances
+	 * aside you can access them later on, including subclasses.
+	 */
+	protected func void initBehaviors()
+		super.initBehaviors()
+		
+		actorMover = (actor cast PlayerActor).getActorMover()
+		alignActor = (actor cast PlayerActor).getAlignActor()
+		occupier = (actor cast PlayerActor).occupier
+	end
+	
+	
+	
+	/**
+	 * Action became the active actor action. Start moving to the interaction spot.
+	 */
+	public func void activate(BehaviorElement actor)
+		super.activate(actor)
+		
+		// Claim interaction spot. If not possible stop the action
+		if not changeCustomColors.interactionSpot.canClaim(occupier)
+			aiAction.setAction(PlayerAction.new())
+			return
+		end
+		
+		changeCustomColors.interactionSpot.claim(occupier)
+		
+		// Move towards spot until close enough. Actor mover uses the actor navigator
+		// and thus is able to navigate safely to the desired spot.
+		actorMover.moveTo(changeCustomColors.interactionSpot.getWorldMatrix().getPosition(), 0.3)
+		state = State.moving
+		
+		// The base class sets up looking direction adjustment time to 0 for player actor.
+		// This makes mouse movement of player apply immediately but for moving using the
+		// actor mover this looks strange. Switch to a smooth looking direction adjustment.
+		// This can be done by calling initLocomotion(). This works since the base class
+		// calls first initLocomotion() and if the actor is player controlled also
+		// initLocomotionPlayer()
+		initLocomotion()
+	end
+	
+	/**
+	 * Per frame update thinking for player controlled actors only
+	 */
+	public func void playerThink(float elapsed)
+		select state
+		case State.moving
+			// Wait until the actor stopped moving
+			if actorMover.hasGoal()
+				return
+			end
+			
+			// From now on we can use again the snappy player looking direction adjustment
+			initLocomotionPlayer()
+			
+			// Set the target to move to. This method variation expects the position and
+			// orientation relative to the target element which is how ECBehaviorInteractionSpot
+			// stores the parameters. ECBehaviorAlignActor expects a single orientation value
+			// which is the actor orientation along the Y-Axis. ECBehaviorInteractionSpot
+			// though stores a full orientation since it can be used for more than human actors
+			alignActor.setTarget(changeCustomColors.getElement(), \
+				DVector.new(changeCustomColors.interactionSpot.getPosition()), \
+				changeCustomColors.interactionSpot.getOrientation().getEulerAngles().getY())
+			
+			// ECBehaviorInteractionSpot provides also support to set look-at position.
+			// This is especially useful for first person view to make the player look
+			// at an appropriate location when interacting
+			if changeCustomColors.interactionSpot.getLookAt() != null
+				alignActor.setLookAt(changeCustomColors.interactionSpot.getLookAtWorld())
+			end
+			
+			// Start aligning actor
+			alignActor.startAligning()
+			state = State.aligning
+			
+		case State.aligning
+			// Wait until the actor stopped moving
+			if alignActor.isAligning()
+				return
+			end
+			
+			// The look-at used during aligning sticks to the actor until cleared
+			conversationActor.getConversationActor().getHeadLookAtPlayback().clearLookAtState()
+			state = State.interact
+			
+		case State.interact
+			// Interact with the element
+			if dialog == null
+				// Show dialog
+				dialog = DialogEditColors.new(changeCustomColors)
+				
+			elif dialog.getParent() != null
+				// Check if dialog is still shown on the desktop. Closing the window removes
+				// it from the desktop so we can check if the window still has a parent
+				
+				// Release the interaction zone
+				changeCustomColors.interactionSpot.release()
+				
+				// Activate basic player action
+				aiAction.setAction(PlayerAction.new())
+			end
+		end
+	end
+end

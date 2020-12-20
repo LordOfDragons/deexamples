@@ -1,0 +1,114 @@
+namespace Example
+
+pin Dragengine.Scenery
+
+
+/**
+ * Behavior allowing player to change custom colors.
+ * 
+ * Example behavior for allowing player to interact with an element to change custom
+ * colors. Provides an interaction zone for the player actor to move to.
+ */
+class BehaviorChangeCustomColors extends DefaultECBehavior
+	/**
+	 * Instance of behavior. This is used at run-time to access the functionality.
+	 */
+	public class Instance extends DefaultECBehaviorInstance
+		/** List of custom color behaviors in the order they should be displayed. */
+		public var Array customColors
+		
+		/** Interaction spot instance. */
+		public var ECBehaviorInteractionSpot.Instance interactionSpot
+		
+		
+		
+		/**
+		 * Create instance. The behavior is used to look up and store required instances
+		 */
+		public func new(BehaviorChangeCustomColors behavior, BehaviorElement element) super(element)
+			// Look up the instance and store it. Using instance() is fast
+			interactionSpot = behavior.interactionSpot.instance(element)
+			
+			customColors = behavior.customColors.map(block ECBehaviorCustomColor each
+				return each.instance(element)
+			end)
+		end
+		 
+		/**
+		 * Overrides DefaultECBehaviorInstance.dispose(). As with
+		 * BehaviorChangeCustomColors.dispose() this is used to avoid leaking.
+		 */
+		public func void dispose()
+			customColors = null
+			interactionSpot = null
+			
+			// Never forget the super call
+			super.dispose()
+		end
+	end
+	
+	
+	public var Array customColors
+	public var ECBehaviorInteractionSpot interactionSpot
+	public var ECBehaviorInteractPrompt prompt
+	
+	
+	/**
+	 * \brief Create behavior.
+	 */
+	public func new(BehaviorElementClass eclass) super(eclass)
+		// Find all custom colors and store them. Another possibility is to add
+		// an addCustomColor(ECbehaviorCustomColor) function to allow the user
+		// to add the instances in the order he wants to. For this example though
+		// we simply fetch all in the order they hayve been added
+		this.customColors = ECBehaviorCustomColor.getAllBehaviorsIn(eclass)
+		
+		// Add the interaction spot. Set some basic parameters. Usually the element
+		// class using this behavior sets the parameters to match the model used
+		interactionSpot = ECBehaviorInteractionSpot.new(eclass, \
+			"chooseColors", "interactionSpot(chooseColors)")
+		interactionSpot.getPosition().setVector(Vector.new(0, 0, 1))
+		interactionSpot.getOrientation().setVector(Vector.new(0, 180, 0))
+		interactionSpot.getLookAt().setVector(Vector.new())
+		
+		// Add an interact prompt telling the player he can use this object
+		prompt = ECBehaviorInteractPrompt.new(eclass, "chooseColors.use", \
+			"interactPrompt(chooseColors.use)" )
+		prompt.getVerb().setValue(UnicodeString.newFromUTF8("Choose Colors"))
+		prompt.getImage().setPath("/content/images/interactChooseColors.png")
+		
+		// Add this behavior to the element class
+		eclass.addBehavior(this)
+	end
+	
+	/**
+	 * Dispose of the behavior. This is used to break reference loops avoiding leaking.
+	 * It is not required to clear all stored behaviors but doing so ensures you never
+	 * end up with surprises.
+	 */
+	public func void dispose()
+		customColors = null
+		interactionSpot = null
+		prompt = null
+		
+		// Never forget the super call
+		super.dispose()
+	end
+	
+	/**
+	 * Get instance in element if present. This is a convenience method which is
+	 * recommended to be added to each behavior you want to look up in various places.
+	 */
+	public static func Instance getInstanceIn(BehaviorElement element)
+		return element.findInstance(block ECBehaviorInstance each
+			return each castable Instance
+		end) cast Instance
+	end
+	
+	/**
+	 * Create instance.
+	 */
+	public func ECBehaviorInstance createInstance(BehaviorElement element)
+		return Instance.new(this, element)
+	end
+end

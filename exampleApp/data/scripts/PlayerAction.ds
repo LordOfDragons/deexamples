@@ -80,6 +80,13 @@ class PlayerAction extends BAAFirstPerson implements BAAInteract
 			aiAction.setAction(PlayerActionInteractToggle.new(interactToggle))
 			return
 		end
+		
+		var BehaviorChangeCustomColors.Instance chooseCustomColors = BehaviorChangeCustomColors.getInstanceIn(target)
+		if chooseCustomColors != null
+			// This element supports the choose custom colors interaction. So do it and exit
+			aiAction.setAction(PlayerActionCustomColor.new(chooseCustomColors))
+			return
+		end
 	end
 	
 	/**
