@@ -37,7 +37,7 @@ pin Dragengine.Scenery
  * the colors the player can change.
  * 
  * Using
- * See https://youtu.be/XEGm5uL2zyc for an example video of this class in action.
+ * See https://youtu.be/Gte74Jte8A0 for an example video of this class in action.
  */
 public class CustomColorExampleClass extends SimpleElementClass
 	public var ECBehaviorDynamicSkin dynamicSkin
