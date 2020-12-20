@@ -138,16 +138,103 @@
 		<canInstantiate>false</canInstantiate>
 		<defaultInheritPropertyPrefix>interactToggle.</defaultInheritPropertyPrefix>
 		<inherit name='ECBehaviorInteractPrompt'>
-			<propertyPrefix>interactPrompt(use).</propertyPrefix>
+			<propertyPrefix>interactPrompt(interactToggle.use).</propertyPrefix>
 		</inherit>
 		<inherit name='ECBehaviorInteractionSpot'>
 			<propertyPrefix>interactionSpot(interactToggle).</propertyPrefix>
 		</inherit>
 		<propertyValue name='interactionSpot(interactToggle).position'>0 0 0.5</propertyValue>
-		<propertyValue name='interactPrompt(use).verb'>Toggle</propertyValue>
 		<propertyValue name='interactionSpot(interactToggle).orientation'>0 180 0</propertyValue>
-		<propertyValue name='interactPrompt(use).image'>/content/images/interactToggle.png</propertyValue>
+		<propertyValue name='interactPrompt(interactToggle.use).image'>/content/images/interactToggle.png</propertyValue>
+		<propertyValue name='interactPrompt(interactToggle.use).verb'>Toggle</propertyValue>
 		<propertyValue name='interactionSpot(interactToggle).lookAt'>0 1.6 0.2</propertyValue>
+		<category>ExampleApp</category>
+	</class>
+	<class name='CustomColorExample'>
+		<description>Custom color example element class</description>
+		<scaleMode>uniform</scaleMode>
+		<inherit name='SimpleElement'>
+		</inherit>
+		<inherit name='ECBehaviorCustomColor'>
+			<propertyPrefix>customColor(color1).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCustomColor'>
+			<propertyPrefix>customColor(color2).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCustomColor'>
+			<propertyPrefix>customColor(color3).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCustomColor'>
+			<propertyPrefix>customColor(color4).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCustomColor'>
+			<propertyPrefix>customColor(color5).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableCanvas'>
+			<propertyPrefix>renderableCanvas(customColor).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorDynamicSkin'>
+			<propertyPrefix>dynamicSkin.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableCustomColor'>
+			<propertyPrefix>renderableCustomColor(color1).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableCustomColor'>
+			<propertyPrefix>renderableCustomColor(color2).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableCustomColor'>
+			<propertyPrefix>renderableCustomColor(color3).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableCustomColor'>
+			<propertyPrefix>renderableCustomColor(color4).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableCustomColor'>
+			<propertyPrefix>renderableCustomColor(color5).</propertyPrefix>
+		</inherit>
+		<inherit name='BehaviorChangeCustomColors'>
+		</inherit>
+		<propertyValue name='renderableCustomColor(color2).image'>/content/models/customColor/color2.png</propertyValue>
+		<propertyValue name='interactionSpot(chooseColors).lookAt'>0.5 1 1</propertyValue>
+		<propertyValue name='customColor(color2).defaultColor'>0.85, 0.3, 1</propertyValue>
+		<propertyValue name='customColor(color2).name'>Dragoness</propertyValue>
+		<propertyValue name='renderableCanvas(customColor).renderable'>customColor</propertyValue>
+		<propertyValue name='customColor(color1).allowedColors'>0,0,0.5 0.5,0.5,0.5 0,0.5,0 0.5,0,0 1,1,1 0,0,0</propertyValue>
+		<propertyValue name='renderableCustomColor(color3).image'>/content/models/customColor/color3.png</propertyValue>
+		<propertyValue name='customColor(color4).defaultColor'>0.8, 0.8, 0.8</propertyValue>
+		<propertyValue name='customColor(color4).name'>Text Right</propertyValue>
+		<propertyValue name='renderableCanvas(customColor).size'>512 512</propertyValue>
+		<propertyValue name='customColor(color1).defaultColor'>0 0 0.5</propertyValue>
+		<propertyValue name='renderableCanvas(customColor).backgroundImage'>/content/models/customColor/base.png</propertyValue>
+		<propertyValue name='component.skin'>/content/models/customColor/customColor.deskin</propertyValue>
+		<propertyValue name='customColor(color5).defaultColor'>0.65, 0.65, 0.65</propertyValue>
+		<propertyValue name='interactionSpot(chooseColors).position'>0 0 3</propertyValue>
+		<propertyValue name='customColor(color1).name'>Background</propertyValue>
+		<propertyValue name='customColor(color3).defaultColor'>0.33, 0.44, 0.7</propertyValue>
+		<propertyValue name='renderableCustomColor(color4).image'>/content/models/customColor/color4.png</propertyValue>
+		<propertyValue name='customColor(color5).name'>Text Center</propertyValue>
+		<propertyValue name='component.model'>/content/models/box/box.demodel</propertyValue>
+		<propertyValue name='renderableCustomColor(color1).image'>/content/models/customColor/color1.png</propertyValue>
+		<propertyValue name='customColor(color3).name'>Text Left</propertyValue>
+		<propertyValue name='renderableCustomColor(color5).image'>/content/models/customColor/color5.png</propertyValue>
+		<propertyValue name='component.rig'>/content/models/box/box.derig</propertyValue>
+		<category>ExampleApp</category>
+	</class>
+	<class name='BehaviorChangeCustomColors'>
+		<description>Behavior allowing player to change custom colors.</description>
+		<scaleMode>uniform</scaleMode>
+		<ghost>true</ghost>
+		<canInstantiate>false</canInstantiate>
+		<inherit name='ECBehaviorInteractPrompt'>
+			<propertyPrefix>interactPrompt(chooseColors.use).</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorInteractionSpot'>
+			<propertyPrefix>interactionSpot(chooseColors).</propertyPrefix>
+		</inherit>
+		<propertyValue name='interactPrompt(chooseColors.use).image'>/content/images/interactChooseColors.png</propertyValue>
+		<propertyValue name='interactionSpot(chooseColors).orientation'>0 180 0</propertyValue>
+		<propertyValue name='interactionSpot(chooseColors).position'>0 0 1</propertyValue>
+		<propertyValue name='interactPrompt(chooseColors.use).verb'>Choose Colors</propertyValue>
+		<propertyValue name='interactionSpot(chooseColors).lookAt'>0 0 0</propertyValue>
 		<category>ExampleApp</category>
 	</class>
 </gameDefinition>
