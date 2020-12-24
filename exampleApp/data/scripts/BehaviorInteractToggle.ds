@@ -103,8 +103,10 @@ class BehaviorInteractToggle extends DefaultECBehavior
 		this.animated = animated
 		
 		// Add the interaction spot. Set some basic parameters. Usually the element
-		// class using this behavior sets the parameters to match the model used
-		interactionSpot = ECBehaviorInteractionSpot.new(eclass, "interactToggle", "interactionSpot(interactToggle)")
+		// class using this behavior sets the parameters to match the model used.
+		// The behavior identifier is "interactToggle" and the element class properties
+		// have the prefix "interactToggle.interactionSpot."
+		interactionSpot = ECBehaviorInteractionSpot.new(eclass, "interactToggle", "interactToggle.interactionSpot")
 		interactionSpot.getPosition().setVector(Vector.new(0, 0, 0.5))
 		interactionSpot.getOrientation().setVector(Vector.new(0, 180, 0))
 		interactionSpot.getLookAt().setVector(Vector.new(0, 1.6, 0))
@@ -138,7 +140,7 @@ class BehaviorInteractToggle extends DefaultECBehavior
 		// object properties. The second solution is recommended albeit being slightly
 		// less simple to do since you need to prefix both identifier and sub-identifiers.
 		// As you can see the two versions are slightly different
-		prompt = ECBehaviorInteractPrompt.new(eclass, "interactToggle.use", "interactPrompt(interactToggle.use)" )
+		prompt = ECBehaviorInteractPrompt.new(eclass, "interactToggle.use", "interactToggle.interactPrompt(use)" )
 		prompt.getVerb().setValue(UnicodeString.newFromUTF8("Toggle"))
 		prompt.getImage().setPath("/content/images/interactToggle.png")
 		//prompt.getDescription().setValue(UnicodeString.newFromUTF8("Toggle the animation on/off"))

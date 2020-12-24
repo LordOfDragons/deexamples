@@ -65,15 +65,13 @@ class BehaviorChangeCustomColors extends DefaultECBehavior
 		
 		// Add the interaction spot. Set some basic parameters. Usually the element
 		// class using this behavior sets the parameters to match the model used
-		interactionSpot = ECBehaviorInteractionSpot.new(eclass, \
-			"chooseColors", "interactionSpot(chooseColors)")
+		interactionSpot = ECBehaviorInteractionSpot.new(eclass, "chooseColors", "chooseColors.interactionSpot")
 		interactionSpot.getPosition().setVector(Vector.new(0, 0, 1))
 		interactionSpot.getOrientation().setVector(Vector.new(0, 180, 0))
 		interactionSpot.getLookAt().setVector(Vector.new())
 		
 		// Add an interact prompt telling the player he can use this object
-		prompt = ECBehaviorInteractPrompt.new(eclass, "chooseColors.use", \
-			"interactPrompt(chooseColors.use)" )
+		prompt = ECBehaviorInteractPrompt.new(eclass, "chooseColors.use", "chooseColors.interactPrompt(use)" )
 		prompt.getVerb().setValue(UnicodeString.newFromUTF8("Choose Colors"))
 		prompt.getImage().setPath("/content/images/interactChooseColors.png")
 		

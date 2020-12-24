@@ -124,10 +124,10 @@
 			<propertyPrefix>interactToggle.</propertyPrefix>
 		</inherit>
 		<propertyValue name='component.rig'>/content/models/animationTest/at2.derig</propertyValue>
-		<propertyValue name='interactionSpot.lookAt'>0 1.4 0.2</propertyValue>
 		<propertyValue name='animated.animator'>/content/models/animationTest/at2.deanimator</propertyValue>
 		<propertyValue name='component.skin'>/content/models/animationTest/at2.deskin</propertyValue>
 		<propertyValue name='component.model'>/content/models/animationTest/at2.demodel</propertyValue>
+		<propertyValue name='interactToggle.interactionSpot.lookAt'>0 1.4 0.2</propertyValue>
 		<propertyValue name='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,0.8,0.5,0.5</propertyValue>
 		<category>ExampleApp</category>
 	</class>
@@ -138,16 +138,16 @@
 		<canInstantiate>false</canInstantiate>
 		<defaultInheritPropertyPrefix>interactToggle.</defaultInheritPropertyPrefix>
 		<inherit name='ECBehaviorInteractPrompt'>
-			<propertyPrefix>interactPrompt(interactToggle.use).</propertyPrefix>
+			<propertyPrefix>interactPrompt(use).</propertyPrefix>
 		</inherit>
 		<inherit name='ECBehaviorInteractionSpot'>
-			<propertyPrefix>interactionSpot(interactToggle).</propertyPrefix>
+			<propertyPrefix>interactionSpot.</propertyPrefix>
 		</inherit>
-		<propertyValue name='interactionSpot(interactToggle).position'>0 0 0.5</propertyValue>
-		<propertyValue name='interactionSpot(interactToggle).orientation'>0 180 0</propertyValue>
-		<propertyValue name='interactPrompt(interactToggle.use).image'>/content/images/interactToggle.png</propertyValue>
-		<propertyValue name='interactPrompt(interactToggle.use).verb'>Toggle</propertyValue>
-		<propertyValue name='interactionSpot(interactToggle).lookAt'>0 1.6 0.2</propertyValue>
+		<propertyValue name='interactionSpot.position'>0 0 0.5</propertyValue>
+		<propertyValue name='interactionSpot.lookAt'>0 1.6 0.2</propertyValue>
+		<propertyValue name='interactPrompt(use).image'>/content/images/interactToggle.png</propertyValue>
+		<propertyValue name='interactPrompt(use).verb'>Toggle</propertyValue>
+		<propertyValue name='interactionSpot.orientation'>0 180 0</propertyValue>
 		<category>ExampleApp</category>
 	</class>
 	<class name='CustomColorExample'>
@@ -192,14 +192,16 @@
 			<propertyPrefix>renderableCustomColor(color5).</propertyPrefix>
 		</inherit>
 		<inherit name='BehaviorChangeCustomColors'>
+			<propertyPrefix>chooseColors.</propertyPrefix>
 		</inherit>
 		<propertyValue name='renderableCustomColor(color2).image'>/content/models/customColor/color2.png</propertyValue>
-		<propertyValue name='interactionSpot(chooseColors).lookAt'>0.5 1 1</propertyValue>
+		<propertyValue name='chooseColors.interactionSpot.lookAt'>0.5 1 1</propertyValue>
 		<propertyValue name='customColor(color2).defaultColor'>0.85, 0.3, 1</propertyValue>
 		<propertyValue name='customColor(color2).name'>Dragoness</propertyValue>
 		<propertyValue name='renderableCanvas(customColor).renderable'>customColor</propertyValue>
 		<propertyValue name='customColor(color1).allowedColors'>0,0,0.5 0.5,0.5,0.5 0,0.5,0 0.5,0,0 1,1,1 0,0,0</propertyValue>
 		<propertyValue name='renderableCustomColor(color3).image'>/content/models/customColor/color3.png</propertyValue>
+		<propertyValue name='chooseColors.interactionSpot.position'>0 0 3</propertyValue>
 		<propertyValue name='customColor(color4).defaultColor'>0.8, 0.8, 0.8</propertyValue>
 		<propertyValue name='customColor(color4).name'>Text Right</propertyValue>
 		<propertyValue name='renderableCanvas(customColor).size'>512 512</propertyValue>
@@ -207,7 +209,6 @@
 		<propertyValue name='renderableCanvas(customColor).backgroundImage'>/content/models/customColor/base.png</propertyValue>
 		<propertyValue name='component.skin'>/content/models/customColor/customColor.deskin</propertyValue>
 		<propertyValue name='customColor(color5).defaultColor'>0.65, 0.65, 0.65</propertyValue>
-		<propertyValue name='interactionSpot(chooseColors).position'>0 0 3</propertyValue>
 		<propertyValue name='customColor(color1).name'>Background</propertyValue>
 		<propertyValue name='customColor(color3).defaultColor'>0.33, 0.44, 0.7</propertyValue>
 		<propertyValue name='renderableCustomColor(color4).image'>/content/models/customColor/color4.png</propertyValue>
@@ -224,17 +225,18 @@
 		<scaleMode>uniform</scaleMode>
 		<ghost>true</ghost>
 		<canInstantiate>false</canInstantiate>
+		<defaultInheritPropertyPrefix>chooseColors.</defaultInheritPropertyPrefix>
 		<inherit name='ECBehaviorInteractPrompt'>
-			<propertyPrefix>interactPrompt(chooseColors.use).</propertyPrefix>
+			<propertyPrefix>interactPrompt(use).</propertyPrefix>
 		</inherit>
 		<inherit name='ECBehaviorInteractionSpot'>
-			<propertyPrefix>interactionSpot(chooseColors).</propertyPrefix>
+			<propertyPrefix>interactionSpot.</propertyPrefix>
 		</inherit>
-		<propertyValue name='interactPrompt(chooseColors.use).image'>/content/images/interactChooseColors.png</propertyValue>
-		<propertyValue name='interactionSpot(chooseColors).orientation'>0 180 0</propertyValue>
-		<propertyValue name='interactionSpot(chooseColors).position'>0 0 1</propertyValue>
-		<propertyValue name='interactPrompt(chooseColors.use).verb'>Choose Colors</propertyValue>
-		<propertyValue name='interactionSpot(chooseColors).lookAt'>0 0 0</propertyValue>
+		<propertyValue name='interactionSpot.position'>0 0 1</propertyValue>
+		<propertyValue name='interactionSpot.lookAt'>0 0 0</propertyValue>
+		<propertyValue name='interactPrompt(use).image'>/content/images/interactChooseColors.png</propertyValue>
+		<propertyValue name='interactPrompt(use).verb'>Choose Colors</propertyValue>
+		<propertyValue name='interactionSpot.orientation'>0 180 0</propertyValue>
 		<category>ExampleApp</category>
 	</class>
 </gameDefinition>
