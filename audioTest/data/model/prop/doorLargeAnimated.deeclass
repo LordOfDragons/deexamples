@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <elementClass name='DoorLargeAnimated' class='TwoStateAnimatedElement'>
-	<string name='component.audioModel'>door2.demodel</string>
-	<string name='component.rig'>door2.derig</string>
+	<string name='component.audioModel'>doorLarge.demodel</string>
+	<string name='component.rig'>doorLarge.derig</string>
 	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
-	<string name='component.model'>door2.demodel</string>
-	<string name='twoStateAnimated.animator'>door2.deanimator</string>
+	<string name='component.model'>doorLarge.demodel</string>
+	<string name='twoStateAnimated.animator'>doorLarge.deanimator</string>
 	<map name='component.textureReplacements'>
 		<map key='frame'>
 			<string key='skin'>/material/metal/paintedRough.deskin</string>

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <elementClass name='DoorFrame' class='SimpleElement'>
-	<string name='component.model'>door1.demodel</string>
+	<string name='component.model'>doorFrame.demodel</string>
 	<string name='component.skin'>/shareddata/materials/empty.deskin</string>
-	<string name='component.rig'>door1.derig</string>
+	<string name='component.rig'>doorFrame.derig</string>
 	<map name='component.textureReplacements'>
 		<map key='frame'>
 			<string key='skin'>/material/metal/paintedRough.deskin</string>

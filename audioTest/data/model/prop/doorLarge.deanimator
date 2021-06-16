@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE animator SYSTEM 'EpsylonAnimator.dtd'>
 <animator>
 	<display>
-		<model>/model/prop/door2.demodel</model>
+		<model>/model/prop/doorLarge.demodel</model>
 		<skin>/shareddata/material/empty.deskin</skin>
-		<rig>/model/prop/door2.derig</rig>
+		<rig>/model/prop/doorLarge.derig</rig>
 		<locomotion>
 		</locomotion>
 	</display>
-	<rig>/model/prop/door2.derig</rig>
-	<animation>/model/prop/door2.deanim</animation>
+	<rig>/model/prop/doorLarge.derig</rig>
+	<animation>/model/prop/doorLarge.deanim</animation>
 	
 	<controller>
 		<name>activating</name>
