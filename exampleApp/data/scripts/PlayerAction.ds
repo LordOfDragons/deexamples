@@ -74,19 +74,47 @@ class PlayerAction extends BAAFirstPerson implements BAAInteract
 		// this to figure out what action to do. This is a flexible solution and allows
 		// to evaluate what to do on the behaviors supported by an element instead of
 		// the element type itself.
-		var BehaviorInteractToggle.Instance interactToggle = BehaviorInteractToggle.getInstanceIn(target)
-		if interactToggle != null
+		// 
+		// The solution below uses forEachInstance() with individual blocks using
+		// the supported behaviors as argument. BehaviorElement.forEachInstance()
+		// calls blocks only if the visited instance is castable to the block parameter.
+		// This simplifies script code.
+		target.forEachInstance(block BehaviorInteractToggle.Instance interactToggle
 			// This element supports the toggle interaction. So do it and exit
 			aiAction.setAction(PlayerActionInteractToggle.new(interactToggle))
+		end)
+		
+		target.forEachInstance(block BehaviorChangeCustomColors.Instance chooseCustomColors
+			// This element supports the choose custom colors interaction. So do it and exit
+			aiAction.setAction(PlayerActionCustomColor.new(chooseCustomColors))
+		end)
+		
+		// Using forEachInstance() works if only one of the supported behaviors is
+		// present in the element. A more elaborate version can use findInstance().
+		// This method also calls blocks only if the instance is castable to the block
+		// parameter but stops when the block returns true. The code below is the same
+		// as the forEachInstance() version above but stops after the first supported
+		// behavior has been processed. This kind of solution is required to be
+		// priorized.
+		/*
+		if target.findInstance(block BehaviorInteractToggle.Instance interactToggle
+			// This element supports the toggle interaction. So do it and exit
+			aiAction.setAction(PlayerActionInteractToggle.new(interactToggle))
+			
+			// return false if the behavior is not processed for example because it is disabled
+			return true
+		end) != null
 			return
 		end
 		
-		var BehaviorChangeCustomColors.Instance chooseCustomColors = BehaviorChangeCustomColors.getInstanceIn(target)
-		if chooseCustomColors != null
+		if target.findInstance(block BehaviorChangeCustomColors.Instance chooseCustomColors
 			// This element supports the choose custom colors interaction. So do it and exit
 			aiAction.setAction(PlayerActionCustomColor.new(chooseCustomColors))
+			return true
+		end) != null
 			return
 		end
+		*/
 	end
 	
 	/**

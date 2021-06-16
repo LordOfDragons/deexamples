@@ -94,16 +94,6 @@ class BehaviorChangeCustomColors extends DefaultECBehavior
 	end
 	
 	/**
-	 * Get instance in element if present. This is a convenience method which is
-	 * recommended to be added to each behavior you want to look up in various places.
-	 */
-	public static func Instance getInstanceIn(BehaviorElement element)
-		return element.findInstance(block ECBehaviorInstance each
-			return each castable Instance
-		end) cast Instance
-	end
-	
-	/**
 	 * Create instance.
 	 */
 	public func ECBehaviorInstance createInstance(BehaviorElement element)

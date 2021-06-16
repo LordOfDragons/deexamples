@@ -92,11 +92,9 @@ class BehaviorClaim extends DefaultECBehavior
 			 * Element entered touch sensor.
 			 */
 			public func void elementEntered( ECBehaviorTouchSensor.Instance instance, Element element )
-				var BehaviorClaimable.Instance claimable = \
-					BehaviorClaimable.getInstanceIn( element cast BehaviorElement )
-				if claimable != null
+				( element cast BehaviorElement ).forEachInstance( block BehaviorClaimable.Instance claimable
 					this.instance.claim( claimable )
-				end
+				end )
 			end
 			
 			/**
@@ -109,11 +107,9 @@ class BehaviorClaim extends DefaultECBehavior
 				// way around this without telling the element it is tracked by us or (which is
 				// the recommended way) we figure out the element is already disposed of
 				if element.isNotDisposed()
-					var BehaviorClaimable.Instance claimable = \
-						BehaviorClaimable.getInstanceIn( element cast BehaviorElement )
-					if claimable != null
+					( element cast BehaviorElement ).forEachInstance( block BehaviorClaimable.Instance claimable
 						this.instance.unclaim( claimable )
-					end
+					end )
 				end
 			end
 			
@@ -139,10 +135,9 @@ class BehaviorClaim extends DefaultECBehavior
 				var UniqueID idClaimable = UniqueID.readFromFile( reader )
 				var ECBehaviorNetworkState.Instance nsClaimable = \
 					instance.networkState.getNetworkStateTracker().getAt( idClaimable )
-				var BehaviorClaimable.Instance claimable = \
-					BehaviorClaimable.getInstanceIn( nsClaimable.getElement() )
-				
-				instance.claim( claimable )
+				nsClaimable.getElement().forEachInstance( block BehaviorClaimable.Instance claimable
+					instance.claim( claimable )
+				end )
 			end
 			
 			public func void send( BehaviorClaimable.Instance claimable )
@@ -166,10 +161,9 @@ class BehaviorClaim extends DefaultECBehavior
 				var UniqueID idClaimable = UniqueID.readFromFile( reader )
 				var ECBehaviorNetworkState.Instance nsClaimable = \
 					instance.networkState.getNetworkStateTracker().getAt( idClaimable )
-				var BehaviorClaimable.Instance claimable = \
-					BehaviorClaimable.getInstanceIn( nsClaimable.getElement() )
-				
-				instance.unclaim( claimable )
+				nsClaimable.getElement().forEachInstance( block BehaviorClaimable.Instance claimable
+					instance.unclaim( claimable )
+				end )
 			end
 			
 			public func void send( BehaviorClaimable.Instance claimable )
@@ -348,15 +342,6 @@ class BehaviorClaim extends DefaultECBehavior
 	/** Get instance from element. */
 	public func Instance instance( BehaviorElement element )
 		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
-	end
-	
-	
-	
-	/** Get instance in element or null if absent. */
-	static public func Instance getInstanceIn( BehaviorElement element )
-		return element.findInstance( block ECBehaviorInstance each
-			return each castable Instance
-		end ) cast Instance
 	end
 	
 	

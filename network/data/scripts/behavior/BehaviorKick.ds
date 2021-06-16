@@ -129,13 +129,12 @@ class BehaviorKick extends DefaultECBehavior
 				var UniqueID idKickable = UniqueID.readFromFile( reader )
 				var ECBehaviorNetworkState.Instance nsKicked = \
 					instance.networkState.getNetworkStateTracker().getAt( idKickable )
-				var BehaviorKickable.Instance kickable = \
-					BehaviorKickable.getInstanceIn( nsKicked.getElement() )
-				
 				var Vector impulse = Vector.readFromFile( reader )
 				var float power = reader.readFloat()
 				
-				instance.kick( kickable, impulse, power )
+				nsKicked.getElement().forEachInstance( block BehaviorKickable.Instance kickable
+					instance.kick( kickable, impulse, power )
+				end )
 			end
 			
 			public func void send( BehaviorKickable.Instance kickable, Vector impulse, float power )
@@ -283,9 +282,6 @@ class BehaviorKick extends DefaultECBehavior
 				return
 			end
 			
-			var BehaviorKickable.Instance kickable = BehaviorKickable.getInstanceIn( \
-				collisionTest.hitCollider( 0 ).getOwner() cast BehaviorElement )
-			
 			var float power = DEMath.linearStep( elapsed, 0.0, fullPowerTime )
 			var float lift = DEMath.linearStep( power, 0.0, 1.0, minLift, maxLift )
 			var float impulse = DEMath.linearStep( power, 0.0, 1.0, minImpulse, maxImpulse )
@@ -294,7 +290,10 @@ class BehaviorKick extends DefaultECBehavior
 			var Vector impulseVector = direction * impulse
 			
 			// Kick kickable and notify listeners
-			kick( kickable, impulseVector, power )
+			( collisionTest.hitCollider( 0 ).getOwner() cast BehaviorElement ) \
+			.forEachInstance( block BehaviorKickable.Instance kickable
+				kick( kickable, impulseVector, power )
+			end )
 		end
 		
 		/** Kick kickable. */
@@ -459,15 +458,6 @@ class BehaviorKick extends DefaultECBehavior
 	/** Get instance from element. */
 	public func Instance instance( BehaviorElement element )
 		return element.getInstanceAt( this.getInstanceIndex() ) cast Instance
-	end
-	
-	
-	
-	/** Get instance in element or null if absent. */
-	static public func Instance getInstanceIn( BehaviorElement element )
-		return element.findInstance( block ECBehaviorInstance each
-			return each castable Instance
-		end ) cast Instance
 	end
 	
 	

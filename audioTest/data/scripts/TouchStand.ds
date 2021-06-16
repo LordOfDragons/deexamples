@@ -33,7 +33,7 @@ class TouchStand extends BehaviorElement implements ECBehaviorTriggered.Listener
 		component.getComponent().setTextureSkinAt(textureIndex, skinOff, 0)
 		
 		// Add ourself as listener for triggered events
-		ECBehaviorTriggered.getInstanceIn(this).addListener(this)
+		eclass.triggered.instance(this).addListener(this)
 	end
 	
 	
