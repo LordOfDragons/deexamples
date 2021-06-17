@@ -97,7 +97,11 @@
 	</class>
 	<class name='CeilingLamp'>
 		<description>Ceiling lamp</description>
-		<inherit name='SimpleElement'>
+		<inherit name='ECBehaviorComponent'>
+			<propertyPrefix>component.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorCollider'>
+			<propertyPrefix>collider.</propertyPrefix>
 		</inherit>
 		<inherit name='ECBehaviorLight'>
 			<propertyPrefix>light.</propertyPrefix>
@@ -118,34 +122,12 @@
 			<link target='renderEnvMap' property='component.renderEnvMap'/>
 			<link target='affectsAudio' property='component.affectsAudio'/>
 		</component>
-		<light>
-			<position x='0' y='-0.3' z='0'/>
-			<orientation x='-90' y='0' z='0'/>
-			<color r='1' g='1' b='1'/>
-			<intensity>1</intensity>
-			<range>10</range>
-			<ambientRatio>0.25</ambientRatio>
-			<hintMovement>static</hintMovement>
-			<hintParameter>static</hintParameter>
-			<link target='type' property='light.type'/>
-			<link target='color' property='light.color'/>
-			<link target='intensity' property='light.intensity'/>
-			<link target='range' property='light.range'/>
-			<link target='ambientRatio' property='light.ambientRatio'/>
-			<link target='halfIntensityDistance' property='light.halfIntensityDistance'/>
-			<link target='spotAngle' property='light.spotAngle'/>
-			<link target='spotRatio' property='light.spotRatio'/>
-			<link target='spotSmoothness' property='light.spotSmoothness'/>
-			<link target='spotExponent' property='light.spotExponent'/>
-			<link target='lightSkin' property='light.lightSkin'/>
-			<link target='activated' property='light.activated'/>
-			<link target='castShadows' property='light.castShadows'/>
-			<link target='hintShadowImportance' property='light.hintShadowImportance'/>
-		</light>
 		<propertyValue name='component.model'>/model/prop/ceilingLamp.demodel</propertyValue>
-		<propertyValue name='light.ambientRatio'>0.25</propertyValue>
 		<propertyValue name='component.skin'>/shareddata/materials/empty.deskin</propertyValue>
 		<propertyValue name='component.rig'>/model/prop/ceilingLamp.derig</propertyValue>
+		<propertyValue name='light.ambientRatio'>0.25</propertyValue>
+		<propertyValue name='light.position'>0 -0.3 0</propertyValue>
+		<propertyValue name='light.orientation'>-90 0 0</propertyValue>
 		<category>AudioTest</category>
 	</class>
 </gameDefinition>

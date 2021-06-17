@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
-	<ambientLight r='1' g='1' b='1'/>
 	<nextObjectID>264</nextObjectID>
 	
 	<object id='1'>
@@ -3108,7 +3107,7 @@
 	</object>
 	<object id='1f9'>
 		<classname>HallwayStraight1</classname>
-		<position x='-2.98023e-07' y='0' z='68.6'/>
+		<position x='0' y='0' z='68.6'/>
 		<rotation x='0' y='-180' z='0'/>
 	</object>
 	<object id='1fa'>
@@ -3150,7 +3149,7 @@
 	</object>
 	<object id='200'>
 		<classname>Room7</classname>
-		<position x='-2.98023e-07' y='0' z='69.6'/>
+		<position x='0' y='0' z='69.6'/>
 		<rotation x='0' y='-180' z='0'/>
 	</object>
 	<object id='201'>
