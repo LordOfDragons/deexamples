@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE gameDefinition SYSTEM 'DragengineGameDefinition.dtd'>
 <gameDefinition>
 	<identifier>audioTest</identifier>
 	<description>Game project audioTest.</description>
@@ -27,13 +26,9 @@
 		<description>Dragoness actor.</description>
 		<inherit name='BaseActor'>
 		</inherit>
-		<component>
-			<model>/model/dragoness/dragoness.demodel</model>
-			<skin>/model/dragoness/dragoness.deskin</skin>
-			<rig>/model/dragoness/dragoness.derig</rig>
-			<renderEnvMap>false</renderEnvMap>
-			<affectsAudio>false</affectsAudio>
-		</component>
+		<propertyValue name='component.model'>/model/dragoness/dragoness.demodel</propertyValue>
+		<propertyValue name='component.skin'>/model/dragoness/dragoness.deskin</propertyValue>
+		<propertyValue name='component.rig'>/model/dragoness/dragoness.derig</propertyValue>
 		<category>AudioTest</category>
 	</class>
 	<class name='TouchStand'>
@@ -44,22 +39,13 @@
 		<inherit name='ECBehaviorCollider'>
 			<propertyPrefix>collider.</propertyPrefix>
 		</inherit>
-		<component>
-			<model>/model/prop/touchMe.demodel</model>
-			<skin>/shareddata/materials/empty.deskin</skin>
-			<rig>/model/prop/touchMe.derig</rig>
-			<texture name='case'>
-				<skin>/material/plastic/matte.deskin</skin>
-				<tint r='0.756863' g='0.921569' b='1'/>
-			</texture>
-			<texture name='panel'>
-				<skin>/material/miscLabel/touchMe.deskin</skin>
-			</texture>
-			<link target='model' property='model'/>
-			<link target='skin' property='skin'/>
-			<link target='rig' property='rig'/>
-			<link target='affectsAudio' property='affectsAudio'/>
-		</component>
+		<texture name='case'>
+			<skin>/material/plastic/matte.deskin</skin>
+			<tint r='0.756863' g='0.921569' b='1'/>
+		</texture>
+		<texture name='panel'>
+			<skin>/material/miscLabel/touchMe.deskin</skin>
+		</texture>
 		<property name='trigger'>
 			<description>Trigger expression to change display skin.</description>
 			<type>triggerExpression</type>
@@ -76,7 +62,10 @@
 			<pathPatternType>skin</pathPatternType>
 			<default>/material/miscLabel/touchMe.deskin</default>
 		</property>
-		<propertyValue name='affectsAudio'>0</propertyValue>
+		<propertyValue name='component.model'>/model/prop/touchMe.demodel</propertyValue>
+		<propertyValue name='component.affectsAudio'>0</propertyValue>
+		<propertyValue name='component.skin'>/shareddata/materials/empty.deskin</propertyValue>
+		<propertyValue name='component.rig'>/model/prop/touchMe.derig</propertyValue>
 		<category>AudioTest</category>
 	</class>
 	<class name='TriggerPlayerRuns'>
@@ -87,7 +76,6 @@
 			<locked>false</locked>
 			<spherical>false</spherical>
 			<partialHide>true</partialHide>
-			<renderEnvMap>false</renderEnvMap>
 		</billboard>
 		<property name='target'>
 			<description>Trigger target to mirror player run state.</description>
@@ -106,28 +94,16 @@
 		<inherit name='ECBehaviorLight'>
 			<propertyPrefix>light.</propertyPrefix>
 		</inherit>
-		<component>
-			<model>/model/prop/ceilingLamp.demodel</model>
-			<skin>/shareddata/materials/empty.deskin</skin>
-			<rig>/model/prop/ceilingLamp.derig</rig>
-			<texture name='light'>
-				<skin>/material/lightGrid/material.deskin</skin>
-				<tint r='1' g='0.854902' b='0.462745'/>
-			</texture>
-			<link target='model' property='component.model'/>
-			<link target='skin' property='component.skin'/>
-			<link target='rig' property='component.rig'/>
-			<link target='occlusionMesh' property='component.occlusionMesh'/>
-			<link target='audioModel' property='component.audioModel'/>
-			<link target='renderEnvMap' property='component.renderEnvMap'/>
-			<link target='affectsAudio' property='component.affectsAudio'/>
-		</component>
-		<propertyValue name='component.model'>/model/prop/ceilingLamp.demodel</propertyValue>
-		<propertyValue name='component.skin'>/shareddata/materials/empty.deskin</propertyValue>
+		<texture name='light'>
+			<skin>/material/lightGrid/material.deskin</skin>
+			<tint r='1' g='0.854902' b='0.462745'/>
+		</texture>
 		<propertyValue name='component.rig'>/model/prop/ceilingLamp.derig</propertyValue>
+		<propertyValue name='component.skin'>/shareddata/materials/empty.deskin</propertyValue>
 		<propertyValue name='light.ambientRatio'>0.25</propertyValue>
-		<propertyValue name='light.position'>0 -0.3 0</propertyValue>
+		<propertyValue name='component.model'>/model/prop/ceilingLamp.demodel</propertyValue>
 		<propertyValue name='light.orientation'>-90 0 0</propertyValue>
+		<propertyValue name='light.position'>0 -0.3 0</propertyValue>
 		<category>AudioTest</category>
 	</class>
 </gameDefinition>
