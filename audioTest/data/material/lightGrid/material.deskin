@@ -21,7 +21,7 @@
 				<path>../speakerGrid/color.jpg</path>
 			</image>
 		</constructed>
-		<value property='emissivity.intensity'>4</value>
+		<value property='emissivity.intensity' renderable='intensity'>4</value>
 		<color property='emissivity.tint' r='0.211765' g='0.576471' b='0.811765' a='1' renderable='tint'/>
 	</texture>
 </skin>

@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
+	<size x='1000' y='1000' z='1000'/>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>264</nextObjectID>
+	<nextObjectID>26f</nextObjectID>
 	
 	<object id='1'>
 		<classname>Room1</classname>
@@ -12,21 +13,9 @@
 		<position x='0' y='0' z='-4'/>
 		<property key='component.renderEnvMap'>0</property>
 	</object>
-	<object id='3'>
-		<classname>CeilingLampRoom</classname>
-		<position x='1.5' y='2.5' z='-1.5'/>
-	</object>
-	<object id='4'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-1.5' y='2.5' z='-1.5'/>
-	</object>
 	<object id='5'>
 		<classname>CeilingLampRoom</classname>
-		<position x='-1.5' y='2.5' z='-6.5'/>
-	</object>
-	<object id='6'>
-		<classname>CeilingLampRoom</classname>
-		<position x='1.5' y='2.5' z='-6.5'/>
+		<position x='0' y='2.5' z='-3.5'/>
 	</object>
 	<object id='8'>
 		<classname>DoorFrame</classname>
@@ -34,7 +23,7 @@
 	</object>
 	<object id='9'>
 		<classname>SpawnPoint</classname>
-		<position x='-11.5' y='0' z='1'/>
+		<position x='-10.5' y='0' z='1'/>
 		<rotation x='0' y='-90' z='0'/>
 		<property key='name'>player</property>
 	</object>
@@ -63,7 +52,7 @@
 	</object>
 	<object id='f'>
 		<classname>CeilingLampHallway</classname>
-		<position x='5' y='2.5' z='1'/>
+		<position x='10' y='2.5' z='1'/>
 	</object>
 	<object id='10'>
 		<classname>CeilingLampHallway</classname>
@@ -80,10 +69,6 @@
 		<classname>HallwayDeadEnd</classname>
 		<position x='-10' y='0' z='1'/>
 	</object>
-	<object id='14'>
-		<classname>CeilingLampRoom</classname>
-		<position x='21.5' y='2.5' z='-6.5'/>
-	</object>
 	<object id='15'>
 		<classname>SpeakerMount1</classname>
 		<position x='20' y='0' z='-4'/>
@@ -96,17 +81,9 @@
 		<property key='speaker.volume'>0.5</property>
 		<property key='speaker.range'>60</property>
 	</object>
-	<object id='17'>
-		<classname>CeilingLampRoom</classname>
-		<position x='21.5' y='2.5' z='-1.5'/>
-	</object>
-	<object id='18'>
-		<classname>CeilingLampRoom</classname>
-		<position x='18.5' y='2.5' z='-6.5'/>
-	</object>
 	<object id='19'>
 		<classname>CeilingLampRoom</classname>
-		<position x='18.5' y='2.5' z='-1.5'/>
+		<position x='20' y='2.5' z='-1.5'/>
 	</object>
 	<object id='1b'>
 		<classname>RoomLabelPlate</classname>
@@ -125,7 +102,7 @@
 	</object>
 	<object id='1e'>
 		<classname>CeilingLampHallway</classname>
-		<position x='25' y='2.5' z='1'/>
+		<position x='30' y='2.5' z='1'/>
 	</object>
 	<object id='1f'>
 		<classname>EnvironmentMap</classname>
@@ -143,14 +120,6 @@
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
 	</object>
-	<object id='22'>
-		<classname>CeilingLampHallway</classname>
-		<position x='15' y='2.5' z='1'/>
-	</object>
-	<object id='23'>
-		<classname>CeilingLampRoom</classname>
-		<position x='41.5' y='2.5' z='-6.5'/>
-	</object>
 	<object id='24'>
 		<classname>SpeakerMount1</classname>
 		<position x='40' y='0' z='-4'/>
@@ -163,17 +132,10 @@
 		<property key='speaker.volume'>1</property>
 		<property key='speaker.range'>60</property>
 	</object>
-	<object id='26'>
-		<classname>CeilingLampRoom</classname>
-		<position x='41.5' y='2.5' z='-1.5'/>
-	</object>
-	<object id='27'>
-		<classname>CeilingLampRoom</classname>
-		<position x='38.5' y='2.5' z='-6.5'/>
-	</object>
 	<object id='28'>
 		<classname>CeilingLampRoom</classname>
-		<position x='38.5' y='2.5' z='-1.5'/>
+		<position x='40' y='2.5' z='-1.5'/>
+		<property key='light.range'>10</property>
 	</object>
 	<object id='2a'>
 		<classname>RoomLabelPlate</classname>
@@ -190,10 +152,6 @@
 		<classname>DoorFrame</classname>
 		<position x='40' y='0' z='0.05'/>
 	</object>
-	<object id='2d'>
-		<classname>CeilingLampHallway</classname>
-		<position x='45' y='2.5' z='1'/>
-	</object>
 	<object id='2e'>
 		<classname>EnvironmentMap</classname>
 		<position x='45' y='1.65' z='1'/>
@@ -209,10 +167,6 @@
 		<position x='35' y='1.65' z='1'/>
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
-	</object>
-	<object id='31'>
-		<classname>CeilingLampHallway</classname>
-		<position x='35' y='2.5' z='1'/>
 	</object>
 	<object id='32'>
 		<classname>HallwayCorner</classname>
@@ -281,10 +235,6 @@
 		<position x='50' y='0' z='22.9'/>
 		<rotation x='0' y='90' z='0'/>
 	</object>
-	<object id='3e'>
-		<classname>CeilingLampHallway</classname>
-		<position x='51.55' y='2.5' z='1.45'/>
-	</object>
 	<object id='3f'>
 		<classname>EnvironmentMap</classname>
 		<position x='35' y='1.65' z='24.8'/>
@@ -292,14 +242,9 @@
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
 	</object>
-	<object id='40'>
-		<classname>CeilingLampHallway</classname>
-		<position x='45' y='2.5' z='24.8'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
 	<object id='41'>
 		<classname>CeilingLampHallway</classname>
-		<position x='35' y='2.5' z='24.8'/>
+		<position x='30' y='2.5' z='24.8'/>
 		<rotation x='0' y='-180' z='0'/>
 	</object>
 	<object id='42'>
@@ -343,23 +288,9 @@
 	</object>
 	<object id='48'>
 		<classname>CeilingLampRoom</classname>
-		<position x='41' y='2.5' z='26.8'/>
+		<position x='40' y='2.5' z='28.5'/>
 		<rotation x='0' y='-180' z='0'/>
-	</object>
-	<object id='49'>
-		<classname>CeilingLampRoom</classname>
-		<position x='41' y='2.5' z='30.3'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
-	<object id='4a'>
-		<classname>CeilingLampRoom</classname>
-		<position x='39' y='2.5' z='26.8'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
-	<object id='4b'>
-		<classname>CeilingLampRoom</classname>
-		<position x='39' y='2.5' z='30.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<property key='light.range'>10</property>
 	</object>
 	<object id='4c'>
 		<classname>EnvironmentMap</classname>
@@ -404,16 +335,6 @@
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
 	</object>
-	<object id='54'>
-		<classname>CeilingLampHallway</classname>
-		<position x='15' y='2.5' z='24.8'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
-	<object id='55'>
-		<classname>CeilingLampHallway</classname>
-		<position x='25' y='2.5' z='24.8'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
 	<object id='56'>
 		<classname>EnvironmentMap</classname>
 		<position x='25' y='1.65' z='24.8'/>
@@ -441,8 +362,8 @@
 	</object>
 	<object id='5a'>
 		<classname>PillarLight</classname>
-		<position x='17.65' y='0.7' z='27.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<position x='17.6' y='0.7' z='27.3'/>
+		<rotation x='90' y='-90' z='0'/>
 	</object>
 	<object id='5b'>
 		<classname>BaseSpeaker</classname>
@@ -476,8 +397,8 @@
 	</object>
 	<object id='64'>
 		<classname>PillarLight</classname>
-		<position x='17.65' y='0.7' z='30.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<position x='17.6' y='0.7' z='30.3'/>
+		<rotation x='90' y='-90' z='0'/>
 	</object>
 	<object id='65'>
 		<classname>Pillar1</classname>
@@ -486,8 +407,8 @@
 	</object>
 	<object id='66'>
 		<classname>PillarLight</classname>
-		<position x='17.65' y='0.7' z='33.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<position x='17.6' y='0.7' z='33.3'/>
+		<rotation x='90' y='-90' z='0'/>
 	</object>
 	<object id='67'>
 		<classname>Pillar1</classname>
@@ -496,8 +417,8 @@
 	</object>
 	<object id='68'>
 		<classname>PillarLight</classname>
-		<position x='17.65' y='0.7' z='36.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<position x='17.6' y='0.7' z='36.3'/>
+		<rotation x='90' y='-90' z='0'/>
 	</object>
 	<object id='69'>
 		<classname>Pillar1</classname>
@@ -506,8 +427,8 @@
 	</object>
 	<object id='6a'>
 		<classname>PillarLight</classname>
-		<position x='17.65' y='0.7' z='39.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<position x='17.6' y='0.7' z='39.3'/>
+		<rotation x='90' y='-90' z='0'/>
 	</object>
 	<object id='6b'>
 		<classname>Pillar1</classname>
@@ -516,8 +437,8 @@
 	</object>
 	<object id='6c'>
 		<classname>PillarLight</classname>
-		<position x='17.65' y='0.7' z='42.3'/>
-		<rotation x='0' y='-180' z='0'/>
+		<position x='17.6' y='0.7' z='42.3'/>
+		<rotation x='90' y='-90' z='0'/>
 	</object>
 	<object id='6d'>
 		<classname>Pillar1</classname>
@@ -526,7 +447,8 @@
 	</object>
 	<object id='6e'>
 		<classname>PillarLight</classname>
-		<position x='22.35' y='0.7' z='27.3'/>
+		<position x='22.4' y='0.7' z='27.3'/>
+		<rotation x='90' y='90' z='0'/>
 	</object>
 	<object id='6f'>
 		<classname>Pillar1</classname>
@@ -534,7 +456,8 @@
 	</object>
 	<object id='70'>
 		<classname>PillarLight</classname>
-		<position x='22.35' y='0.7' z='30.3'/>
+		<position x='22.4' y='0.7' z='30.3'/>
+		<rotation x='90' y='90' z='0'/>
 	</object>
 	<object id='71'>
 		<classname>Pillar1</classname>
@@ -542,7 +465,8 @@
 	</object>
 	<object id='72'>
 		<classname>PillarLight</classname>
-		<position x='22.35' y='0.7' z='33.3'/>
+		<position x='22.4' y='0.7' z='33.3'/>
+		<rotation x='90' y='90' z='0'/>
 	</object>
 	<object id='73'>
 		<classname>Pillar1</classname>
@@ -550,7 +474,8 @@
 	</object>
 	<object id='74'>
 		<classname>PillarLight</classname>
-		<position x='22.35' y='0.7' z='36.3'/>
+		<position x='22.4' y='0.7' z='36.3'/>
+		<rotation x='90' y='90' z='0'/>
 	</object>
 	<object id='75'>
 		<classname>Pillar1</classname>
@@ -558,7 +483,8 @@
 	</object>
 	<object id='76'>
 		<classname>PillarLight</classname>
-		<position x='22.35' y='0.7' z='39.3'/>
+		<position x='22.4' y='0.7' z='39.3'/>
+		<rotation x='90' y='90' z='0'/>
 	</object>
 	<object id='77'>
 		<classname>Pillar1</classname>
@@ -566,7 +492,8 @@
 	</object>
 	<object id='78'>
 		<classname>PillarLight</classname>
-		<position x='22.35' y='0.7' z='42.3'/>
+		<position x='22.4' y='0.7' z='42.3'/>
+		<rotation x='90' y='90' z='0'/>
 	</object>
 	<object id='79'>
 		<classname>Pillar1</classname>
@@ -584,14 +511,16 @@
 		<classname>BaseLight</classname>
 		<position x='20' y='4' z='38.3'/>
 		<rotation x='-67.1967' y='0' z='0'/>
-		<property key='light.type'>spot</property>
-		<property key='light.intensity'>8</property>
-		<property key='light.spotExponent'>2</property>
-		<property key='light.halfIntensityDistance'>0.5</property>
-		<property key='light.range'>8</property>
-		<property key='light.ambientRatio'>0</property>
 		<property key='light.color'>1.000000 0.854902 0.462745</property>
+		<property key='light.intensity'>1.5</property>
+		<property key='light.spotSmoothness'>0.2</property>
 		<property key='light.spotAngle'>40</property>
+		<property key='light.range'>8</property>
+		<property key='light.lightSkin'>/shareddata/materials/light/three_lobe_vee.deskin</property>
+		<property key='light.ambientRatio'>0</property>
+		<property key='light.type'>spot</property>
+		<property key='light.spotExponent'>2</property>
+		<property key='light.halfIntensityDistance'>0.3</property>
 	</object>
 	<object id='80'>
 		<classname>Entrance</classname>
@@ -667,7 +596,7 @@
 	</object>
 	<object id='8e'>
 		<classname>CeilingLampHallway</classname>
-		<position x='10.1' y='2.5' z='24.7'/>
+		<position x='10' y='2.5' z='24.8'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='8f'>
@@ -677,7 +606,7 @@
 	</object>
 	<object id='96'>
 		<classname>CeilingLampHallway</classname>
-		<position x='-11.9' y='2.5' z='41.7'/>
+		<position x='-11.9' y='2.5' z='46.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='97'>
@@ -686,11 +615,6 @@
 		<rotation x='0' y='-90' z='0'/>
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
-	</object>
-	<object id='98'>
-		<classname>CeilingLampHallway</classname>
-		<position x='-11.9' y='2.5' z='31.7'/>
-		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='99'>
 		<classname>EnvironmentMap</classname>
@@ -717,22 +641,12 @@
 		<position x='-11.9' y='0' z='36.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
-	<object id='9d'>
-		<classname>CeilingLampHallway</classname>
-		<position x='5' y='2.5' z='24.8'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
 	<object id='9e'>
 		<classname>EnvironmentMap</classname>
 		<position x='5' y='1.65' z='24.8'/>
 		<rotation x='0' y='-180' z='0'/>
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
-	</object>
-	<object id='9f'>
-		<classname>CeilingLampHallway</classname>
-		<position x='-5' y='2.5' z='24.8'/>
-		<rotation x='0' y='-180' z='0'/>
 	</object>
 	<object id='a0'>
 		<classname>EnvironmentMap</classname>
@@ -768,15 +682,11 @@
 		<position x='-11.55' y='2.5' z='25.25'/>
 		<rotation x='0' y='-180' z='0'/>
 	</object>
-	<object id='a6'>
-		<classname>CeilingLampRoom</classname>
-		<position x='59.4' y='2.5' z='11.4'/>
-		<rotation x='0' y='90' z='0'/>
-	</object>
 	<object id='a7'>
 		<classname>CeilingLampRoom</classname>
-		<position x='59.4' y='2.5' z='14.4'/>
+		<position x='56.6' y='2.5' z='12.9'/>
 		<rotation x='0' y='90' z='0'/>
+		<property key='light.intensity'>1.5</property>
 	</object>
 	<object id='a8'>
 		<classname>SpeakerMount1</classname>
@@ -797,16 +707,6 @@
 		<rotation x='0' y='90' z='0'/>
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,3,1.25,4</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,3.05,1.3,4.05</property>
-	</object>
-	<object id='ab'>
-		<classname>CeilingLampRoom</classname>
-		<position x='54.4' y='2.5' z='14.4'/>
-		<rotation x='0' y='90' z='0'/>
-	</object>
-	<object id='ac'>
-		<classname>CeilingLampRoom</classname>
-		<position x='54.4' y='2.5' z='11.4'/>
-		<rotation x='0' y='90' z='0'/>
 	</object>
 	<object id='ad'>
 		<classname>Room1</classname>
@@ -970,22 +870,12 @@
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
 	</object>
-	<object id='d0'>
-		<classname>CeilingLampHallway</classname>
-		<position x='51.9' y='2.5' z='17.9'/>
-		<rotation x='0' y='90' z='0'/>
-	</object>
 	<object id='d1'>
 		<classname>EnvironmentMap</classname>
 		<position x='51.9' y='1.65' z='7.9'/>
 		<rotation x='0' y='90' z='0'/>
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
-	</object>
-	<object id='d2'>
-		<classname>CeilingLampHallway</classname>
-		<position x='51.9' y='2.5' z='7.9'/>
-		<rotation x='0' y='90' z='0'/>
 	</object>
 	<object id='d3'>
 		<classname>HallwayStraight1</classname>
@@ -995,16 +885,6 @@
 	<object id='d4'>
 		<classname>CeilingLampHallway</classname>
 		<position x='51.55' y='2.5' z='24.45'/>
-	</object>
-	<object id='d8'>
-		<classname>CeilingLampRoom</classname>
-		<position x='1.5' y='2.5' z='32.3'/>
-		<rotation x='0' y='180' z='0'/>
-	</object>
-	<object id='d9'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-1.5' y='2.5' z='32.3'/>
-		<rotation x='0' y='180' z='0'/>
 	</object>
 	<object id='da'>
 		<classname>SpeakerMountMoving</classname>
@@ -1035,12 +915,7 @@
 	</object>
 	<object id='dd'>
 		<classname>CeilingLampRoom</classname>
-		<position x='1.5' y='2.5' z='27.3'/>
-		<rotation x='0' y='180' z='0'/>
-	</object>
-	<object id='de'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-1.5' y='2.5' z='27.3'/>
+		<position x='0' y='2.5' z='29'/>
 		<rotation x='0' y='180' z='0'/>
 	</object>
 	<object id='df'>
@@ -1231,25 +1106,12 @@
 		<position x='3.72529e-08' y='0' z='29.3'/>
 		<rotation x='0' y='180' z='0'/>
 	</object>
-	<object id='100'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-19.4' y='2.5' z='38.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='101'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-19.4' y='2.5' z='35.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='102'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-14.4' y='2.5' z='35.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
 	<object id='103'>
 		<classname>CeilingLampRoom</classname>
-		<position x='-14.4' y='2.5' z='38.2'/>
+		<position x='-16' y='2.5' z='36.7'/>
 		<rotation x='0' y='-90' z='0'/>
+		<property key='light.halfIntensityDistance'>0.15</property>
+		<property key='light.range'>15</property>
 	</object>
 	<object id='104'>
 		<classname>Room5</classname>
@@ -2185,11 +2047,6 @@
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
 	</object>
-	<object id='17a'>
-		<classname>CeilingLampHallway</classname>
-		<position x='-11.9' y='2.5' z='61.7'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
 	<object id='17b'>
 		<classname>RoomLabelPlate</classname>
 		<position x='-12.8' y='1.6' z='57.95'/>
@@ -2197,11 +2054,6 @@
 		<texture name='display'>
 			<skin>/material/roomLabel/animatedGeometry.deskin</skin>
 		</texture>
-	</object>
-	<object id='17c'>
-		<classname>CeilingLampHallway</classname>
-		<position x='-11.9' y='2.5' z='51.7'/>
-		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='17d'>
 		<classname>EnvironmentMap</classname>
@@ -2220,24 +2072,9 @@
 		<position x='-12.9' y='0' z='56.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
-	<object id='180'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-17.8' y='2.5' z='55.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='181'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-17.8' y='2.5' z='58.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
 	<object id='182'>
 		<classname>CeilingLampRoom</classname>
-		<position x='-14.4' y='2.5' z='58.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='183'>
-		<classname>CeilingLampRoom</classname>
-		<position x='-14' y='2.5' z='55.2'/>
+		<position x='-16' y='2.5' z='56.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='185'>
@@ -2287,8 +2124,10 @@
 	</object>
 	<object id='18d'>
 		<classname>CeilingLampRoom</classname>
-		<position x='-23' y='2.5' z='56.7'/>
+		<position x='-23.8' y='2.5' z='56.7'/>
 		<rotation x='0' y='-90' z='0'/>
+		<property key='light.intensity'>0.5</property>
+		<property key='light.range'>5</property>
 	</object>
 	<object id='18e'>
 		<classname>SimpleElement</classname>
@@ -2381,22 +2220,6 @@
 		<texture name='sign'>
 			<skin>/material/decal/sign/electricity.deskin</skin>
 		</texture>
-	</object>
-	<object id='192'>
-		<classname>CeilingLamp</classname>
-		<position x='-16.05' y='2.5' z='61.4'/>
-		<rotation x='0' y='-90' z='0'/>
-		<property key='light.intensity'>1</property>
-		<property key='light.halfIntensityDistance'>0.3</property>
-		<property key='light.range'>10</property>
-	</object>
-	<object id='193'>
-		<classname>CeilingLamp</classname>
-		<position x='-16.1' y='2.5' z='52.15'/>
-		<rotation x='0' y='-90' z='0'/>
-		<property key='light.intensity'>1</property>
-		<property key='light.halfIntensityDistance'>0.3</property>
-		<property key='light.range'>10</property>
 	</object>
 	<object id='195'>
 		<classname>TriggerTimer</classname>
@@ -2804,7 +2627,7 @@
 	</object>
 	<object id='1cb'>
 		<classname>TriggerToggle</classname>
-		<position x='-9.2' y='1' z='1.55'/>
+		<position x='-7.8' y='1' z='1.55'/>
 		<property key='toggle.startActivated'>1</property>
 		<property key='toggle.target'>enableExplications</property>
 	</object>
@@ -3072,10 +2895,9 @@
 		<classname>BaseLight</classname>
 		<position x='20.9501' y='2.31994' z='41.6'/>
 		<property key='light.intensity'>0.5</property>
-		<property key='light.ambientRatio'>0.25</property>
 		<property key='light.color'>0.345098 0.694118 0.921569</property>
 		<property key='light.halfIntensityDistance'>0.3</property>
-		<property key='light.range'>1</property>
+		<property key='light.range'>1.5</property>
 	</object>
 	<object id='1f4'>
 		<classname>SpawnPoint</classname>
@@ -3110,11 +2932,6 @@
 		<position x='0' y='0' z='68.6'/>
 		<rotation x='0' y='-180' z='0'/>
 	</object>
-	<object id='1fa'>
-		<classname>CeilingLampHallway</classname>
-		<position x='-5' y='2.5' z='68.6'/>
-		<rotation x='0' y='-180' z='0'/>
-	</object>
 	<object id='1fb'>
 		<classname>EnvironmentMap</classname>
 		<position x='-5' y='1.65' z='68.6'/>
@@ -3128,11 +2945,6 @@
 		<rotation x='0' y='-180' z='0'/>
 		<property key='envMapProbe.reflectionShape'>box:position,0,-0.4,0:extends,5,1.25,1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,-0.4,0:extends,5.05,1.3,1.05</property>
-	</object>
-	<object id='1fd'>
-		<classname>CeilingLampHallway</classname>
-		<position x='5' y='2.5' z='68.6'/>
-		<rotation x='0' y='-180' z='0'/>
 	</object>
 	<object id='1fe'>
 		<classname>RoomLabelPlate</classname>
@@ -3158,154 +2970,103 @@
 		<rotation x='0' y='-90' z='0'/>
 		<property key='envMapProbe.influenceArea'>box:position,-10,-0.4,3:extends,26,1.3,23</property>
 	</object>
-	<object id='202'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='1.15' y='2.5' z='75.4'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
 	<object id='203'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='0.1' y='2.5' z='82.35'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='0' y='2.5' z='86.6'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='204'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-8.8' y='2.5' z='82.55'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-7.5' y='2.5' z='82.55'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='205'>
-		<classname>CeilingLampRoom2</classname>
+		<classname>CeilingLampRoom</classname>
 		<position x='-17.05' y='2.5' z='82.7'/>
 		<rotation x='0' y='-90' z='0'/>
+		<property key='light.trigger'>!soundLevelMeter.stand1</property>
 	</object>
 	<object id='206'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-14.25' y='2.5' z='89'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='207'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-10.1' y='2.5' z='93.8'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-15' y='2.5' z='91.15'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='208'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-10.1' y='2.5' z='100.2'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='209'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-3.9' y='2.5' z='86'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='20a'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='7.45' y='2.5' z='86.6'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-10.1' y='2.5' z='97.15'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='20b'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='17.05' y='2.5' z='82.6'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='17.05' y='2.5' z='82'/>
 		<rotation x='0' y='-90' z='0'/>
+		<property key='light.trigger'>!soundLevelMeter.stand2</property>
 	</object>
 	<object id='20c'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='17' y='2.5' z='90.9'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='20d'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='15.6' y='2.5' z='98.45'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='17' y='2.5' z='91.5'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='20e'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='7.9' y='2.5' z='98.45'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='20f'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='17.4' y='2.5' z='103.95'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='8.2' y='2.5' z='98.6'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='210'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='17' y='2.5' z='116.45'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='17' y='2.5' z='117'/>
 		<rotation x='0' y='-90' z='0'/>
+		<property key='light.trigger'>!soundLevelMeter.stand3</property>
 	</object>
 	<object id='212'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='11.4' y='2.5' z='110.3'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='213'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='0.7' y='2.5' z='110.3'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='214'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='6.6' y='2.5' z='116.2'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='5.8' y='2.5' z='110.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='215'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='10.7' y='2.5' z='120.65'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='11' y='2.5' z='119.1'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='216'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='0.2' y='2.5' z='121.05'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='0.2' y='2.5' z='121.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='217'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='0.25' y='2.5' z='126.65'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='0.25' y='2.5' z='128.5'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='218'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-9.85' y='2.5' z='121.05'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-9.85' y='2.5' z='116.5'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='219'>
-		<classname>CeilingLampRoom2</classname>
+		<classname>CeilingLampRoom</classname>
 		<position x='-17' y='2.5' z='116.65'/>
 		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='21a'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-6.1' y='2.5' z='116.4'/>
-		<rotation x='0' y='-90' z='0'/>
+		<property key='light.trigger'>!soundLevelMeter.stand4</property>
 	</object>
 	<object id='21b'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-6' y='2.5' z='105.9'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-6' y='2.5' z='110.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='21c'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-14.35' y='2.5' z='105.3'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-15' y='2.5' z='103.1'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='21d'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-3.85' y='2.5' z='92.05'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='21e'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='2.3' y='2.5' z='92.15'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='21f'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-3.45' y='2.5' z='99.65'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-1' y='2.5' z='92.05'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='220'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='2.05' y='2.5' z='99.65'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='-1' y='2.5' z='99.65'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='221'>
@@ -3442,11 +3203,6 @@
 			<tint r='0.298039' g='0.298039' b='0.298039'/>
 		</texture>
 	</object>
-	<object id='22f'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='0' y='2.5' z='72.35'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
 	<object id='230'>
 		<classname>SpeakerMount1</classname>
 		<position x='-1.15' y='0' z='75.85'/>
@@ -3541,11 +3297,6 @@
 		<rotation x='0' y='180' z='0'/>
 		<scaling x='0.5' y='0.5' z='0.5'/>
 		<property key='touching.target'>soundLevelMeter.stand5</property>
-	</object>
-	<object id='23b'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='-1.2' y='2.5' z='75.55'/>
-		<rotation x='0' y='-90' z='0'/>
 	</object>
 	<object id='23c'>
 		<classname>EnvironmentMap</classname>
@@ -3661,21 +3412,6 @@
 		<property key='conversation.topic'>caughtPlayer</property>
 		<property key='conversation.trigger'>caughtPlayer &#38; !soundLevelMeter.done</property>
 	</object>
-	<object id='24c'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='8.05' y='2.5' z='104.15'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='24d'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='0.7' y='2.5' z='104.9'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
-	<object id='24e'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='7.9' y='2.5' z='91.65'/>
-		<rotation x='0' y='-90' z='0'/>
-	</object>
 	<object id='24f'>
 		<classname>Railing2</classname>
 		<position x='2.9' y='0' z='93'/>
@@ -3785,7 +3521,7 @@
 	</object>
 	<object id='25c'>
 		<classname>TriggerConversation</classname>
-		<position x='-9.7' y='0.8' z='1.65'/>
+		<position x='-8.3' y='0.8' z='1.65'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
 		<property key='conversation.directCamera'>0</property>
@@ -3793,24 +3529,20 @@
 		<property key='conversation.topic'>introduction</property>
 		<property key='conversation.trigger'>introduction&#38;enableExplications</property>
 	</object>
-	<object id='25d'>
-		<classname>CeilingLampHallway</classname>
-		<position x='-11.55' y='2.5' z='1'/>
-	</object>
 	<object id='25e'>
 		<classname>TriggerTouch</classname>
-		<position x='-9.9' y='0.45' z='1'/>
+		<position x='-8.5' y='0.45' z='1'/>
 		<scaling x='0.1' y='1' z='2'/>
 		<property key='touching.target'>introduction</property>
 	</object>
 	<object id='25f'>
 		<classname>InfoConvoCoordSystem</classname>
-		<position x='-9.25' y='1.3' z='1.77'/>
+		<position x='-7.85' y='1.3' z='1.77'/>
 		<property key='convoCoordSystem.name'>introduction poi1</property>
 	</object>
 	<object id='260'>
 		<classname>InfoConvoCoordSystem</classname>
-		<position x='-8.95' y='2.05' z='0.22'/>
+		<position x='-7.55' y='2.05' z='0.22'/>
 		<property key='convoCoordSystem.name'>introduction poi2</property>
 	</object>
 	<object id='261'>
@@ -3820,8 +3552,88 @@
 		<property key='name'>debug3</property>
 	</object>
 	<object id='262'>
-		<classname>CeilingLampRoom2</classname>
-		<position x='23.25' y='2.5' z='101.1'/>
+		<classname>CeilingLampRoom</classname>
+		<position x='22.8' y='2.5' z='101'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='267'>
+		<classname>TriggerConversation</classname>
+		<position x='-12.65' y='0.8' z='1.55'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.topic'>exitExampleApp</property>
+		<property key='conversation.trigger'>@audioapp.exit</property>
+	</object>
+	<object id='268'>
+		<classname>TriggerTouch</classname>
+		<position x='-12.5' y='0.25' z='0.999998'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>audioapp.exit</property>
+	</object>
+	<object id='269'>
+		<classname>TouchStand</classname>
+		<position x='-12.7' y='0' z='0.999998'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='trigger'>@audioapp.exit</property>
+		<property key='skinOff'>/material/miscLabel/exit.deskin</property>
+		<property key='skinOn'>/material/miscLabel/exit.deskin</property>
+		<texture name='panel'>
+			<skin>/material/miscLabel/exit.deskin</skin>
+		</texture>
+	</object>
+	<object id='3e'>
+		<classname>CeilingLampHallway</classname>
+		<position x='51.55' y='2.5' z='1.45'/>
+	</object>
+	<object id='26a'>
+		<classname>CeilingLampRoom</classname>
+		<position x='40' y='2.5' z='-6.5'/>
+		<property key='light.range'>10</property>
+	</object>
+	<object id='22f'>
+		<classname>CeilingLampRoom</classname>
+		<position x='0' y='2.5' z='75'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='1fd'>
+		<classname>CeilingLampHallway</classname>
+		<position x='5' y='2.5' z='68.6'/>
+		<rotation x='0' y='-180' z='0'/>
+	</object>
+	<object id='26b'>
+		<classname>TriggerConversation</classname>
+		<position x='12.65' y='0.8' z='68.05'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='conversation.path'>/model/dragoness/dragoness.deconvo</property>
+		<property key='conversation.directCamera'>0</property>
+		<property key='conversation.topicGroup'>conversation</property>
+		<property key='conversation.topic'>exitExampleApp</property>
+		<property key='conversation.trigger'>@audioapp.exit2</property>
+	</object>
+	<object id='26c'>
+		<classname>TriggerTouch</classname>
+		<position x='12.5' y='0.25' z='68.6'/>
+		<rotation x='0' y='-90' z='0'/>
+		<scaling x='0.5' y='0.5' z='0.5'/>
+		<property key='touching.target'>audioapp.exit2</property>
+	</object>
+	<object id='26d'>
+		<classname>TouchStand</classname>
+		<position x='12.7' y='0' z='68.6'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='trigger'>@audioapp.exit2</property>
+		<property key='skinOff'>/material/miscLabel/exit.deskin</property>
+		<property key='skinOn'>/material/miscLabel/exit.deskin</property>
+		<texture name='panel'>
+			<skin>/material/miscLabel/exit.deskin</skin>
+		</texture>
+	</object>
+	<object id='26e'>
+		<classname>CeilingLampRoom</classname>
+		<position x='17.1' y='2.5' z='110.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
 	

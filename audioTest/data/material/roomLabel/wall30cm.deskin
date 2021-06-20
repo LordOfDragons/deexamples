@@ -19,7 +19,7 @@
 				<color r='0.141176' g='0.141176' b='0'/>
 			</text>
 		</constructed>
-		<value property='emissivity.intensity'>2</value>
+		<value property='emissivity.intensity'>1</value>
 		<value property='sound.none'>1</value>
 	</texture>
 </skin>

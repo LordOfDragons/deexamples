@@ -5,6 +5,48 @@ pin Dragengine.Utils
 
 // Ceiling lamp.
 class CeilingLampClass extends BehaviorElementClass
+	// Light listener to adjust skin intensity
+	public class AdjustIntensity extends ECBehaviorLight.DefaultListener
+		public var ECBehaviorComponent.Instance component
+		
+		public func new(ECBehaviorComponent.Instance component)
+			this.component = component
+		end
+		
+		public func void lightActivated(ECBehaviorLight.Instance instance)
+			// As a rule of thumb a light source shining with intensity 4 needs
+			// a skin emissivity of 4 times larger
+			setIntensity(instance.getLight().getIntensity() * 4)
+		end
+		
+		public func void lightDeactivated(ECBehaviorLight.Instance instance)
+			setIntensity(0)
+		end
+		
+		// Set value of renderable named "intensity". If the renderable does not
+		// exist yet it is created with type DynamicSkinRenderableType.value .
+		public func void setIntensity(float intensity)
+			var int texture = component.getComponent().indexOfTextureNamed("light")
+			if texture == -1
+				return
+			end
+			
+			var DynamicSkin dynamicSkin = component.getComponent().getTextureDynamicSkinAt(texture)
+			if dynamicSkin == null
+				return
+			end
+			
+			var int renderable = dynamicSkin.indexOfRenderable("intensity")
+			if renderable == -1
+				renderable = dynamicSkin.getRenderableCount()
+				dynamicSkin.addRenderable("intensity", DynamicSkinRenderableType.value)
+			end
+			
+			dynamicSkin.setValueAt(renderable, intensity)
+		end
+	end
+	
+	
 	public var ECBehaviorComponent component
 	public var ECBehaviorCollider collider
 	public var ECBehaviorLight light
@@ -26,8 +68,22 @@ class CeilingLampClass extends BehaviorElementClass
 		// Light behavior
 		light = ECBehaviorLight.new(this, collider, BaseGameApp.getApp().getTriggerTable())
 		light.getLight().getAmbientRatio().setValue(0.25)
-		light.getAttach().getPosition().setVector(Vector.new(0, -0.3, 0))
-		light.getAttach().getOrientation().setVector(Vector.new(-90, 0, 0))
+		light.getAttach().getPosition().setVector(Vector.new(0, -0.15, 0))
+		
+		// Make component behavior not casting shadows by the light behavior.
+		// With all other lights the component behavior will cast shadows.
+		light.addShadowIgnoreComponent(component)
+		
+		// Alter the intensity of the assigned light texture to match up with light
+		// activated state. The addListenerFactory is a convenience call allowing
+		// to add a ECBehaviorLight.Listener without needing to write a Factory.
+		light.addListenerFactory(block ECBehaviorLight.Instance instance
+			// Create listener. The listener needs the ECBehaviorComponent.Instance
+			// to work with. Since we are in a block we have implicit access to
+			// the owner function variables and owner class members. In this case
+			// the "component" behavior is used to retrieve the instance we need
+			return AdjustIntensity.new(component.instance(instance.getElement()))
+		end)
 	end
 	
 	// Create duplicate with new name. Required for XML subclassing.

@@ -59,7 +59,7 @@
 		<value property='reflectivity'>0.17</value>
 		<value property='roughness'>0</value>
 		<image property='emissivity'>eye_color.jpg</image>
-		<value property='emissivity.intensity'>10</value>
+		<value property='emissivity.intensity'>2</value>
 	</texture>
 	<texture name='fins'>
 		<color property='color' r='0.356863' g='0.815686' b='0.815686' a='1'/>
