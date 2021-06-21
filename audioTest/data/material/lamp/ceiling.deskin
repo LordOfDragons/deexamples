@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='light'>
+		<image property='color'>../speakerGrid/color.jpg</image>
+		<constructed property='reflectivity'>
+			<size x='512' y='512'/>
+			<image>
+				<size x='512' y='512'/>
+				<colorize r='0.227451' g='0.227451' b='0.227451'/>
+				<path>../speakerGrid/color.jpg</path>
+			</image>
+		</constructed>
+		<value property='roughness'>0</value>
+		<color property='color.tint' r='0.784314' g='0.784314' b='0.784314' a='1'/>
+		<image property='normal'>../speakerGrid/normal.jpg</image>
+		<constructed property='emissivity'>
+			<size x='512' y='512'/>
+			<image>
+				<size x='512' y='512'/>
+				<contrast>-1</contrast>
+				<path>../speakerGrid/color.jpg</path>
+			</image>
+		</constructed>
+		<value property='emissivity.intensity' renderable='intensity'>4</value>
+		<color property='emissivity.tint' r='0.211765' g='0.576471' b='0.811765' a='1' renderable='color'/>
+	</texture>
+</skin>

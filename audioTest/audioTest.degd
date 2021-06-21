@@ -94,15 +94,24 @@
 		<inherit name='ECBehaviorLight'>
 			<propertyPrefix>light.</propertyPrefix>
 		</inherit>
+		<inherit name='ECBehaviorDynamicSkin'>
+			<propertyPrefix>dynamicSkin.</propertyPrefix>
+		</inherit>
+		<inherit name='ECBehaviorRenderableLight'>
+			<propertyPrefix>renderableLight.</propertyPrefix>
+		</inherit>
 		<texture name='light'>
 			<skin>/material/lightGrid/material.deskin</skin>
-			<tint r='1' g='0.854902' b='0.462745'/>
 		</texture>
 		<propertyValue name='component.model'>/model/prop/ceilingLamp.demodel</propertyValue>
-		<propertyValue name='light.position'>0 -0.15 0</propertyValue>
-		<propertyValue name='light.ambientRatio'>0.25</propertyValue>
-		<propertyValue name='component.skin'>/shareddata/materials/empty.deskin</propertyValue>
 		<propertyValue name='component.rig'>/model/prop/ceilingLamp.derig</propertyValue>
+		<propertyValue name='component.skin'>/material/lamp/ceiling.deskin</propertyValue>
+		<propertyValue name='light.color'>1 0.95 0.8</propertyValue>
+		<propertyValue name='light.position'>0 -0.15 0</propertyValue>
+		<propertyValue name='renderableLight.scaleIntensity'>4</propertyValue>
+		<propertyValue name='light.ambientRatio'>0.25</propertyValue>
+		<propertyValue name='renderableLight.renderableIntensity'>intensity</propertyValue>
+		<propertyValue name='renderableLight.renderableColor'>color</propertyValue>
 		<category>AudioTest</category>
 	</class>
 </gameDefinition>
