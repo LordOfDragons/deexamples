@@ -9,6 +9,6 @@
 		<value property='height.offset'>-0.5</value>
 		<value property='height.scale'>0.25</value>
 		<image property='emissivity'>emissivity.jpg</image>
-		<value property='emissivity.intensity'>1</value>
+		<value property='emissivity.intensity'>0.05</value>
 	</texture>
 </skin>

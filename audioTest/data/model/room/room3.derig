@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
 <rig>
 	<mass>1</mass>
 	<centralMassPoint x='0' y='0' z='0'/>
@@ -9,43 +8,38 @@
 		<rotation x='0' y='90' z='-0'/>
 	</box>
 	<box>
-		<position x='-7.05' y='2.25' z='-8.5'/>
-		<halfExtends x='0.05' y='2.25' z='8.5'/>
+		<position x='-4.95' y='2.25' z='-9'/>
+		<halfExtends x='0.05' y='2.25' z='9'/>
 		<rotation x='0' y='-0' z='-0'/>
 	</box>
 	<box>
-		<position x='7.05' y='2.25' z='-8.5'/>
-		<halfExtends x='0.05' y='2.25' z='8.5'/>
+		<position x='4.95' y='2.25' z='-9'/>
+		<halfExtends x='0.05' y='2.25' z='9'/>
 		<rotation x='0' y='-0' z='-0'/>
 	</box>
 	<box>
-		<position x='0' y='2.25' z='-17.05'/>
-		<halfExtends x='0.05' y='2.25' z='7.1'/>
+		<position x='2.75' y='2.25' z='0.05'/>
+		<halfExtends x='0.05' y='2.25' z='2.25'/>
 		<rotation x='0' y='-90' z='-0'/>
 	</box>
 	<box>
-		<position x='3.8' y='2.25' z='0.05'/>
-		<halfExtends x='0.05' y='2.25' z='3.3'/>
+		<position x='-2.75' y='2.25' z='0.05'/>
+		<halfExtends x='0.05' y='2.25' z='2.25'/>
 		<rotation x='0' y='-90' z='-0'/>
 	</box>
 	<box>
-		<position x='-3.8' y='2.25' z='0.05'/>
-		<halfExtends x='0.05' y='2.25' z='3.3'/>
+		<position x='0' y='-0.1' z='-9'/>
+		<halfExtends x='9' y='0.1' z='5'/>
 		<rotation x='0' y='-90' z='-0'/>
 	</box>
 	<box>
-		<position x='0' y='-0.1' z='-8.5'/>
-		<halfExtends x='8.5' y='0.1' z='7'/>
+		<position x='-3.553e-15' y='4.6' z='-9'/>
+		<halfExtends x='9' y='0.1' z='5'/>
 		<rotation x='0' y='-90' z='-0'/>
 	</box>
 	<box>
-		<position x='0' y='4.6' z='-8.5'/>
-		<halfExtends x='8.5' y='0.1' z='7'/>
-		<rotation x='0' y='-90' z='-0'/>
-	</box>
-	<box>
-		<position x='1.192e-07' y='2.25' z='0.05'/>
-		<halfExtends x='0.05' y='0.25' z='0.5'/>
+		<position x='0' y='2.25' z='-17.95'/>
+		<halfExtends x='0.05' y='2.25' z='5'/>
 		<rotation x='0' y='-90' z='-0'/>
 	</box>
 </rig>

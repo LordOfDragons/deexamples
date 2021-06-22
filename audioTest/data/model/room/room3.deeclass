@@ -8,21 +8,18 @@
 	<map name='component.textureReplacements'>
 		<map key='wall'>
 			<string key='skin'>/material/concrete/material.deskin</string>
-			<map key='transform'>
-				<vector2 key='scale' x='1' y='1'/>
-			</map>
 		</map>
 		<map key='floor'>
 			<string key='skin'>/material/concrete/material.deskin</string>
-			<map key='transform'>
-				<vector2 key='scale' x='1' y='1'/>
-			</map>
 		</map>
 		<map key='ceiling'>
 			<string key='skin'>/material/concrete/material.deskin</string>
-			<map key='transform'>
-				<vector2 key='scale' x='1' y='1'/>
-			</map>
+		</map>
+		<map key='fake cave wall'>
+			<string key='skin'>/material/cave/material.deskin</string>
+		</map>
+		<map key='black wall'>
+			<string key='skin'>/material/pitchBlack.deskin</string>
 		</map>
 	</map>
 </elementClass>

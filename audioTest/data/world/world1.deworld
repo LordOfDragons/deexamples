@@ -2,7 +2,7 @@
 <world>
 	<size x='1000' y='1000' z='1000'/>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>26f</nextObjectID>
+	<nextObjectID>271</nextObjectID>
 	
 	<object id='1'>
 		<classname>Room1</classname>
@@ -367,7 +367,7 @@
 	</object>
 	<object id='5b'>
 		<classname>BaseSpeaker</classname>
-		<position x='20' y='1.6' z='40'/>
+		<position x='20' y='1.6' z='41'/>
 		<rotation x='0' y='-180' z='0'/>
 		<property key='speaker.sound'>/sound/birds.ogg</property>
 		<property key='speaker.volume'>1</property>
@@ -382,7 +382,7 @@
 	</object>
 	<object id='5e'>
 		<classname>SpeakerMount1</classname>
-		<position x='20' y='0' z='40'/>
+		<position x='20' y='0' z='41'/>
 		<rotation x='0' y='-180' z='0'/>
 	</object>
 	<object id='61'>
@@ -501,15 +501,15 @@
 	</object>
 	<object id='7a'>
 		<classname>Entrance</classname>
-		<position x='20' y='0' z='42.8'/>
+		<position x='20' y='0' z='43.8'/>
 	</object>
 	<object id='7b'>
 		<classname>Railing2</classname>
-		<position x='20' y='0' z='39.7'/>
+		<position x='20' y='0' z='40.7'/>
 	</object>
 	<object id='7f'>
 		<classname>BaseLight</classname>
-		<position x='20' y='4' z='38.3'/>
+		<position x='20' y='4' z='39.3'/>
 		<rotation x='-67.1967' y='0' z='0'/>
 		<property key='light.color'>1.000000 0.854902 0.462745</property>
 		<property key='light.intensity'>1.5</property>
@@ -2748,7 +2748,7 @@
 	</object>
 	<object id='1dd'>
 		<classname>InfoConvoCoordSystem</classname>
-		<position x='20' y='1.2' z='39.28'/>
+		<position x='20' y='1.2' z='40.28'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='convoCoordSystem.name'>largeReverberant speaker</property>
 	</object>
@@ -2885,7 +2885,7 @@
 	</object>
 	<object id='1f2'>
 		<classname>RoomLabelPlate</classname>
-		<position x='20.9501' y='2.31994' z='41.8'/>
+		<position x='20.9501' y='2.31994' z='42.8'/>
 		<rotation x='0' y='-180' z='0'/>
 		<texture name='display'>
 			<skin>/material/roomLabel/private.deskin</skin>
@@ -2893,7 +2893,7 @@
 	</object>
 	<object id='1f3'>
 		<classname>BaseLight</classname>
-		<position x='20.9501' y='2.31994' z='41.6'/>
+		<position x='20.9501' y='2.31994' z='42.6'/>
 		<property key='light.intensity'>0.5</property>
 		<property key='light.color'>0.345098 0.694118 0.921569</property>
 		<property key='light.halfIntensityDistance'>0.3</property>
@@ -3636,17 +3636,14 @@
 		<position x='17.1' y='2.5' z='110.7'/>
 		<rotation x='0' y='-90' z='0'/>
 	</object>
-	
-	<decal>
-		<skin>/decal/cave/material.deskin</skin>
-		<position x='13.05' y='2.25' z='34.5'/>
-		<rotation x='-0.000312359' y='-90' z='-0'/>
-		<size x='15' y='4' z='0.1'/>
-	</decal>
-	<decal>
-		<skin>/decal/cave/material.deskin</skin>
-		<position x='26.95' y='2.25' z='34.5'/>
-		<rotation x='0' y='90' z='0'/>
-		<size x='15' y='4' z='0.1'/>
-	</decal>
+	<object id='26f'>
+		<classname>Pole</classname>
+		<position x='17.95' y='0' z='42.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='270'>
+		<classname>Pole</classname>
+		<position x='22.05' y='0' z='42.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
 </world>
