@@ -2126,6 +2126,7 @@
 		<classname>CeilingLampRoom</classname>
 		<position x='-23.8' y='2.5' z='56.7'/>
 		<rotation x='0' y='-90' z='0'/>
+		<property key='light.activated'>0</property>
 		<property key='light.intensity'>0.5</property>
 		<property key='light.range'>5</property>
 	</object>
