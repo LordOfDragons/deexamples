@@ -142,6 +142,7 @@ class CameraController extends ElementCameraDirector
 		setElevation( 0 )
 		setAzimuth( 0 )
 		setPivot( DVector.new( 0, 1.6, 0 ) )
+		setEnableGI(true)
 	end
 	
 	

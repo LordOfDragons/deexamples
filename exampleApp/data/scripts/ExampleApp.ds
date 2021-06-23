@@ -28,19 +28,32 @@ class ExampleApp extends BaseGameApp
 			// Now the player actor can be created using the stub
 			var PlayerActor player = stub.createElement() cast PlayerActor
 			
-			// the ECBehaviorActorAIAction behavior is configured in the Actor element class
+			// The ECBehaviorActorAIAction behavior is configured in the Actor element class
 			// to use BAAFirstPerson as action and BAAIBehaviorTree as AI. this avoids the
 			// need to manually assign action and AI instances on the created element.
 			
-			// spawn player actor at named spawn point
+			// Spawn player actor at named spawn point
 			gameWorld.getSpawnPoints().getNamed("player").spawn(gameWorld, player)
 			
-			// take control of player actor
+			// Take control of player actor
 			player.getPlayerControllable().takeControl()
 			
-			// finish and start running
-			getWindow().setCameraDirector(PlayerControlledActorCameraDirector.new())
+			// Assign camera director attaching the camera to the player controlled actor
+			// at eye level.
+			// 
+			// You can also set camera related parameters like enabling Global Illumination
+			// if supported by the Graphic Module. Parameters set to the camera director
+			// will be applied to all cameras the director takes control of so you do not
+			// have to do this by hand all the time.
+			// 
+			// Despite the name the camera director also directs microphone resource
+			var PlayerControlledActorCameraDirector director = PlayerControlledActorCameraDirector.new()
 			
+			director.setEnableGI(true)
+			
+			getWindow().setCameraDirector(director)
+			
+			// Finish and start running
 			super.onLoadWorldFinished()
 			app.setInputProcessorBindings()
 			app.finishLoadGameWorld()

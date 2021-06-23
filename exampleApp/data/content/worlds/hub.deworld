@@ -573,7 +573,7 @@
 	</object>
 	<object id='40'>
 		<classname>InfoSign</classname>
-		<position x='17.5' y='0' z='-21.6'/>
+		<position x='17.1' y='0' z='-21.6'/>
 		<rotation x='0' y='90' z='0'/>
 		<texture name='content'>
 			<skin>/content/materials/signs/actorai.deskin</skin>
@@ -1078,14 +1078,6 @@
 	<object id='7b'>
 		<classname>PropBox</classname>
 		<position x='-14.5' y='0' z='-6'/>
-		<texture name='material'>
-			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
-			<tint r='0.466667' g='0.466667' b='0.466667'/>
-		</texture>
-	</object>
-	<object id='7c'>
-		<classname>PropBox</classname>
-		<position x='-12.5' y='0' z='-6'/>
 		<texture name='material'>
 			<skin>/content/materials/metalPainted/roughSound.deskin</skin>
 			<tint r='0.466667' g='0.466667' b='0.466667'/>

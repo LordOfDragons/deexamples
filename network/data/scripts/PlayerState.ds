@@ -111,7 +111,10 @@ class PlayerState
 		// the camera and microphone relative to the actor.
 		if isLocal()
 			actor.getPlayerControllable().takeControl()
-			window.setCameraDirector( PlayerControlledActorCameraDirector.new() )
+			
+			var PlayerControlledActorCameraDirector director = PlayerControlledActorCameraDirector.new()
+			director.setEnableGI(true)
+			window.setCameraDirector(director)
 		end
 	end
 end
