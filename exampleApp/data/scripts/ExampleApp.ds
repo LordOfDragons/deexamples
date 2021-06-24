@@ -41,15 +41,14 @@ class ExampleApp extends BaseGameApp
 			// Assign camera director attaching the camera to the player controlled actor
 			// at eye level.
 			// 
-			// You can also set camera related parameters like enabling Global Illumination
-			// if supported by the Graphic Module. Parameters set to the camera director
-			// will be applied to all cameras the director takes control of so you do not
-			// have to do this by hand all the time.
+			// You can also set camera related parameters. Parameters set to the camera
+			// director will be applied to all cameras the director takes control of so
+			// you do not have to do this by hand all the time.
 			// 
 			// Despite the name the camera director also directs microphone resource
 			var PlayerControlledActorCameraDirector director = PlayerControlledActorCameraDirector.new()
 			
-			director.setEnableGI(true)
+			//director.setViewDistance(500.0) // for example change view distance
 			
 			getWindow().setCameraDirector(director)
 			

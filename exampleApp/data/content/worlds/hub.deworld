@@ -27,6 +27,7 @@
 		<classname>SimpleElement</classname>
 		<position x='0.3' y='1' z='8'/>
 		<property key='component.model'>/content/models/sphere/sphere.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='component.skin'>/content/materials/concrete/material.deskin</property>
 		<property key='component.rig'>/content/models/sphere/sphere.derig</property>
 		<texture name='material'>
@@ -39,6 +40,7 @@
 		<position x='3.063' y='0' z='-9.17'/>
 		<rotation x='0' y='33.031' z='0'/>
 		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
 		<texture name='material'>
 			<skin>/content/materials/concrete/material.deskin</skin>
@@ -282,6 +284,7 @@
 		<classname>SimpleElement</classname>
 		<position x='-9' y='0' z='-2.6'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -387,6 +390,7 @@
 		<classname>PropBox</classname>
 		<position x='0.3' y='1' z='10.5'/>
 		<property key='component.model'>/content/models/sphere/sphere.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='component.rig'>/content/models/sphere/sphere.derig</property>
 		<texture name='material'>
 			<skin>/content/materials/concrete/material.deskin</skin>
@@ -417,6 +421,7 @@
 		<classname>SimpleElement</classname>
 		<position x='33' y='0' z='-30'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -437,6 +442,7 @@
 		<position x='38' y='0' z='-25'/>
 		<rotation x='0' y='90' z='0'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -457,6 +463,7 @@
 		<position x='38' y='0' z='-15'/>
 		<rotation x='0' y='90' z='0'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -476,6 +483,7 @@
 		<classname>SimpleElement</classname>
 		<position x='23' y='0' z='-30'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -496,6 +504,7 @@
 		<position x='33' y='0' z='-10'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -516,6 +525,7 @@
 		<position x='23' y='0' z='-10'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -536,6 +546,7 @@
 		<position x='18' y='0' z='-14.6'/>
 		<rotation x='0' y='-90' z='0'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -556,6 +567,7 @@
 		<position x='18' y='0' z='-25.4'/>
 		<rotation x='0' y='-90' z='0'/>
 		<property key='component.model'>/content/models/facade/facade.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.35:extends,5.3,0.5,0.65</property>
 		<property key='component.audioModel'>/content/models/facade/facade_audio.demodel</property>
 		<property key='component.rig'>/content/models/facade/facade.derig</property>
 		<texture name='wall'>
@@ -627,6 +639,7 @@
 		<position x='-16' y='0' z='5'/>
 		<rotation x='0' y='-90' z='0'/>
 		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
 		<texture name='material'>
 			<skin>/content/materials/metalPainted/roughOutlined.deskin</skin>
@@ -641,6 +654,7 @@
 		<position x='-16' y='0' z='9'/>
 		<rotation x='0' y='-90' z='0'/>
 		<property key='particleEmitter.trigger'>@triggerListenerFactory</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 	</object>
 	<object id='47'>
 		<classname>InfoSign</classname>
@@ -665,6 +679,7 @@
 		<position x='-11' y='0' z='15'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
 		<texture name='material'>
 			<skin>/content/materials/metalPainted/roughRim.deskin</skin>
@@ -691,6 +706,7 @@
 		<position x='-8' y='0' z='15'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
 		<texture name='material'>
 			<skin>/content/materials/ghost.deskin</skin>
@@ -832,6 +848,7 @@
 		<classname>StateMachineExample</classname>
 		<position x='9' y='0' z='-28'/>
 		<property key='trigger(red)'>@stateMachine.red</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='stateMachine.path'>/content/stateMachines/colorizer.desm</property>
 		<property key='trigger(green)'>@stateMachine.green</property>
 		<property key='trigger(blue)'>@stateMachine.blue</property>
@@ -883,6 +900,7 @@
 	<object id='62'>
 		<classname>CustomColorExample</classname>
 		<position x='-4' y='0' z='-25'/>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 	</object>
 	<object id='63'>
 		<classname>InfoSign</classname>
@@ -896,6 +914,7 @@
 		<position x='-8.3' y='0' z='-25'/>
 		<property key='renderableCustomColor(color3).image'>/content/models/customColor/color3Masked.png</property>
 		<property key='renderableCustomColor(color2).image'>/content/models/customColor/color2Masked.png</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='renderableCustomColor(color5).image'>/content/models/customColor/color5Masked.png</property>
 		<property key='renderableCustomColor(color4).image'>/content/models/customColor/color4Masked.png</property>
 	</object>

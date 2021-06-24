@@ -74,9 +74,7 @@ class WindowWorldRenderer extends WindowGameWorld
 			player.getPlayerControllable().takeControl()
 			
 			// assign camera director attaching the camera to the player controlled actor at eye level
-			var PlayerControlledActorCameraDirector director = PlayerControlledActorCameraDirector.new()
-			director.setEnableGI(true)
-			getWindow().setCameraDirector(director)
+			getWindow().setCameraDirector(PlayerControlledActorCameraDirector.new())
 			
 			// finish and start running
 			getWindow().addMouseListener( GrabInputListener.new() )
