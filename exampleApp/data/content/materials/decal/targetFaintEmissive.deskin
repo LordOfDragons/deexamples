@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<image property='color'>targetColor.png</image>
+		<value property='reflectivity'>0.17</value>
+		<value property='roughness'>0.5</value>
+		<image property='solidity'>targetSolidity.png</image>
+		<image property='emissivity'>targetColor.png</image>
+		<value property='emissivity.intensity'>0.1</value>
+	</texture>
+</skin>

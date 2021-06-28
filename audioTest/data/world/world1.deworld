@@ -2,6 +2,9 @@
 <world>
 	<size x='1000' y='1000' z='1000'/>
 	<gravity x='0' y='-9.81' z='0'/>
+	<worldEditor>
+		<skyPath>/igde/skies/black.desky</skyPath>
+	</worldEditor>
 	<nextObjectID>285</nextObjectID>
 	
 	<object id='1'>

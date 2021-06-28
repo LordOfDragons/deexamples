@@ -1,8 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <world>
-	<size x='1000' y='1000' z='1000'/>
+	<size x='150' y='100' z='150'/>
 	<gravity x='0' y='-9.81' z='0'/>
-	<nextObjectID>7e</nextObjectID>
+	<worldEditor>
+		<skyPath>/igde/skies/static.desky</skyPath>
+	</worldEditor>
+	<nextObjectID>94</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1102,6 +1105,158 @@
 			<tint r='0.466667' g='0.466667' b='0.466667'/>
 		</texture>
 	</object>
+	<object id='7e'>
+		<classname>SimpleElement</classname>
+		<position x='-25' y='0' z='-10'/>
+		<property key='component.model'>/content/models/giroom/giroom.demodel</property>
+		<property key='component.occlusionMesh'>/content/models/giroom/giroom.deoccmesh</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,5.3,0.5,5.3</property>
+		<property key='component.rig'>/content/models/giroom/giroom.derig</property>
+		<texture name='floor'>
+			<skin>/content/materials/stoneFloor/material.deskin</skin>
+		</texture>
+		<texture name='wall'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+		<texture name='ceiling'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+	</object>
+	<object id='7f'>
+		<classname>SimpleElementOnRail</classname>
+		<position x='-26.5' y='4' z='-9.8'/>
+		<property key='component.rig'>/content/models/box/box.derig</property>
+		<property key='moveOnRail.trigger'>@giroomBox</property>
+		<property key='component.skin'>/content/materials/concrete/material.deskin</property>
+		<property key='moveOnRail.rail'>giroomBox</property>
+		<property key='component.renderEnvMap'>1</property>
+		<property key='moveOnRail.targetMoving'>giroomBoxMoving</property>
+		<property key='component.model'>/content/models/box/box.demodel</property>
+		<property key='moveOnRail.velocity'>0.3</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.592157' g='0.764706' b='0.92549'/>
+		</texture>
+	</object>
+	<object id='80'>
+		<classname>RailCorner</classname>
+		<position x='-26.5' y='4' z='-9.8'/>
+		<property key='id'>giroomBox</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='81'>
+		<classname>RailCorner</classname>
+		<position x='-23.5' y='4' z='-9.8'/>
+		<property key='id'>giroomBox</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='82'>
+		<classname>TriggerTimer</classname>
+		<position x='-26.5' y='6.5' z='-9.8'/>
+		<property key='timer.timeout'>3</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>giroomBox</property>
+		<property key='timer.trigger'>@giroomMoveBox</property>
+	</object>
+	<object id='83'>
+		<classname>InfoSign</classname>
+		<position x='-23.85' y='0' z='-4.85'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/giRoom.deskin</skin>
+		</texture>
+	</object>
+	<object id='84'>
+		<classname>TriggerTouch</classname>
+		<position x='-28.7' y='1.5' z='-6.25'/>
+		<scaling x='0.4' y='2' z='0.4'/>
+		<property key='touching.target'>giroomMoveBox</property>
+		<property key='touching.pulse'>1</property>
+	</object>
+	<object id='85'>
+		<classname>EnvironmentMap</classname>
+		<position x='-27' y='2' z='-10.5'/>
+		<property key='envMapProbe.influencePriority'>1</property>
+		<property key='envMapProbe.influenceArea'>box:position,-0.25,0,0.75:extends,2.5,2,4.5</property>
+	</object>
+	<object id='86'>
+		<classname>EnvironmentMap</classname>
+		<position x='-22' y='2' z='-12.5'/>
+		<property key='envMapProbe.influencePriority'>1</property>
+		<property key='envMapProbe.influenceArea'>box:position,-0.6,0,0:extends,2.3,2,1.6</property>
+	</object>
+	<object id='87'>
+		<classname>EnvironmentMap</classname>
+		<position x='-23.55' y='2' z='-7.5'/>
+		<property key='envMapProbe.influencePriority'>1</property>
+		<property key='envMapProbe.influenceArea'>box:position,-0.2,0,-0.2:extends,1.2,2,2.5</property>
+	</object>
+	<object id='88'>
+		<classname>EnvironmentMap</classname>
+		<position x='-21.1' y='2' z='-8.1'/>
+		<property key='envMapProbe.influencePriority'>1</property>
+		<property key='envMapProbe.influenceArea'>box:position,-0.5,0,0.5:extends,1.2,2,2.5</property>
+	</object>
+	<object id='8a'>
+		<classname>BaseLight</classname>
+		<position x='-28.7' y='0.8' z='-6.5'/>
+		<property key='light.intensity'>0.2</property>
+		<property key='light.range'>2</property>
+		<property key='light.halfIntensityDistance'>0.2</property>
+	</object>
+	<object id='8b'>
+		<classname>SimpleElementOnRail</classname>
+		<position x='-25' y='1.5' z='-9'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='component.rig'>/content/models/giroom/wallplate.derig</property>
+		<property key='moveOnRail.trigger'>@giroomWallPlate</property>
+		<property key='component.skin'>/content/materials/concrete/material.deskin</property>
+		<property key='moveOnRail.rail'>giroomWallPlate</property>
+		<property key='moveOnRail.targetMoving'>giroomWallPlateMoving</property>
+		<property key='component.model'>/content/models/giroom/wallplate.demodel</property>
+		<property key='moveOnRail.velocity'>0.3</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='1' g='0.505882' b='0'/>
+		</texture>
+	</object>
+	<object id='8c'>
+		<classname>RailCorner</classname>
+		<position x='-25' y='1.5' z='-9'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='id'>giroomWallPlate</property>
+		<property key='order'>0</property>
+	</object>
+	<object id='8d'>
+		<classname>RailCorner</classname>
+		<position x='-25' y='1.5' z='-11'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='id'>giroomWallPlate</property>
+		<property key='order'>1</property>
+	</object>
+	<object id='8e'>
+		<classname>TriggerTouch</classname>
+		<position x='-28.5' y='1.5' z='-12.5'/>
+		<scaling x='0.4' y='2' z='0.4'/>
+		<property key='touching.target'>giroomMoveWallPlate</property>
+		<property key='touching.pulse'>1</property>
+	</object>
+	<object id='8f'>
+		<classname>TriggerTimer</classname>
+		<position x='-25.2' y='2.4' z='-9'/>
+		<property key='timer.timeout'>3</property>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.target'>giroomWallPlate</property>
+		<property key='timer.trigger'>@giroomMoveWallPlate</property>
+	</object>
+	<object id='93'>
+		<classname>SimpleElement</classname>
+		<position x='-21.2' y='0.5' z='-12.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<scaling x='0.8' y='0.8' z='0.8'/>
+		<property key='component.model'>/content/models/stanforddragon/stanforddragon.demodel</property>
+		<property key='component.skin'>/content/models/stanforddragon/material.deskin</property>
+		<property key='component.rig'>/content/models/box/box.derig</property>
+	</object>
 	
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
@@ -1148,6 +1303,18 @@
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
 		<position x='7' y='0.1' z='-24.4'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='-28.7' y='0.6' z='-6.45'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='-28.45' y='0.6' z='-12.5'/>
 		<rotation x='89.6948' y='-63.435' z='-116.565'/>
 		<size x='1' y='1' z='0.2'/>
 	</decal>
