@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>94</nextObjectID>
+	<nextObjectID>97</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1256,6 +1256,26 @@
 		<property key='component.model'>/content/models/stanforddragon/stanforddragon.demodel</property>
 		<property key='component.skin'>/content/models/stanforddragon/material.deskin</property>
 		<property key='component.rig'>/content/models/box/box.derig</property>
+	</object>
+	<object id='94'>
+		<classname>BaseLight</classname>
+		<position x='-25' y='2.4' z='-6'/>
+		<property key='light.intensity'>0.2</property>
+		<property key='light.range'>2</property>
+		<property key='light.halfIntensityDistance'>0.2</property>
+	</object>
+	<object id='95'>
+		<classname>EnvironmentMap</classname>
+		<position x='-11.4' y='2' z='-9'/>
+		<property key='envMapProbe.influencePriority'>1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,0,0:extends,3.5,2.1,3.5</property>
+	</object>
+	<object id='96'>
+		<classname>EnvironmentMap</classname>
+		<position x='28' y='2' z='-20'/>
+		<property key='envMapProbe.reflectionShape'>box:position,0,0,0:extends,10,2,10</property>
+		<property key='envMapProbe.influencePriority'>1</property>
+		<property key='envMapProbe.influenceArea'>box:position,0,0,0:extends,10.2,2.1,10.2</property>
 	</object>
 	
 	<decal>
