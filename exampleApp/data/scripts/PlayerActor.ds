@@ -1,6 +1,7 @@
 namespace Example
 
 pin Dragengine.Scenery
+pin Dragengine.Utils
 
 
 /**
@@ -21,5 +22,24 @@ public class PlayerActor extends BaseActor
 	public func new(PlayerActorClass eclass) super(eclass)
 		lookAt = eclass.lookAt.instance(this)
 		occupier = eclass.occupier.instance(this)
+		
+		// Init foot steps behavior. We use one for walking and one for running. For example purpose
+		// the volumes are exagerated to make running heard better by the NPC than walking.
+		var WeightedRandomList footStepSounds = WeightedRandomList.new()
+		eclass.footStepSounds.forEach(block Sound each
+			footStepSounds.add(each, 1)
+		end )
+		
+		var ECBehaviorFootSteps.Configuration footStepsConfig
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(PlayerActorClass.FOOTSTEPS_WALK)
+		footStepsConfig.setInterval(0.6)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.5, footStepSounds, 0.1, 20))
+		getFootSteps().addConfiguration(footStepsConfig)
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(PlayerActorClass.FOOTSTEPS_RUN)
+		footStepsConfig.setInterval(0.4)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.3, footStepSounds, 0.3, 40))
+		getFootSteps().addConfiguration(footStepsConfig)
 	end
 end

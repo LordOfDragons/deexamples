@@ -165,4 +165,30 @@ class PlayerActionInteractToggle extends BAAFirstPerson
 			aiAction.setAction(PlayerAction.new())
 		end
 	end
+	
+	
+	/**
+	 * Think. Extended to use footsteps.
+	 */
+	public func void think(float elapsed)
+		super.think(elapsed)
+		
+		footSteps()
+	end
+	
+	/**
+	 * Update foot steps.
+	 */
+	public func void footSteps()
+		// if going to stop moving stop foot steps. otherwise use the appropriate steps
+		if getLocomotion().getLocomotion().getMovingSpeed() < 0.01
+			getFootSteps().clearActiveConfiguration()
+			
+		elif getPlayerInputMove().getRun()
+			getFootSteps().setActiveConfigurationWithID(PlayerActorClass.FOOTSTEPS_RUN, true)
+			
+		else
+			getFootSteps().setActiveConfigurationWithID(PlayerActorClass.FOOTSTEPS_WALK, true)
+		end
+	end
 end

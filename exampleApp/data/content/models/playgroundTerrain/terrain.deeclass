@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <elementClass name='PlaygroundTerrain' class='SimpleElement'>
 	<string name='component.model'>terrain.demodel</string>
+	<string name='component.audioModel'>terrain_audio.demodel</string>
 	<string name='component.rig'>terrain.derig</string>
 	<string name='navigationSpace.path'>terrain.denavspace</string>
 	<map name='component.textureReplacements'>

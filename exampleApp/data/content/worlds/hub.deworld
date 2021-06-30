@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>97</nextObjectID>
+	<nextObjectID>a3</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -178,7 +178,7 @@
 		<classname>BaseParticleEmitter</classname>
 		<position x='8.98' y='1.6' z='8.5'/>
 		<rotation x='0' y='90' z='0'/>
-		<property key='particleEmitter.trigger'>@castBeam</property>
+		<property key='particleEmitter.trigger'>@castBeamParticle</property>
 		<property key='particleEmitter.path'>/content/emitters/beams/beam6e.depemit</property>
 	</object>
 	<object id='19'>
@@ -616,6 +616,7 @@
 		<position x='-10' y='1.8' z='-10'/>
 		<property key='speaker.sound'>/content/sound/birds.ogg</property>
 		<property key='speaker.volume'>1</property>
+		<property key='speaker.rollOff'>0.5</property>
 		<property key='speaker.range'>15</property>
 	</object>
 	<object id='43'>
@@ -887,6 +888,7 @@
 	<object id='61'>
 		<classname>InteractionSpotExample</classname>
 		<position x='0.2' y='0' z='-25'/>
+		<property key='animated.targetPlaying'>interactionSpotPlaying</property>
 		<texture name='case'>
 			<skin>/content/materials/metalPainted/rough.deskin</skin>
 			<tint r='0.176471' g='0.184314' b='0.368627'/>
@@ -1105,39 +1107,6 @@
 			<tint r='0.466667' g='0.466667' b='0.466667'/>
 		</texture>
 	</object>
-	<object id='7e'>
-		<classname>SimpleElement</classname>
-		<position x='-25' y='0' z='-10'/>
-		<property key='component.model'>/content/models/giroom/giroom.demodel</property>
-		<property key='component.occlusionMesh'>/content/models/giroom/giroom.deoccmesh</property>
-		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,5.3,0.5,5.3</property>
-		<property key='component.rig'>/content/models/giroom/giroom.derig</property>
-		<texture name='floor'>
-			<skin>/content/materials/stoneFloor/material.deskin</skin>
-		</texture>
-		<texture name='wall'>
-			<skin>/content/materials/concrete/material.deskin</skin>
-		</texture>
-		<texture name='ceiling'>
-			<skin>/content/materials/concrete/material.deskin</skin>
-		</texture>
-	</object>
-	<object id='7f'>
-		<classname>SimpleElementOnRail</classname>
-		<position x='-26.5' y='4' z='-9.8'/>
-		<property key='component.rig'>/content/models/box/box.derig</property>
-		<property key='moveOnRail.trigger'>@giroomBox</property>
-		<property key='component.skin'>/content/materials/concrete/material.deskin</property>
-		<property key='moveOnRail.rail'>giroomBox</property>
-		<property key='component.renderEnvMap'>1</property>
-		<property key='moveOnRail.targetMoving'>giroomBoxMoving</property>
-		<property key='component.model'>/content/models/box/box.demodel</property>
-		<property key='moveOnRail.velocity'>0.3</property>
-		<texture name='material'>
-			<skin>/content/materials/concrete/material.deskin</skin>
-			<tint r='0.592157' g='0.764706' b='0.92549'/>
-		</texture>
-	</object>
 	<object id='80'>
 		<classname>RailCorner</classname>
 		<position x='-26.5' y='4' z='-9.8'/>
@@ -1276,6 +1245,133 @@
 		<property key='envMapProbe.reflectionShape'>box:position,0,0,0:extends,10,2,10</property>
 		<property key='envMapProbe.influencePriority'>1</property>
 		<property key='envMapProbe.influenceArea'>box:position,0,0,0:extends,10.2,2.1,10.2</property>
+	</object>
+	<object id='97'>
+		<classname>BaseSpeaker</classname>
+		<position x='-26.15' y='3.8' z='-9.8'/>
+		<property key='speaker.sound'>/content/sound/stoneBoxSlide.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.trigger'>@giroomBoxMoving</property>
+		<property key='speaker.rollOff'>0.2</property>
+		<property key='speaker.range'>60</property>
+	</object>
+	<object id='98'>
+		<classname>AttachableBaseSpeaker</classname>
+		<position x='-25.2' y='1.5' z='-9'/>
+		<property key='speaker.sound'>/content/sound/stoneBoxSlide.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.trigger'>@giroomWallPlateMoving</property>
+		<property key='speaker.rollOff'>0.2</property>
+		<property key='speaker.range'>60</property>
+		<attachTo>8b</attachTo>
+	</object>
+	<object id='99'>
+		<classname>BaseSpeaker</classname>
+		<position x='-25.2' y='1.5' z='-10'/>
+		<property key='speaker.sound'>/content/sound/clack.ogg</property>
+		<property key='speaker.trigger'>@giroomMoveWallPlate</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.rollOff'>0.2</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='9a'>
+		<classname>BaseSpeaker</classname>
+		<position x='-25.7' y='3.35' z='-9.8'/>
+		<property key='speaker.sound'>/content/sound/clack.ogg</property>
+		<property key='speaker.trigger'>@giroomMoveBox</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.rollOff'>0.2</property>
+		<property key='speaker.looping'>0</property>
+	</object>
+	<object id='7f'>
+		<classname>SimpleElementOnRail</classname>
+		<position x='-26.5' y='4' z='-9.8'/>
+		<property key='component.audioModel'>/content/models/box/box.demodel</property>
+		<property key='component.renderEnvMap'>1</property>
+		<property key='component.model'>/content/models/box/box.demodel</property>
+		<property key='component.rig'>/content/models/box/box.derig</property>
+		<property key='moveOnRail.velocity'>0.3</property>
+		<property key='component.skin'>/content/materials/concrete/material.deskin</property>
+		<property key='moveOnRail.targetMoving'>giroomBoxMoving</property>
+		<property key='moveOnRail.trigger'>@giroomBox</property>
+		<property key='moveOnRail.rail'>giroomBox</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.592157' g='0.764706' b='0.92549'/>
+		</texture>
+	</object>
+	<object id='7e'>
+		<classname>SimpleElement</classname>
+		<position x='-25' y='0' z='-10'/>
+		<property key='component.model'>/content/models/giroom/giroom.demodel</property>
+		<property key='component.occlusionMesh'>/content/models/giroom/giroom.deoccmesh</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,5.3,0.5,5.3</property>
+		<property key='component.audioModel'>/content/models/giroom/giroom.demodel</property>
+		<property key='component.rig'>/content/models/giroom/giroom.derig</property>
+		<texture name='floor'>
+			<skin>/content/materials/stoneFloor/material.deskin</skin>
+		</texture>
+		<texture name='wall'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+		<texture name='ceiling'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+		</texture>
+	</object>
+	<object id='9b'>
+		<classname>BaseSpeaker</classname>
+		<position x='0.2' y='1.15' z='-25.05'/>
+		<property key='speaker.sound'>/content/sound/computer.ogg</property>
+		<property key='speaker.volume'>0.25</property>
+		<property key='speaker.trigger'>@interactionSpotPlaying</property>
+		<property key='speaker.rollOff'>0.5</property>
+		<property key='speaker.range'>15</property>
+	</object>
+	<object id='9d'>
+		<classname>BaseSpeaker</classname>
+		<position x='9' y='1.8' z='-27.3'/>
+		<property key='speaker.trigger'>@stateMachine.red|@stateMachine.green|@stateMachine.blue</property>
+		<property key='speaker.sound'>/content/sound/clack.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.rollOff'>0.5</property>
+		<property key='speaker.looping'>0</property>
+		<property key='speaker.range'>15</property>
+	</object>
+	<object id='9f'>
+		<classname>BaseSpeaker</classname>
+		<position x='0.3' y='2.5' z='8'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='speaker.sound'>/content/sound/crackle.ogg</property>
+		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.range'>15</property>
+	</object>
+	<object id='a0'>
+		<classname>BaseSpeaker</classname>
+		<position x='8.8' y='1.6' z='8.5'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='speaker.trigger'>@castBeam</property>
+		<property key='speaker.sound'>/content/sound/beam.ogg</property>
+		<property key='speaker.volume'>1</property>
+		<property key='speaker.rollOff'>0.5</property>
+		<property key='speaker.looping'>0</property>
+		<property key='speaker.range'>20</property>
+	</object>
+	<object id='a1'>
+		<classname>TriggerTimer</classname>
+		<position x='8.98' y='2.3' z='8.5'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='timer.pulse'>1</property>
+		<property key='timer.timeout'>0.25</property>
+		<property key='timer.target'>castBeamParticle</property>
+		<property key='timer.trigger'>@castBeam</property>
+	</object>
+	<object id='a2'>
+		<classname>BaseSpeaker</classname>
+		<position x='9.75' y='0.8' z='8.5'/>
+		<rotation x='90' y='0' z='0'/>
+		<property key='speaker.sound'>/content/sound/electricity.ogg</property>
+		<property key='speaker.volume'>0.8</property>
+		<property key='speaker.range'>20</property>
 	</object>
 	
 	<decal>

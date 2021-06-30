@@ -18,9 +18,14 @@ pin Dragengine.Scenery
  * are present.
  */
 public class PlayerActorClass extends BaseActorClass
+	public static var String FOOTSTEPS_WALK = "walk"
+	public static var String FOOTSTEPS_RUN = "run"
+	
 	public var ECBehaviorLookAt lookAt
 	public var ECBehaviorPlayerLookAtInteractPrompt playerLookAtInteractPrompt
 	public var ECBehaviorOccupier occupier
+	
+	public var ECPSoundList footStepSounds
 	
 	
 	/**
@@ -92,6 +97,16 @@ public class PlayerActorClass extends BaseActorClass
 		// Set the default actor action. When done in the element class a factory has
 		// to be used
 		getAIAction().setActionFactory(PlayerAction.Factory.new())
+		
+		// Foot step sounds to play. Randomly chosen
+		footStepSounds = ECPSoundList.new("footStepSounds")
+		footStepSounds.addPath("/content/sound/footstep1.ogg")
+		footStepSounds.addPath("/content/sound/footstep2.ogg")
+		footStepSounds.addPath("/content/sound/footstep3.ogg")
+		footStepSounds.addPath("/content/sound/footstep4.ogg")
+		footStepSounds.addPath("/content/sound/footstep5.ogg")
+		footStepSounds.addPath("/content/sound/footstep6.ogg")
+		addProperty(footStepSounds)
 	end
 	
 	

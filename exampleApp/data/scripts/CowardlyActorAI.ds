@@ -235,6 +235,9 @@ class CowardlyActorAI extends BAAIBehaviorTree
 	/** \brief Player movement input behavior instance. */
 	public var ECBehaviorPlayerInputMove.Instance playerInputMove
 	
+	/** \brief Foot steps behavior instance. */
+	public var ECBehaviorFootSteps.Instance footSteps
+	
 	/** \brief Player distance to actor. */
 	public var ParameterTableEntry playerDistance
 	
@@ -322,8 +325,28 @@ class CowardlyActorAI extends BAAIBehaviorTree
 	protected func void initBehaviors()
 		super.initBehaviors()
 		
-		actorMover = ECBehaviorActorMover.getInstanceIn( actor )
-		playerInputMove = ECBehaviorPlayerInputMove.getInstanceIn( actor )
+		actorMover = ECBehaviorActorMover.getInstanceIn(actor)
+		playerInputMove = ECBehaviorPlayerInputMove.getInstanceIn(actor)
+		footSteps = ECBehaviorFootSteps.getInstanceIn(actor)
+		
+		// Init foot steps behavior. We use one for walking and one for running. For example purpose
+		// the volumes are exagerated to make running heard better by the NPC than walking.
+		var WeightedRandomList footStepSounds = WeightedRandomList.new()
+		(actor.getClass() cast CowardlyActorClass).footStepSounds.forEach(block Sound each
+			footStepSounds.add(each, 1)
+		end )
+		
+		var ECBehaviorFootSteps.Configuration footStepsConfig
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(CowardlyActorClass.FOOTSTEPS_WALK)
+		footStepsConfig.setInterval(0.6)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.5, footStepSounds, 0.2, 20))
+		footSteps.addConfiguration(footStepsConfig)
+		
+		footStepsConfig = ECBehaviorFootSteps.Configuration.new(CowardlyActorClass.FOOTSTEPS_RUN)
+		footStepsConfig.setInterval(0.4)
+		footStepsConfig.addEvent(ECBehaviorFootSteps.Event.new(0.3, footStepSounds, 0.4, 40))
+		footSteps.addConfiguration(footStepsConfig)
 	end
 	
 	/**
@@ -347,8 +370,26 @@ class CowardlyActorAI extends BAAIBehaviorTree
 		//	getContext().setCurrentRuleByID( "flee" )
 		//end
 		
+		updateFootSteps()
+		
 		// continue with super class behavior. this handles behavior tree for us
 		super.think( elapsed )
+	end
+	
+	/**
+	 * Update foot steps.
+	 */
+	public func void updateFootSteps()
+		// if going to stop moving stop foot steps. otherwise use the appropriate steps
+		if actorMover.getLocomotion().getLocomotion().getMovingSpeed() < 0.1
+			footSteps.clearActiveConfiguration()
+			
+		elif actorMover.getSpeed() > playerInputMove.getSpeedWalk() * 1.1
+			footSteps.setActiveConfigurationWithID(CowardlyActorClass.FOOTSTEPS_RUN, true)
+			
+		else
+			footSteps.setActiveConfigurationWithID(CowardlyActorClass.FOOTSTEPS_WALK, true)
+		end
 	end
 	
 	
