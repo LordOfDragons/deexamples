@@ -1,3 +1,4 @@
+pin Dragengine.Commands
 pin Dragengine.ConversationSystem
 pin Dragengine.Gui.Events
 pin Dragengine.Scenery
@@ -79,6 +80,7 @@ class GameApp extends BaseGameApp
 		windowOverBlack.setTimeFadeIn(0.5)
 		windowOverBlack.setTimeStay(0.5)
 		windowOverBlack.setTimeFadeOut(0.5)
+		windowOverBlack.setEnabled(false)  // prevent mouse pointer problems
 		getDesktop().addWindow(windowOverBlack)
 		
 		// Logging can be done by adding messages to the console
@@ -121,6 +123,34 @@ class GameApp extends BaseGameApp
 		// add XML element classes
 		getLoaders().getElementClass().addXmlElementClasses(eclist, "/model", true)
 
+	end
+	
+	/**
+	 * Create and add custom commands.
+	 */
+	protected func void createAndAddCommands()
+		super.createAndAddCommands()
+		
+		// Add custom commands. Once added the player can assign bindings to them
+		var CommandManager cmgr = getCommandManager()
+		cmgr.add(CommandMenu.new())
+	end
+	
+	/**
+	 * Set default bindings. These are used the first time the player runs the game.
+	 */
+	public func DefaultBindingHelper defaultBindings()
+		var DefaultBindingHelper helper = super.defaultBindings()
+		
+		// Assign the escape keyboard key to the game menu command. For this use an
+		// InputEventKey constant and the name of the command.
+		// 
+		// As a little side note. The super class assigns two keys to the quit game
+		// command: Escape and Q. Hence by assigning Escape to our show game menu
+		// command the Q key will still immediately quit the game
+		helper.keyboardBindKeyCode(InputEventKey.escape, "showMenu")
+		
+		return helper
 	end
 	
 	/** \brief Create conversation playback. */

@@ -263,7 +263,7 @@
 	<object id='22'>
 		<classname>TriggerTouch</classname>
 		<position x='-6' y='0.5' z='8'/>
-		<property key='touching.target'>convoShowBindings</property>
+		<property key='touching.target'>convoShowBindings_disable</property>
 	</object>
 	<object id='23'>
 		<classname>TriggerTimer</classname>

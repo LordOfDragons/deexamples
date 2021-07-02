@@ -9,6 +9,11 @@
 	-->
 	
 	
+	<!-- Menu window is regular window designer but with some padding and minium size -->
+	<designer name='Window.Menu' extendNamed='Window'>
+		<borderSize parameter='normal.padding' all='20'/>
+	</designer>
+	
 	<!--
 	Style the WindowTrackerMap.
 	-->

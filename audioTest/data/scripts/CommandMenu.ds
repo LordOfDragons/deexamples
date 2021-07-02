@@ -1,0 +1,30 @@
+pin Dragengine.Commands
+
+
+/**
+ * Command showing game menu if the player presses Escape key.
+ */
+class CommandMenu extends Command
+	/**
+	 * Create command.
+	 */
+	public func new()
+		this.setName( "showMenu" )
+		this.setDescription( "Show game menu" )
+	end
+	
+	
+	
+	/**
+	 * Stop command. You can react to start() and stop(). For keyboard presses start() is
+	 * called on pressing down the key and stop() is called on releasing the key.
+	 * 
+	 * It is recommended to react to stop() for commands showing UI windows. This avoids
+	 * a key release to end up with the active window widget.
+	 */
+	public func void stop()
+		// Creating the window is all we need to do. The window class itself does add
+		// itself to the desktop and grabs the input
+		WindowMenu.new()
+	end
+end
