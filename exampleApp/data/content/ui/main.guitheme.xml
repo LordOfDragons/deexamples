@@ -9,11 +9,9 @@
 		</mousePointer>
 	</designer>
 	
-	<!-- Main menu window is full screen with no border and black background -->
-	<designer name='Window.MainMenu' type='Window'>
-		<canvasCreator parameter='normal.canvas' type='Rectangle'>
-			<color parameter='colorFill' r='0' g='0' b='0'/>
-		</canvasCreator>
+	<!-- Menu window is regular window designer but with some padding and minium size -->
+	<designer name='Window.Menu' extendNamed='Window'>
+		<borderSize parameter='normal.padding' all='20'/>
 	</designer>
 	
 	<!-- Loading window -->

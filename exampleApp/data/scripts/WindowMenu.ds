@@ -1,0 +1,155 @@
+namespace Example
+
+pin Dragengine.Gui.Layouts
+pin Dragengine.Gui.Events
+
+
+/**
+ * Simple game menu shown to the player if the CommandMenu command is invoked.
+ */
+class WindowMenu extends Window
+	/**
+	 * Action listener closing the menu and returning to the game.
+	 */
+	class ActionResume implements ActionListener
+		var WindowMenu window
+		
+		public func new(WindowMenu window)
+			this.window = window
+		end
+		
+		public func void onAction(ActionEvent event)
+			// Enable the game window again. This allows the game window to receive
+			// the focus once the main window vanishes
+			var WindowGameWorld wgw = BaseGameApp.getApp().getWindowGameWorld()
+			wgw.setEnabled(true)
+			
+			// Close the menu window. This removes the window from the desktop
+			// and disposes of it
+			window.close()
+			
+			// Switch input back to binding processor. Now the player can take
+			// controll again
+			BaseGameApp.getApp().setInputProcessorBindings()
+		end
+	end
+	
+	
+	/**
+	 * Action listener showing settings dialog. This allows to change bindings
+	 * and module parameters
+	 */
+	class ActionSettings implements ActionListener
+		var WindowMenu window
+		
+		public func new(WindowMenu window)
+			this.window = window
+		end
+		
+		public func void onAction(ActionEvent event)
+			// Create settings window. You can use a convenience class for this.
+			// Set the size to 800 times 600. Alternatively this can be set to something like
+			// 80% of the screen size
+			var Point size = Point.new( 800, 600 )
+			//var Point size = BaseGameApp.getApp().getDesktop().getSize() * 8 / 10
+			var WindowSettings windowSettings = WindowSettings.new(size)
+			
+			// Add sheets
+			windowSettings.addSheet( WSSEditBindings.new() )
+			windowSettings.addSheet( WSSModuleParameters.new() )
+			
+			// Display centered as modal window blocking this window
+			windowSettings.show(window, false, WindowModal.Placement.window)
+		end
+	end
+	
+	
+	/**
+	 * Action listener exiting the example app. What CommandQuitGame would do.
+	 */
+	class ActionQuit implements ActionListener
+		public func new()
+		end
+		
+		public func void onAction(ActionEvent event)
+			BaseGameApp.getApp().quitGame()
+		end
+	end
+	
+	
+	/**
+	 * Create window and show it on the desktop.
+	 */
+	public func new() super(0, 0, 200, 300)
+		// It is recommended to use runWhileBlockingLayout whenever you can.
+		// The Drag[en]gine UI ToolKit updates widgets immediately which can
+		// be expensive. By using runWhileBlockingLayout the update is delayed
+		// until the block exits
+		runWhileBlockingLayout(block
+			// Set some window parameters
+			setCanMaximize(false)
+			setCanMinimize(false)
+			setCanReorder(false)
+			setCanClose(false)
+			setTitle("Example App Menu")
+			
+			// By assigning a designer selector you can style the window using
+			// "/content/ui/main.guitheme files". Without setting a custom designer
+			// name the default window designer will be used.
+			// 
+			// By using a "." in the selector name you can support fallback designers
+			// to be used. In this example first the designer named "Window.Menu" is
+			// looked up. If not found "Window" is tried. If this one is also not
+			// found no designer is used.
+			setDesignerSelector("Window.Menu")
+			
+			// Create the content. In this example some buttons are used to return
+			// to the game, change settings or exit the game
+			setLayout(BoxLayout.new(LayoutAxis.y, 5))
+			
+			addWidget(Button.new("Resume", ActionResume.new(this)))
+			addWidget(Button.new("Settings", ActionSettings.new(this)))
+			addWidget(Button.new("Quit", ActionQuit.new()))
+		end)
+		
+		// Add the window to the desktop
+		var Desktop desktop = BaseGameApp.getApp().getDesktop()
+		desktop.addWindow(this)
+		
+		// Now we can fit the window size to the content and center it on screen.
+		// We can do this only after adding the window to the desktop since fitting
+		// the size to the content requires widget to be designed. Widgets can be
+		// only designed if designers have been resolved from the GuiTheme assigned
+		// to the desktop. This information is only present once the window is a
+		// child of the desktop.
+		// 
+		// Here though we want to use a fixed size of 200x300. This size is defined
+		// in the super constructor call above. You can also set the size here
+		// using setSize() if you want to
+		//fitToContent()
+		centerWindow()
+		
+		// Disable the game window so the player can not click on it. There are
+		// multiple ways this can be handled depending if other windows are present
+		// and how the game UI works. This version here is the most simple one
+		var WindowGameWorld wgw = BaseGameApp.getApp().getWindowGameWorld()
+		wgw.setEnabled(false)
+		
+		// A little note here. The game window uses a designer which has no mouse
+		// pointer. If the player moves the mouse outside the menu window his mouse
+		// pointer would vanish. By disabling the window this effect is disabled too
+		
+		// If you want to you can add a temporary Panel overlay to the game window.
+		// This way the game content can be darkened or overlayed with a image or
+		// video file as you see fit. Upon resuming you can then remove the panel
+		
+		// Last but not least set desktop input processor. This disables redirecting
+		// input to game commands and makes keyboard and mouse working regularly
+		BaseGameApp.getApp().setInputProcessorDesktop()
+		
+		// The mouse pointer has no well defined position after input processor
+		// for game commands is used. Center it on the window to make it easier
+		// for the player
+		desktop.warpCenterMouseIn(this)
+	end
+end

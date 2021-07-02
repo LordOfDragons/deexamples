@@ -13,7 +13,7 @@
 				<color r='0' g='0.215686' b='0.0588235'/>
 			</text>
 			<text>
-				<position x='12' y='86'/>
+				<position x='12' y='69'/>
 				<size x='487' y='42'/>
 				<path>/content/fonts/regular_67px.defont</path>
 				<fontSize>40</fontSize>
@@ -21,7 +21,7 @@
 				<color r='0' g='0' b='0'/>
 			</text>
 			<text>
-				<position x='13' y='166'/>
+				<position x='12' y='139'/>
 				<size x='487' y='42'/>
 				<path>/content/fonts/regular_67px.defont</path>
 				<fontSize>40</fontSize>
@@ -29,7 +29,7 @@
 				<color r='0' g='0' b='0'/>
 			</text>
 			<text>
-				<position x='12' y='125'/>
+				<position x='12' y='104'/>
 				<size x='487' y='42'/>
 				<path>/content/fonts/regular_67px.defont</path>
 				<fontSize>40</fontSize>
@@ -37,11 +37,19 @@
 				<color r='0' g='0' b='0'/>
 			</text>
 			<text>
-				<position x='13' y='205'/>
+				<position x='12' y='174'/>
 				<size x='487' y='42'/>
 				<path>/content/fonts/regular_67px.defont</path>
 				<fontSize>40</fontSize>
-				<text>Quit: Q-key or ESC-key</text>
+				<text>Menu/Settings: ESC-key</text>
+				<color r='0' g='0' b='0'/>
+			</text>
+			<text>
+				<position x='12' y='209'/>
+				<size x='487' y='42'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>40</fontSize>
+				<text>Quit: Q-key</text>
 				<color r='0' g='0' b='0'/>
 			</text>
 		</constructed>

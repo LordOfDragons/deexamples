@@ -1,6 +1,7 @@
 namespace Example
 
 pin Dragengine.CameraDirectors
+pin Dragengine.Commands
 pin Dragengine.Gui.Events
 pin Dragengine.Scenery
 pin Dragengine.Preloading
@@ -11,11 +12,24 @@ pin Dragengine.Utils
  * Example application.
  */
 class ExampleApp extends BaseGameApp
+	/**
+	 * Load game world and start game. Used as listener for startLoadGameWorld() calls.
+	 */
 	private class StartGame extends WindowGameWorld.Loader
+		/**
+		 * Create load game world instance. Loads "pathWorld" (which is a *.deworld file).
+		 * The resulting GameWorld instance is assigned to "window".
+		 */
 		public func new(WindowGameWorld window, String pathWorld) super(window)
 			setPathWorld(pathWorld)
 		end
 		
+		/**
+		 * Loading game world finished. The super class implementation assigns the
+		 * game world to the window. Subclass has to finish setting up the game world
+		 * before it is assigned. Typically this involves creating and spawning the
+		 * player as well as activating a CameraDirector to show the world
+		 */
 		public func void onLoadWorldFinished()
 			var ExampleApp app = BaseGameApp.getApp() cast ExampleApp
 			var GameWorld gameWorld = getStubWorld().getGameWorld()
@@ -79,18 +93,32 @@ class ExampleApp extends BaseGameApp
 			
 			getWindow().setCameraDirector(director)
 			
-			// Finish and start running
+			// Finish and start running. The binding input processor is activated which
+			// uses bindings to redirect inputs to game commands. An alternative is
+			// activating the desktop input processor for example if you want to
+			// realize a point and click type game.
+			// 
+			// The call to finishLoadGameWorld() has to come last. After this call
+			// the game is running and no loading should interfere anymore
 			super.onLoadWorldFinished()
 			app.setInputProcessorBindings()
 			app.finishLoadGameWorld()
 		end
 		
+		/**
+		 * Loading the game world failed. The super class implementation clears everything
+		 * used for loading game worlds. The subclass implementation has to go back to a
+		 * working state like showing the main menu with an error message box. In this
+		 * example app we simply exit the game.
+		 */
 		public func void onLoadWorldFailed()
 			super.onLoadWorldFailed()
 			BaseGameApp.getApp().cancelLoadGameWorld()
 			Engine.quit()
 		end
 	end
+	
+	
 	
 	/**
 	 * Create example application.
@@ -110,14 +138,14 @@ class ExampleApp extends BaseGameApp
 		// Start game by showing the Drag[en]gine Game Engine logo and optionally other logos
 		// you would like to show. WindowLogo.show*() does all the work of showing a logo or
 		// video with optional sound. Once the window is finished (the user can skip it)
-		// the provided action listener is called. This can be creating a class implementing
-		// ActionListener interface or by using BlockActionListener. This is a convenience
-		// class allowing to use a block as an action and is suitable for quick code insertion
-		// like this. Using a class implementing ActionListener is though favorable since it
-		// makes it easier to chain actions in an understandable way.
+		// the provided action listener is called. This can be a class implementing the
+		// ActionListener interface or using BlockActionListener. This is a convenience
+		// class allowing to use a block as an action and is suitable for quick coding.
+		// Using a class implementing ActionListener is though favorable since it makes
+		// it easier to chain actions in an understandable way and to reuse actions.
 		// 
-		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
-		// engine but we highly appreciate it if you do so.
+		// Showing the Drag[en]gine Game Engine logo is not required at all to use this
+		// game engine but we highly appreciate it if you do so.
 		
 		WindowLogo.showDragengineLogo(this.getDesktop(), BlockActionListener.new(\
 			block ActionEvent event
@@ -126,12 +154,18 @@ class ExampleApp extends BaseGameApp
 	end
 	
 	/**
-	 * \brief Launch example application.
-	 * 
-	 * Called after logo windows are finished.
+	 * Launch example application. Called after logo windows are finished.
 	 */
 	public func void launchApplication()
+		// Add a shout console ontop of the game world window. This transparent widget
+		// prints messages send to the application wide console object at the top of
+		// the screen vanishing after a couple of seconds.
 		getWindowGameWorld().addWidget(ShoutConsole.new(getConsole()))
+		
+		// You can add more overlay widgets here for example a HUD widget or a UI
+		// widget if you want to realize a point and click type game. The game world
+		// window uses a StackLayout hence all added overlay widgets cover the entire
+		// screen with later added widgets placed on top of previously added ones
 		
 		/*
 		// Strings can be translated using getTranslationManager(). To change the language
@@ -184,8 +218,36 @@ class ExampleApp extends BaseGameApp
 		
 		// You will see also the directories /content/materials and /content/skies.
 		// These two directories are only automatically scanned by the IGDE Editor.
-		// For games you do not have to specify them anywhere are they are loaded
+		// For games you do not have to specify them anywhere as they are loaded
 		// by the individual element classes
+	end
+	
+	/**
+	 * Create and add custom commands.
+	 */
+	protected func void createAndAddCommands()
+		super.createAndAddCommands()
+		
+		// Add custom commands. Once added the player can assign bindings to them
+		var CommandManager cmgr = getCommandManager()
+		cmgr.add(CommandMenu.new())
+	end
+	
+	/**
+	 * Set default bindings. These are used the first time the player runs the game.
+	 */
+	public func DefaultBindingHelper defaultBindings()
+		var DefaultBindingHelper helper = super.defaultBindings()
+		
+		// Assign the escape keyboard key to the game menu command. For this use an
+		// InputEventKey constant and the name of the command.
+		// 
+		// As a little side note. The super class assigns two keys to the quit game
+		// command: Escape and Q. Hence by assigning Escape to our show game menu
+		// command the Q key will still immediately quit the game
+		helper.keyboardBindKeyCode(InputEventKey.escape, "showMenu")
+		
+		return helper
 	end
 	
 	/**

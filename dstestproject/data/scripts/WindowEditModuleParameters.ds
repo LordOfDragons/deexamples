@@ -67,11 +67,6 @@ class WindowEditModuleParameters extends Window
 				EditModuleParametersPanel.ActionApplyChanges.new( this.pPanelEditModuleParameters ) ) )
 			panel.addWidget( Button.new( "Reset Changes", \
 				EditModuleParametersPanel.ActionResetChanges.new( this.pPanelEditModuleParameters ) ) )
-			
-			var CheckBox checkAdvanced = CheckBox.new( "Advanced" )
-			checkAdvanced.getToggleModel().addListener( \
-				EditModuleParametersPanel.ToggleAdvancedListener.new( this.pPanelEditModuleParameters ) )
-			panel.addWidget( checkAdvanced )
 		end ), BorderLayout.Area.bottom )
 	end
 end
