@@ -3542,12 +3542,12 @@
 	</object>
 	<object id='25f'>
 		<classname>InfoConvoCoordSystem</classname>
-		<position x='-7.85' y='1.3' z='1.77'/>
+		<position x='-5.5' y='1.3' z='1.77'/>
 		<property key='convoCoordSystem.name'>introduction poi1</property>
 	</object>
 	<object id='260'>
 		<classname>InfoConvoCoordSystem</classname>
-		<position x='-7.55' y='2.05' z='0.22'/>
+		<position x='-5.2' y='2.05' z='0.22'/>
 		<property key='convoCoordSystem.name'>introduction poi2</property>
 	</object>
 	<object id='261'>

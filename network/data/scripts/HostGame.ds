@@ -55,7 +55,9 @@ class HostGame extends WindowGameWorld.Loader
 	 * Create start game loader.
 	 */
 	public func new( WindowGameWorld window ) super( window )
-		listenAddress = "127.0.0.1"  // "*"
+		// Listen address can be either a regular IP address (for example "127.0.0.1")
+		// or "*" to make the network module pick the best public IP it can find
+		listenAddress = "*"
 		
 		// Enable networking for loaded game elements
 		setEnableNetworking( true )
