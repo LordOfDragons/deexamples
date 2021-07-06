@@ -28,6 +28,14 @@
 				<text>triggers to alter lighting situations.</text>
 				<color r='0' g='0' b='0'/>
 			</text>
+			<text>
+				<position x='13' y='173'/>
+				<size x='487' y='42'/>
+				<path>/content/fonts/regular_67px.defont</path>
+				<fontSize>40</fontSize>
+				<text>(let your eyes accumulate)</text>
+				<color r='0' g='0.188235' b='0.588235'/>
+			</text>
 		</constructed>
 		<value property='reflectivity'>0.23</value>
 		<value property='roughness'>0.35</value>

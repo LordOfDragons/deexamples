@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <elementClass name='PillarLight' class='BaseLight'>
-	<float name='light.intensity'>1</float>
+	<float name='light.intensity'>0.5</float>
 	<color name='light.color' r='0.345098' g='0.694118' b='0.921569'/>
-	<float name='light.range'>2</float>
+	<float name='light.range'>3</float>
+	<float name='light.halfIntensityDistance'>0.25</float>
 	<string name='light.lightSkin'>/shareddata/materials/light/scatter_light.deskin</string>
 </elementClass>

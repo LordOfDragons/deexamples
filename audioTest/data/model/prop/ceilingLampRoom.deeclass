@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <elementClass name='CeilingLampRoom' class='CeilingLamp'>
 	<float name='light.intensity'>1</float>
-	<float name='light.halfIntensityDistance'>0.2</float>
+	<float name='light.halfIntensityDistance'>0.3</float>
 	<float name='light.range'>15</float>
 	<string name='light.lightSkin'>/shareddata/materials/light/round.deskin</string>
 </elementClass>

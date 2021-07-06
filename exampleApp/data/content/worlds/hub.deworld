@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>a3</nextObjectID>
+	<nextObjectID>a5</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1168,9 +1168,9 @@
 	<object id='8a'>
 		<classname>BaseLight</classname>
 		<position x='-28.7' y='0.8' z='-6.5'/>
-		<property key='light.intensity'>0.2</property>
-		<property key='light.range'>2</property>
-		<property key='light.halfIntensityDistance'>0.2</property>
+		<property key='light.intensity'>0.1</property>
+		<property key='light.range'>1.5</property>
+		<property key='light.halfIntensityDistance'>0.5</property>
 	</object>
 	<object id='8b'>
 		<classname>SimpleElementOnRail</classname>
@@ -1228,10 +1228,10 @@
 	</object>
 	<object id='94'>
 		<classname>BaseLight</classname>
-		<position x='-25' y='2.4' z='-6'/>
-		<property key='light.intensity'>0.2</property>
-		<property key='light.range'>2</property>
-		<property key='light.halfIntensityDistance'>0.2</property>
+		<position x='-23.5' y='0.7' z='-8.15'/>
+		<property key='light.intensity'>0.1</property>
+		<property key='light.range'>1.5</property>
+		<property key='light.halfIntensityDistance'>0.5</property>
 	</object>
 	<object id='95'>
 		<classname>EnvironmentMap</classname>
@@ -1372,6 +1372,20 @@
 		<property key='speaker.sound'>/content/sound/electricity.ogg</property>
 		<property key='speaker.volume'>0.8</property>
 		<property key='speaker.range'>20</property>
+	</object>
+	<object id='a3'>
+		<classname>BaseLight</classname>
+		<position x='-24.6' y='0.7' z='-5.95'/>
+		<property key='light.intensity'>0.05</property>
+		<property key='light.range'>1.5</property>
+		<property key='light.halfIntensityDistance'>0.5</property>
+	</object>
+	<object id='a4'>
+		<classname>BaseLight</classname>
+		<position x='-26.55' y='0.7' z='-7.45'/>
+		<property key='light.intensity'>0.05</property>
+		<property key='light.range'>1.5</property>
+		<property key='light.halfIntensityDistance'>0.5</property>
 	</object>
 	
 	<decal>
