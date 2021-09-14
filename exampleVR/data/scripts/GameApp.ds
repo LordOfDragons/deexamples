@@ -1,0 +1,230 @@
+// pin namespaces to located script classes
+pin Dragengine.Commands
+pin Dragengine.Gui.Layouts
+pin Dragengine.Gui.Events
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+
+/**
+ * Game Application Class.
+ * 
+ * BaseGameApp provides basic starting behavior.
+ */
+class GameApp extends BaseGameApp
+	/**
+	 * Create Game Application.
+	 * 
+	 * Set here properties used by BaseGameApp during initGame(). All other initialization
+	 * work should be placed inside initGame() or one of the hook methods called by
+	 * BaseGameApp.initGame().
+	 */
+	public func new()
+		// Path to the GUI Theme file to use. If not set uses BaseGameApp.defaultPathGuiTheme
+		// 
+		pathDesktopGuiTheme = "/content/gui/main.guitheme.xml"
+		
+		
+		// To use translation support create one or more language packs and uncomment the
+		// properties below with the appropriate values.
+		// 
+		//pathLanguagePacks = "/content/langpacks"
+		//defaultLanguagePackName = UnicodeString.newFromUTF8("English")
+	end
+	
+	/**
+	 * Initialize game.
+	 * 
+	 * Create required objects here and start loading. Lengthy loading work should not be
+	 * waited for in this method. Methods like startLoadGameWorld() will notify you when
+	 * the lengthy loading work is done.
+	 * 
+	 * See BaseGameApp.initGame() documentation for the supported hook methods.
+	 */
+	public func void initGame()
+		// super-call has to come first
+		super.initGame()
+		
+		// do not capture input
+		InputSystem.setCaptureInputDevices(false)
+		
+		// Start game by showing the Drag[en]gine Game Engine logo and optionally other logos
+		// you would like to show. WindowLogo.show*() does all the work of showing a logo or
+		// video with optional sound. Once the window is finished (the user can skip it)
+		// the provided action listener is called. This can be creating a class implementing
+		// ActionListener interface or by using BlockActionListener. This is a convenience
+		// class allowing to use a block as an action and is suitable for quick code insertion
+		// like this. Using a class implementing ActionListener is though favorable since it
+		// makes it easier to chain actions in an understandable way.
+		// 
+		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
+		// engine but we highly appreciate it if you do so.
+		
+		WindowLogo.showDragengineLogo(this.getDesktop(), BlockActionListener.new(\
+			block ActionEvent event
+				launchApplication()
+			end))
+	end
+	
+	/**
+	 * \brief Launch example application.
+	 * 
+	 * Called after logo windows are finished.
+	 */
+	public func void launchApplication()
+		// BaseGameApp adds a WindowConsole which can be toggled by pressing F1 key. Adding
+		// a ShoutConsole shows the last messages without needing to show the console.
+		getWindowGameWorld().addWidget(ShoutConsole.new(getConsole()))
+		
+		// add FPS rate panel to hud
+		getPanelHud().getTopRight().addWidget(PanelFPSRates.new())
+		
+		// Show input device window
+		/*
+		var WindowInputDevice window = WindowInputDevice.new()
+		getDesktop().addWidget(window)
+		window.centerWindow()
+		window.setX(window.getX() + getDesktop().getWidth() / 4)
+		*/
+		
+		// Start VR Runtime. This can fail hence capture exceptions
+		getConsole().addMessage("Start VR Runtime...")
+		try
+			VRSystem.startRuntime()
+			
+		catch Exception e
+			getConsole().addError("Start VR Runtime Failed", e)
+			quitGame()
+			return
+		end
+		
+		// Logging can be done by adding messages to the console
+		getConsole().addMessage("Loading world...")
+		
+		// startLoadGameWorld is a simple way to start loading a game world into the
+		// WindowGameWorld created by BaseGameApp. StartGame is a script class created
+		// alongside this application class. It will be notified when the world loading
+		// finishes and contains the required code to finish starting the game.
+		// 
+		// To use this create a world file and change the filename
+		startLoadGameWorld(StartGame.new(getWindowGameWorld(), "/content/worlds/default.deworld"))
+	end
+	
+	/**
+	 * Create element classes and add them to element class list.
+	 */
+	protected func void createAndAddElementClasses()
+		// Always super-call
+		super.createAndAddElementClasses()
+		
+		// Add scripted element classes. These can be used by XML element classes below
+		var ElementClassList eclist = getElementClassList()
+		eclist.add(VisualizeDevicesClass.new())
+		
+		// Add XML element classes by recursively scanning directory for *.deeclass files.
+		// These require scripted element classes as parent classes. Using *.deeclass
+		// files you can easily add content with needing to write scripted classes.
+		getLoaders().getElementClass().addXmlElementClasses(eclist, "/content/models", true)
+		
+		// You will see also the directories /content/materials and /content/skies.
+		// These two directories are only automatically scanned by the IGDE Editor.
+		// For games you do not have to specify them anywhere are they are loaded
+		// by the individual element classes
+	end
+	
+	/**
+	 * Create helper containing default bindings.
+	 */
+	public func DefaultBindingHelper defaultBindings()
+		var DefaultBindingHelper helper = super.defaultBindings()
+		
+		// Remove mouse bindings
+		if helper.getMouse() != null
+			helper.removeAllDeviceBindings( helper.getMouse() )
+		end
+		
+		// Here you can add VR specific default bindings.
+		// 
+		// The CommandsBAAMovement and CommandsBAAInteract add already default VR bindings
+		// allowing to move around using left hand controller stick and turning using right
+		// hand controller stick. If you do not want these inputs you can start out with
+		// a clean slate by calling:
+		// 
+		//    helper.vrHandClear(rightHand)  // true for right hand, false for left hand
+		// 
+		// 
+		// You can then add bindings. Various methods are present for typical use cases.
+		// 
+		// 
+		// 
+		// To add a trigger call one of these:
+		// 
+		//    helper.vrHandBindTrigger(rightHand, InputDeviceAxisType.trigger, 0, "pullReleaseCommand")
+		//    
+		//    helper.vrHandBindTrigger(rightHand, InputDeviceAxisType.trigger, 0, "pullCommand", "releaseCommand")
+		// 
+		// This call can be used for axis types:
+		// - InputDeviceAxisType.trigger
+		// - InputDeviceAxisType.gripGrab
+		// - InputDeviceAxisType.gripSqueeze
+		// - InputDeviceAxisType.gripPinch
+		// - InputDeviceAxisType.fingerBend
+		// - InputDeviceAxisType.fingerSpread
+		// 
+		// 0 is the index of the trigger. This is used it multiple triggers exist. For example
+		// InputDeviceAxisType.fingerBend has typically 5 axes numbered from 0 to 4 inclusive.
+		// 
+		// 
+		// 
+		// 
+		// To add a stick axis call:
+		// 
+		//    helper.vrHandBindStick(rightHand, InputDeviceAxisType.stick, 0, "commandHorizontal", "commandVertical")
+		//    
+		// This call can be used for axis types:
+		// - InputDeviceAxisType.stick => Joystick
+		// - InputDeviceAxisType.touchPad => Track Pad
+		// 
+		// 0 is the index of the stick. This is used it multiple sticks exist. In general
+		// there is one Joystick and one Track Pad
+		// 
+		// 
+		// 
+		// To add a button call:
+		// 
+		//    helper.vrHandBindButton(rightHand, 0, "command")
+		// 
+		// 0 is the index of the button. In general 0 is the primary button and 1 the secondary
+		// button. If the controller has an "A" and "B" button then the A button is the primary
+		// button and the B button is the secondary button. If the controller has only one
+		// button then this button is the primary button. The system button as present on Index
+		// Controller can not be mapped.
+		// 
+		// 
+		// 
+		// All these calls add a binding only if the device supports the axis or button.
+		// 
+		// This method is also called if an input device is attached which had been previously
+		// detached. BaseGameApp assigns an instance of AttachDeviceDefaultBindings to the
+		// BindingManager. Upon attaching a device this method is called and the bindings
+		// matching the device are assigned. This allows to configure device bindings on
+		// the fly for newly attached devices using the same method
+		
+		return helper
+	end
+	
+	/**
+	 * Cleaning up.
+	 * 
+	 * Will be called before the game engine shuts down the game. This method will be also
+	 * called if the initGame() threw an exception before finishing. Make sure to check if
+	 * objects have been initialized before cleaning them up.
+	 */
+	public func void cleanUp()
+		// your cleaning up code has to come before the super-call
+		
+		// super-call has to come last
+		super.cleanUp()
+	end
+end

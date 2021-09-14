@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gameProject>
+	<name>ExampleVR</name>
+	<description>Example VR Project</description>
+	<dataDirectory>data</dataDirectory>
+	<cacheDirectory>cache</cacheDirectory>
+	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
+	<projectGameDefinition>ExampleVR.degd</projectGameDefinition>
+	<scriptModule version='1.6'>DragonScript</scriptModule>
+</gameProject>

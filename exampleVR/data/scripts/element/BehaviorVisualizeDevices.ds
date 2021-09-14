@@ -1,0 +1,157 @@
+pin Dragengine.Commands
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+/**
+ * Visualize devices.
+ */
+class BehaviorVisualizeDevices extends DefaultECBehavior
+	/** Behavior instance. */
+	class Instance extends DefaultECBehaviorInstance
+		/** Device changes listener. */
+		class DeviceChangeListener extends DefaultBindingManagerListener
+			private var Instance pInstance
+			
+			public func new(Instance instance)
+				pInstance = instance
+			end
+			
+			public func void devicesReloaded(BindingManager manager)
+				pInstance.reloadDevices()
+			end
+		end
+		
+		/** Device. */
+		class VisualizeDevice
+			private var Instance pInstance
+			private var InputDevice pDevice
+			private var Component pComponent
+			
+			public func new(Instance instance, InputDevice device)
+				pInstance = instance
+				pDevice = device
+				pComponent = Component.new(device.getVRModel(), device.getVRSkin())
+				instance.getElement().getGameWorld().getWorld().addComponent(pComponent)
+			end
+			
+			public func void dispose()
+				if pComponent != null
+					pInstance.getElement().getGameWorld().getWorld().removeComponent(pComponent)
+				end
+			end
+			
+			public func void update()
+				var ECBehaviorPlayerControllable.Instance player = BaseGameApp.getApp().getPlayerControlledActor().getActor()
+				if player == null
+					return
+				end
+				
+				var ECBehaviorVRPlayspace.Instance playspace = ECBehaviorVRPlayspace.getInstanceIn( player.getElement() )
+				if playspace == null
+					return
+				end
+				
+				var DMatrix matrix = pDevice.getDevicePoseMatrix().toDMatrix() * playspace.getMatrix()
+				pComponent.setPosition(matrix.getPosition())
+				pComponent.setOrientation(matrix.toQuaternion())
+			end
+		end
+		
+		private var Array pDevices
+		private var DeviceChangeListener pDeviceChangeListener
+		
+		/** Create instance. */
+		public func new(BehaviorVisualizeDevices behavior, BehaviorElement element) super(element)
+			pDevices = Array.new()
+			pDeviceChangeListener = DeviceChangeListener.new(this)
+			BaseGameApp.getApp().getBindingManager().addListener(pDeviceChangeListener)
+			setRequiresThink(true)
+		end
+		
+		/** Dispose of visualizer. */
+		public func void dispose()
+			if pDeviceChangeListener != null
+				BaseGameApp.getApp().getBindingManager().removeListener(pDeviceChangeListener)
+				pDeviceChangeListener = null
+			end
+			
+			clearDevices()
+			
+			super.dispose()
+		end
+		
+		/** Added to game world. */
+		public func void addToGameWorld()
+			addDevices()
+		end
+		
+		/** Removed from game world. */
+		public func void removeFromGameWorld()
+			clearDevices()
+		end
+		
+		/** Frame update. */
+		public func void think(float elapsed)
+			this.pDevices.forEach(block VisualizeDevice each
+				each.update()
+			end)
+		end
+		
+		/** Reload devices. */
+		public func void reloadDevices()
+			clearDevices()
+			addDevices()
+		end
+		
+		/** Clear devices. */
+		protected func void clearDevices()
+			pDevices.forEach(block VisualizeDevice each
+				each.dispose()
+			end)
+			pDevices.removeAll()
+		end
+		
+		/** Add devices. */
+		protected func void addDevices()
+			if getElement().getGameWorld() == null
+				return
+			end
+			
+			BaseGameApp.getApp().getBindingManager().forEachDevice(block InputDevice each
+				select each.getType()
+				case InputDeviceType.vrHMD
+					// if added the model clogs up the view so only useful if you have
+					// a different camera rendering the scene outside the HMD
+					//pDevices.add(VisualizeDevice.new(this, each))
+					
+				case InputDeviceType.vrBaseStation
+					// if added this is similar to the limbo scene of SteamVR where you
+					// can see your base stations
+					//pDevices.add(VisualizeDevice.new(this, each))
+					
+				case InputDeviceType.vrTracker
+					pDevices.add(VisualizeDevice.new(this, each))
+					
+				case InputDeviceType.vrStylus
+					pDevices.add(VisualizeDevice.new(this, each))
+					
+				case InputDeviceType.vrTreadmill
+					pDevices.add(VisualizeDevice.new(this, each))
+				end
+			end)
+		end
+	end
+	
+	
+	
+	/** Create behavior. */
+	public func new(BehaviorElementClass eclass) super(eclass)
+		eclass.addBehavior(this)
+	end
+	
+	/** Create instance. */
+	public func ECBehaviorInstance createInstance(BehaviorElement element)
+		return Instance.new(this, element)
+	end
+end

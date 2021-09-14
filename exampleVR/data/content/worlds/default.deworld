@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<world>
+	<size x='1000' y='1000' z='1000'/>
+	<gravity x='0' y='-9.81' z='0'/>
+	<worldEditor>
+		<skyPath>/igde/skies/static.desky</skyPath>
+	</worldEditor>
+	<nextObjectID>5</nextObjectID>
+	
+	<object id='1'>
+		<classname>PlaygroundTerrain</classname>
+		<position x='0' y='0' z='0'/>
+	</object>
+	<object id='2'>
+		<classname>SpawnPoint</classname>
+		<position x='0' y='0' z='0'/>
+		<property key='name'>player</property>
+	</object>
+	<object id='3'>
+		<classname>BaseSky</classname>
+		<position x='0' y='3' z='0'/>
+		<property key='sky.path'>/content/skies/static.desky</property>
+	</object>
+	<object id='4'>
+		<classname>AnimatedElement</classname>
+		<position x='0.5' y='0' z='0.8'/>
+		<rotation x='0' y='90' z='0'/>
+		<property key='component.model'>/content/models/dragoness/dragoness.demodel</property>
+		<property key='animated.animator'>/content/models/dragoness/dragoness.deanimator</property>
+		<property key='animated.playing'>1</property>
+		<property key='component.skin'>/content/models/dragoness/dragoness.deskin</property>
+		<property key='component.rig'>/content/models/dragoness/dragoness.derig</property>
+	</object>
+</world>
