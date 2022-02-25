@@ -6,5 +6,5 @@
 	<cacheDirectory>cache</cacheDirectory>
 	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
 	<projectGameDefinition>ExampleVR.degd</projectGameDefinition>
-	<scriptModule version='1.6'>DragonScript</scriptModule>
+	<scriptModule version='1.10'>DragonScript</scriptModule>
 </gameProject>
