@@ -1,0 +1,40 @@
+pin Dragengine.Scenery
+
+
+/**
+ * Ball class.
+ */
+class BallClass extends PhysicsElementClass
+	public var ECBehaviorGrabSpot grabSpot
+	public var ECBehaviorAttachable attachable
+	
+	
+	
+	/** Create element class. */
+	public func new() this("Ball")
+	end
+	
+	/** Create element class. */
+	public func new(String name) super(name)
+		// Set model, skin and rig to use
+		getComponent().setCommonPath("/content/models/ball", "ball.demodel", "ball.deskin", "ball.derig")
+		
+		// Set mass of ball to 100g
+		getCollider().getCollider().getWeight().setValue(0.1)
+		
+		// Make ball grabbable
+		grabSpot = ECBehaviorGrabSpot.new(this, getCollider())
+		
+		var ShapeList shape = ShapeList.new()
+		shape.addSphere(Vector.new(), 0.05) // Ball has radius of 0.035. Make it a bit bigger
+		grabSpot.getTouchCollider().getShape().setShapeList(shape)
+		
+		// Make ball attachable
+		attachable = ECBehaviorAttachable.new(this, getCollider())
+	end
+	
+	/** Create copy of element class for use with XML Subclassing. */
+	public func ElementClass duplicateNamed(String classname)
+		return BallClass.new(classname)
+	end
+end

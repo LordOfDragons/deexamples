@@ -1,0 +1,104 @@
+pin Dragengine.Scenery
+
+
+/**
+ * Player element class.
+ * 
+ * Uses BaseVRActorClass as base class.
+ */
+class PlayerClass extends BaseVRActorClass
+	/** Create element class. */
+	public func new() super("Player")
+		// Use hand model for left and right hand instead of vendor models it present.
+		// You usually want to do this.
+		// 
+		// It is also possible to set them using these element class properties
+		// (replace right with left for left hand):
+		// - "vrHand(right).component.model" = "/content/models/hands/right.demodel"
+		// - "vrHand(right).component.skin" = "/content/models/hands/hand.deskin"
+		// - "vrHand(right).component.rig" = "/content/models/hands/right.derig")
+		// - "vrHand(right).useVendorModel" = false
+		// 
+		// You can set those values in an XML Element Class (*.deeclass) or directly
+		// in an ElementStub used to create the player like this:
+		// - stub.setPropertyValueFor("vrHand(right).component.model", "/content/models/hands/right.demodel")
+		// - stub.setPropertyValueFor("vrHand(right).component.skin", "/content/models/hands/hand.deskin")
+		// - stub.setPropertyValueFor("vrHand(right).component.rig", "/content/models/hands/right.derig")
+		// - stub.setPropertyBoolFor("vrHand(right).useVendorModel", false)
+		
+		getVRRightHand().getUseVendorModel().setValue(false)
+		getVRRightHand().getComponent().setCommonPath("/content/models/hands",\
+			"right.demodel", "hand.deskin", "right.derig")
+		
+		getVRLeftHand().getUseVendorModel().setValue(false)
+		getVRLeftHand().getComponent().setCommonPath("/content/models/hands",\
+			"left.demodel", "hand.deskin", "left.derig")
+		
+		// By default only rotation of hand joints are applied. This works better with
+		// various kinds of hand models and is easier to work with. Only rotations though
+		// can though not fully reproduce the hand pose.
+		// 
+		// To apply the full pose including position set the finger tip distance and
+		// disable only rotation. The finger tip distance is used to scale the player
+		// hands to the in-game hand model used. Without this scaling the applied pose
+		// looks wrong.
+		// 
+		// Using full hand pose can be tricky since the hand model has to be crafted in
+		// a way it can deal with variable joint position depending on how the controllers
+		// used by the player report hand joints
+		/*
+		getVRRightHandPose().getFingerTipDistance().setValue(0.1667)
+		getVRRightHandPose().getOnlyRotation().setValue(false)
+		
+		getVRLeftHandPose().getFingerTipDistance().setValue(0.1667)
+		getVRLeftHandPose().getOnlyRotation().setValue(false)
+		*/
+		
+		// Set hand pose bones to be per-hand suffixed bone names. This makes the behaviors
+		// use bone names like "wrist.r" and "wrist.l" instad of just "wrist". Both naming
+		// schemes are useful in different situations. By default bone names are non-suffixed
+		getVRRightHandPose().setHandBoneNames(true)
+		getVRLeftHandPose().setHandBoneNames(false)
+		
+		// Enable physics interaction of the hands with the world. By default hands have
+		// no physical presence (setGhost() is called). By enabling physical presence the
+		// hand model can physically interact with objects like pushing them. You do not
+		// need physical interaction to support picking up or attaching objects.
+		// 
+		// This call does the following things:
+		// - set collider physics type to CollisionResponse.kinematic
+		// - clear collider local gravity
+		// - set collider weight to 1
+		// - set collision filter with category BaseGameApp.CollisionFilterBit.geometry
+		//   and filter BaseGameApp.CollisionFilterBit.dynamic
+		//   and BaseGameApp.CollisionFilterBit.particle .
+		getVRRightHand().setPhysics()
+		getVRLeftHand().setPhysics()
+		
+		// Set the hand point-at distance to 10m
+		getVRRightHandPointAt().getRange().setValue(10)
+		getVRLeftHandPointAt().getRange().setValue(10)
+		
+		// Set the bone and position to use for attaching objects to the hands. By default
+		// the attach position is set relative to the hand controller near the center of
+		// the hand palm. Set it to be located at an explicit bone
+		getVRRightHandAttachSlot().setAttachBone("attachHand.r")
+		getVRLeftHandAttachSlot().setAttachBone("attachHand.l")
+		
+		// Set the action factory to use to create the initial player actions
+		getAIAction().setActionFactory(AADefault.Factory.new())
+		
+		getVRRightHandAction().setActionFactory(HADefault.Factory.new())
+		getVRLeftHandAction().setActionFactory(HADefault.Factory.new())
+		
+		// Add hand animators
+		var String basePath = "/content/animator/player/hand/"
+		setHandAnimators(getVRRightHandAnimated().getAnimators(), basePath + "right/")
+		setHandAnimators(getVRLeftHandAnimated().getAnimators(), basePath + "left/")
+	end
+	
+	/** Assign hand animators. Both hands use the same animator identifiers but different animators. */
+	protected func void setHandAnimators(ECPAnimatorMap map, String basePath)
+		map.setPathAt("hold ball", basePath + "hold_ball.deanimator")
+	end
+end

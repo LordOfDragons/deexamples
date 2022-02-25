@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color'/>
+		<image property='normal'>normal.webp</image>
+		<color property='reflectivity' r='0.984314' g='0.898039' b='0.635294'/>
+		<value property='roughness'>0.1</value>
+		<value property='sound.absorption'>0.12</value>
+		<value property='sound.absorption.lower'>1.1</value>
+		<value property='sound.absorption.upper'>0.9</value>
+		<value property='sound.transmission'>0.12</value>
+	</texture>
+</skin>

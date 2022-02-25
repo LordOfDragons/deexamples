@@ -51,7 +51,7 @@ class StartGame extends WindowGameWorld.Loader
 		// set properties and add texture replacements to alter the created actor. Calling
 		// createElement() creates the actor. The cast is required since spawn points require
 		// a BaseActor object instance.
-		eclass = app.getElementClassList().getNamed("VRActor")
+		eclass = app.getElementClassList().getNamed("Player")
 		id = app.getIDGenerator().nextID()
 		var BaseVRActor player = StubElement.new(eclass, id).createElement() cast BaseVRActor
 		

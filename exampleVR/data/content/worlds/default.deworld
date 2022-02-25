@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>5</nextObjectID>
+	<nextObjectID>32</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -23,12 +23,173 @@
 	</object>
 	<object id='4'>
 		<classname>AnimatedElement</classname>
-		<position x='0.5' y='0' z='0.8'/>
+		<position x='19' y='0' z='14.95'/>
 		<rotation x='0' y='90' z='0'/>
 		<property key='component.model'>/content/models/dragoness/dragoness.demodel</property>
 		<property key='animated.animator'>/content/models/dragoness/dragoness.deanimator</property>
 		<property key='animated.playing'>1</property>
 		<property key='component.skin'>/content/models/dragoness/dragoness.deskin</property>
 		<property key='component.rig'>/content/models/dragoness/dragoness.derig</property>
+	</object>
+	<object id='5'>
+		<classname>Desk</classname>
+		<position x='-1.57703' y='0.00100077' z='2.73812'/>
+	</object>
+	<object id='6'>
+		<classname>Desk</classname>
+		<position x='-1.57703' y='0.00100077' z='7.68812'/>
+	</object>
+	<object id='7'>
+		<classname>Can</classname>
+		<position x='-2.00681' y='0.796001' z='7.49139'/>
+	</object>
+	<object id='8'>
+		<classname>Can</classname>
+		<position x='-1.9269' y='0.796001' z='7.4953'/>
+	</object>
+	<object id='9'>
+		<classname>Can</classname>
+		<position x='-1.847' y='0.796001' z='7.49921'/>
+	</object>
+	<object id='a'>
+		<classname>Can</classname>
+		<position x='-1.7671' y='0.796001' z='7.50311'/>
+	</object>
+	<object id='b'>
+		<classname>Can</classname>
+		<position x='-1.97207' y='0.906001' z='7.50176'/>
+	</object>
+	<object id='c'>
+		<classname>Can</classname>
+		<position x='-1.89312' y='0.906001' z='7.4968'/>
+	</object>
+	<object id='d'>
+		<classname>Can</classname>
+		<position x='-1.81495' y='0.906001' z='7.50525'/>
+	</object>
+	<object id='e'>
+		<classname>Can</classname>
+		<position x='-1.9357' y='1.016' z='7.49486'/>
+	</object>
+	<object id='f'>
+		<classname>Can</classname>
+		<position x='-1.85601' y='1.016' z='7.50183'/>
+	</object>
+	<object id='10'>
+		<classname>Can</classname>
+		<position x='-1.89533' y='1.126' z='7.50367'/>
+	</object>
+	<object id='11'>
+		<classname>Ball</classname>
+		<position x='-1.94984' y='0.774686' z='2.5869'/>
+		<rotation x='0' y='153.435' z='0'/>
+	</object>
+	<object id='12'>
+		<classname>Ball</classname>
+		<position x='-2.09713' y='0.774686' z='2.51101'/>
+		<rotation x='0' y='-66.6148' z='0'/>
+	</object>
+	<object id='13'>
+		<classname>Ball</classname>
+		<position x='-1.26942' y='0.774686' z='2.46425'/>
+		<rotation x='0' y='25.4633' z='0'/>
+	</object>
+	<object id='14'>
+		<classname>Ball</classname>
+		<position x='-1.14934' y='0.774686' z='2.50966'/>
+	</object>
+	<object id='15'>
+		<classname>Ball</classname>
+		<position x='-1.03652' y='0.774686' z='2.45512'/>
+		<rotation x='0' y='-18.4349' z='0'/>
+	</object>
+	<object id='16'>
+		<classname>Facade</classname>
+		<position x='-1.5' y='1' z='10'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='18'>
+		<classname>Facade</classname>
+		<position x='18.5' y='1' z='20'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='19'>
+		<classname>Facade</classname>
+		<position x='3.5' y='1' z='5.7'/>
+		<rotation x='0' y='90' z='0'/>
+	</object>
+	<object id='1b'>
+		<classname>Facade</classname>
+		<position x='8.5' y='1' z='-1.49012e-07'/>
+		<rotation x='0' y='180' z='0'/>
+	</object>
+	<object id='1c'>
+		<classname>Facade</classname>
+		<position x='13.5' y='1' z='5.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='1d'>
+		<classname>Facade</classname>
+		<position x='13.5' y='1' z='15.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='1e'>
+		<classname>Facade</classname>
+		<position x='-6.5' y='1' z='5.7'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='1f'>
+		<classname>Facade</classname>
+		<position x='-6.5' y='1' z='-4.3'/>
+		<rotation x='0' y='-90' z='0'/>
+	</object>
+	<object id='26'>
+		<classname>Desk</classname>
+		<position x='-1.57703' y='0.00100077' z='5.28812'/>
+	</object>
+	<object id='27'>
+		<classname>Can</classname>
+		<position x='-1.19533' y='1.126' z='5.10367'/>
+	</object>
+	<object id='28'>
+		<classname>Can</classname>
+		<position x='-1.15601' y='1.016' z='5.10183'/>
+	</object>
+	<object id='29'>
+		<classname>Can</classname>
+		<position x='-1.27207' y='0.906001' z='5.10176'/>
+	</object>
+	<object id='2a'>
+		<classname>Can</classname>
+		<position x='-1.11495' y='0.906001' z='5.10525'/>
+	</object>
+	<object id='2b'>
+		<classname>Can</classname>
+		<position x='-1.2357' y='1.016' z='5.09486'/>
+	</object>
+	<object id='2c'>
+		<classname>Can</classname>
+		<position x='-1.19312' y='0.906001' z='5.0968'/>
+	</object>
+	<object id='2d'>
+		<classname>Can</classname>
+		<position x='-1.0671' y='0.796001' z='5.10311'/>
+	</object>
+	<object id='2e'>
+		<classname>Can</classname>
+		<position x='-1.147' y='0.796001' z='5.09921'/>
+	</object>
+	<object id='2f'>
+		<classname>Can</classname>
+		<position x='-1.30681' y='0.796001' z='5.09139'/>
+	</object>
+	<object id='30'>
+		<classname>Can</classname>
+		<position x='-1.2269' y='0.796001' z='5.0953'/>
+	</object>
+	<object id='31'>
+		<classname>Ball</classname>
+		<position x='-1.79979' y='0.774686' z='2.52928'/>
+		<rotation x='0' y='90' z='0'/>
 	</object>
 </world>

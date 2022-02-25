@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	<sphere>
+		<position x='0' y='0' z='0'/>
+		<radius>0.035</radius>
+	</sphere>
+</rig>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0' g='0' b='0' a='1'/>
+		<image property='normal'>../shared/brushed/normal.png</image>
+		<value property='normal.strength'>0.025</value>
+		<value property='reflectivity'>0.76</value>
+		<image property='roughness'>../shared/brushed/roughness.png</image>
+		<value property='roughness.remap.lower'>0.02</value>
+		<value property='roughness.remap.upper'>0.04</value>
+		<value property='sound.absorption'>0.12</value>
+		<value property='sound.absorption.lower'>1.1</value>
+		<value property='sound.absorption.upper'>0.9</value>
+		<value property='sound.transmission'>0.12</value>
+	</texture>
+</skin>

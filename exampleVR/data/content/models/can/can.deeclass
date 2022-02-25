@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='Can' class='PhysicsElement'>
+	<string name='component.model'>can.demodel</string>
+	<string name='component.skin'>can.deskin</string>
+	<string name='component.rig'>can.derig</string>
+	<float name='collider.weight'>0.05</float>
+</elementClass>

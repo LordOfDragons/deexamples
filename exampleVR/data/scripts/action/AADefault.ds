@@ -1,0 +1,62 @@
+pin Dragengine.Scenery
+pin Dragengine.LoadSave
+
+
+/**
+ * Default player action. Used if player is not holding anyting in his hands nor interacting
+ * with any object.
+ */
+class AADefault extends BAAFirstPersonVR
+	/**
+	 * Factory for loading actor actions. For this Example VR application we do not need
+	 * persistency support hence readObjectFromFile() is doing the same as createAction().
+	 */
+	public class Factory implements PersistencyFactory, ECBehaviorActorAIAction.ActionFactory
+		public static fixed var String name = "AADefault"
+		
+		public func new()
+		end
+		
+		public func Persistable readObjectFromFile(PersistencyEnvironment env, FileReader reader)
+			return AADefault.new()
+		end
+		
+		public static func void registerFactory(Persistency persistency)
+			persistency.addFactory(name, Factory.new())
+		end
+		
+		public func BaseActorAction createAction(ECBehaviorActorAIAction.Instance instance)
+			return AADefault.new()
+		end
+	end
+	
+	
+	
+	/** Create action. */
+	public func new()
+	end
+	
+	
+	
+	/** Init behaviors. */
+	protected func void initBehaviors()
+		super.initBehaviors()
+	end
+	
+	
+	
+	/** Action has been activated. */
+	public func void activate(BehaviorElement actor)
+		super.activate(actor)
+	end
+	
+	
+	
+	/**
+	 * Name of PersistencyFactory required to load object from file. Since we do not use
+	 * persistency this is not required but it is always a good idea to add this.
+	 */
+	public func String persistencyFactoryName()
+		return Factory.name
+	end
+end

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='Desk' class='SimpleElement'>
+	<string name='component.model'>desk.demodel</string>
+	<string name='component.rig'>desk.derig</string>
+	<string name='component.audioModel'>desk.demodel</string>
+	<string name='navigationBlocker.shape'>box:position,0,0.36,0:extends,1.2,0.38,0.7</string>
+	<integer name='navigationBlocker.priority'>100</integer>
+	
+	<map name='component.textureReplacements'>
+		<map key='tabletop'>
+			<string key='skin'>/content/materials/metalPainted/rough.deskin</string>
+			<color key='tint' r='0.9' g='0.9' b='0.9'/>
+		</map>
+		<map key='support'>
+			<string key='skin'>/content/materials/metalPainted/rough.deskin</string>
+			<color key='tint' r='0.1' g='0.1' b='0.1'/>
+		</map>
+	</map>
+</elementClass>

@@ -1,0 +1,113 @@
+pin Dragengine.Scenery
+pin Dragengine.LoadSave
+
+
+/**
+ * Default hand action. Used if player is holding nothing in hand nor interacting with any object.
+ */
+class HADefault extends BaseVRHandAction implements BAAVRGrab
+	/**
+	 * Factory for loading actor actions. For this Example VR application we do not need
+	 * persistency support hence readObjectFromFile() is doing the same as createAction().
+	 */
+	public class Factory implements PersistencyFactory, ECBehaviorVRHandAction.ActionFactory
+		public static fixed var String name = "HADefault"
+		
+		public func new()
+		end
+		
+		public func Persistable readObjectFromFile(PersistencyEnvironment env, FileReader reader)
+			return HADefault.new()
+		end
+		
+		public static func void registerFactory(Persistency persistency)
+			persistency.addFactory(name, Factory.new())
+		end
+		
+		public func BaseVRHandAction createAction(ECBehaviorVRHandAction.Instance instance)
+			return HADefault.new()
+		end
+	end
+	
+	
+	
+	/** Create action. */
+	public func new()
+	end
+	
+	
+	
+	/** Init behaviors. */
+	protected func void initBehaviors()
+		super.initBehaviors()
+	end
+	
+	
+	
+	/** Action has been activated. */
+	public func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
+		super.activate(actor, vrHand)
+		
+		// Enable grabber
+		handGrabber.setEnabled(true)
+	end
+	
+	/** Action is about to be deactivated. */
+	public func void deactivate()
+		// Disable grabber
+		handGrabber.setEnabled(false)
+		
+		super.deactivate()
+	end
+	
+	/** Set up animator. */
+	protected func void initAnimator()
+		// Select animator to use. Use empty string to clear the animator. We do not want
+		// to use an animator to not replace the hand pose if the player has empty hands
+		handAnimated.setActiveAnimatorID("")
+	end
+	
+	
+	
+	/** Grab. */
+	public func void grab()
+		if grabSpot()
+			return
+		end
+	end
+	
+	/** Try grabbing a grab spot. */
+	public func bool grabSpot()
+		// Find first grab spot touching hand graber. If found switch to the appropriate
+		// hand action to grab and use the touched object 
+		return handGrabber.findTouchingGrabSpot(block ECBehaviorGrabSpot.Instance grabSpot
+			if grabSpot.isNotGrabbed()
+				handAction.setAction(HAHoldObject.new(grabSpot))
+				return true
+			end
+			return false
+		end) != null
+	end
+	
+	/** Ungrab. */
+	public func void ungrab()
+	end
+	
+	/** Grab in the range from 0 to 1. */
+	public func void grabAnalog(float value)
+	end
+	
+	/** Squeeze force in the range from 0 to 1. */
+	public func void squeeze(float value)
+	end
+	
+	
+	
+	/**
+	 * Name of PersistencyFactory required to load object from file. Since we do not use
+	 * persistency this is not required but it is always a good idea to add this.
+	 */
+	public func String persistencyFactoryName()
+		return Factory.name
+	end
+end

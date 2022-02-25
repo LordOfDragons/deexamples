@@ -1,0 +1,196 @@
+pin Dragengine.Scenery
+pin Dragengine.LoadSave
+
+
+/**
+ * Hand action for holding an object in hand.
+ */
+class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
+	/** Action states. */
+	enum State
+		/** Grab object. Blends from hand pose to animated pose. */
+		grab
+		
+		/** Hold object. Fully apply animated pose. */
+		idle
+		
+		/** Ungrab object. Blends from animated pose to hand pose. */
+		ungrab
+	end
+	
+	
+	
+	protected var ECBehaviorGrabSpot.Instance grabSpot
+	protected var ECBehaviorAttachable.Instance attachable
+	
+	protected var State state
+	protected var float grabTime
+	protected var float ungrabTime
+	protected var float elapsedTime
+	
+	protected var AnimatorController controllerGrab
+	
+	
+	
+	/** Create action. */
+	public func new(ECBehaviorGrabSpot.Instance grabSpot)
+		this.grabSpot = grabSpot
+		attachable = ECBehaviorAttachable.getInstanceIn(grabSpot.getElement())
+		
+		state = State.grab
+		grabTime = 0.2
+		ungrabTime = 0.5
+		elapsedTime = 0
+	end
+	
+	
+	
+	/** Init behaviors. */
+	protected func void initBehaviors()
+		super.initBehaviors()
+	end
+	
+	
+	
+	/** Action has been activated. */
+	public func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
+		super.activate(actor, vrHand)
+		
+		// Grab object. This marks the object as grabbed by the player but it is not yet
+		// attached to the attach slot
+		handGrabber.regrab(grabSpot)
+		
+		// To avoid collision of the fingers with the object disable collision with the
+		// hand fingers
+		grabSpot.getCollider().getCollider().addIgnoreCollider(vrHand.getCollider())
+	end
+	
+	/** Set up animator. */
+	protected func void initAnimator()
+		// Select animator to use while holding object. We use here an animator identifier
+		// used while adding animators to the player class. If the animator identifier is
+		// not present in the map the animator is set to null like HADefault uses
+		handAnimated.setActiveAnimatorID("hold ball")
+		
+		// Get animator controllers if present
+		controllerGrab = handAnimated.getControllerNamed("grab")
+		
+		// If controller grab is present set the controller range to the grab time
+		if controllerGrab != null
+			controllerGrab.setRange(0, grabTime)
+		end
+	end
+	
+	/** Update animator controllers. */
+	protected func void updateAnimator(float elapsed)
+		select state
+		case State.grab
+			// Advance elapsed time
+			elapsedTime += elapsed
+			
+			// Set grab controller to elapsed time
+			if controllerGrab != null
+				controllerGrab.setValue(elapsedTime)
+			end
+			
+			// Pull object towards attach position. This allows to smoothly move the object
+			// into the hold position
+			var DVector objectPosition = grabSpot.getElement().getPosition()
+			var Quaternion objectOrientation = grabSpot.getElement().getOrientation()
+			
+			var DVector attachPosition = handAttachSlot.getWorldMatrix().getPosition()
+			var Quaternion attachOrientation = handAttachSlot.getWorldMatrix().toQuaternion()
+			
+			var float blendFactor = DEMath.linearStep(elapsedTime, 0, grabTime)
+			
+			var DVector mixedPosition = objectPosition.mix(attachPosition, blendFactor)
+			var Quaternion mixedOrientation = objectOrientation.slerp(attachOrientation, blendFactor)
+			
+			grabSpot.getElement().setGeometry(mixedPosition, mixedOrientation)
+			
+			// If elapsed time reaches grab time switch to idle state
+			if elapsedTime >= grabTime
+				state = State.idle
+				
+				// Attach object to attach slot. From now on the physics module takes
+				// care of moving the object for us
+				attachable.reattach(handAttachSlot, Vector.new(), Quaternion.new())
+			end
+			
+		case State.idle
+			// Nothing to be done here. If the animator wants to be updated with elapsed
+			// time for idle playback this is done automatically by using locomotion
+			// animator update as provided by ECBehaviorActorAnimated. What this does is
+			// to update animators with specific names automatically. In this case an
+			// animator controller named "idle" will be updated with the elapsed time
+			
+		case State.ungrab
+			// Advance elapsed time but reducing it instead of increasing it
+			elapsedTime -= elapsed
+			
+			// Set grab controller to elapsed time
+			if controllerGrab != null
+				controllerGrab.setValue(elapsedTime)
+			end
+			
+			// If elapsed time reaches 0 release the object and switch to the default hand action
+			if elapsedTime <= 0
+				// Restore collision of the fingers with the object
+				grabSpot.getCollider().getCollider().removeIgnoreCollider(vrHand.getCollider())
+				
+				// Ungrab object. This logically marks the object free again
+				handGrabber.release()
+				
+				// Switch to default hand action
+				handAction.setAction(HADefault.new())
+			end
+		end
+	end
+	
+	/** Release object and set velocity to make it fly away. */
+	protected func void releaseObject()
+		// Detach the object. From now on the object moves freely again
+		attachable.detach()
+		
+		// Set object velocities to match hand velocities to throw object
+		var Collider collider = grabSpot.getCollider().getCollider()
+		
+		collider.setLinearVelocity(vrHand.getLinearVelocity() * 1.25)
+		collider.setAngularVelocity(vrHand.getAngularVelocity())
+	end
+	
+	
+	
+	/** Grab. */
+	public func void grab()
+	end
+	
+	/** Ungrab. */
+	public func void ungrab()
+		if state != State.idle
+			return
+		end
+		
+		// Start elapsed time to grab time. We decrease the time until 0
+		elapsedTime = ungrabTime
+		
+		// If controller grab is present set the controller range to the ungrab time
+		if controllerGrab != null
+			controllerGrab.setRange(0, ungrabTime)
+		end
+		
+		// Release object and set velocities
+		releaseObject()
+		
+		// Set ungrab state
+		state = State.ungrab
+	end
+	
+	/** Grab in the range from 0 to 1. */
+	public func void grabAnalog(float value)
+	end
+	
+	/** Squeeze force in the range from 0 to 1. */
+	public func void squeeze(float value)
+	end
+end

@@ -94,8 +94,12 @@ class GameApp extends BaseGameApp
 			VRSystem.startRuntime()
 			
 		catch Exception e
-			getConsole().addError("Start VR Runtime Failed", e)
-			quitGame()
+			getWindowGameWorld().setDesignerSelector("Window")
+			WindowDialog.message(getWindowGameWorld(), "Start VR Runtime Failed",\
+				"VR Runtime can not be started.", null, null,\
+				WindowDialog.BlockResultListener.new(block Object result
+					quitGame()
+				end))
 			return
 		end
 		
@@ -120,6 +124,8 @@ class GameApp extends BaseGameApp
 		
 		// Add scripted element classes. These can be used by XML element classes below
 		var ElementClassList eclist = getElementClassList()
+		eclist.add(PlayerClass.new())
+		eclist.add(BallClass.new())
 		eclist.add(VisualizeDevicesClass.new())
 		
 		// Add XML element classes by recursively scanning directory for *.deeclass files.
@@ -131,6 +137,29 @@ class GameApp extends BaseGameApp
 		// These two directories are only automatically scanned by the IGDE Editor.
 		// For games you do not have to specify them anywhere are they are loaded
 		// by the individual element classes
+	end
+	
+	/**
+	 * \brief Create commands and add them to command list.
+	 * 
+	 * Commands are used by the BindingInputProcessor to bind player actions to player input.
+	 * Default implementation creates and adds these commands:
+	 * - CommandQuitGame named "quit"
+	 * - CommandScreenshot named "screenshot"
+	 * - Commands from CommandsBAAMovement
+	 * - Commands from CommandsBAAInteract
+	 * 
+	 * If WindowConsole is present this command is also added:
+	 * - CommandToggleConsole named "toggleConsole"
+	 */
+	protected func void createAndAddCommands()
+		super.createAndAddCommands()
+		
+		var CommandManager commands = getCommandManager()
+		
+		// Add VR Grab actions. This allows to receive grab, ungrab and squeeze actions
+		// by implementing BAAVRGrab interface on player actions
+		CommandsBAAVRGrab.addCommands(commands, getPlayerControlledActor())
 	end
 	
 	/**
@@ -210,6 +239,7 @@ class GameApp extends BaseGameApp
 		// BindingManager. Upon attaching a device this method is called and the bindings
 		// matching the device are assigned. This allows to configure device bindings on
 		// the fly for newly attached devices using the same method
+		CommandsBAAVRGrab.addDefaultBindings(helper)
 		
 		return helper
 	end
