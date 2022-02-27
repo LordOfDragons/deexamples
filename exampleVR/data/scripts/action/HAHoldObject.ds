@@ -213,8 +213,6 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 		
 		var float speed = dropLinearVelocity.getLength()
 		if speed > 0.01
-			log("throw speed " + speed)
-			
 			// Doing a strong throw move with VR gear is between between 2.8 and 4 m/s.
 			// A gentle throw move with VR gear is between 1.6 and 2.8 m/s. We use thus
 			// a range between 1.5 and 4 m/s as throwing range
