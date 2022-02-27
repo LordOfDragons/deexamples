@@ -77,8 +77,11 @@ class GameApp extends BaseGameApp
 		// a ShoutConsole shows the last messages without needing to show the console.
 		getWindowGameWorld().addWidget(ShoutConsole.new(getConsole()))
 		
-		// add FPS rate panel to hud
-		getPanelHud().getTopRight().addWidget(PanelFPSRates.new())
+		// Add FPS rate panel to hud. While developing you can use this to get an idea on
+		// how the individual engine parts consume time. Keep in mind engine modules tend
+		// to use threading where possible to improve performance hence the frame rate of
+		// individual engine parts is decoupled
+		//getPanelHud().getTopRight().addWidget(PanelFPSRates.new())
 		
 		// Show input device window
 		/*
