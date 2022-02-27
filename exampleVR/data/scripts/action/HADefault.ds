@@ -1,3 +1,4 @@
+pin Dragengine.Gui
 pin Dragengine.Scenery
 pin Dragengine.LoadSave
 
@@ -31,6 +32,10 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	
+	protected var bool grabActive
+	
+	
+	
 	/** Create action. */
 	public func new()
 	end
@@ -50,12 +55,20 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 		
 		// Enable grabber
 		handGrabber.setEnabled(true)
+		
+		// Enable point-at
+// 		handPointAt.setEnabled(true)
+		handLaserPointer.setColor(Color.new(0, 1, 1))
+		handLaserPointer.setIntensity(0.25)
 	end
 	
 	/** Action is about to be deactivated. */
 	public func void deactivate()
 		// Disable grabber
 		handGrabber.setEnabled(false)
+		
+		// Disable point-at
+		handPointAt.setEnabled(false)
 		
 		super.deactivate()
 	end
@@ -67,30 +80,48 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 		handAnimated.setActiveAnimatorID("")
 	end
 	
+	/** Frame update. */
+	public func void think(float elapsed)
+		if canGrabObject()
+			handAction.setAction(HAReadyGrab.new(false))
+			
+		else
+			// Change color of laser pointer depending if player points at an object or not
+			if handPointAt.hasVRHandPointAtElement()
+				handLaserPointer.setColor(Color.new(1, 0, 1))
+				
+			else
+				handLaserPointer.setColor(Color.new(0, 1, 1))
+			end
+			
+			super.think(elapsed)
+		end
+	end
+	
+	
+	
+	/** Check if player touches an object he can grab. */
+	protected func bool canGrabObject()
+		// If grab is active do not grab object as this would upset actions
+		if grabActive
+			return false
+		end
+		
+		return handGrabber.findTouchingGrabSpot(block ECBehaviorGrabSpot.Instance grabSpot
+			return grabSpot.isNotGrabbed()
+		end) != null
+	end
+	
 	
 	
 	/** Grab. */
 	public func void grab()
-		if grabSpot()
-			return
-		end
-	end
-	
-	/** Try grabbing a grab spot. */
-	public func bool grabSpot()
-		// Find first grab spot touching hand graber. If found switch to the appropriate
-		// hand action to grab and use the touched object 
-		return handGrabber.findTouchingGrabSpot(block ECBehaviorGrabSpot.Instance grabSpot
-			if grabSpot.isNotGrabbed()
-				handAction.setAction(HAHoldObject.new(grabSpot))
-				return true
-			end
-			return false
-		end) != null
+		grabActive = true
 	end
 	
 	/** Ungrab. */
 	public func void ungrab()
+		grabActive = false
 	end
 	
 	/** Grab in the range from 0 to 1. */

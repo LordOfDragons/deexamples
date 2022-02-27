@@ -8,14 +8,17 @@ pin Dragengine.LoadSave
 class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 	/** Action states. */
 	enum State
-		/** Grab object. Blends from hand pose to animated pose. */
+		/** Grab object. Blends from ready grab pose to hold pose. */
 		grab
 		
-		/** Hold object. Fully apply animated pose. */
+		/** Hold object. */
 		idle
 		
-		/** Ungrab object. Blends from animated pose to hand pose. */
+		/** Ungrab object. Blends from hold pose to ready grab pose. */
 		ungrab
+		
+		/** Cool down. Small delay to avoid collision with hand before starting next action. */
+		coolDown
 	end
 	
 	
@@ -26,9 +29,13 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 	protected var State state
 	protected var float grabTime
 	protected var float ungrabTime
+	protected var float coolDownTime
 	protected var float elapsedTime
 	
-	protected var AnimatorController controllerGrab
+	protected var Vector dropLinearVelocity
+	protected var Vector dropAngularVelocity
+	
+	protected var AnimatorController controllerInteract
 	
 	
 	
@@ -38,9 +45,13 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 		attachable = ECBehaviorAttachable.getInstanceIn(grabSpot.getElement())
 		
 		state = State.grab
-		grabTime = 0.2
-		ungrabTime = 0.5
+		grabTime = 0.05
+		ungrabTime = 0.05
+		coolDownTime = 0.1
 		elapsedTime = 0
+		
+		dropLinearVelocity = Vector.new()
+		dropAngularVelocity = Vector.new()
 	end
 	
 	
@@ -59,10 +70,6 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 		// Grab object. This marks the object as grabbed by the player but it is not yet
 		// attached to the attach slot
 		handGrabber.regrab(grabSpot)
-		
-		// To avoid collision of the fingers with the object disable collision with the
-		// hand fingers
-		grabSpot.getCollider().getCollider().addIgnoreCollider(vrHand.getCollider())
 	end
 	
 	/** Set up animator. */
@@ -70,14 +77,28 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 		// Select animator to use while holding object. We use here an animator identifier
 		// used while adding animators to the player class. If the animator identifier is
 		// not present in the map the animator is set to null like HADefault uses
-		handAnimated.setActiveAnimatorID("hold ball")
+		// 
+		// This is rudimentary here. Usually you will create a behavior for providing
+		// information on how to interact with the object while held. You would then have
+		// amongst the interaction parameters also a string parameter indicating the
+		// animator to use. This can be directly the identifier to use or part of the
+		// identfier to create (for example "hold " + object.animatorName)
+		if grabSpot.getElement().getClass() castable BallClass
+			handAnimated.setActiveAnimatorID("hold ball")
+			
+		elif grabSpot.getElement().getClass() castable CanClass
+			handAnimated.setActiveAnimatorID("hold can")
+			
+		else
+			handAnimated.setActiveAnimatorID("hold ball")
+		end
 		
 		// Get animator controllers if present
-		controllerGrab = handAnimated.getControllerNamed("grab")
+		controllerInteract = handAnimated.getControllerNamed("interact")
 		
 		// If controller grab is present set the controller range to the grab time
-		if controllerGrab != null
-			controllerGrab.setRange(0, grabTime)
+		if controllerInteract != null
+			controllerInteract.setRange(0, grabTime)
 		end
 	end
 	
@@ -89,8 +110,8 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 			elapsedTime += elapsed
 			
 			// Set grab controller to elapsed time
-			if controllerGrab != null
-				controllerGrab.setValue(elapsedTime)
+			if controllerInteract != null
+				controllerInteract.setValue(elapsedTime)
 			end
 			
 			// Pull object towards attach position. This allows to smoothly move the object
@@ -115,6 +136,8 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 				// Attach object to attach slot. From now on the physics module takes
 				// care of moving the object for us
 				attachable.reattach(handAttachSlot, Vector.new(), Quaternion.new())
+				
+				vrHand.getCollider().setEnabled(true)
 			end
 			
 		case State.idle
@@ -129,20 +152,30 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 			elapsedTime -= elapsed
 			
 			// Set grab controller to elapsed time
-			if controllerGrab != null
-				controllerGrab.setValue(elapsedTime)
+			if controllerInteract != null
+				controllerInteract.setValue(elapsedTime)
 			end
 			
 			// If elapsed time reaches 0 release the object and switch to the default hand action
 			if elapsedTime <= 0
-				// Restore collision of the fingers with the object
-				grabSpot.getCollider().getCollider().removeIgnoreCollider(vrHand.getCollider())
+				releaseObject()
 				
 				// Ungrab object. This logically marks the object free again
 				handGrabber.release()
 				
-				// Switch to default hand action
-				handAction.setAction(HADefault.new())
+				// Switch too cool down state. This is used only to avoid collision of the
+				// object with the hand for a short time
+				elapsedTime = 0
+				state = State.coolDown
+			end
+			
+		case State.coolDown
+			// Advance elapsed time
+			elapsedTime += elapsed
+			
+			// If elapsed time reaches cool down time switch to grab ready hand action
+			if elapsedTime >= coolDownTime
+				handAction.setAction(HAReadyGrab.new(true))
 			end
 		end
 	end
@@ -152,11 +185,11 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 		// Detach the object. From now on the object moves freely again
 		attachable.detach()
 		
-		// Set object velocities to match hand velocities to throw object
+		// Set object velocities
 		var Collider collider = grabSpot.getCollider().getCollider()
 		
-		collider.setLinearVelocity(vrHand.getLinearVelocity() * 1.25)
-		collider.setAngularVelocity(vrHand.getAngularVelocity())
+		collider.setLinearVelocity(dropLinearVelocity)
+		collider.setAngularVelocity(dropAngularVelocity)
 	end
 	
 	
@@ -171,18 +204,53 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 			return
 		end
 		
-		// Start elapsed time to grab time. We decrease the time until 0
+		// Store the drop velocities. We want to use the velocities at the time
+		// the player opens his hand not after the ungrab time elapsed
+		dropLinearVelocity = vrHand.getLinearVelocity()
+		dropAngularVelocity = vrHand.getAngularVelocity()
+		
 		elapsedTime = ungrabTime
 		
-		// If controller grab is present set the controller range to the ungrab time
-		if controllerGrab != null
-			controllerGrab.setRange(0, ungrabTime)
+		var float speed = dropLinearVelocity.getLength()
+		if speed > 0.01
+			log("throw speed " + speed)
+			
+			// Doing a strong throw move with VR gear is between between 2.8 and 4 m/s.
+			// A gentle throw move with VR gear is between 1.6 and 2.8 m/s. We use thus
+			// a range between 1.5 and 4 m/s as throwing range
+			var float speedThrowGentle = 1.5
+			var float speedThrowStrong = 4
+			
+			// Increase speed to make it easier with VR gear to throw objects. The actual
+			// multiplier used is quite subjective and also depends on the object mass
+			// and other properties. For this example we use 10 m/s as strong throw speed.
+			// We use a simple curve to map the real throw speed to the ingame throw speed:
+			// 
+			//   f(x) = pow(x / 4, 1.5) * 10
+			// 
+			// Hence the throw speed is first mapped to the range from 0 to 1. Then a curve
+			// is applied which has a slightly more than linear part below the gentle throw
+			// speed and ramps up steeper towards the strong throw speed. You can use gnuplot
+			// to take a look at it:
+			// 
+			//   plot[x=0:4] ((x/4)**1.5)*10
+			var float maxThrowSpeed = 10
+			
+			speed = DEMath.pow(DEMath.min(speed / speedThrowStrong, 1.0), 1.5) * maxThrowSpeed
+			
+			// Shorten ungrab time if throwing
+			elapsedTime = ungrabTime //DEMath.linearStep(speed, speedThrowGentle, speedThrowStrong, ungrabTime, ungrabTime * 0.1)
+			
+			// calculate the final linear velocity
+			dropLinearVelocity = dropLinearVelocity.normalize() * speed
 		end
 		
-		// Release object and set velocities
-		releaseObject()
+		// If controller grab is present set the controller range to the grab time
+		if controllerInteract != null
+			controllerInteract.setRange(0, elapsedTime)
+		end
 		
-		// Set ungrab state
+		// Switch to ungrab state. We decrease elapsed time until 0
 		state = State.ungrab
 	end
 	

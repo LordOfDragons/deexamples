@@ -1,0 +1,187 @@
+pin Dragengine.Gui
+pin Dragengine.Scenery
+pin Dragengine.LoadSave
+
+
+/**
+ * Action used if the player is ready to grab an object.
+ * Blends from hand pose to a ready grab animation.
+ */
+class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
+	/** Action states. */
+	enum State
+		/** Get ready to grab. Blends from hand pose to animated pose. */
+		readying
+		
+		/** Ready to grab. Fully apply animated pose. */
+		ready
+		
+		/** Stop ready to grab. Blends from animated pose to hand pose. */
+		unreadying
+	end
+	
+	
+	
+	protected var State state
+	protected var float interactTime
+	protected var float elapsedTime
+	protected var bool grabActive
+	
+	protected var AnimatorController controllerInteract
+	
+	
+	
+	/** Create action. */
+	public func new(bool startInReadyState)
+		interactTime = 0.05
+		
+		if startInReadyState
+			elapsedTime = interactTime
+			state = State.ready
+			
+		else
+			state = State.readying
+			elapsedTime = 0
+		end
+	end
+	
+	
+	
+	/** Action has been activated. */
+	public func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
+		super.activate(actor, vrHand)
+		
+		// Enable grabber
+		handGrabber.setEnabled(true)
+	end
+	
+	/** Action is about to be deactivated. */
+	public func void deactivate()
+		// Disable grabber
+		handGrabber.setEnabled(false)
+		
+		super.deactivate()
+	end
+	
+	/** Set up animator. */
+	protected func void initAnimator()
+		// Select animator to use. We use an animator identifier used while adding animators
+		// to the player class. If the animator identifier is not present in the map the
+		// animator is set to null like HADefault uses
+		handAnimated.setActiveAnimatorID("ready grab")
+		
+		// Get animator controllers if present
+		controllerInteract = handAnimated.getControllerNamed("interact")
+		
+		// If blend controller is present set the range to the blend time
+		if controllerInteract != null
+			controllerInteract.setRange(0, interactTime)
+			controllerInteract.setValue(elapsedTime)
+		end
+	end
+	
+	/** Update animator controllers. */
+	protected func void updateAnimator(float elapsed)
+		select state
+		case State.readying
+			// Advance elapsed time
+			elapsedTime += elapsed
+			
+			// Set blend controller to elapsed time if present
+			if controllerInteract != null
+				controllerInteract.setValue(elapsedTime)
+			end
+			
+			// If elapsed time reaches blend time switch to ready state
+			if elapsedTime >= interactTime
+				elapsedTime = interactTime
+				state = State.ready
+				
+				if grabActive
+					grabObject()
+				end
+			end
+			
+		case State.unreadying
+			// Advance elapsed time but reducing it instead of increasing it
+			elapsedTime -= elapsed
+			
+			// Set blend controller to elapsed time
+			if controllerInteract != null
+				controllerInteract.setValue(elapsedTime)
+			end
+			
+			// If elapsed time reaches 0 switch to default hand action
+			if elapsedTime <= 0
+				handAction.setAction(HADefault.new())
+			end
+		end
+	end
+	
+	/** Frame update. */
+	public func void think(float elapsed)
+		// Check if an object can be grabbed. Actions to take depends on state
+		select state
+		case State.readying, State.ready
+			if not canGrabObject()
+				state = State.unreadying
+			end
+			
+		case State.unreadying
+			if canGrabObject()
+				state = State.readying
+			end
+		end
+		
+		super.think(elapsed)
+	end
+	
+	
+	
+	/** Check if player touches an object he can grab. */
+	protected func bool canGrabObject()
+		return handGrabber.findTouchingGrabSpot(block ECBehaviorGrabSpot.Instance grabSpot
+			return grabSpot.isNotGrabbed()
+		end) != null
+	end
+	
+	/** Find grab spot closest to hand. */
+	protected func ECBehaviorGrabSpot.Instance closestGrabSpot()
+		return handGrabber.closestTouchingGrabSpot(block ECBehaviorGrabSpot.Instance grabSpot
+			return grabSpot.isNotGrabbed()
+		end)
+	end
+	
+	/** Grab object. */
+	protected func void grabObject()
+		var ECBehaviorGrabSpot.Instance grabSpot = closestGrabSpot()
+		if grabSpot != null
+			handAction.setAction(HAHoldObject.new(grabSpot))
+		end
+	end
+	
+	
+	
+	/** Grab. */
+	public func void grab()
+		grabActive = true
+		
+		// Grabbing is allowed once we are ready to grab
+		if state == State.ready
+			grabObject()
+		end
+	end
+	
+	/** Ungrab. */
+	public func void ungrab()
+		grabActive = false
+	end
+	
+	/** Grab in the range from 0 to 1. */
+	public func void grabAnalog(float value)
+	end
+	
+	/** Squeeze force in the range from 0 to 1. */
+	public func void squeeze(float value)
+	end
+end

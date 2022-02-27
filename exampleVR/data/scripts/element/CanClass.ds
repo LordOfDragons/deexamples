@@ -2,9 +2,9 @@ pin Dragengine.Scenery
 
 
 /**
- * Ball class.
+ * Can class.
  */
-class BallClass extends PhysicsElementClass
+class CanClass extends PhysicsElementClass
 	public var ECBehaviorGrabSpot grabSpot
 	public var ECBehaviorAttachable attachable
 	public var ECBehaviorVRHandPointedAt vrHandPointedAt
@@ -13,25 +13,25 @@ class BallClass extends PhysicsElementClass
 	
 	
 	/** Create element class. */
-	public func new() this("Ball")
+	public func new() this("Can")
 	end
 	
 	/** Create element class. */
 	public func new(String name) super(name)
 		// Set model, skin and rig to use
-		getComponent().setCommonPath("/content/models/ball", "ball.demodel", "ball.deskin", "ball.derig")
+		getComponent().setCommonPath("/content/models/can", "can.demodel", "can.deskin", "can.derig")
 		
-		// Set mass of ball to 100g
-		getCollider().getCollider().getWeight().setValue(0.1)
+		// Set mass of can to 50g
+		getCollider().getCollider().getWeight().setValue(0.05)
 		
-		// Make ball grabbable
+		// Make can grabbable
 		grabSpot = ECBehaviorGrabSpot.new(this, getCollider())
 		
 		var ShapeList shape = ShapeList.new()
-		shape.addSphere(Vector.new(), 0.05) // Ball has radius of 0.035. Make it a bit bigger
+		shape.addSphere(Vector.new(), 0.05) // Can has radius of 0.0375. Make it a bit bigger
 		grabSpot.getTouchCollider().getShape().setShapeList(shape)
 		
-		// Make ball attachable
+		// Make can attachable
 		attachable = ECBehaviorAttachable.new(this, getCollider())
 		
 		// Player can point at object
@@ -43,6 +43,6 @@ class BallClass extends PhysicsElementClass
 	
 	/** Create copy of element class for use with XML Subclassing. */
 	public func ElementClass duplicateNamed(String classname)
-		return BallClass.new(classname)
+		return CanClass.new(classname)
 	end
 end

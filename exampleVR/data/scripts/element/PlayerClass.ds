@@ -99,6 +99,8 @@ class PlayerClass extends BaseVRActorClass
 	
 	/** Assign hand animators. Both hands use the same animator identifiers but different animators. */
 	protected func void setHandAnimators(ECPAnimatorMap map, String basePath)
+		map.setPathAt("ready grab", basePath + "ready_grab.deanimator")
 		map.setPathAt("hold ball", basePath + "hold_ball.deanimator")
+		map.setPathAt("hold can", basePath + "hold_can.deanimator")
 	end
 end
