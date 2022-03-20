@@ -20,8 +20,12 @@
 		</value>
 		<defaultValue>1</defaultValue>
 	</parameter>
-	<parameter name='Shadow Map Size'>
-		<moduleParameter>shadowMapSize</moduleParameter>
+	<parameter name='Shadow Quality'>
+		<moduleParameter>shadowQuality</moduleParameter>
+		<value>
+			<name>Off</name>
+			<value>off</value>
+		</value>
 		<value>
 			<name>Very Low</name>
 			<value>veryLow</value>

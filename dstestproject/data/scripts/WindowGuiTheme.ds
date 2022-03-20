@@ -1,7 +1,7 @@
 /* 
  * Drag[en]gine Library Scripts -- Game Engine
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -42,24 +42,24 @@ class WindowGuiTheme extends Window
 		private var GuiTheme pGuiTheme
 		
 		/** \brief Create named gui theme. */
-		public func new( String name, GuiTheme guitheme )
-			this.pName = name
-			this.pGuiTheme = guitheme
+		public func new(String name, GuiTheme guitheme)
+			pName = name
+			pGuiTheme = guitheme
 		end
 		
 		/** \brief Name. */
 		public func String getName()
-			return this.pName
+			return pName
 		end
 		
 		/** \brief Gui theme. */
 		public func GuiTheme getGuiTheme()
-			return this.pGuiTheme
+			return pGuiTheme
 		end
 		
 		/** \brief String representation. */
 		public func String toString()
-			return this.pName
+			return pName
 		end
 	end
 	
@@ -69,13 +69,13 @@ class WindowGuiTheme extends Window
 		private var WindowGuiTheme pWindow
 		
 		/** \brief Create selection listener. */
-		public func new( WindowGuiTheme window )
-			this.pWindow = window
+		public func new(WindowGuiTheme window)
+			pWindow = window
 		end
 		
 		/** \brief Selection changed. */
-		public func void selectionChanged( ListModel listModel )
-			this.pWindow.updateGuiTheme()
+		public func void selectionChanged(ListModel listModel)
+			pWindow.updateGuiTheme()
 		end
 	end
 	
@@ -83,41 +83,26 @@ class WindowGuiTheme extends Window
 	class ActionPopupTest extends DefaultActionListener
 		class ActionPopdown extends DefaultActionListener
 			private var WindowPopup pPopup
-			public func new( WindowPopup popup )
-				this.pPopup = popup
+			public func new(WindowPopup popup)
+				pPopup = popup
 			end
-			public func void onAction( ActionEvent event )
-				this.pPopup.popdown()
+			public func void onAction(ActionEvent event)
+				pPopup.popdown()
 			end
 		end
 		
 		private var WindowGuiTheme pWindow
-		public func new( WindowGuiTheme window )
-			this.pWindow = window
+		public func new(WindowGuiTheme window)
+			pWindow = window
 		end
-		public func void onAction( ActionEvent event )
-			var Desktop desktop = this.pWindow.getDesktop()
+		public func void onAction(ActionEvent event)
+			var Desktop desktop = pWindow.getDesktop()
 			var Widget widget = event.getSource() cast Widget
-			var WindowPopup window = WindowPopup.new()
+			var MenuPopup menu = pWindow.createMenuPopup1()
 			
-			var Button button = Button.new( "First Label" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			button = Button.new( "Second Label" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			button = Button.new( "Third Label >" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			button = Button.new( "Last Label" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			desktop.addWindow( window )
-			window.popup( widget.getDesktopPosition() + Point.new( 0, widget.getHeight() ) )
+			desktop.addWindow(menu)
+			menu.popup(widget.getDesktopPosition() + Point.new(0, widget.getHeight()))
+			menu.setGuiTheme(pWindow.getGuiTheme())
 		end
 	end
 	
@@ -126,32 +111,31 @@ class WindowGuiTheme extends Window
 		public func new()
 		end
 		
-		public func void messageAdded( Console console, ConsoleMessage message, bool removedTop )
-			BaseGameApp.getApp().getConsole().addMessage( message.getMessage() )
+		public func void messageAdded(Console console, ConsoleMessage message, bool removedTop)
+			BaseGameApp.getApp().getConsole().addMessage(message.getMessage())
 		end
 		
-		public func void consoleCleared( Console console )
+		public func void consoleCleared(Console console)
 		end
 	end
 	
 	/** \brief Enable/disable check/option button action listener. */
-	class ActionEnableButtons extends DefaultActionListener
+	class ListenerEnableButtons extends DefaultToggleModelListener
 		private var Array pWidgets
-		private var ToggleButton pTriggerButton
+		
 		public func new()
-			this.pWidgets = Array.new()
+			pWidgets = Array.new()
 		end
-		public func void addWidget( Widget widget )
-			this.pWidgets.add( widget )
+		
+		public func void addWidget(Widget widget)
+			pWidgets.add(widget)
 		end
-		public func void setTriggerButton( ToggleButton button )
-			this.pTriggerButton = button
-		end
-		public func void onAction( ActionEvent event )
-			var bool enabled = not this.pTriggerButton.getToggled()
-			this.pWidgets.forEach( block Widget each
-				each.setEnabled( enabled )
-			end )
+		
+		public func void toggledChanged(ToggleModel model)
+			var bool enabled = not model.getToggled()
+			pWidgets.forEach(block Widget each
+				each.setEnabled(enabled)
+			end)
 		end
 	end
 	
@@ -160,113 +144,112 @@ class WindowGuiTheme extends Window
 		class EchoResult implements WindowDialog.ResultListener
 			private var WindowModal pWindow
 			
-			public func new( WindowModal window )
-				this.pWindow = window
+			public func new(WindowModal window)
+				pWindow = window
 			end
 			
-			public func void onResult( Object result )
-				WindowDialog.message( this.pWindow, "Result", "Result: " + result, \
-					null, null, null ) \
-						.setGuiTheme( this.pWindow.getGuiTheme() )
+			public func void onResult(Object result)
+				WindowDialog.message(pWindow, "Result", "Result: " + result, null, null, null) \
+					.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
 		class ActionMessageBox implements ActionListener
 			private var WindowModal pWindow
 			
-			public func new( WindowModal window )
-				this.pWindow = window
+			public func new(WindowModal window)
+				pWindow = window
 			end
 			
-			public func void onAction( ActionEvent event )
-				WindowDialog.message( this.pWindow, "Message Box", \
+			public func void onAction(ActionEvent event)
+				WindowDialog.message(pWindow, "Message Box", \
 					"This is a message to fill the message box with. It has multiple lines wrapping around.", \
-					null, null, null ) \
-						.setGuiTheme( this.pWindow.getGuiTheme() )
+					null, null, null) \
+						.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
 		class ActionQuestionBox implements ActionListener
 			private var WindowModal pWindow
 			
-			public func new( WindowModal window )
-				this.pWindow = window
+			public func new(WindowModal window)
+				pWindow = window
 			end
 			
-			public func void onAction( ActionEvent event )
-				WindowDialog.question( this.pWindow, "Question Box", \
+			public func void onAction(ActionEvent event)
+				WindowDialog.question(pWindow, "Question Box", \
 					"Shows a question box asking the user what to do next." \
 						+ " The buttons can be customized." \
 						+ " Press a button to see the result it sets.", \
-					null, Array.newWith( \
-						WindowDialog.ButtonConfiguration.new( "Number", 8 ), \
-						WindowDialog.ButtonConfiguration.new( "String", "A string result" ), \
-						WindowDialog.ButtonConfiguration.new( "Boolean", true ), \
-						WindowDialog.ButtonConfiguration.new( "Float", 2.6 ), \
-						WindowDialog.ButtonConfiguration.new( "Null", null ) ), \
-					EchoResult.new( this.pWindow ) ) \
-						.setGuiTheme( this.pWindow.getGuiTheme() )
+					null, Array.newWith(\
+						WindowDialog.ButtonConfiguration.new("Number", 8), \
+						WindowDialog.ButtonConfiguration.new("String", "A string result"), \
+						WindowDialog.ButtonConfiguration.new("Boolean", true), \
+						WindowDialog.ButtonConfiguration.new("Float", 2.6), \
+						WindowDialog.ButtonConfiguration.new("Null", null)), \
+					EchoResult.new(pWindow)) \
+						.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
 		class ActionSmallChooseBox implements ActionListener
 			private var WindowModal pWindow
 			
-			public func new( WindowModal window )
-				this.pWindow = window
+			public func new(WindowModal window)
+				pWindow = window
 			end
 			
-			public func void onAction( ActionEvent event )
-				WindowDialog.choose( this.pWindow, "Choose", \
+			public func void onAction(ActionEvent event)
+				WindowDialog.choose(pWindow, "Choose", \
 					"Choose box using option boxes for each element." \
 					+ " Useful for small list of options to select from.", \
-					null, Array.newWith( "I want a number", "A String please, nothing else", \
+					null, Array.newWith("I want a number", "A String please, nothing else", \
 						"A boolean is also fine", "What about a floating point value?", \
-						"Null... just null" ), 1, null, null, EchoResult.new( this.pWindow ) ) \
-							.setGuiTheme( this.pWindow.getGuiTheme() )
+						"Null... just null"), 1, null, null, EchoResult.new(pWindow)) \
+							.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
 		class ActionLargeChooseBox implements ActionListener
 			private var WindowModal pWindow
 			
-			public func new( WindowModal window )
-				this.pWindow = window
+			public func new(WindowModal window)
+				pWindow = window
 			end
 			
-			public func void onAction( ActionEvent event )
+			public func void onAction(ActionEvent event)
 				var DefaultListModel elements = DefaultListModel.new()
 				var int i
 				for i = 0 to 50
-					elements.add( "Element with index " + i )
+					elements.add("Element with index " + i)
 				end
-				elements.setSelected( 3 )
+				elements.setSelected(3)
 				
-				WindowDialog.chooseList( this.pWindow, "Choose", \
+				WindowDialog.chooseList(pWindow, "Choose", \
 					"Choose box using list box for each element." \
 					+ " Useful for large list of options to select from.", \
 					null, elements, DefaultListElementRenderer.new(), \
-					null, null, EchoResult.new( this.pWindow ) ) \
-						.setGuiTheme( this.pWindow.getGuiTheme() )
+					null, null, EchoResult.new(pWindow)) \
+						.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
 		class ActionSelectionBox implements ActionListener
 			private var WindowModal pWindow
 			
-			public func new( WindowModal window )
-				this.pWindow = window
+			public func new(WindowModal window)
+				pWindow = window
 			end
 			
-			public func void onAction( ActionEvent event )
-				WindowDialog.selection( this.pWindow, "Selection", \
+			public func void onAction(ActionEvent event)
+				WindowDialog.selection(pWindow, "Selection", \
 					"Selection box using check boxes for each element." \
 					+ " Useful for small list of options to select.", \
-					null, Array.newWith( "I want a number", "A String please, nothing else", \
+					null, Array.newWith("I want a number", "A String please, nothing else", \
 						"A boolean is also fine", "What about a floating point value?", \
-						"Null... just null" ), \
-					Array.newWith( 0, 3 ), null, null, EchoResult.new( this.pWindow ) ) \
-						.setGuiTheme( this.pWindow.getGuiTheme() )
+						"Null... just null"), \
+					Array.newWith(0, 3), null, null, EchoResult.new(pWindow)) \
+						.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
@@ -274,57 +257,70 @@ class WindowGuiTheme extends Window
 		
 		private var WindowGuiTheme pWindow
 		
-		public func new( WindowGuiTheme window )
-			this.pWindow = window
+		public func new(WindowGuiTheme window)
+			pWindow = window
 		end
 		
-		public func void onAction( ActionEvent event )
-			var Desktop desktop = this.pWindow.getDesktop()
+		public func void onAction(ActionEvent event)
+			var Desktop desktop = pWindow.getDesktop()
 			var WindowModal window = WindowModal.new()
 			
-			window.runWhileBlockingLayout( block
-				window.setGuiTheme( this.pWindow.getGuiTheme() )
+			window.runWhileBlockingLayout(block
+				window.setGuiTheme(pWindow.getGuiTheme())
 				
-				window.setTitle( "Modal Window" )
+				window.setTitle("Modal Window")
 				
-				var Button button = Button.new( "Message Box" )
-				button.addActionListener( ActionMessageBox.new( window ) )
-				window.addWidget( button )
+				var Button button = Button.new("Message Box")
+				button.addActionListener(ActionMessageBox.new(window))
+				window.addWidget(button)
 				
-				button = Button.new( "Question Box" )
-				button.addActionListener( ActionQuestionBox.new( window ) )
-				window.addWidget( button )
+				button = Button.new("Question Box")
+				button.addActionListener(ActionQuestionBox.new(window))
+				window.addWidget(button)
 				
-				button = Button.new( "Small Choose Box" )
-				button.addActionListener( ActionSmallChooseBox.new( window ) )
-				window.addWidget( button )
+				button = Button.new("Small Choose Box")
+				button.addActionListener(ActionSmallChooseBox.new(window))
+				window.addWidget(button)
 				
-				button = Button.new( "Large Choose Box" )
-				button.addActionListener( ActionLargeChooseBox.new( window ) )
-				window.addWidget( button )
+				button = Button.new("Large Choose Box")
+				button.addActionListener(ActionLargeChooseBox.new(window))
+				window.addWidget(button)
 				
-				button = Button.new( "Selection Box" )
-				button.addActionListener( ActionSelectionBox.new( window ) )
-				window.addWidget( button )
-			end )
+				button = Button.new("Selection Box")
+				button.addActionListener(ActionSelectionBox.new(window))
+				window.addWidget(button)
+			end)
 			
-			window.show( this.pWindow, WindowModal.Placement.window )
+			window.show(pWindow, WindowModal.Placement.window)
 		end
 	end
 	
 	
 	
 	/** \brief Create window. */
-	public func new() super( 0, 0, 500, 500 )
-		this.setTitle( "GuiTheme" )
-		this.createModelGuiThemes()
-		this.createContent( this )
+	public func new() super(0, 0, 500, 500)
+		pModelCheck1 = DefaultToggleModel.new()
+		pModelCheck2 = DefaultToggleModel.new()
+		pModelCheck3 = DefaultToggleModel.new()
+		
+		pModelOptions = DefaultListModel.new()
+		pModelOptions.add(BaseGameApp.CollisionFilterBit.actor)
+		pModelOptions.add(BaseGameApp.CollisionFilterBit.geometry)
+		pModelOptions.add(BaseGameApp.CollisionFilterBit.trigger)
+		pModelOptions.setSelectedElement(BaseGameApp.CollisionFilterBit.geometry)
+		
+		setTitle("GuiTheme")
+		createModelGuiThemes()
+		createContent(this)
 	end
 	
 	/** \brief Dispose of window. */
 	public func void dispose()
-		this.pModelGuiThemes = null
-		this.pComboBoxGuiThemes = null
+		pModelGuiThemes = null
+		pComboBoxGuiThemes = null
+		pModelCheck1 = null
+		pModelCheck2 = null
+		pModelCheck3 = null
 		super.dispose()
 	end
 	
@@ -336,183 +332,212 @@ class WindowGuiTheme extends Window
 	/** \brief Gui theme combo box. */
 	private var ComboBox pComboBoxGuiThemes
 	
+	public var DefaultToggleModel pModelCheck1
+	public var DefaultToggleModel pModelCheck2
+	public var DefaultToggleModel pModelCheck3
+	
+	public var DefaultListModel pModelOptions
+	
 	
 	
 	/** \brief Update gui theme. */
 	public func void updateGuiTheme()
-		this.setGuiTheme( ( this.pModelGuiThemes.getAt( \
-			this.pComboBoxGuiThemes.getSelectedElement() ) cast NamedGuiTheme ).getGuiTheme() )
+		setGuiTheme((pModelGuiThemes.getAt(\
+			pComboBoxGuiThemes.getSelectedElement()) cast NamedGuiTheme).getGuiTheme())
 	end
 	
 	/** \brief Create gui theme model. */
 	private func void createModelGuiThemes()
-		var Console console = Console.new( 20 )
-		console.addListener( LogMessage.new() )
+		var Console console = Console.new(20)
+		console.addListener(LogMessage.new())
 		var LoadGuiTheme loadGuiTheme = TestProject.getApp().getLoaders().getGuiTheme()
 		
-		this.pModelGuiThemes = DefaultListModel.new()
-		this.pModelGuiThemes.add( NamedGuiTheme.new( "Simple", loadGuiTheme.loadFromFile( \
-			"/shareddata/guithemes/simple/simple.guitheme.xml" ) ) )
-		this.pModelGuiThemes.add( NamedGuiTheme.new( "Modern", loadGuiTheme.loadFromFile( \
-			"/shareddata/guithemes/modern/modern.guitheme.xml" ) ) )
+		pModelGuiThemes = DefaultListModel.new()
+		pModelGuiThemes.add(NamedGuiTheme.new("Simple", loadGuiTheme.loadFromFile(\
+			"/shareddata/guithemes/simple/simple.guitheme.xml")))
+		pModelGuiThemes.add(NamedGuiTheme.new("Modern", loadGuiTheme.loadFromFile(\
+			"/shareddata/guithemes/modern/modern.guitheme.xml")))
 	end
 	
 	
 	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		content.setLayout( BorderLayout.new( 5 ) )
+	private func void createContent(Container content)
+		content.setLayout(BorderLayout.new(5))
 		
-		// we can not use a designer selector here since the loaded gui themes do not degine
-		// this selector. thus we define the padding for the window ourself and protect it
-		content.setPadding( BorderSize.new( 10 ) )
-		content.setProtectPadding( true )
+		// menu bar
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y), block Panel p
+			createMenuBar(p)
+		end), BorderLayout.Area.top)
 		
-		// gui theme selection
-		var Panel panel = Panel.new()
-		panel.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
-		this.pComboBoxGuiThemes = ComboBox.new( this.pModelGuiThemes )
-		this.pComboBoxGuiThemes.setSelectedElement( this.pModelGuiThemes.getCount() - 1 )
-		this.pComboBoxGuiThemes.setNumberDisplayLines( 5 )
-		this.pModelGuiThemes.addListener( SelectionListenerGuiTheme.new( this ) )
-		panel.addWidget( Label.new( "Gui Theme:" ) )
-		panel.addWidget( this.pComboBoxGuiThemes )
-		content.addWidget( panel, BorderLayout.Area.top )
+		// window content
+		content.addWidget(Panel.new(BorderLayout.new(5), block Panel wcp
+			// we use engine provided gui themes which do not have a designer for
+			// window content panel to define padding. if the padding is defined
+			// using script code then protecting is required for the default widget
+			// designer to not chang it
+			wcp.setPadding(BorderSize.new(10))
+			wcp.setProtectPadding(true)
+			
+			// gui theme selection
+			wcp.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y), block Panel p
+				p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 10, FlowLayout.Stretch.last), block Panel p2
+					pComboBoxGuiThemes = ComboBox.new(pModelGuiThemes)
+					pComboBoxGuiThemes.setSelectedElement(pModelGuiThemes.getCount() - 1)
+					pComboBoxGuiThemes.setNumberDisplayLines(5)
+					pModelGuiThemes.addListener(SelectionListenerGuiTheme.new(this))
+					p2.addWidget(Label.new("Gui Theme:"))
+					p2.addWidget(pComboBoxGuiThemes)
+				end))
+			end), BorderLayout.Area.top)
+			
+			// test widgets
+			wcp.addWidget(Panel.new(BorderLayout.new(5), block Panel p
+				// test models
+				var RangeModel modelScroll = DefaultRangeModel.new(0, 20, 5, 6, 1)
+				var RangeModel modelProgress = DefaultRangeModel.new(0, 100, 20, 30, 1)
+				var TextModel textModel = DefaultTextModel.new("Shared text")
+				var Image imageColorful = Image.new("/images/colorful.png")
+				
+				// right border
+				p.addWidget(ScrollBar.new(Orientation.vertical, modelScroll), BorderLayout.Area.right)
+				
+				// left border
+				p.addWidget(ScrollBar.new(Orientation.vertical, modelScroll), BorderLayout.Area.left)
+				
+				// bottom border
+				p.addWidget(ScrollBar.new(Orientation.horizontal,\
+					DefaultRangeModel.new(0, 255, 32, 64, 1)), BorderLayout.Area.bottom)
+				
+				// content
+				p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y, 2, FlowLayout.Stretch.last), block Panel p2
+					p2.addWidget(ScrollBar.new(Orientation.horizontal, modelProgress))
+					
+					p2.addWidget(ProgressBar.new(Orientation.horizontal, modelProgress))
+					
+					p2.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 5, FlowLayout.Stretch.last), block Panel p3
+						//var IntegerTextField integerText = IntegerTextField.new(RangeTextModel.new(modelProgress))
+						var TextField integerText = TextField.new()
+						integerText.setDisplayCharCount(3)
+						integerText.setValidator(SimpleTextValidator.new(3, SimpleTextValidator.CharacterClass.digits))
+						p3.addWidget(integerText)
+						
+						p3.addWidget(SpinButton.new(modelProgress))
+						
+						p3.addWidget(ProgressBar.new(Orientation.horizontal, modelProgress))
+					end))
+					
+					p2.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 5), block Panel p3
+						p3.addWidget(TextField.new(textModel))
+						
+						var TextField textField = TextField.new(textModel)
+						textField.setEnabled(false)
+						p3.addWidget(textField)
+					end))
+					
+					p2.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 5),  block Panel p3
+						p3.addWidget(TextField.new(textModel))
+						
+						p3.addWidget(TextField.new(textModel, true))
+					end))
+					
+					p2.addWidget(Panel.new(BorderLayout.new(5), block Panel p3
+						p3.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 5), block Panel p4
+							p4.addWidget(Button.new("Popup", imageColorful, ActionPopupTest.new(this)))
+							p4.addWidget(Button.new("Modal", imageColorful, ActionDialogTest.new(this)))
+							
+							var Button button = Button.new("Disabled", imageColorful)
+							button.setEnabled(false)
+							p4.addWidget(button)
+						end), BorderLayout.Area.content)
+						
+						p3.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 5), block Panel p4
+							p4.addWidget(ToggleButton.new("Toggle", imageColorful))
+						end), BorderLayout.Area.right)
+					end))
+					
+					p2.addWidget(Panel.new(GridLayout.new(3, 2, 5), block Panel p3
+						var ListenerEnableButtons listenerEnableButtons = ListenerEnableButtons.new()
+						pModelCheck2.addListener(listenerEnableButtons)
+						
+						p3.addWidget(CheckBox.new(pModelCheck1, "Check box 1"))
+						p3.addWidget(CheckBox.new(pModelCheck2, "Disable"))
+						
+						var CheckBox checkBox = CheckBox.new(pModelCheck3, "Check box 3")
+						p3.addWidget(checkBox)
+						listenerEnableButtons.addWidget(checkBox)
+						
+						p3.addWidget(OptionBox.new(OptionGroupModel.newFor(\
+							pModelOptions, BaseGameApp.CollisionFilterBit.actor), "Option 1"))
+						p3.addWidget(OptionBox.new(OptionGroupModel.newFor(\
+							pModelOptions, BaseGameApp.CollisionFilterBit.geometry), "Option 2"))
+						p3.addWidget(OptionBox.new(OptionGroupModel.newFor(\
+							pModelOptions, BaseGameApp.CollisionFilterBit.trigger), "Option 3"))
+					end))
+					
+					var TextArea textArea = TextArea.new(DefaultTextModel.new("Multiline Text\nAnother line\nAnd one more"))
+					textArea.setMaximalWidth(50)
+					textArea.setRowCount(3)
+					p2.addWidget(ScrollPanel.new(textArea))
+				end), BorderLayout.Area.content)
+			end), BorderLayout.Area.content)
+		end), BorderLayout.Area.content)
+	end
+	
+	/** Create menu bar. */
+	private func void createMenuBar(Container container)
+		var Image icon1 = Image.new("/images/icons/menu_icon1.png")
 		
-		// test widgets
-		panel = Panel.new()
-		panel.setLayout( BorderLayout.new( 5 ) )
-		content.addWidget( panel, BorderLayout.Area.content )
+		container.addWidget(MenuBar.new(block MenuBar bar
+			bar.addWidget(MenuBarItem.new("No Icon", createMenuPopup1()))
+			bar.addWidget(MenuBarItem.new(icon1, "With Icon", createMenuPopup1()))
+			bar.addWidget(MenuBarItem.new("Another", createMenuPopup1()))
+		end))
+	end
+	
+	/** Create menu popup 1. */
+	public func MenuPopup createMenuPopup1()
+		var Image icon1 = Image.new("/images/icons/menu_icon1.png")
+		var Image icon2 = Image.new("/images/icons/menu_icon2.png")
+		var Image icon3 = Image.new("/images/icons/menu_icon3.png")
 		
-		// test models
-		var RangeModel modelScroll = DefaultRangeModel.new( 0, 20, 5, 6, 1 )
-		var RangeModel modelProgress = DefaultRangeModel.new( 0, 100, 20, 30, 1 )
-		var TextModel textModel = DefaultTextModel.new( "Shared text" )
+		var MenuPopup menu = MenuPopup.new()
+		menu.addWidget(MenuItemCommand.new("Command No Icon"))
+		menu.addWidget(MenuItemCommand.new(icon1, "Command With Icon"))
+		menu.addWidget(MenuItemSeparator.new())
 		
-		// right border
-		var ScrollBar scrollbar = ScrollBar.new( Orientation.vertical )
-		scrollbar.setModel( modelScroll )
-		panel.addWidget( scrollbar, BorderLayout.Area.right )
+		var MenuPopup subMenu = MenuPopup.new()
+		subMenu.addWidget(MenuItemCommand.new("Command 1"))
+		subMenu.addWidget(MenuItemCommand.new("Command 2 and more"))
+		subMenu.addWidget(MenuItemCommand.new("Command 3 or so"))
+		menu.addWidget(MenuItemSubMenu.new("Sub Menu 1", subMenu))
 		
-		// left border
-		scrollbar = ScrollBar.new( Orientation.vertical )
-		scrollbar.setModel( modelScroll )
-		panel.addWidget( scrollbar, BorderLayout.Area.left )
+		subMenu = MenuPopup.new()
+		subMenu.addWidget(MenuItemCommand.new(icon1, "Command 1"))
+		subMenu.addWidget(MenuItemCommand.new("Command 2 and more"))
+		subMenu.addWidget(MenuItemCommand.new(icon3, "Command 3 or so"))
+			
+			var MenuPopup subMenu2 = MenuPopup.new()
+			subMenu2.addWidget(MenuItemCommand.new("Another Command"))
+			subMenu2.addWidget(MenuItemCommand.new("Some more for you"))
+			subMenu2.addWidget(MenuItemCommand.new("Really? Another?"))
+			subMenu.addWidget(MenuItemSubMenu.new("Nested Sub Menu", subMenu2))
 		
-		// bottom border
-		scrollbar = ScrollBar.new( Orientation.horizontal )
-		scrollbar.getModel().setAll( 0, 255, 32, 64, 1 )
-		panel.addWidget( scrollbar, BorderLayout.Area.bottom )
+		menu.addWidget(MenuItemSubMenu.new(icon1, "Sub Menu 2", subMenu))
+		menu.addWidget(MenuItemSeparator.new())
 		
-		// content
-		var Panel subPanel = Panel.new()
-		subPanel.setLayout( FlowLayout.new( LayoutAxis.y, 2, FlowLayout.Stretch.last ) )
-		panel.addWidget( subPanel, BorderLayout.Area.content )
+		menu.addWidget(MenuItemCheck.new(pModelCheck1, "Check No Icon"))
+		menu.addWidget(MenuItemCheck.new(pModelCheck2, icon2, "Check With Icon"))
 		
-		scrollbar = ScrollBar.new( Orientation.horizontal )
-		scrollbar.setModel( modelProgress )
-		subPanel.addWidget( scrollbar )
+		var MenuItemCheck menuItemCheck = MenuItemCheck.new(pModelCheck3, "Check Enable")
+		menuItemCheck.setEnabled(not pModelCheck2.getToggled())
+		menu.addWidget(menuItemCheck)
+		menu.addWidget(MenuItemSeparator.new())
 		
-		var ProgressBar progressBar = ProgressBar.new( Orientation.horizontal, modelProgress )
-		subPanel.addWidget( progressBar )
+		menu.addWidget(MenuItemOption.new(OptionGroupModel.new(pModelOptions, 0), "Option No Icon"))
+		menu.addWidget(MenuItemOption.new(OptionGroupModel.new(pModelOptions, 1), icon2, "Option With Icon"))
+		menu.addWidget(MenuItemOption.new(OptionGroupModel.new(pModelOptions, 2), icon3, "Option 3 With Icon"))
 		
-		var Panel frame = Panel.new()
-		frame.setLayout( FlowLayout.new( LayoutAxis.x, 5, FlowLayout.Stretch.last ) )
-		subPanel.addWidget( frame )
-		
-		//var IntegerTextField integerText = IntegerTextField.new( RangeTextModel.new( modelProgress ) )
-		var TextField integerText = TextField.new()
-		integerText.setDisplayCharCount( 3 )
-		integerText.setValidator( SimpleTextValidator.new( 3, SimpleTextValidator.CharacterClass.digits ) )
-		frame.addWidget( integerText )
-		
-		frame.addWidget( SpinButton.new( modelProgress ) )
-		
-		frame.addWidget( ProgressBar.new( Orientation.horizontal, modelProgress ) )
-		
-		var Panel subSubPanel = Panel.new()
-		subSubPanel.setLayout( BoxLayout.new( LayoutAxis.x, 5 ) )
-		subSubPanel.addWidget( TextField.new( textModel ) )
-		var TextField textField = TextField.new( textModel )
-		textField.setEnabled( false )
-		subSubPanel.addWidget( textField )
-		subPanel.addWidget( subSubPanel )
-		
-		subSubPanel = Panel.new()
-		subSubPanel.setLayout( BoxLayout.new( LayoutAxis.x, 5 ) )
-		subSubPanel.addWidget( TextField.new( textModel ) )
-		textField = TextField.new( textModel )
-		textField.setReadOnly( true )
-		subSubPanel.addWidget( textField )
-		subPanel.addWidget( subSubPanel )
-		
-		subSubPanel = Panel.new()
-		subSubPanel.setLayout( BorderLayout.new( 5 ) )
-		subPanel.addWidget( subSubPanel )
-		
-		var Panel subSubSubPanel = Panel.new()
-		subSubSubPanel.setLayout( BoxLayout.new( LayoutAxis.x, 5 ) )
-		subSubPanel.addWidget( subSubSubPanel, BorderLayout.Area.content )
-		
-		var Image imageColorful = Image.new( "/images/colorful.png" )
-		var Button button = Button.new( "Popup", imageColorful )
-		button.addActionListener( ActionPopupTest.new( this ) )
-		subSubSubPanel.addWidget( button )
-		
-		button = Button.new( "Modal", imageColorful )
-		button.addActionListener( ActionDialogTest.new( this ) )
-		subSubSubPanel.addWidget( button )
-		
-		button = Button.new( "Disabled", imageColorful )
-		button.setEnabled( false )
-		subSubSubPanel.addWidget( button )
-		
-		subSubSubPanel = Panel.new()
-		subSubSubPanel.setLayout( BoxLayout.new( LayoutAxis.x, 5 ) )
-		subSubPanel.addWidget( subSubSubPanel, BorderLayout.Area.right )
-		
-		button = ToggleButton.new( "Toggle", imageColorful )
-		subSubSubPanel.addWidget( button )
-		
-		
-		
-		subSubPanel = Panel.new()
-		subSubPanel.setLayout( GridLayout.new( 3, 2, 5 ) )
-		subPanel.addWidget( subSubPanel )
-		
-		var ActionEnableButtons actionEnableButtons = ActionEnableButtons.new()
-		
-		var CheckBox checkBox = CheckBox.new( "Check box 1" )
-		subSubPanel.addWidget( checkBox )
-		
-		checkBox = CheckBox.new( "Disable" )
-		actionEnableButtons.setTriggerButton( checkBox )
-		checkBox.addActionListener( actionEnableButtons )
-		subSubPanel.addWidget( checkBox )
-		
-		checkBox = CheckBox.new( "Check box 3" )
-		actionEnableButtons.addWidget( checkBox )
-		subSubPanel.addWidget( checkBox )
-		
-		var ToggleButtonGroup optionGroup = ToggleButtonGroup.new()
-		var OptionBox optionBox = OptionBox.new( "Option 1" )
-		optionGroup.add( optionBox )
-		subSubPanel.addWidget( optionBox )
-		
-		optionBox = OptionBox.new( "Option 2" )
-		optionGroup.add( optionBox )
-		subSubPanel.addWidget( optionBox )
-		
-		optionBox = OptionBox.new( "Option 3" )
-		optionGroup.add( optionBox )
-		actionEnableButtons.addWidget( optionBox )
-		subSubPanel.addWidget( optionBox )
-		
-		
-		
-		var TextArea textArea = TextArea.new( DefaultTextModel.new( "Multiline Text\nAnother line\nAnd one more" ) )
-		textArea.setMaximalWidth( 50 )
-		textArea.setRowCount( 3 )
-		subPanel.addWidget( ScrollPanel.new( textArea ) )
+		return menu
 	end
 end
