@@ -53,6 +53,14 @@ to host a game and others to join the game. Some basic game mechanics
 are present which are unfinished on purpose. You are encouraged to
 try complete the mechanics as a learning experience.
 
+# directory exampleVR
+
+This project is a basic example of a VR game application. The player
+is presented with an enclosed space with three desks. On one desk
+some throwing balls are located while on the other two stacks of cans
+are located. Try grabing the balls to smack down the can stacks.
+There's also a little surprise hidden around the corner.
+
 # directory degraphicstest
 
 This project is a bit more than just an example project. The basic
