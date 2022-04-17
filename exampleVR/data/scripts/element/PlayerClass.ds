@@ -58,7 +58,7 @@ class PlayerClass extends BaseVRActorClass
 		// use bone names like "wrist.r" and "wrist.l" instad of just "wrist". Both naming
 		// schemes are useful in different situations. By default bone names are non-suffixed
 		getVRRightHandPose().setHandBoneNames(true)
-		getVRLeftHandPose().setHandBoneNames(false)
+		getVRLeftHandPose().setHandBoneNames(true)
 		
 		// Enable physics interaction of the hands with the world. By default hands have
 		// no physical presence (setGhost() is called). By enabling physical presence the
