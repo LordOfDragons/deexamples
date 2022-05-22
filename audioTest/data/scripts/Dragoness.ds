@@ -72,7 +72,7 @@ class Dragoness extends BaseActor
 		end )
 		
 		var ECBehaviorFootSteps.Configuration footStepsConfig
-		var float volume = 0.2 //0.1
+		var float volume = 0.5
 		var float range = 30
 		
 		footStepsConfig = ECBehaviorFootSteps.Configuration.new(DragonessClass.FOOTSTEPS_WALK)

@@ -34,6 +34,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='0' y='1.6' z='-4'/>
 		<property key='speaker.sound'>/sound/engine1.ogg</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.rollOff'>1</property>
 		<property key='speaker.range'>60</property>
 	</object>
@@ -81,7 +82,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='20' y='1.6' z='-4'/>
 		<property key='speaker.sound'>/sound/water.ogg</property>
-		<property key='speaker.volume'>1</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='19'>
@@ -132,7 +133,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='40' y='1.6' z='-4'/>
 		<property key='speaker.sound'>/sound/engine1.ogg</property>
-		<property key='speaker.volume'>1</property>
+		<property key='speaker.volume'>4</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='28'>
@@ -286,7 +287,7 @@
 		<position x='40' y='1.6' z='28.8'/>
 		<rotation x='0' y='-180' z='0'/>
 		<property key='speaker.sound'>/sound/birds.ogg</property>
-		<property key='speaker.volume'>1</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='48'>
@@ -373,7 +374,7 @@
 		<position x='20' y='1.6' z='41'/>
 		<rotation x='0' y='-180' z='0'/>
 		<property key='speaker.sound'>/sound/birds.ogg</property>
-		<property key='speaker.volume'>1</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='5c'>
@@ -701,7 +702,7 @@
 		<position x='59.5' y='1.6' z='14.35'/>
 		<rotation x='0' y='90' z='0'/>
 		<property key='speaker.sound'>/sound/engine1.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='aa'>
@@ -734,6 +735,7 @@
 		<position x='59.5' y='1.6' z='11.35'/>
 		<rotation x='0' y='90' z='0'/>
 		<property key='speaker.sound'>/sound/birds.ogg</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='af'>
@@ -910,7 +912,7 @@
 		<position x='-2.5' y='0.25' z='29.8'/>
 		<rotation x='0' y='180' z='0'/>
 		<property key='speaker.sound'>/sound/steps1.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.trigger'>@movingSound.play</property>
 		<property key='speaker.rollOff'>1</property>
 		<property key='speaker.range'>40</property>
@@ -1163,10 +1165,9 @@
 	<object id='111'>
 		<classname>BaseSpeaker</classname>
 		<position x='-18.5' y='1.6' z='36.7'/>
-		<property key='speaker.sound'>/sound/steps1.ogg</property>
-		<property key='speaker.volume'>0.75</property>
 		<property key='speaker.trigger'>movingRoomBlock.move | movingRoomBlock.move.back</property>
-		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.sound'>/sound/steps1.ogg</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.range'>90</property>
 	</object>
 	<object id='112'>
@@ -2091,7 +2092,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='-24.3' y='1.6' z='56.7'/>
 		<property key='speaker.sound'>/sound/ventilation1.ogg</property>
-		<property key='speaker.volume'>1</property>
+		<property key='speaker.volume'>16</property>
 		<property key='speaker.trigger'>animatedGeometry.run</property>
 		<property key='speaker.rollOff'>1</property>
 		<property key='speaker.range'>60</property>
@@ -2317,8 +2318,7 @@
 		<position x='-15.9' y='1.6' z='53.75'/>
 		<property key='speaker.trigger'>@animatedGeometry.door2</property>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.5</property>
-		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.looping'>0</property>
 		<property key='speaker.range'>30</property>
 	</object>
@@ -2327,8 +2327,7 @@
 		<position x='-15.9' y='1.6' z='59.65'/>
 		<property key='speaker.trigger'>@animatedGeometry.door3</property>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.5</property>
-		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.looping'>0</property>
 		<property key='speaker.range'>30</property>
 	</object>
@@ -2337,8 +2336,7 @@
 		<position x='-18.85' y='1.6' z='56.7'/>
 		<property key='speaker.trigger'>@animatedGeometry.door1</property>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.5</property>
-		<property key='speaker.rollOff'>1</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.looping'>0</property>
 		<property key='speaker.range'>30</property>
 	</object>
@@ -3313,7 +3311,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='-18.7' y='1.6' z='82.5'/>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.trigger'>soundLevelMeter.stand1</property>
 		<property key='speaker.range'>15</property>
 		<property key='speaker.looping'>0</property>
@@ -3322,7 +3320,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='-18.7' y='1.85' z='82.5'/>
 		<property key='speaker.sound'>/sound/clack2.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
 		<property key='speaker.range'>30</property>
 		<property key='speaker.looping'>0</property>
@@ -3331,7 +3329,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='-18.5' y='1.6' z='116.65'/>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.trigger'>soundLevelMeter.stand4</property>
 		<property key='speaker.range'>15</property>
 		<property key='speaker.looping'>0</property>
@@ -3340,7 +3338,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='-18.5' y='1.85' z='116.65'/>
 		<property key='speaker.sound'>/sound/clack2.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
 		<property key='speaker.range'>30</property>
 		<property key='speaker.looping'>0</property>
@@ -3349,7 +3347,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='17' y='1.6' z='118.15'/>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.trigger'>soundLevelMeter.stand3</property>
 		<property key='speaker.range'>15</property>
 		<property key='speaker.looping'>0</property>
@@ -3358,7 +3356,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='17' y='1.85' z='118.15'/>
 		<property key='speaker.sound'>/sound/clack2.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
 		<property key='speaker.range'>30</property>
 		<property key='speaker.looping'>0</property>
@@ -3367,7 +3365,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='17' y='1.6' z='81.1'/>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.trigger'>soundLevelMeter.stand2</property>
 		<property key='speaker.range'>15</property>
 		<property key='speaker.looping'>0</property>
@@ -3376,7 +3374,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='17' y='1.85' z='81.1'/>
 		<property key='speaker.sound'>/sound/clack2.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>2</property>
 		<property key='speaker.trigger'>@soundLevelMeter.reset</property>
 		<property key='speaker.range'>30</property>
 		<property key='speaker.looping'>0</property>
@@ -3385,7 +3383,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='-1.1' y='1.6' z='89.25'/>
 		<property key='speaker.sound'>/sound/clack.ogg</property>
-		<property key='speaker.volume'>0.2</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.trigger'>soundLevelMeter.done</property>
 		<property key='speaker.range'>15</property>
 		<property key='speaker.looping'>0</property>
