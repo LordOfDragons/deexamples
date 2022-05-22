@@ -81,7 +81,7 @@
 		<classname>BaseSpeaker</classname>
 		<position x='20' y='1.6' z='-4'/>
 		<property key='speaker.sound'>/sound/water.ogg</property>
-		<property key='speaker.volume'>0.5</property>
+		<property key='speaker.volume'>1</property>
 		<property key='speaker.range'>60</property>
 	</object>
 	<object id='19'>

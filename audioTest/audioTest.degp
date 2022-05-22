@@ -6,5 +6,5 @@
 	<cacheDirectory>cache</cacheDirectory>
 	<baseGameDefinition>DragonScript Basic</baseGameDefinition>
 	<projectGameDefinition>audioTest.degd</projectGameDefinition>
-	<scriptModule version='1.5'>DragonScript</scriptModule>
+	<scriptModule version='1.12'>DragonScript</scriptModule>
 </gameProject>

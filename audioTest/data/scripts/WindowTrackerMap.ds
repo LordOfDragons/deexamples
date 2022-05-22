@@ -90,4 +90,9 @@ class WindowTrackerMap extends Window
 		position = matrixWorldToMap * position
 		return Point.new((position.getX() + 0.5) cast int, (position.getY() + 0.5) cast int)
 	end
+	
+	// returns null to prevent hovering
+	public func Widget getWidgetAt(Point position)
+		return null
+	end
 end

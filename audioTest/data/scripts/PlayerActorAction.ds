@@ -103,7 +103,7 @@ class PlayerActorAction extends BAAFirstPerson implements BAAInteract
 	// Update foot steps
 	public func void footSteps()
 		// if going to stop moving stop foot steps. otherwise use the appropriate steps
-		if getLocomotion().getLocomotion().getMovingSpeed() < 0.01
+		if getLocomotion().getLocomotion().getAbsMovingSpeed() < 0.01
 			getFootSteps().clearActiveConfiguration()
 			
 		elif getPlayerInputMove().getRun()
