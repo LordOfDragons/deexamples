@@ -124,7 +124,7 @@ class GameAppDebug extends GameApp
 		var StartGame startGame = getGameWorldLoader() cast StartGame
 		
 		//startGame.spawnPointPlayer = "debug1" // large reverberant room
-		startGame.spawnPointPlayer = "debug2"  // dragoness
+		//startGame.spawnPointPlayer = "debug2"  // dragoness
 		//startGame.spawnPointPlayer = "debug3"  // first room
 	end
 	
