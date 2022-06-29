@@ -1,7 +1,7 @@
 /* 
  * Drag[en]gine Library Scripts -- Game Engine
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -36,119 +36,113 @@ class WindowScrollbars extends Window
 	class ActionPopupTest extends DefaultActionListener
 		class ActionPopdown extends DefaultActionListener
 			private var WindowPopup pPopup
-			public func new( WindowPopup popup )
-				this.pPopup = popup
+			
+			public func new(WindowPopup popup)
+				pPopup = popup
 			end
-			public func void onAction( ActionEvent event )
-				this.pPopup.popdown()
+			
+			public func void onAction(ActionEvent event)
+				pPopup.popdown()
 			end
 		end
 		
 		private var WindowScrollbars pWindow
-		public func new( WindowScrollbars window )
-			this.pWindow = window
+		
+		public func new(WindowScrollbars window)
+			pWindow = window
 		end
-		public func void onAction( ActionEvent event )
-			var Desktop desktop = this.pWindow.getDesktop()
+		
+		public func void onAction(ActionEvent event)
 			var Widget widget = event.getSource() cast Widget
 			var WindowPopup window = WindowPopup.new()
 			
-			var Button button = Button.new( "First Label" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
+			window.addWidget(Button.new("First Label", ActionPopdown.new(window)))
+			window.addWidget(Button.new("Second Label", ActionPopdown.new(window)))
+			window.addWidget(Button.new("Third Label >", ActionPopdown.new(window)))
+			window.addWidget(Button.new("Last Label", ActionPopdown.new(window)))
 			
-			button = Button.new( "Second Label" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			button = Button.new( "Third Label >" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			button = Button.new( "Last Label" )
-			button.addActionListener( ActionPopdown.new( window ) )
-			window.addWidget( button )
-			
-			desktop.addWindow( window )
-			window.popup( widget.getDesktopPosition() + Point.new( 0, widget.getHeight() ) )
+			pWindow.getDesktop().addWindow(window)
+			window.popup(widget.getDesktopPosition() + Point.new(0, widget.getHeight()))
 		end
 	end
 	
 	
 	
 	/** \brief Create game. */
-	public func new() super( 0, 0, 500, 400 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setLayout( BorderLayout.new() )
-		this.setTitle( "Scrollbars" )
-		this.createContent( this )
+	public func new() super(0, 0, 500, 400)
+		runWhileBlockingLayout(block
+			setDesignerSelector("WindowPadding")
+			setLayout(BorderLayout.new())
+			setTitle("Scrollbars")
+			createContent(this)
+		end)
 	end
 	
 	
 	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		content.setLayout( BorderLayout.new( 5 ) )
+	private func void createContent(Container content)
+		content.setLayout(BorderLayout.new(5))
 		
 		// test models
-		var RangeModel modelScroll = DefaultRangeModel.new( 0, 20, 5, 6, 1 )
-		var RangeModel modelProgress = DefaultRangeModel.new( 0, 100, 20, 0, 1 )
-		var TextModel textModel = DefaultTextModel.new( "Shared text" )
+		var RangeModel modelScroll = DefaultRangeModel.new(0, 20, 5, 6, 1)
+		var RangeModel modelScroll2 = DefaultRangeModel.new(0, 40, 10, 12, 1)
+		var RangeModel modelProgress = DefaultRangeModel.new(0, 100, 20, 0, 1)
+		var TextModel textModel = DefaultTextModel.new("Shared text")
 		
 		// right border
-		var ScrollBar scrollbar = ScrollBar.new( Orientation.vertical )
-		scrollbar.setModel( modelScroll )
-		content.addWidget( scrollbar, BorderLayout.Area.right )
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x), block Panel p
+			p.addWidget(ScrollBar.new(Orientation.vertical, modelScroll))
+			p.addWidget(Slider.new(Orientation.vertical, modelScroll))
+		end), BorderLayout.Area.right)
 		
 		// left border
-		scrollbar = ScrollBar.new( Orientation.vertical )
-		scrollbar.setModel( modelScroll )
-		content.addWidget( scrollbar, BorderLayout.Area.left )
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x), block Panel p
+			p.addWidget(ScrollBar.new(Orientation.vertical, modelScroll))
+		end), BorderLayout.Area.left)
 		
 		// bottom border
-		scrollbar = ScrollBar.new( Orientation.horizontal )
-		scrollbar.getModel().setAll( 0, 255, 32, 64, 1 )
-		content.addWidget( scrollbar, BorderLayout.Area.bottom )
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y), block Panel p
+			p.addWidget(ScrollBar.new(Orientation.horizontal, modelScroll2))
+			p.addWidget(Slider.new(Orientation.horizontal, modelScroll2))
+		end), BorderLayout.Area.bottom)
 		
 		// content
-		var Panel subPanel = Panel.new()
-		subPanel.setLayout( FlowLayout.new( LayoutAxis.y, 5 ) )
-		content.addWidget( subPanel, BorderLayout.Area.content )
-		
-		scrollbar = ScrollBar.new( Orientation.horizontal )
-		scrollbar.setModel( modelProgress )
-		scrollbar.setDesignerSelector( "ScrollBar.RedBorder" )
-		subPanel.addWidget( scrollbar )
-		
-		var ProgressBar progressBar = ProgressBar.new( Orientation.horizontal )
-		progressBar.setModel( modelProgress )
-		progressBar.setDesignerSelector( "ProgressBar.GreenBorder" )
-		subPanel.addWidget( progressBar )
-		
-		var Panel frame = Panel.new()
-		frame.setLayout( FlowLayout.new( LayoutAxis.x, 5 ) )
-		subPanel.addWidget( frame )
-		
-		var TextField integerText = TextField.new( "5" )
-		integerText.setDisplayCharCount( 3 )
-		integerText.setDesignerSelector( "TextField.BlueBorder" )
-		integerText.setValidator( SimpleTextValidator.new( 3, SimpleTextValidator.CharacterClass.digits ) )
-		frame.addWidget( integerText )
-		
-		frame.addWidget( SpinButton.new( modelProgress ) )
-		
-		subPanel.addWidget( TextField.new( textModel ) )
-		subPanel.addWidget( TextField.new( textModel ) )
-		
-		var Button button = Button.new( "Popup Test" )
-		button.setDesignerSelector( "Button.VideoMouse" )
-		button.addActionListener( ActionPopupTest.new( this ) )
-		subPanel.addWidget( button )
-		
-		var TextArea textArea = TextArea.new( textModel )
-		textArea.setMaximalWidth( 50 )
-		textArea.setRowCount( 6 )
-		textArea.setDesignerSelector( "TextArea.Yellowish" )
-		subPanel.addWidget( ScrollPanel.new( textArea ) )
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y, 5), block Panel p
+			var ScrollBar scrollbar = ScrollBar.new(Orientation.horizontal, modelProgress)
+			scrollbar.setDesignerSelector("ScrollBar.RedBorder")
+			p.addWidget(scrollbar)
+			
+			var ProgressBar progressBar = ProgressBar.new(Orientation.horizontal, modelProgress)
+			progressBar.setDesignerSelector("ProgressBar.GreenBorder")
+			p.addWidget(progressBar)
+			
+			var Panel frame = Panel.new()
+			frame.setLayout(FlowLayout.new(LayoutAxis.x, 5))
+			p.addWidget(frame)
+			
+			var TextField integerText = TextField.new("5")
+			integerText.setDisplayCharCount(3)
+			integerText.setDesignerSelector("TextField.BlueBorder")
+			integerText.setValidator(SimpleTextValidator.new(3, SimpleTextValidator.CharacterClass.digits))
+			frame.addWidget(integerText)
+			
+			frame.addWidget(SpinButton.new(modelProgress))
+			
+			p.addWidget(TextField.new(textModel))
+			setActiveWidget(p.getWidget(p.getWidgetCount() - 1))
+			
+			p.addWidget(TextField.new(textModel))
+			
+			var Button button = Button.new("Popup Test", ActionPopupTest.new(this))
+			button.setDesignerSelector("Button.VideoMouse")
+			p.addWidget(button)
+			
+			var TextArea textArea = TextArea.new(textModel)
+			textArea.setMaximalWidth(50)
+			textArea.setRowCount(6)
+			textArea.setDesignerSelector("TextArea.Yellowish")
+			p.addWidget(ScrollPanel.new(textArea))
+		end), BorderLayout.Area.content)
 	end
 end

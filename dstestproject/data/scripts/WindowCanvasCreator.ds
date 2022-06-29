@@ -1,7 +1,7 @@
 /* 
  * Drag[en]gine Library Scripts -- Game Engine
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -34,85 +34,93 @@ pin Dragengine.Utils
  */
 class WindowCanvasCreator extends Window
 	/** \brief Create game. */
-	public func new() super( 0, 0, 600, 350 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Canvas Creator" )
-		this.createContent( this )
+	public func new() super(0, 0, 600, 450)
+		setDesignerSelector("WindowPadding")
+		setTitle("Canvas Creator")
+		createContent(this)
 	end
 	
 	
 	
 	/** \brief Add content. */
-	private func void createContent( Container content )
+	private func void createContent(Container content)
 		// see canvascreator.guitheme.xml for the designer definitions
 		
 		var Widget widget
-		var Panel row
 		
-		content.setLayout( FlowLayout.new( LayoutAxis.y, 10, FlowLayout.Stretch.last ) )
+		content.setLayout(BoxLayout.new(LayoutAxis.y, 10))
 		
 		// image creator
-		row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
-		content.addWidget( row )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas1a" )
-		row.addWidget( widget )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas1b" )
-		row.addWidget( widget )
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 10, FlowLayout.Stretch.last), block Panel p
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas1a")
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas1b")
+			p.addWidget(widget)
+		end))
 		
 		// image border creator
-		row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
-		content.addWidget( row )
-		
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas2a" )
-		row.addWidget( widget )
-		
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas2b" )
-		row.addWidget( widget )
-		
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas2c" )
-		row.addWidget( widget )
+		content.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 10, FlowLayout.Stretch.last), block Panel p
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas2a")
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas2b")
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas2c")
+			p.addWidget(widget)
+		end))
 		
 		// theme1
-		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas3a" )
-		row.addWidget( widget )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas3b" )
-		row.addWidget( widget )
+		content.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 10), block Panel p
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas3a")
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas3b")
+			p.addWidget(widget)
+		end))
 		
-		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas3a" )
-		widget.setMinimumSize( Point.new( 80, 16 ) )
-		widget.setProtectMinimumSize( true )
-		row.addWidget( widget )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas3b" )
-		widget.setMinimumSize( Point.new( 80, 16 ) )
-		widget.setProtectMinimumSize( true )
-		row.addWidget( widget )
+		content.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 10), block Panel p
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas3a")
+			widget.setMinimumSize(Point.new(80, 16))
+			widget.setProtectMinimumSize(true)
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas3b")
+			widget.setMinimumSize(Point.new(80, 16))
+			widget.setProtectMinimumSize(true)
+			p.addWidget(widget)
+		end))
 		
 		// theme2
-		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas4a" )
-		row.addWidget( widget )
-		widget = Widget.new()
-		widget.setDesignerSelector( "WindowCanvasCreator.Canvas4b" )
-		row.addWidget( widget )
+		content.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 10), block Panel p
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas4a")
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas4b")
+			p.addWidget(widget)
+		end))
+		
+		// combined
+		content.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 10), block Panel p
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas5a")
+			p.addWidget(widget)
+			
+			widget = Widget.new()
+			widget.setDesignerSelector("WindowCanvasCreator.Canvas5b")
+			p.addWidget(widget)
+		end))
 	end
 end

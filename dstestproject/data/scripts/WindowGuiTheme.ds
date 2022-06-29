@@ -395,19 +395,25 @@ class WindowGuiTheme extends Window
 			wcp.addWidget(Panel.new(BorderLayout.new(5), block Panel p
 				// test models
 				var RangeModel modelScroll = DefaultRangeModel.new(0, 20, 5, 6, 1)
+				var RangeModel modelScroll2 = DefaultRangeModel.new(0, 40, 10, 12, 1)
 				var RangeModel modelProgress = DefaultRangeModel.new(0, 100, 20, 30, 1)
 				var TextModel textModel = DefaultTextModel.new("Shared text")
 				var Image imageColorful = Image.new("/images/colorful.png")
 				
 				// right border
-				p.addWidget(ScrollBar.new(Orientation.vertical, modelScroll), BorderLayout.Area.right)
+				p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x), block Panel p2
+					p2.addWidget(ScrollBar.new(Orientation.vertical, modelScroll))
+					p2.addWidget(Slider.new(Orientation.vertical, modelScroll))
+				end), BorderLayout.Area.right)
 				
 				// left border
 				p.addWidget(ScrollBar.new(Orientation.vertical, modelScroll), BorderLayout.Area.left)
 				
 				// bottom border
-				p.addWidget(ScrollBar.new(Orientation.horizontal,\
-					DefaultRangeModel.new(0, 255, 32, 64, 1)), BorderLayout.Area.bottom)
+				p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y), block Panel p2
+					p2.addWidget(ScrollBar.new(Orientation.horizontal, modelScroll2))
+					p2.addWidget(Slider.new(Orientation.horizontal, modelScroll2))
+				end), BorderLayout.Area.bottom)
 				
 				// content
 				p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.y, 2, FlowLayout.Stretch.last), block Panel p2
@@ -429,6 +435,7 @@ class WindowGuiTheme extends Window
 					
 					p2.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 5), block Panel p3
 						p3.addWidget(TextField.new(textModel))
+						setActiveWidget(p3.getWidget(p3.getWidgetCount() - 1))
 						
 						var TextField textField = TextField.new(textModel)
 						textField.setEnabled(false)
