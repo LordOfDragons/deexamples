@@ -2,8 +2,8 @@ name: Nightly
 
 on:
   push:
-    branches:    
-      - 'main'
+    branches:
+      - 'master'
   workflow_dispatch:
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
           removeArtifacts: true
           draft: false
           prerelease: true
-          commit: 'main'
+          commit: 'master'
           tag: 'nightly'
           name: 'Drag[en]gine Example Projects Nightly Build'
           body: |
