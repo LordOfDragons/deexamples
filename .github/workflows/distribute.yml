@@ -1,0 +1,88 @@
+name: Distribute
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+      artifact:
+        required: true
+        type: string
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: true
+          submodules: 'recursive'
+      
+      - name: Distribute AudioTest
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'audioTest/project.xml'
+          profile: 'Release'
+      
+      - name: Distribute GraphicsTest
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'degraphicstest/project.xml'
+          profile: 'Default'
+      
+      - name: Distribute DSTestProject
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'dstestproject/project.xml'
+          profile: 'Default'
+      
+      - name: Distribute ExampleApp
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'exampleApp/project.xml'
+          profile: 'Default'
+      
+      - name: Distribute ExampleVR
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'exampleVR/project.xml'
+          profile: 'Release'
+      
+      - name: Distribute Network
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'network/project.xml'
+          profile: 'Release'
+      
+      - name: Distribute VideoPlayer
+        id: distribute
+        uses: LordOfDragons/build-delga@v1
+        with:
+          projectFile: 'videoplayer/project.xml'
+          profile: 'Default'
+        
+      - name: Copy Artifacts
+        run: |
+          mkdir artifacts
+          cp -a audioTest/distribute/DEAudioTest.delga artifacts
+          cp -a degraphicstest/distribute/DEGraphicsTest.delga artifacts
+          cp -a dstestproject/distribute/DSTestProject.delga artifacts
+          cp -a exampleApp/distribute/DEExampleApp.delga artifacts
+          cp -a exampleVR/distribute/ExampleVR.delga artifacts
+          cp -a network/distribute/DENetworkExample.delga artifacts
+          cp -a videoplayer/distribute/DEVideoPlayer.delga artifacts
+        
+      - name: Store DELGAs
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ inputs.artifact }}
+          path: artifacts/*.delga
+          if-no-files-found: error

@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        type: string
+        default: 'X.Y{.Z}'
+
+jobs:
+  distribute:
+    uses: ./.github/workflows/distribute.yml
+    with:
+      version: ${{ github.event.inputs.version }}
+      artifact: distribution
+
+  upload:
+    needs: [distribute]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Get Distribution
+        uses: actions/download-artifact@v3
+        with:
+          name: distribution
+      
+      - name: Upload Artifacts
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: false
+          artifactErrorsFailBuild: true
+          draft: false
+          prerelease: true
+          commit: 'main'
+          tag: 'v${{ github.event.inputs.version }}'
+          name: 'Drag[en]gine Example Projects ${{ github.event.inputs.version }}'
+          body: |
+            ${{ github.event.inputs.version }} release of example projects to learn using the Drag[en]gine Game Engine. You can test the projects without installing the IGDE by using the pre-build DELGA files here.
+          artifacts: *.delga
