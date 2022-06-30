@@ -45,7 +45,7 @@ jobs:
         id: exampleapp
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'exampleApp/Example\ App.degp'
+          projectFile: '"exampleApp/Example App.degp"'
           profile: 'Default'
       
       - name: Distribute ExampleVR
@@ -66,7 +66,7 @@ jobs:
         id: videoplayer
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'exampleApp/Example\ App.degp'
+          projectFile: '"exampleApp/Example App.degp"'
           profile: 'Default'
         
       - name: Copy Artifacts
