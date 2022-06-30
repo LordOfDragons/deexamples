@@ -44,4 +44,4 @@ jobs:
             Created: ${{ steps.date.outputs.date }}
             
             Builds are potentially unstable. Use at own risk.
-          artifacts: *.delga
+          artifacts: '*.delga'

@@ -39,4 +39,4 @@ jobs:
           name: 'Drag[en]gine Example Projects ${{ github.event.inputs.version }}'
           body: |
             ${{ github.event.inputs.version }} release of example projects to learn using the Drag[en]gine Game Engine. You can test the projects without installing the IGDE by using the pre-build DELGA files here.
-          artifacts: *.delga
+          artifacts: '*.delga'
