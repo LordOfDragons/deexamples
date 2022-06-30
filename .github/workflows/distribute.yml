@@ -21,49 +21,49 @@ jobs:
           submodules: 'recursive'
       
       - name: Distribute AudioTest
-        id: distribute
+        id: audiotest
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'audioTest/project.xml'
           profile: 'Release'
       
       - name: Distribute GraphicsTest
-        id: distribute
+        id: graphicstest
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'degraphicstest/project.xml'
           profile: 'Default'
       
       - name: Distribute DSTestProject
-        id: distribute
+        id: dstestproject
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'dstestproject/project.xml'
           profile: 'Default'
       
       - name: Distribute ExampleApp
-        id: distribute
+        id: exampleapp
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'exampleApp/project.xml'
           profile: 'Default'
       
       - name: Distribute ExampleVR
-        id: distribute
+        id: examplevr
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'exampleVR/project.xml'
           profile: 'Release'
       
       - name: Distribute Network
-        id: distribute
+        id: network
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'network/project.xml'
           profile: 'Release'
       
       - name: Distribute VideoPlayer
-        id: distribute
+        id: videoplayer
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'videoplayer/project.xml'
