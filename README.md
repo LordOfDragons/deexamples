@@ -9,6 +9,8 @@ Example projects for the the Drag[en]gine game engine.
 - Source Code Repository: https://github.com/LordOfDragons/dragengine
 - Example Projects Repository: https://github.com/LordOfDragons/deexamples
 
+[![Nightly](https://github.com/LordOfDragons/deexamples/actions/workflows/nightly.yml/badge.svg)](https://github.com/LordOfDragons/deexamples/actions/workflows/nightly.yml)
+
 # Usage
 
 Download or clone the source code to your computer. Each directory
