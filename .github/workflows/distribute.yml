@@ -24,49 +24,49 @@ jobs:
         id: audiotest
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'audioTest/project.xml'
+          projectFile: 'audioTest/audioTest.degp'
           profile: 'Release'
       
       - name: Distribute GraphicsTest
         id: graphicstest
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'degraphicstest/project.xml'
+          projectFile: 'degraphicstest/DEGraphicsTest.degp'
           profile: 'Default'
       
       - name: Distribute DSTestProject
         id: dstestproject
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'dstestproject/project.xml'
+          projectFile: 'dstestproject/dstestproject.degp'
           profile: 'Default'
       
       - name: Distribute ExampleApp
         id: exampleapp
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'exampleApp/project.xml'
+          projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
       
       - name: Distribute ExampleVR
         id: examplevr
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'exampleVR/project.xml'
+          projectFile: 'dstestproject/dstestproject.degp'
           profile: 'Release'
       
       - name: Distribute Network
         id: network
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'network/project.xml'
+          projectFile: 'network/NetworkExample.degp'
           profile: 'Release'
       
       - name: Distribute VideoPlayer
         id: videoplayer
         uses: LordOfDragons/build-delga@v1
         with:
-          projectFile: 'videoplayer/project.xml'
+          projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
         
       - name: Copy Artifacts
