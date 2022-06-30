@@ -53,7 +53,7 @@ jobs:
         uses: LordOfDragons/build-delga@v1
         with:
           projectFile: 'dstestproject/dstestproject.degp'
-          profile: 'Release'
+          profile: 'Default'
       
       - name: Distribute Network
         id: network
