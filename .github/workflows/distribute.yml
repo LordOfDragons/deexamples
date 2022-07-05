@@ -16,9 +16,19 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+        
+      - name: Create LFS file hash list
+        run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-objects-id
+
+      - name: Restore LFS Cache
+        uses: actions/cache@v2
+        id: lfs-cache
         with:
-          lfs: true
-          submodules: 'recursive'
+          path: .git/lfs
+          key: lfs-cache-${{ hashFiles('.lfs-objects-id') }}
+
+      - name: Git LFS Pull
+        run: git lfs pull
       
       - name: Distribute AudioTest
         id: audiotest
