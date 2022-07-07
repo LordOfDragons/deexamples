@@ -29,7 +29,11 @@ jobs:
           restore-keys: lfs-cache-
 
       - name: Git LFS Pull
-        run: git lfs pull
+        run: |
+          git lfs pull 2>&1 | tee lfs.log
+          if grep -q "error:" "lfs.log" ; then
+            exit 1
+          fi
       
       - name: Distribute AudioTest
         id: audiotest
