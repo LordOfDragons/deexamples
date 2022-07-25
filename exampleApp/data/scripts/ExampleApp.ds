@@ -93,6 +93,54 @@ class ExampleApp extends BaseGameApp
 			
 			getWindow().setCameraDirector(director)
 			
+			// Effects can be added to the camera. Typically you will add effects and
+			// disable them. Then you can later on enable them using behaviors. For this
+			// to work store the effects aside so you can find them later on
+			
+			// The color matrix effect applies a color matrix to the rendered image
+			/*
+			var EffectColorMatrix effect = EffectColorMatrix.new()
+			effect.setColorMatrix(ColorMatrix.newSaturation(0))
+			getWindow().getCamera().addEffect(effect)
+			*/
+			
+			// The distortion image effect allows to distort the image on a large scale
+			// with varying strength and direction for each screen pixel. The image is
+			// typically a normal map indicating with the red and green channel the X
+			// respectively Y distortion. The distortion is a relative value in the
+			// range from -1 (value 0) to 1 (value 255) incidating the offset. This
+			// offset is multiplied by the distortion strength which is also relative
+			// to the screen size. For example if you use a distortion strength of 0.1
+			// then a distortion of 1 offsets by 10% of the screen width/height. The
+			// distortion image is not required to match the screen size.
+			/*
+			var EffectDistortImage effect = EffectDistortImage.new()
+			effect.setImage(Image.new("/content/images/distortion1.webp"))
+			effect.setStrength(0.05, 0.05)
+			getWindow().getCamera().addEffect(effect)
+			*/
+			
+			// Apply filter kernel to each pixel. This example uses a normalized kernel
+			// [1 2 1]
+			// [2 4 2]
+			// [1 2 1]
+			// Normalized kernels conserve image intensity. Denormalized kernels make
+			// images brighter or darker
+			/*
+			var EffectFilterKernel effect = EffectFilterKernel.new()
+			effect.setKernelSize(3, 3)
+			effect.setKernelValue(0, 0, 1.0 / 16.0)
+			effect.setKernelValue(0, 1, 2.0 / 16.0)
+			effect.setKernelValue(0, 2, 1.0 / 16.0)
+			effect.setKernelValue(1, 0, 2.0 / 16.0)
+			effect.setKernelValue(1, 1, 4.0 / 16.0)
+			effect.setKernelValue(1, 2, 2.0 / 16.0)
+			effect.setKernelValue(2, 0, 1.0 / 16.0)
+			effect.setKernelValue(2, 1, 2.0 / 16.0)
+			effect.setKernelValue(2, 2, 1.0 / 16.0)
+			getWindow().getCamera().addEffect(effect)
+			*/
+			
 			// Finish and start running. The binding input processor is activated which
 			// uses bindings to redirect inputs to game commands. An alternative is
 			// activating the desktop input processor for example if you want to

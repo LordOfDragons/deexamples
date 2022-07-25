@@ -89,7 +89,7 @@ public class CustomColorExampleClass extends SimpleElementClass
 		// list of allowed colors. This way the player can be limited to choose
 		// only from this list of colors
 		// 
-		// The current example does use this in the color dialog. This is left as
+		// The current example does not use this in the color dialog. This is left as
 		// an excercise for the user to implement
 		color1.getAllowedColors().addColor(Color.darkBlue)
 		color1.getAllowedColors().addColor(Color.darkGray)

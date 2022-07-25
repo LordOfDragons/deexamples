@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<skin>
+	<texture name='material'>
+		<color property='color' r='0.917647' g='0.764706' b='0.34902'/>
+		<value property='reflectivity'>0.23</value>
+		<value property='roughness'>0.65</value>
+		<color property='absorption' r='0.917647' g='0.764706' b='0.34902'/>
+		<value property='absorption.range'>0.5</value>
+	</texture>
+</skin>
