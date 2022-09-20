@@ -253,6 +253,20 @@ class WindowGuiTheme extends Window
 			end
 		end
 		
+		class ActionInputBox implements ActionListener
+			private var WindowModal pWindow
+			
+			public func new(WindowModal window)
+				pWindow = window
+			end
+			
+			public func void onAction(ActionEvent event)
+				WindowDialog.input(pWindow, "Input", "Input test.", \
+					null, "Initial Text", null, null, EchoResult.new(pWindow)) \
+						.setGuiTheme(pWindow.getGuiTheme())
+			end
+		end
+		
 		
 		
 		private var WindowGuiTheme pWindow
@@ -288,6 +302,10 @@ class WindowGuiTheme extends Window
 				
 				button = Button.new("Selection Box")
 				button.addActionListener(ActionSelectionBox.new(window))
+				window.addWidget(button)
+				
+				button = Button.new("Input Box")
+				button.addActionListener(ActionInputBox.new(window))
 				window.addWidget(button)
 			end)
 			
