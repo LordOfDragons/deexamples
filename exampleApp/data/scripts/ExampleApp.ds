@@ -97,11 +97,19 @@ class ExampleApp extends BaseGameApp
 			// disable them. Then you can later on enable them using behaviors. For this
 			// to work store the effects aside so you can find them later on
 			
+			// The overlay effect simply renders an image over the scene
+			/*
+			var EffectOverlayImage effectOverlay = EffectOverlayImage.new()
+			effectOverlay.setImage(Image.new("/content/images/overlay1.webp"))
+			effectOverlay.setTransparency(0.85)
+			getWindow().getCamera().addEffect(effectOverlay)
+			*/
+			
 			// The color matrix effect applies a color matrix to the rendered image
 			/*
-			var EffectColorMatrix effect = EffectColorMatrix.new()
-			effect.setColorMatrix(ColorMatrix.newSaturation(0))
-			getWindow().getCamera().addEffect(effect)
+			var EffectColorMatrix effectColor = EffectColorMatrix.new()
+			effectColor.setColorMatrix(ColorMatrix.newSaturation(0))
+			getWindow().getCamera().addEffect(effectColor)
 			*/
 			
 			// The distortion image effect allows to distort the image on a large scale
@@ -114,10 +122,10 @@ class ExampleApp extends BaseGameApp
 			// then a distortion of 1 offsets by 10% of the screen width/height. The
 			// distortion image is not required to match the screen size.
 			/*
-			var EffectDistortImage effect = EffectDistortImage.new()
-			effect.setImage(Image.new("/content/images/distortion1.webp"))
-			effect.setStrength(0.05, 0.05)
-			getWindow().getCamera().addEffect(effect)
+			var EffectDistortImage effectDistort = EffectDistortImage.new()
+			effectDistort.setImage(Image.new("/content/images/distortion1.webp"))
+			effectDistort.setStrength(0.05, 0.05)
+			getWindow().getCamera().addEffect(effectDistort)
 			*/
 			
 			// Apply filter kernel to each pixel. This example uses a normalized kernel
@@ -127,18 +135,18 @@ class ExampleApp extends BaseGameApp
 			// Normalized kernels conserve image intensity. Denormalized kernels make
 			// images brighter or darker
 			/*
-			var EffectFilterKernel effect = EffectFilterKernel.new()
-			effect.setKernelSize(3, 3)
-			effect.setKernelValue(0, 0, 1.0 / 16.0)
-			effect.setKernelValue(0, 1, 2.0 / 16.0)
-			effect.setKernelValue(0, 2, 1.0 / 16.0)
-			effect.setKernelValue(1, 0, 2.0 / 16.0)
-			effect.setKernelValue(1, 1, 4.0 / 16.0)
-			effect.setKernelValue(1, 2, 2.0 / 16.0)
-			effect.setKernelValue(2, 0, 1.0 / 16.0)
-			effect.setKernelValue(2, 1, 2.0 / 16.0)
-			effect.setKernelValue(2, 2, 1.0 / 16.0)
-			getWindow().getCamera().addEffect(effect)
+			var EffectFilterKernel effectKernel = EffectFilterKernel.new()
+			effectKernel.setKernelSize(3, 3)
+			effectKernel.setKernelValue(0, 0, 1.0 / 16.0)
+			effectKernel.setKernelValue(0, 1, 2.0 / 16.0)
+			effectKernel.setKernelValue(0, 2, 1.0 / 16.0)
+			effectKernel.setKernelValue(1, 0, 2.0 / 16.0)
+			effectKernel.setKernelValue(1, 1, 4.0 / 16.0)
+			effectKernel.setKernelValue(1, 2, 2.0 / 16.0)
+			effectKernel.setKernelValue(2, 0, 1.0 / 16.0)
+			effectKernel.setKernelValue(2, 1, 2.0 / 16.0)
+			effectKernel.setKernelValue(2, 2, 1.0 / 16.0)
+			getWindow().getCamera().addEffect(effectKernel)
 			*/
 			
 			// Finish and start running. The binding input processor is activated which
