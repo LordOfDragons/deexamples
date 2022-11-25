@@ -1,7 +1,7 @@
 /* 
  * Drag[en]gine Library Scripts -- Game Engine
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -36,7 +36,7 @@ class TestProject extends BaseGameApp
 		// 
 		// keep in mind loaded gui themes are shared. do not modify them directly. if you need
 		// to modify them create first a copy using the copy constructor
-		this.pathDesktopGuiTheme = "/guithemes/ui.guitheme.xml"
+		pathDesktopGuiTheme = "/guithemes/ui.guitheme.xml"
 	end
 	
 	
@@ -45,7 +45,7 @@ class TestProject extends BaseGameApp
 	public func void initGame()
 		super.initGame()
 		
-		InputSystem.setCaptureInputDevices( false )
+		InputSystem.setCaptureInputDevices(false)
 		
 		// Start game by showing the Drag[en]gine Game Engine logo and optionally other logos
 		// you would like to show. WindowLogo.show*() does all the work of showing a logo or
@@ -53,16 +53,16 @@ class TestProject extends BaseGameApp
 		// the provided action listener is called. This can be creating a class implementing
 		// ActionListener interface or by using BlockActionListener. This is a convenience
 		// class allowing to use a block as an action and is suitable for quick code insertion
-		// like this. Using a class implementing ActionListener is though favorable since it
+		// like  Using a class implementing ActionListener is though favorable since it
 		// makes it easier to chain actions in an understandable way.
 		// 
 		// Showing the Drag[en]gine Game Engine logo is not required at all to use this game
 		// engine but we highly appreciate it if you do so.
 		
-		WindowLogo.showDragengineLogo( this.getDesktop(), BlockActionListener.new( \
+		WindowLogo.showDragengineLogo(getDesktop(), BlockActionListener.new(\
 			block ActionEvent event
 				launchApplication()
-			end ) )
+			end))
 	end
 	
 	/**
@@ -71,19 +71,22 @@ class TestProject extends BaseGameApp
 	 * Called after logo windows are finished.
 	 */
 	public func void launchApplication()
-		this.getWindowGameWorld().becomeBackgroundWindow()
+		getWindowGameWorld().becomeBackgroundWindow()
 		
-		this.addLogoWindow()
-		WindowMain.new( this.getDesktop() )
+		addLogoWindow()
+		WindowMain.new(getDesktop())
+		
+		// You can use a virtual keyboard, for example in VR or touch devices
+// 		getDesktop().setWindowVirtualKeyboard(WindowVirtualKeyboard.new())
 	end
 	
 	/** \brief Process input event. */
-	public func void inputEvent( InputEvent event )
+	public func void inputEvent(InputEvent event)
 		if event.getType() == InputEventType.keyPress and event.getCode() == InputEventKey.f10
-			this.getScreenshotCreator().takeScreenshot()
+			getScreenshotCreator().takeScreenshot()
 			
 		else
-			super.inputEvent( event )
+			super.inputEvent(event)
 		end
 	end
 	
@@ -95,15 +98,15 @@ class TestProject extends BaseGameApp
 	 */
 	private func void addLogoWindow()
 		var Window window = Window.new()
-		window.setCanActivate( false )
-		window.setCanFocus( false )
-		window.setLayout( Layouts.BoxLayout.new( Layouts.LayoutAxis.x, 0 ) )
-		window.setDesignerSelector( "LogoWindow" )
-		window.addWidget( DisplayImage.new( Image.new( "/images/testproject_logo.jpg" ) ) )
-		this.getDesktop().addWindow( window )
+		window.setCanActivate(false)
+		window.setCanFocus(false)
+		window.setLayout(Layouts.BoxLayout.new(Layouts.LayoutAxis.x, 0))
+		window.setDesignerSelector("LogoWindow")
+		window.addWidget(DisplayImage.new(Image.new("/images/testproject_logo.jpg")))
+		getDesktop().addWindow(window)
 		
 		window.fitToContent()
-		window.setPosition( Point.new( ( this.getDesktop().getWidth() - window.getWidth() ) / 2, 10 ) )
+		window.setPosition(Point.new((getDesktop().getWidth() - window.getWidth()) / 2, 10))
 	end
 	
 	
@@ -116,10 +119,10 @@ class TestProject extends BaseGameApp
 	protected func void createAndAddCommands()
 		super.createAndAddCommands()
 		
-		var Commands.CommandManager commands = this.getCommandManager()
+		var Commands.CommandManager commands = getCommandManager()
 		
-		commands.remove( commands.getNamed( "quit" ) )
-		commands.add( ExampleWorld.WindowWorldRenderer.CommandQuit.new() )
+		commands.remove(commands.getNamed("quit"))
+		commands.add(ExampleWorld.WindowWorldRenderer.CommandQuit.new())
 	end
 	
 	/**
@@ -130,13 +133,13 @@ class TestProject extends BaseGameApp
 	protected func void createAndAddElementClasses()
 		super.createAndAddElementClasses()
 		
-		var Scenery.ElementClassList list = this.getElementClassList()
+		var Scenery.ElementClassList list = getElementClassList()
 		
 		// element classes create world elements. they have a unique name used in the World
 		// Editor to connect entities to behavior. to create a valid and working game world
 		// they are not required but they provide a fully working and extendible framework
 		// to build a game world with. furthermore they support preloading out of the box.
-		list.add( ExampleWorld.StaticGeometryClass.new() )
+		list.add(ExampleWorld.StaticGeometryClass.new())
 		
 		// element classes support XML subclassing. using the LoadElementClass loader you
 		// can load element classes stored as *.deeclass files. XML classes require a hard
@@ -147,6 +150,6 @@ class TestProject extends BaseGameApp
 		// skin, rig and other parameters. using XML subclassing individual prop element
 		// classes can be defined speeding up development while allowing to fine tune element
 		// class parameters without the need to modify scripts all the time
-		this.getLoaders().getElementClass().addXmlElementClasses( list, "/models", true )
+		getLoaders().getElementClass().addXmlElementClasses(list, "/models", true)
 	end
 end
