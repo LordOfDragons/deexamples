@@ -108,7 +108,7 @@ class ExampleApp extends BaseGameApp
 			// The color matrix effect applies a color matrix to the rendered image
 			/*
 			var EffectColorMatrix effectColor = EffectColorMatrix.new()
-			effectColor.setColorMatrix(ColorMatrix.newSaturation(0))
+			effectColor.setColorMatrix(ColorMatrix.newSaturation(0) * ColorMatrix.newScaling(1, 0.85, 0.5, 1))
 			getWindow().getCamera().addEffect(effectColor)
 			*/
 			
