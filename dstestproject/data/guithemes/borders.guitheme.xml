@@ -79,7 +79,7 @@
 	<!-- button with video mouse pointer -->
 	<designer name='Button.VideoMouse' extendNamed='Button'>
 		<mousePointer parameter='normal.mousePointer' type='Video'>
-			<video parameter='video'>/videos/mousepointer.ogv</video>
+			<video parameter='video'>/videos/mousepointer.apng</video>
 		</mousePointer>
 	</designer>
 	
