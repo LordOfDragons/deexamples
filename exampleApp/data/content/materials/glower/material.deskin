@@ -1,34 +1,36 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <skin>
+	<mapped name='intensity'>
+		<curve>
+			<point>
+				<coordinates x='0.2' y='0'/>
+				<handle1 x='-0.0267605' y='0'/>
+				<handle2 x='0.426761' y='0'/>
+			</point>
+			<point>
+				<coordinates x='0.5' y='1'/>
+				<handle1 x='0.373239' y='1'/>
+				<handle2 x='0.626761' y='1'/>
+			</point>
+			<point>
+				<coordinates x='0.8' y='0'/>
+				<handle1 x='0.576056' y='0'/>
+				<handle2 x='1.02394' y='0'/>
+			</point>
+		</curve>
+		<inputUpper>8</inputUpper>
+		<outputUpper>4</outputUpper>
+	</mapped>
 	<texture name='material'>
-		<color property='color' r='0' g='0' b='0' a='1'/>
+		<color property='color'/>
 		<value property='reflectivity'>0.23</value>
 		<image property='roughness'>roughness.jpg</image>
 		<value property='roughness.remap.lower'>0</value>
 		<value property='roughness.remap.upper'>0.1</value>
 		<image property='emissivity'>emissivity.jpg</image>
 		<mapped property='emissivity.intensity'>
-			<red>
-				<curve>
-					<point>
-						<coordinates x='0.2' y='0'/>
-						<handle1 x='-0.0267605' y='0'/>
-						<handle2 x='0.426761' y='0'/>
-					</point>
-					<point>
-						<coordinates x='0.5' y='4'/>
-						<handle1 x='0.373239' y='4'/>
-						<handle2 x='0.626761' y='4'/>
-					</point>
-					<point>
-						<coordinates x='0.8' y='0'/>
-						<handle1 x='0.576056' y='0'/>
-						<handle2 x='1.02394' y='0'/>
-					</point>
-				</curve>
-				<inputUpper>8</inputUpper>
-			</red>
+			<mappedRed>intensity</mappedRed>
 		</mapped>
-		<color property='emissivity.tint' r='0' g='1' b='0.913725' a='1' renderable='tint'/>
+		<color property='emissivity.tint' g='1' b='0.913725' renderable='tint'/>
 	</texture>
 </skin>

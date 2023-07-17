@@ -1,7 +1,68 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <skin>
+	<mapped name='thickness'>
+		<curve>
+			<point>
+				<coordinates x='0' y='0'/>
+				<handle1 x='-0.25' y='0'/>
+				<handle2 x='0.25' y='0'/>
+			</point>
+			<point>
+				<coordinates x='0.5' y='1'/>
+				<handle1 x='0.25' y='1'/>
+				<handle2 x='0.75' y='1'/>
+			</point>
+			<point>
+				<coordinates x='1' y='0'/>
+				<handle1 x='0.74507' y='0'/>
+				<handle2 x='1.25493' y='0'/>
+			</point>
+		</curve>
+		<inputUpper>4</inputUpper>
+		<outputUpper>0.02</outputUpper>
+	</mapped>
+	<mapped name='intensity'>
+		<curve>
+			<point>
+				<coordinates x='0' y='0'/>
+				<handle1 x='-0.25' y='0'/>
+				<handle2 x='0.25' y='0'/>
+			</point>
+			<point>
+				<coordinates x='0.5' y='1'/>
+				<handle1 x='0.25' y='1'/>
+				<handle2 x='0.75' y='1'/>
+			</point>
+			<point>
+				<coordinates x='1' y='0'/>
+				<handle1 x='0.74507' y='0'/>
+				<handle2 x='1.25493' y='0'/>
+			</point>
+		</curve>
+		<outputUpper>10</outputUpper>
+	</mapped>
+	<mapped name='solidity'>
+		<curve>
+			<point>
+				<coordinates x='0' y='0'/>
+				<handle1 x='-0.25' y='0'/>
+				<handle2 x='0.25' y='0'/>
+			</point>
+			<point>
+				<coordinates x='0.5' y='1'/>
+				<handle1 x='0.25' y='1'/>
+				<handle2 x='0.75' y='1'/>
+			</point>
+			<point>
+				<coordinates x='1' y='0'/>
+				<handle1 x='0.74507' y='0'/>
+				<handle2 x='1.25493' y='0'/>
+			</point>
+		</curve>
+		<inputUpper>4</inputUpper>
+	</mapped>
 	<texture name='material'>
-		<color property='color' r='1' g='1' b='1' a='1'/>
+		<color property='color' r='1' g='1' b='1'/>
 		<value property='color.tint' renderable='tint'>1</value>
 		<image property='normal'>../shared/bumps2/normal.png</image>
 		<value property='normal.strength'>0.1</value>
@@ -13,90 +74,16 @@
 		<value property='sound.absorption.lower'>1.1</value>
 		<value property='sound.absorption.upper'>0.9</value>
 		<value property='sound.transmission'>0.12</value>
-		<color property='outline.color' r='0' g='0' b='1' a='1'/>
+		<color property='outline.color' b='1'/>
 		<mapped property='outline.thickness'>
-			<red>
-				<curve>
-					<point>
-						<coordinates x='0' y='0'/>
-						<handle1 x='-0.25' y='0'/>
-						<handle2 x='0.25' y='0'/>
-					</point>
-					<point>
-						<coordinates x='0.5' y='0.02'/>
-						<handle1 x='0.25' y='0.02'/>
-						<handle2 x='0.75' y='0.02'/>
-					</point>
-					<point>
-						<coordinates x='1' y='0'/>
-						<handle1 x='0.74507' y='0'/>
-						<handle2 x='1.25493' y='0'/>
-					</point>
-				</curve>
-				<inputUpper>4</inputUpper>
-			</red>
-			<green>
-			</green>
-			<blue>
-			</blue>
-			<alpha>
-			</alpha>
+			<mappedRed>thickness</mappedRed>
 		</mapped>
-		<color property='outline.emissivity' r='0' g='0' b='1' a='1'/>
+		<color property='outline.emissivity' b='1'/>
 		<mapped property='outline.emissivity.intensity'>
-			<red>
-				<curve>
-					<point>
-						<coordinates x='0' y='0'/>
-						<handle1 x='-0.25' y='0'/>
-						<handle2 x='0.25' y='0'/>
-					</point>
-					<point>
-						<coordinates x='0.5' y='10'/>
-						<handle1 x='0.25' y='10'/>
-						<handle2 x='0.75' y='10'/>
-					</point>
-					<point>
-						<coordinates x='1' y='0'/>
-						<handle1 x='0.74507' y='0'/>
-						<handle2 x='1.25493' y='0'/>
-					</point>
-				</curve>
-			</red>
-			<green>
-			</green>
-			<blue>
-			</blue>
-			<alpha>
-			</alpha>
+			<mappedRed>intensity</mappedRed>
 		</mapped>
 		<mapped property='outline.solidity'>
-			<red>
-				<curve>
-					<point>
-						<coordinates x='0' y='0'/>
-						<handle1 x='-0.25' y='0'/>
-						<handle2 x='0.25' y='0'/>
-					</point>
-					<point>
-						<coordinates x='0.5' y='1'/>
-						<handle1 x='0.25' y='1'/>
-						<handle2 x='0.75' y='1'/>
-					</point>
-					<point>
-						<coordinates x='1' y='0'/>
-						<handle1 x='0.74507' y='0'/>
-						<handle2 x='1.25493' y='0'/>
-					</point>
-				</curve>
-				<inputUpper>4</inputUpper>
-			</red>
-			<green>
-			</green>
-			<blue>
-			</blue>
-			<alpha>
-			</alpha>
+			<mappedRed>solidity</mappedRed>
 		</mapped>
 	</texture>
 </skin>

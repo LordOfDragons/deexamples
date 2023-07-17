@@ -1,5 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <skin>
+	<mapped name='intensity'>
+		<curve>
+			<point>
+				<coordinates x='0.2' y='0'/>
+				<handle1 x='0.0994414' y='0'/>
+				<handle2 x='0.300559' y='0'/>
+			</point>
+			<point>
+				<coordinates x='0.5' y='1'/>
+				<handle1 x='0.397765' y='1'/>
+				<handle2 x='0.602235' y='1'/>
+			</point>
+			<point>
+				<coordinates x='0.8' y='0'/>
+				<handle1 x='0.699441' y='0'/>
+				<handle2 x='0.900559' y='0'/>
+			</point>
+		</curve>
+		<inputUpper>8</inputUpper>
+		<outputUpper>2</outputUpper>
+	</mapped>
 	<texture name='material'>
 		<color property='color'/>
 		<value property='reflectivity'>0.23</value>
@@ -8,32 +29,7 @@
 		<value property='roughness.remap.upper'>0.1</value>
 		<image property='emissivity'>/content/materials/glower/emissivity.jpg</image>
 		<mapped property='emissivity.intensity'>
-			<red>
-				<curve>
-					<point>
-						<coordinates x='0.2' y='0'/>
-						<handle1 x='-0.0267605' y='0'/>
-						<handle2 x='0.426761' y='0'/>
-					</point>
-					<point>
-						<coordinates x='0.5' y='2'/>
-						<handle1 x='0.373239' y='2'/>
-						<handle2 x='0.626761' y='2'/>
-					</point>
-					<point>
-						<coordinates x='0.8' y='0'/>
-						<handle1 x='0.576056' y='0'/>
-						<handle2 x='1.02394' y='0'/>
-					</point>
-				</curve>
-				<inputUpper>8</inputUpper>
-			</red>
-			<green>
-			</green>
-			<blue>
-			</blue>
-			<alpha>
-			</alpha>
+			<mappedRed>intensity</mappedRed>
 		</mapped>
 		<color property='emissivity.tint' g='1' b='0.913725' renderable='tint'/>
 		<value property='texcoord.scale'>4</value>

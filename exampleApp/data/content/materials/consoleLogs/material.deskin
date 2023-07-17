@@ -1,7 +1,78 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <skin>
+	<mapped name='shift'>
+		<curve>
+			<interpolation>constant</interpolation>
+			<point>
+				<coordinates x='0' y='-0.6'/>
+				<handle1 x='-0.25' y='-0.6'/>
+				<handle2 x='0.25' y='-0.6'/>
+			</point>
+			<point>
+				<coordinates x='0.025' y='-0.55'/>
+				<handle1 x='-0.025' y='-0.55'/>
+				<handle2 x='0.075' y='-0.55'/>
+			</point>
+			<point>
+				<coordinates x='0.1' y='-0.5'/>
+				<handle1 x='0.05' y='-0.5'/>
+				<handle2 x='0.15' y='-0.5'/>
+			</point>
+			<point>
+				<coordinates x='0.175' y='-0.45'/>
+				<handle1 x='0.125' y='-0.45'/>
+				<handle2 x='0.225' y='-0.45'/>
+			</point>
+			<point>
+				<coordinates x='0.35' y='-0.4'/>
+				<handle1 x='0.3' y='-0.4'/>
+				<handle2 x='0.4' y='-0.4'/>
+			</point>
+			<point>
+				<coordinates x='0.45' y='-0.35'/>
+				<handle1 x='0.4' y='-0.35'/>
+				<handle2 x='0.5' y='-0.35'/>
+			</point>
+			<point>
+				<coordinates x='0.5' y='-0.3'/>
+				<handle1 x='0.45' y='-0.3'/>
+				<handle2 x='0.55' y='-0.3'/>
+			</point>
+			<point>
+				<coordinates x='0.55' y='-0.25'/>
+				<handle1 x='0.5' y='-0.25'/>
+				<handle2 x='0.6' y='-0.25'/>
+			</point>
+			<point>
+				<coordinates x='0.65' y='-0.2'/>
+				<handle1 x='0.6' y='-0.2'/>
+				<handle2 x='0.7' y='-0.2'/>
+			</point>
+			<point>
+				<coordinates x='0.7' y='-0.15'/>
+				<handle1 x='0.65' y='-0.15'/>
+				<handle2 x='0.75' y='-0.15'/>
+			</point>
+			<point>
+				<coordinates x='0.775' y='-0.1'/>
+				<handle1 x='0.725' y='-0.1'/>
+				<handle2 x='0.825' y='-0.1'/>
+			</point>
+			<point>
+				<coordinates x='0.8' y='-0.05'/>
+				<handle1 x='0.75' y='-0.05'/>
+				<handle2 x='0.85' y='-0.05'/>
+			</point>
+			<point>
+				<coordinates x='0.85' y='0'/>
+				<handle1 x='0.8' y='0'/>
+				<handle2 x='0.9' y='0'/>
+			</point>
+		</curve>
+		<inputUpper>30</inputUpper>
+	</mapped>
 	<texture name='material'>
-		<color property='color' r='0.0627451' g='0.0627451' b='0.0627451' a='1'/>
+		<color property='color' r='0.0627451' g='0.0627451' b='0.0627451'/>
 		<value property='reflectivity'>0.23</value>
 		<value property='roughness'>0.1</value>
 		<constructed property='emissivity'>
@@ -106,77 +177,7 @@
 		<value property='emissivity.intensity'>4</value>
 		<value property='texcoord.clamp'>1</value>
 		<mapped property='texcoord.offset'>
-			<green>
-				<curve>
-					<interpolation>constant</interpolation>
-					<point>
-						<coordinates x='0' y='-0.6'/>
-						<handle1 x='-0.25' y='-0.6'/>
-						<handle2 x='0.25' y='-0.6'/>
-					</point>
-					<point>
-						<coordinates x='0.025' y='-0.55'/>
-						<handle1 x='-0.025' y='-0.55'/>
-						<handle2 x='0.075' y='-0.55'/>
-					</point>
-					<point>
-						<coordinates x='0.1' y='-0.5'/>
-						<handle1 x='0.05' y='-0.5'/>
-						<handle2 x='0.15' y='-0.5'/>
-					</point>
-					<point>
-						<coordinates x='0.175' y='-0.45'/>
-						<handle1 x='0.125' y='-0.45'/>
-						<handle2 x='0.225' y='-0.45'/>
-					</point>
-					<point>
-						<coordinates x='0.35' y='-0.4'/>
-						<handle1 x='0.3' y='-0.4'/>
-						<handle2 x='0.4' y='-0.4'/>
-					</point>
-					<point>
-						<coordinates x='0.45' y='-0.35'/>
-						<handle1 x='0.4' y='-0.35'/>
-						<handle2 x='0.5' y='-0.35'/>
-					</point>
-					<point>
-						<coordinates x='0.5' y='-0.3'/>
-						<handle1 x='0.45' y='-0.3'/>
-						<handle2 x='0.55' y='-0.3'/>
-					</point>
-					<point>
-						<coordinates x='0.55' y='-0.25'/>
-						<handle1 x='0.5' y='-0.25'/>
-						<handle2 x='0.6' y='-0.25'/>
-					</point>
-					<point>
-						<coordinates x='0.65' y='-0.2'/>
-						<handle1 x='0.6' y='-0.2'/>
-						<handle2 x='0.7' y='-0.2'/>
-					</point>
-					<point>
-						<coordinates x='0.7' y='-0.15'/>
-						<handle1 x='0.65' y='-0.15'/>
-						<handle2 x='0.75' y='-0.15'/>
-					</point>
-					<point>
-						<coordinates x='0.775' y='-0.1'/>
-						<handle1 x='0.725' y='-0.1'/>
-						<handle2 x='0.825' y='-0.1'/>
-					</point>
-					<point>
-						<coordinates x='0.8' y='-0.05'/>
-						<handle1 x='0.75' y='-0.05'/>
-						<handle2 x='0.85' y='-0.05'/>
-					</point>
-					<point>
-						<coordinates x='0.85' y='0'/>
-						<handle1 x='0.8' y='0'/>
-						<handle2 x='0.9' y='0'/>
-					</point>
-				</curve>
-				<inputUpper>30</inputUpper>
-			</green>
+			<mappedGreen>shift</mappedGreen>
 		</mapped>
 	</texture>
 </skin>
