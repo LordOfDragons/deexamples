@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>a7</nextObjectID>
+	<nextObjectID>aa</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1415,6 +1415,34 @@
 			</transform>
 		</texture>
 	</object>
+	<object id='a7'>
+		<classname>HiddenElement</classname>
+		<position x='12.95' y='0.006' z='10.65'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='component.model'>/content/models/stanforddragon/stanforddragon.demodel</property>
+		<property key='showElement.trigger'>@showDragon</property>
+		<property key='component.rig'>/content/models/box/box.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/jade/jade.deskin</skin>
+			<transform>
+				<scaling u='16' v='16'/>
+			</transform>
+		</texture>
+	</object>
+	<object id='a8'>
+		<classname>TriggerTouch</classname>
+		<position x='12.95' y='1' z='8'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>showDragon</property>
+	</object>
+	<object id='a9'>
+		<classname>InfoSign</classname>
+		<position x='14.75' y='0' z='8.95'/>
+		<rotation x='0' y='135' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/hiddenelement.deskin</skin>
+		</texture>
+	</object>
 	
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
@@ -1474,6 +1502,12 @@
 		<skin>/content/materials/decal/target.deskin</skin>
 		<position x='-28.45' y='0.6' z='-12.5'/>
 		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='12.915' y='0.1' z='7.997'/>
+		<rotation x='89.6631' y='-14.0362' z='-165.964'/>
 		<size x='1' y='1' z='0.2'/>
 	</decal>
 </world>
