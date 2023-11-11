@@ -343,6 +343,11 @@ class PlayerActionCustomColor extends BAAFirstPerson
 		case State.interact
 			// Interact with the element
 			if dialog == null
+				// Clear all player input. This prevents the player from accidentially moving
+				// for example because he keeps on pressing the stick on his gamepad
+				playerInputMove.reset()
+				locomotion.stopMoving()
+				
 				// Show dialog
 				dialog = DialogEditColors.new(changeCustomColors)
 				
