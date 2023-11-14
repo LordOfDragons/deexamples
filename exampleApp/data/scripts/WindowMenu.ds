@@ -14,11 +14,11 @@ class WindowMenu extends Window
 	class ActionResume implements ActionListener
 		var WindowMenu window
 		
-		public func new(WindowMenu window)
+		func new(WindowMenu window)
 			this.window = window
 		end
 		
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			// Enable the game window again. This allows the game window to receive
 			// the focus once the main window vanishes
 			var WindowGameWorld wgw = BaseGameApp.getApp().getWindowGameWorld()
@@ -42,7 +42,7 @@ class WindowMenu extends Window
 	class ActionSettings implements ActionListener
 		/** WSSEditBindings extended with out commands. */
 		class SheetEditBindings extends WSSEditBindings
-			public func new()
+			func new()
 			end
 			
 			protected func void addCommands(EditBindingsPanel editBindings)
@@ -64,21 +64,22 @@ class WindowMenu extends Window
 		
 		var WindowMenu window
 		
-		public func new(WindowMenu window)
+		func new(WindowMenu window)
 			this.window = window
 		end
 		
-		public func void onAction(ActionEvent event)
-			// Create settings window. You can use a convenience class for this.
+		func void onAction(ActionEvent event)
+			// Create settings window. You can use a convenience class for 
 			// Set the size to 800 times 600. Alternatively this can be set to something like
 			// 80% of the screen size
-			var Point size = Point.new( 800, 600 )
+			var Point size = Point.new(800, 600)
 			//var Point size = BaseGameApp.getApp().getDesktop().getSize() * 8 / 10
 			var WindowSettings windowSettings = WindowSettings.new(size)
 			
 			// Add sheets
-			windowSettings.addSheet( SheetEditBindings.new() )
-			windowSettings.addSheet( WSSModuleParameters.new() )
+			windowSettings.addSheet(WSSExampleApp.new())
+			windowSettings.addSheet(SheetEditBindings.new())
+			windowSettings.addSheet(WSSModuleParameters.new())
 			
 			// Display centered as modal window blocking this window
 			windowSettings.show(window, false, WindowModal.Placement.desktop)
@@ -90,10 +91,10 @@ class WindowMenu extends Window
 	 * Action listener exiting the example app. What CommandQuitGame would do.
 	 */
 	class ActionQuit implements ActionListener
-		public func new()
+		func new()
 		end
 		
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			BaseGameApp.getApp().quitGame()
 		end
 	end
@@ -102,7 +103,7 @@ class WindowMenu extends Window
 	/**
 	 * Create window and show it on the desktop.
 	 */
-	public func new() super(0, 0, 200, 300)
+	func new() super(0, 0, 200, 300)
 		// It is recommended to use runWhileBlockingLayout whenever you can.
 		// The Drag[en]gine UI ToolKit updates widgets immediately which can
 		// be expensive. By using runWhileBlockingLayout the update is delayed
@@ -113,7 +114,7 @@ class WindowMenu extends Window
 			setCanMinimize(false)
 			setCanReorder(false)
 			setCanClose(false)
-			setTitle("Example App Menu")
+			setTitle("@UI.MainWindow.Title")
 			
 			// By assigning a designer selector you can style the window using
 			// "/content/ui/main.guitheme files". Without setting a custom designer
@@ -129,9 +130,9 @@ class WindowMenu extends Window
 			// to the game, change settings or exit the game
 			setLayout(BoxLayout.new(LayoutAxis.y, 5))
 			
-			addWidget(Button.new("Resume", ActionResume.new(this)))
-			addWidget(Button.new("Settings", ActionSettings.new(this)))
-			addWidget(Button.new("Quit", ActionQuit.new()))
+			addWidget(Button.new("@UI.MainWindow.Resume", ActionResume.new(this)))
+			addWidget(Button.new("@UI.MainWindow.Settings", ActionSettings.new(this)))
+			addWidget(Button.new("@UI.MainWindow.Quit", ActionQuit.new()))
 		end)
 		
 		// Add the window to the desktop

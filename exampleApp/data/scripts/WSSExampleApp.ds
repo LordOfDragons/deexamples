@@ -1,0 +1,196 @@
+namespace Example
+
+pin Dragengine.Commands
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+/**
+ * Window settings sheet containing application settings.
+ * 
+ * Usually all applications feature a settings sheet like this
+ * 
+ * You have to add a widget for each setting as well as managing reading and saving the
+ * values entered by the user. Since this is game specific you have to do this on your own.
+ * 
+ * This example contains a single setting to change the language. This setting is persisted
+ * using the settings object provided by BaseGameApp.
+ */
+class WSSExampleApp extends DefaultWindowSettingsSheet
+	/**
+	 * List element renderer capable of displaying objects of type LanguagePack.
+	 * The renderer shows the name of the language pack.
+	 * 
+	 * The base class DefaultListElementRenderer creates a Label widget and calls
+	 * Object.toString() on the list elements to obtain the text. The most simple
+	 * used of thie class is to overwrite updateRenderer() to send the text we
+	 * want to use for each list element to the super class implementation.
+	 */
+	class LanguagePackRenderer extends DefaultListElementRenderer
+		/** Create list element renderer. */
+		func new()
+		end
+		
+		/** Update list element renderer widget. */
+		func void updateRenderer(ListBox listBox, Widget renderer, Object element, bool selected, bool focused)
+			var String text
+			if element != null
+				// use language pack name as text to display
+				text = (element cast LanguagePack).getName().toUTF8()
+				
+			else
+				// an empty element is used to determine a good minimum size for the list box.
+				// here we use a string of length 20 with a character of average width
+				text = String.new('X', 20)
+			end
+			
+			super.updateRenderer(listBox, renderer, text, selected, focused)
+		end
+	end
+	
+	/**
+	 * List model listener changing language on the settings window only. This allows
+	 * the user to see the language change in the settings window before actually saving.
+	 */
+	class PreviewLanguageListener extends DefaultListModelListener
+		/** Create list model listener . */
+		func new()
+		end
+		
+		/**
+		 * Selection changed. Update the translation manager in the parent window.
+		 */
+		func void selectionChanged(ListModel model)
+			var int selection = model.getSelected()
+			if selection != -1
+				ExampleAppSettings.setLanguage((model.getAt(selection) cast LanguagePack).getIdentifier())
+			end
+		end
+	end
+	
+	
+	
+	var Panel pPanelSettings
+	var DefaultListModel pModelLanguage
+	var String pRestoreLanguage
+	
+	
+	
+	/**
+	 * Create settings sheet. The first parameter is a unique identifier. The second parameter
+	 * is the title to display. You can use translated text by using the translation entry name
+	 * prefixed with an '@' character.
+	 */
+	func new() super("exampleapp", "@UI.Settings.Title")
+		pRestoreLanguage = ExampleAppSettings.getLanguage()
+	end
+	
+	/**
+	 * On destroying the widget restore the language. Required for preview language to
+	 * be working properly.
+	 */
+	func destructor()
+		ExampleAppSettings.setLanguage(pRestoreLanguage)
+	end
+	
+	
+	/**
+	 * Save settings.
+	 */
+	func void saveSettings(Widget widget)
+		// Store language selected by the user
+		pRestoreLanguage = (pModelLanguage.getSelectedElement() cast LanguagePack).getIdentifier()
+		ExampleAppSettings.setLanguage(pRestoreLanguage)
+		
+		// After changing all settings we have to persist the settings. This is not done
+		// automatically in case something goes wrong. Hence you have to do it manually.
+		// 
+		// In particular this means you can delay the saving to a later point of time if
+		// needed. Since the settings are stored in ExampleAppSettings your application
+		// uses the changed settings now no matter if they are yet persisted or not
+		BaseGameApp.getApp().saveSettings()
+	end
+	
+	/**
+	 * Reset settings. Assigns current settings to the widget models.
+	 */
+	func void resetSettings(Widget widget)
+		var BaseGameApp app = BaseGameApp.getApp()
+		
+		// Assign language pack to the model. This requires the LanguagePack object
+		// not the identifier as stored in the settings
+		pModelLanguage.setSelectedElement(app.getTranslationManager().getWithId(pRestoreLanguage))
+		
+		// It is possible no language pack exists for the selected language. This can
+		// happen for various reasons. The most prominent one is running the application
+		// for the first time. In this situation the language from the user system is
+		// used. If you have no language pack in your application matching the system
+		// language you will get a selected index of -1 here. If this is the case
+		// use the active language pack which is the fallback language of your application
+		if pModelLanguage.getSelected() == -1
+			pModelLanguage.setSelectedElement(app.getTranslationManager().getActive())
+		end
+	end
+	
+	/**
+	 * Create and add widgets for each setting your application supports.
+	 */
+	func Widget createWidget()
+		var BaseGameApp app = BaseGameApp.getApp()
+		
+		// The most simple widget to use is a Panel using the FormLayout. With this layout
+		// you add settings in pairs of widgets. The first widget is the label placed on
+		// the left side. The second widget is the actual editing widget placed on the
+		// right side on the same row as the first widget. This way you can easily add
+		// multiple settings and they are neatly lined up in a formular style.
+		// 
+		// We use here a gap of 20px between the left and right side and a gap of 2p
+		// between each row of widgets.
+		var Panel panel = Panel.new(FormLayout.new(true, 20, 2), block Panel p
+			// Add language setting
+			// 
+			// For this first create a list model filled with all language packs found
+			// in your application sorted alphabetically.
+			// 
+			// Then select the user chosen language pack as done in resetSettings()
+			pModelLanguage = DefaultListModel.new(app.getTranslationManager().allSorted())
+			
+			pModelLanguage.setSelectedElement(app.getTranslationManager().getWithId(ExampleAppSettings.getLanguage()))
+			
+			if pModelLanguage.getSelected() == -1
+				pModelLanguage.setSelectedElement(app.getTranslationManager().getActive()) // unknown system language
+			end
+			
+			// Add the label. The translation entries shown here are defined in
+			// EngineTranslations and are present in all Drag[en]gine installations.
+			// To use your own create a language pack with the appropriate entries
+			var Label label = Label.new("@UI.Settings.Label.Language")
+			label.setToolTip("@UI.Settings.ToolTip.Language")
+			p.addWidget(label)
+			
+			// Add the widget to select the language. In this example a combo box is
+			// used. Since the values in the model are of type LanguagePack we use
+			// an own ListElementRenderer implementation to display the language
+			// packs the way we like it best.
+			// 
+			// You can replace this widget with your own custom widget able to
+			// consume a ListModel
+			var ComboBox comboBox = ComboBox.new(pModelLanguage, LanguagePackRenderer.new())
+			comboBox.setToolTip("@UI.Settings.ToolTip.Language")
+			p.addWidget(comboBox)
+			
+			// If you want to allow the user to preview the language in the settings
+			// window only you can use a listener to apply the language temporarily
+			pModelLanguage.addListener(PreviewLanguageListener.new())
+		end)
+		
+		// If you have only a small count of settings where you are sure they fit on a
+		// single screen you can simply add them. In general though it is a good idea
+		// to wrap the panel in a scrollable viewport. This way the user can scroll up
+		// and down if the count of settings is larger than the window size
+		var Viewport viewport = Viewport.new(panel, BoxLayout.new(LayoutAxis.y))
+		return ScrollPanel.new(viewport, ScrollPanel.Policy.hidden, ScrollPanel.Policy.visible)
+	end
+end

@@ -1,0 +1,114 @@
+namespace Example
+
+pin Dragengine.Gui
+pin Dragengine.Utils
+
+
+/**
+ * ExampleApp settings.
+ * 
+ * It is recommended to create an own class to store settings in your application.
+ */
+class ExampleAppSettings
+	/**
+	 * Name of global event send if settings change.
+	 */
+	public static var String globalEventChanged = "settings.changed"
+	
+	/**
+	 * Language. Use Engine.getUserLocaleLanguage() to set this to the language of the
+	 * user system if possible to determine by Drag[en]gine. If not found 'en' is used.
+	 */
+	static var String pLanguage = Engine.getUserLocaleLanguage()
+	
+	
+	
+	/**
+	 * Create settings. Since this is a class with static function only this call is
+	 * not required to be present. You can also set it private if you want.
+	 */
+	func new()
+	end
+	
+	
+	
+	/**
+	 * Called after BaseGameApp loaded all settings to store the settings locally.
+	 * It is faster to retrieve the settings from here than fetching them every time
+	 * from the BaseGameApp settings object.
+	 */
+	static func void settingsLoaded()
+		var BaseGameApp app = BaseGameApp.getApp()
+		var ParameterTree settings = app.getSettings()
+		
+		// get language from settings object. The second parameter is used if the
+		// setting is not yet present
+		pLanguage = settings.getStringAt("language", pLanguage)
+		
+		// Activate the language pack with the matching identifier. If the language
+		// pack can not be found the fallback language pack is used instead.
+		// Make sure to activate the language pack on all your TranslationManager
+		// objects as well as EngineTranslations. Especially EngineTranslations
+		// is required to be updated otherwise Drag[en]gine provided UI Widgets
+		// fail to reflect the language change
+		app.getTranslationManager().setActiveWithIdIfPresent(pLanguage)
+		EngineTranslations.get().setActiveWithIdIfPresent(pLanguage)
+	end
+	
+	
+	
+	/**
+	 * Language.
+	 */
+	static func String getLanguage()
+		return pLanguage
+	end
+	
+	/**
+	 * Set language. This function does multiple things. See the comments below.
+	 */
+	public static func void setLanguage(String language)
+		// If the language is the same as before do nothing. Updating translations
+		// all accross the application can be expensive so do this only if necessary
+		if language.equals(pLanguage)
+			return
+		end
+		
+		var BaseGameApp app = BaseGameApp.getApp()
+		
+		// Store language locally. This makes the setting available to all scripts
+		// requiring to retrieve it
+		pLanguage = language
+		
+		// Update the value in the BaseGameApp settings object. The next time the
+		// settings object is persisted the value will be restored the next time
+		// the application is run. If persisting is skipped for some reason the
+		// user has to change the value again the next the application is run
+		app.getSettings().setAt("language", language)
+		
+		// Activate the language pack with the matching identifier. If the language
+		// pack can not be found the fallback language pack is used instead.
+		// Make sure to activate the language pack on all your TranslationManager
+		// objects as well as EngineTranslations. Especially EngineTranslations
+		// is required to be updated otherwise Drag[en]gine provided UI Widgets
+		// fail to reflect the language change
+		app.getTranslationManager().setActiveWithId(language)
+		EngineTranslations.get().setActiveWithId(language)
+		
+		// Call onTranslationChanged() on the desktop. This causes the UI to update
+		// texts that are translated to reflect the new language. Make sure to call
+		// this after you activate the language pack or the UI uses the old language.
+		// 
+		// If you have more than one Desktop object you have to call
+		// onTranslationChanged() on each of them. Optionally you can add a listener
+		// to GlobalEvents for each desktop to do this for you if the
+		// globalEventChanged event is send below
+		app.getDesktop().onTranslationChanged()
+		
+		// Send globalEventChanged to the GlobalEvents manager. This allows to notify
+		// all kinds of scripts about language changes without needing to know them
+		// all here. This is an application custom event. You can define it whatever
+		// way fits best your needs
+		app.getGlobalEvents().sendEvent(globalEventChanged)
+	end
+end

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<languagePack>
+	<identifier>de</identifier>
+	<name>Deutsch</name>
+	<description>Deutsches Sprachpaket.</description>
+	<missingText>??</missingText>
+	<translation name='UI.MainWindow.Quit'>Beenden</translation>
+	<translation name='UI.MainWindow.Resume'>Fortfahren</translation>
+	<translation name='UI.MainWindow.Settings'>Einstellungen</translation>
+	<translation name='UI.MainWindow.Title'>Beispiel App Hauptmenu</translation>
+</languagePack>

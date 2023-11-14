@@ -210,6 +210,25 @@ class ExampleApp extends BaseGameApp
 	end
 	
 	/**
+	 * Load settings from saved settings or set default settings.
+	 * 
+	 * Loads the saved settings from pathSavedSettings property. If the saved settings file
+	 * is absent or damaged set default settings and saves the file. Ensures a valid
+	 * settings file with all known settings is saved to file. This way players can modify the
+	 * settings file and know all possible settings without needing to search.
+	 * 
+	 * If you change settings call saveSettings() to save the settings to the saved file.
+	 * It is best to save changes to the bindings immediately.
+	 */
+	protected func void loadSettings()
+		super.loadSettings()
+		
+		// Load settings and store them locally. This makes it faster to retrieve
+		// values queried often.
+		ExampleAppSettings.settingsLoaded()
+	end
+	
+	/**
 	 * Launch example application. Called after logo windows are finished.
 	 */
 	public func void launchApplication()
