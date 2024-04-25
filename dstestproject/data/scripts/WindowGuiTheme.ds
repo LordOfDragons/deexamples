@@ -276,7 +276,6 @@ class WindowGuiTheme extends Window
 		end
 		
 		public func void onAction(ActionEvent event)
-			var Desktop desktop = pWindow.getDesktop()
 			var WindowModal window = WindowModal.new()
 			
 			window.runWhileBlockingLayout(block
