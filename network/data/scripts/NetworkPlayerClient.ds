@@ -122,25 +122,25 @@ class NetworkPlayerClient extends NetworkPlayer
 				+ playerState.id + " pathWorldFile=" + requestLoadGameWorld )
 			
 		case NetworkPlayer.MessageCode.playerJoined
-			var PlayerState playerState = PlayerState.new( UniqueID.readFromFile( reader ) )
-			playerState.name = UnicodeString.newFromUTF8( reader.readString16() )
-			app.gameState.players.add( playerState )
+			var PlayerState pstate = PlayerState.new( UniqueID.readFromFile( reader ) )
+			pstate.name = UnicodeString.newFromUTF8( reader.readString16() )
+			app.gameState.players.add( pstate )
 			app.getConsole().addMessage( "received player joined: playerID=" \
-				+ playerState.id + " name='" + playerState.name + "'" )
+				+ pstate.id + " name='" + pstate.name + "'" )
 			
 		case NetworkPlayer.MessageCode.playerLeft
-			var PlayerState playerState = GameState.getGameState().getPlayer( UniqueID.readFromFile( reader ) )
+			var PlayerState pstate = GameState.getGameState().getPlayer( UniqueID.readFromFile( reader ) )
 			app.getConsole().addMessage( "received player left: playerID=" \
-				+ playerState.id + " name='" + playerState.name + "'" )
-			app.gameState.players.remove( playerState )
-			playerState.dispose()
+				+ pstate.id + " name='" + pstate.name + "'" )
+			app.gameState.players.remove( pstate )
+			pstate.dispose()
 			
 		case NetworkPlayer.MessageCode.spawnActor
-			var PlayerState playerState = GameState.getGameState().getPlayer( UniqueID.readFromFile( reader ) )
+			var PlayerState pstatet = GameState.getGameState().getPlayer( UniqueID.readFromFile( reader ) )
 			var String spawnName = reader.readString8()
 			app.getConsole().addMessage( "received spawn actor: playerID=" \
-				+ playerState.id + " spawn='" + spawnName + "'" )
-			playerState.spawnActor( spawnName )
+				+ pstatet.id + " spawn='" + spawnName + "'" )
+			pstatet.spawnActor( spawnName )
 			
 		else
 			dispose()

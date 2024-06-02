@@ -124,7 +124,7 @@ class JoinGame extends WindowGameWorld.Loader
 	 */
 	public func void onLoadWorldFinished()
 		var GameApp app = BaseGameApp.getApp() cast GameApp
-		var GameWorld gameWorld = getStubWorld().getGameWorld()
+		// var GameWorld gameWorld = getStubWorld().getGameWorld()
 		
 		// Set dummy camera directory until fully joined.
 // 		getWindow().setCameraDirector( FixedCameraDirector.new( DVector.new( 0, 2, 0 ), Quaternion.new() ) )

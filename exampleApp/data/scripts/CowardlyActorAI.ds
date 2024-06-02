@@ -74,8 +74,6 @@ class CowardlyActorAI extends BAAIBehaviorTree
 		end
 		
 		public func BTResult runAction( BTContext context, Dictionary parameters )
-			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
-			
 			if context.getActionFirstRun()
 				if not DEMath.probability( 0.25 )
 					return BTResult.failure  // action launcher but missed chance
@@ -155,8 +153,6 @@ class CowardlyActorAI extends BAAIBehaviorTree
 		end
 		
 		protected func BTResult moveStart( bool run )
-			var CowardlyActorAI ai = getAI() cast CowardlyActorAI
-			
 			var DVector player = BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement().getPosition()
 			var float distance = 8
 			var DVector vector = getActor().getPosition() - player

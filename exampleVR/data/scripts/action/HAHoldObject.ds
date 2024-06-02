@@ -216,7 +216,7 @@ class HAHoldObject extends BaseVRHandAction implements BAAVRGrab
 			// Doing a strong throw move with VR gear is between between 2.8 and 4 m/s.
 			// A gentle throw move with VR gear is between 1.6 and 2.8 m/s. We use thus
 			// a range between 1.5 and 4 m/s as throwing range
-			var float speedThrowGentle = 1.5
+			// var float speedThrowGentle = 1.5
 			var float speedThrowStrong = 4
 			
 			// Increase speed to make it easier with VR gear to throw objects. The actual

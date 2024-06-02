@@ -118,9 +118,9 @@ class PlayerActorAction extends BAAFirstPerson implements BAAInteract
 	
 	/** \brief Start primary action. */
 	public func void primaryActionStart()
-		var PlayerActor actor = getActor() cast PlayerActor
-		if actor.lookAt.hasLookAtElement()
-			actor.lookAt.getLookAtElement().visit(InteractPrimaryAction.new(actor))
+		var PlayerActor player = getActor() cast PlayerActor
+		if player.lookAt.hasLookAtElement()
+			player.lookAt.getLookAtElement().visit(InteractPrimaryAction.new(player))
 		end
 	end
 	

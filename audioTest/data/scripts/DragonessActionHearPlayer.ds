@@ -131,13 +131,13 @@ class DragonessActionHearPlayer extends DragonessAction implements SoundLevelMet
 		// player. For this reason we do a full navigation path finding here although it
 		// is potentially an expensive operation. Doing this often for many actors is most
 		// probably a bad idea but doing it once per frame update is not a problem
-		var Navigator navigator = navigator.getNavigator()
-		var NavigationInfo navinfo = navigator.nearestPoint(player.getPosition(), 10)
+		var Navigator nav = navigator.getNavigator()
+		var NavigationInfo navinfo = nav.nearestPoint(player.getPosition(), 10)
 		if navinfo == null
 			return
 		end
 		var NavigatorPath path = NavigatorPath.new()
-		navigator.findPath(path, actor.getPosition(), navinfo.getPosition())
+		nav.findPath(path, actor.getPosition(), navinfo.getPosition())
 		
 		if path.getLength() > capturePlayerDistance
 			return
@@ -176,12 +176,11 @@ class DragonessActionHearPlayer extends DragonessAction implements SoundLevelMet
 		// though only make the actor look at this location. By calling forceBodyAdjustment() the
 		// locomotion is forced to adjust the body until the looking left-right become 0.
 		// Doing it this way lets the locomotion do a smooth turning
-		var Locomotion locomotion = locomotion.getLocomotion()
+		var Locomotion loco = locomotion.getLocomotion()
 		var DVector direction = (player.getElementMatrix() * actor.getInverseElementMatrix()) * DVector.new(0, 0, 0.5)
 		var float orientation = -DEMath.atan2(direction.getX(), direction.getZ())
-		var float lookHorizontal = DEMath.normalize(orientation, -180.0, 180.0)
-		locomotion.setLookHorizontalGoal(orientation)
-		locomotion.forceBodyAdjustment()
+		loco.setLookHorizontalGoal(orientation)
+		loco.forceBodyAdjustment()
 		
 		BaseGameApp.getApp().getTriggerTable().getOrAddNamed(StringID.new("caughtPlayer")).fire()
 	end

@@ -237,7 +237,6 @@ class PlayerActionCustomColor extends BAAFirstPerson
 	
 	
 	
-	public var ECBehaviorActorMover.Instance actorMover
 	public var ECBehaviorAlignActor.Instance alignActor
 	public var ECBehaviorOccupier.Instance occupier
 	public var BehaviorChangeCustomColors.Instance changeCustomColors

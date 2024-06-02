@@ -476,11 +476,11 @@ class DialogEditTestConfiguration extends WindowDialog
 			info.add( "No module parameter with this name exists" )
 		end
 		
-		var String message = info.fold( block String folded, String each
+		var String msg = info.fold( block String folded, String each
 			return folded + "\n" + each
 		end ) cast String
 		
-		WindowDialog.message( this, "Module Parameter '" + name + "'", message, null, null, null )
+		WindowDialog.message( this, "Module Parameter '" + name + "'", msg, null, null, null )
 	end
 	
 	/** \brief Add parameter. */
@@ -652,10 +652,10 @@ class DialogEditTestConfiguration extends WindowDialog
 			LoadTestConfiguration.new().saveToFile( windowUI.getPathTestConfiguration(), pTestConfiguration )
 			
 		catch Exception e
-			var String message = "Failed saving test configuration to '" \
+			var String msg = "Failed saving test configuration to '" \
 				+ windowUI.getPathTestConfiguration() + "'."
-			BaseGameApp.getApp().getConsole().addError( message, e )
-			WindowDialog.message( this, "Save Test Configuration", message, null, null, null )
+			BaseGameApp.getApp().getConsole().addError( msg, e )
+			WindowDialog.message( this, "Save Test Configuration", msg, null, null, null )
 			return false
 		end
 		

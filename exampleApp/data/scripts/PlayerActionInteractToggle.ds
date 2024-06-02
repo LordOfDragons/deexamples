@@ -52,7 +52,6 @@ class PlayerActionInteractToggle extends BAAFirstPerson
 	end
 	
 	
-	public var ECBehaviorActorMover.Instance actorMover
 	public var ECBehaviorAlignActor.Instance alignActor
 	public var ECBehaviorOccupier.Instance occupier
 	public var BehaviorInteractToggle.Instance interactToggle
