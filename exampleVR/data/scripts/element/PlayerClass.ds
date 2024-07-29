@@ -36,7 +36,7 @@ class PlayerClass extends BaseVRActorClass
 		
 		// By default only rotation of hand joints are applied. This works better with
 		// various kinds of hand models and is easier to work with. Only rotations though
-		// can though not fully reproduce the hand pose.
+		// can not fully reproduce the hand pose.
 		// 
 		// To apply the full pose including position set the finger tip distance and
 		// disable only rotation. The finger tip distance is used to scale the player
