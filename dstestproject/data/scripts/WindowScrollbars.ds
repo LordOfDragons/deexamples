@@ -29,6 +29,8 @@ pin Dragengine.Gui
 pin Dragengine.Gui.Layouts
 pin Dragengine.Gui.Layouts
 pin Dragengine.Gui
+pin Dragengine.Gui
+pin Dragengine.Gui
 
 
 
@@ -149,8 +151,8 @@ class WindowScrollbars extends Window
 			p.addWidget(ScrollPanel.new(textArea))
 			
 			p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 5), block Panel p2
-				p2.addWidget(ProgressDial.new(modelScroll, "ProgressDial.Dial1"))
-				p2.addWidget(ProgressDial.new(modelScroll, "ProgressDial.Dial2"))
+				p2.addWidget(ProgressGauge.new(modelScroll, "ProgressDial.Gauge1"))
+				p2.addWidget(ProgressGauge.new(modelScroll, "ProgressDial.Gauge2"))
 			end))
 		end), BorderLayout.Area.content)
 	end

@@ -161,7 +161,7 @@
 	
 	
 	<!-- scrollbars -->
-	<designer name='ProgressDial.Dial1' type='ProgressDial'>
+	<designer name='ProgressGauge.Gauge1' type='ProgressGauge'>
 		<canvasCreator parameter='normal.canvas' type='Image'>
 			<image parameter='image'>test1/dial/background.webp</image>
 		</canvasCreator>
@@ -175,7 +175,7 @@
 		<point parameter='normal.minimumSize' x='64' y='64'/>
 	</designer>
 	
-	<designer name='ProgressDial.Dial2' extendNamed='ProgressDial.Dial1'>
+	<designer name='ProgressGauge.Gauge2' extendNamed='ProgressGauge.Gauge1'>
 		<float parameter='blendWidth'>0.2</float>
 	</designer>
 	
