@@ -25,6 +25,10 @@ pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
 pin Dragengine.Scenery
 pin Dragengine.Utils
+pin Dragengine.Gui
+pin Dragengine.Gui.Layouts
+pin Dragengine.Gui.Layouts
+pin Dragengine.Gui
 
 
 
@@ -69,7 +73,7 @@ class WindowScrollbars extends Window
 	
 	
 	/** \brief Create game. */
-	public func new() super(0, 0, 500, 400)
+	public func new() super(0, 0, 500, 450)
 		runWhileBlockingLayout(block
 			setDesignerSelector("WindowPadding")
 			setLayout(BorderLayout.new())
@@ -143,6 +147,11 @@ class WindowScrollbars extends Window
 			textArea.setRowCount(6)
 			textArea.setDesignerSelector("TextArea.Yellowish")
 			p.addWidget(ScrollPanel.new(textArea))
+			
+			p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 5), block Panel p2
+				p2.addWidget(ProgressDial.new(modelScroll, "ProgressDial.Dial1"))
+				p2.addWidget(ProgressDial.new(modelScroll, "ProgressDial.Dial2"))
+			end))
 		end), BorderLayout.Area.content)
 	end
 end

@@ -160,6 +160,26 @@
 	</designer>
 	
 	
+	<!-- scrollbars -->
+	<designer name='ProgressDial.Dial1' type='ProgressDial'>
+		<canvasCreator parameter='normal.canvas' type='Image'>
+			<image parameter='image'>test1/dial/background.webp</image>
+		</canvasCreator>
+		<canvasCreator parameter='normal.dial' type='Image'>
+			<image parameter='image'>test1/dial/dial.webp</image>
+		</canvasCreator>
+		<canvasCreator parameter='normal.blend' type='Image'>
+			<image parameter='image'>test1/dial/blend.webp</image>
+		</canvasCreator>
+		<float parameter='blendWidth'>0</float>
+		<point parameter='normal.minimumSize' x='64' y='64'/>
+	</designer>
+	
+	<designer name='ProgressDial.Dial2' extendNamed='ProgressDial.Dial1'>
+		<float parameter='blendWidth'>0.2</float>
+	</designer>
+	
+	
 	<!--
 	Import definitions for the canvas creator test. Importing allows to split complex
 	definitions over multiple files to keep things tidy.
