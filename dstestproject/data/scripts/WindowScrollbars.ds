@@ -31,6 +31,7 @@ pin Dragengine.Gui.Layouts
 pin Dragengine.Gui
 pin Dragengine.Gui
 pin Dragengine.Gui
+pin Dragengine.Gui
 
 
 
@@ -151,10 +152,21 @@ class WindowScrollbars extends Window
 			p.addWidget(ScrollPanel.new(textArea))
 			
 			p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 5), block Panel p2
-				p2.addWidget(ProgressGauge.new(modelProgress, "ProgressGauge.Gauge1"))
-				p2.addWidget(ProgressGauge.new(modelProgress, "ProgressGauge.Gauge2"))
-				p2.addWidget(ProgressGauge.new(modelProgress, "ProgressGauge.Gauge3"))
-				p2.addWidget(ProgressGauge.new(modelProgress, "ProgressGauge.Gauge4"))
+				var ProgressGauge gauge = ProgressGauge.new(modelProgress, "ProgressGauge.Gauge1")
+				gauge.setToolTip("ProgressGauge: blendWidth=0")
+				p2.addWidget(gauge)
+				
+				gauge = ProgressGauge.new(modelProgress, "ProgressGauge.Gauge2")
+				gauge.setToolTip("ProgressGauge: blendWidth=0.25")
+				p2.addWidget(gauge)
+				
+				gauge = ProgressGauge.new(modelProgress, "ProgressGauge.Gauge3")
+				gauge.setToolTip("ProgressGauge: blendWidth=0.5")
+				p2.addWidget(gauge)
+				
+				gauge = ProgressGauge.new(modelProgress, "ProgressGauge.Gauge4")
+				gauge.setToolTip("ProgressGauge: blendWidth=1")
+				p2.addWidget(gauge)
 			end))
 		end), BorderLayout.Area.content)
 	end
