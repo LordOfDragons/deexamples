@@ -1,7 +1,7 @@
 local
 cache
 distribute
-testRun.log
+testRun*.log
 *.kdev*
 *.blend[1-9]
 *.delga

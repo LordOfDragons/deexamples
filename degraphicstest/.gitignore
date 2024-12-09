@@ -1,5 +1,5 @@
 local
 cache
 distribute
-testRun.log
+testRun*.log
 *.kdev*
