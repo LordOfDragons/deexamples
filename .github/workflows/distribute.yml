@@ -69,7 +69,7 @@ jobs:
         id: exampleapp
         uses: LordOfDragons/build-delga@v1.0.1
         with:
-          projectFile: 'exampleApp/ExampleApp.degp'
+          projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
       
       - name: Distribute ExampleVR
