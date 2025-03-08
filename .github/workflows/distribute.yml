@@ -67,7 +67,7 @@ jobs:
       
       - name: Distribute ExampleApp
         id: exampleapp
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
