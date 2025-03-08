@@ -46,52 +46,59 @@ jobs:
       
       - name: Distribute AudioTest
         id: audiotest
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'audioTest/audioTest.degp'
           profile: 'Release'
+          logDir: '${{ github.workspace }}/logs/audioTest'
       
       - name: Distribute GraphicsTest
         id: graphicstest
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'degraphicstest/DEGraphicsTest.degp'
           profile: 'Default'
+          logDir: '${{ github.workspace }}/logs/degraphicstest'
       
       - name: Distribute DSTestProject
         id: dstestproject
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'dstestproject/dstestproject.degp'
           profile: 'Default'
+          logDir: '${{ github.workspace }}/logs/dstestproject'
       
       - name: Distribute ExampleApp
         id: exampleapp
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
+          logDir: '${{ github.workspace }}/logs/exampleApp'
       
       - name: Distribute ExampleVR
         id: examplevr
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'exampleVR/ExampleVR.degp'
           profile: 'Release'
+          logDir: '${{ github.workspace }}/logs/exampleVR'
       
       - name: Distribute Network
         id: network
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'network/NetworkExample.degp'
           profile: 'Release'
+          logDir: '${{ github.workspace }}/logs/network'
       
       - name: Distribute VideoPlayer
         id: videoplayer
-        uses: LordOfDragons/build-delga@v1
+        uses: LordOfDragons/build-delga@v1.0.1
         with:
           projectFile: 'videoplayer/Video Player.degp'
           profile: 'Default'
+          logDir: '${{ github.workspace }}/logs/videoplayer'
         
       - name: Copy Artifacts
         run: |
@@ -108,5 +115,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact }}
-          path: artifacts/*.delga
+          path: >
+            artifacts/*.delga,
+            logs
           if-no-files-found: error
