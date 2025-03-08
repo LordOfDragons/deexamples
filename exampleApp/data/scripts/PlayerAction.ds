@@ -110,7 +110,7 @@ class PlayerAction extends BAAFirstPerson implements BAAInteract
 			aiAction.setAction(PlayerActionInteractToggle.new(interactToggle))
 		end)
 		
-		target.forEachInstance(block BehaviorChangeCustomColors.Instance chooseCustomColors
+		target.forEachInstance(block BehaviorChooseColors.Instance chooseCustomColors
 			// This element supports the choose custom colors interaction. So do it and exit
 			aiAction.setAction(PlayerActionCustomColor.new(chooseCustomColors))
 		end)
@@ -133,7 +133,7 @@ class PlayerAction extends BAAFirstPerson implements BAAInteract
 			return
 		end
 		
-		if target.findInstance(block BehaviorChangeCustomColors.Instance chooseCustomColors
+		if target.findInstance(block BehaviorChooseColors.Instance chooseCustomColors
 			// This element supports the choose custom colors interaction. So do it and exit
 			aiAction.setAction(PlayerActionCustomColor.new(chooseCustomColors))
 			return true

@@ -47,6 +47,35 @@ pin Dragengine.Scenery
  */
 class BehaviorInteractToggle extends DefaultECBehavior
 	/**
+	 * Behavior factory.
+	 * 
+	 * Example XML element class:
+	 * \code{.xml}
+	 * <behavior type='BehaviorChooseColors'/>
+	 * \endcode
+	 */
+	class Factory implements BehaviorFactory
+		func new()
+		end
+		
+		func String factoryId()
+			return "BehaviorInteractToggle"
+		end
+		
+		func ECBehavior addBehavior(BehaviorElementClass eclass, String id, Dictionary parameters)
+			if not id.empty()
+				throw EInvalidParam.new("id is not empty string")
+			end
+			var BehaviorInteractToggle behavior = BehaviorInteractToggle.new(\
+				eclass, eclass.sharedFactoryHelper.defaultAnimated(eclass, parameters))
+			
+			eclass.sharedFactoryHelper.setPropertiesFromParameters(eclass, parameters, "interactToggle")
+			
+			return behavior
+		end
+	end
+	
+	/**
 	 * Instance of behavior. This is used at run-time to access the functionality.
 	 */
 	public class Instance extends DefaultECBehaviorInstance

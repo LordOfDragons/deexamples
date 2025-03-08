@@ -9,7 +9,36 @@ pin Dragengine.Scenery
  * Example behavior for allowing player to interact with an element to change custom
  * colors. Provides an interaction zone for the player actor to move to.
  */
-class BehaviorChangeCustomColors extends DefaultECBehavior
+class BehaviorChooseColors extends DefaultECBehavior
+	/**
+	 * Behavior factory.
+	 * 
+	 * Example XML element class:
+	 * \code{.xml}
+	 * <behavior type='BehaviorChooseColors'/>
+	 * \endcode
+	 */
+	class Factory implements BehaviorFactory
+		func new()
+		end
+		
+		func String factoryId()
+			return "BehaviorChooseColors"
+		end
+		
+		func ECBehavior addBehavior(BehaviorElementClass eclass, String id, Dictionary parameters)
+			if not id.empty()
+				throw EInvalidParam.new("id is not empty string")
+			end
+			
+			var BehaviorChooseColors behavior = BehaviorChooseColors.new(eclass)
+			
+			eclass.sharedFactoryHelper.setPropertiesFromParameters(eclass, parameters, "chooseColors")
+			
+			return behavior
+		end
+	end
+	
 	/**
 	 * Instance of behavior. This is used at run-time to access the functionality.
 	 */
@@ -25,7 +54,7 @@ class BehaviorChangeCustomColors extends DefaultECBehavior
 		/**
 		 * Create instance. The behavior is used to look up and store required instances
 		 */
-		public func new(BehaviorChangeCustomColors behavior, BehaviorElement element) super(element)
+		public func new(BehaviorChooseColors behavior, BehaviorElement element) super(element)
 			// Look up the instance and store it. Using instance() is fast
 			interactionSpot = behavior.interactionSpot.instance(element)
 			
@@ -36,7 +65,7 @@ class BehaviorChangeCustomColors extends DefaultECBehavior
 		 
 		/**
 		 * Overrides DefaultECBehaviorInstance.dispose(). As with
-		 * BehaviorChangeCustomColors.dispose() this is used to avoid leaking.
+		 * BehaviorChooseColors.dispose() this is used to avoid leaking.
 		 */
 		public func void dispose()
 			customColors = null
@@ -65,7 +94,7 @@ class BehaviorChangeCustomColors extends DefaultECBehavior
 		
 		// Add the interaction spot. Set some basic parameters. Usually the element
 		// class using this behavior sets the parameters to match the model used
-		interactionSpot = ECBehaviorInteractionSpot.new(eclass, "chooseColors", "chooseColors.interactionSpot")
+		interactionSpot = ECBehaviorInteractionSpot.new(eclass, "chooseColors", "chooseColors.interactionSpot.")
 		interactionSpot.getPosition().setVector(Vector.new(0, 0, 1))
 		interactionSpot.getOrientation().setVector(Vector.new(0, 180, 0))
 		interactionSpot.getLookAt().setVector(Vector.new())

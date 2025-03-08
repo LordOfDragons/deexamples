@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='ExtendedCustomColor' class='GenericBehaviorElement'>
+	<!--
+	Example element class creating a similar element class as CustomColorExampleClass
+	but using GenericBehaviorElement as base class and adding behaviors in XML.
+	Furthermore some additional behaviors are added to show the flexibility of this approach.
+	-->
+	
+	<!--
+	Add component behavior. This adds a visible presence to the element. Also set some of
+	the parameters of the behavior. This could be done later in the XML file but it helps
+	to group the behavior and it's parameters to improve the readability.
+	-->
+	<behavior type='ECBehaviorComponent'>
+		<string name='.model'>/content/models/box/box.demodel</string>
+		<string name='.rig'>/content/models/box/box.derig</string>
+		<string name='.skin'>customColor.deskin</string>
+	</behavior>
+	
+	<!--
+	Add collider behavior. This adds physical presence to the element. Adding this behavior
+	automatically attaches to the component behavior previously added.
+	-->
+	<behavior type='ECBehaviorCollider'/>
+	
+	<!--
+	Add navigation space behavior. This adds support for adding navigation space and blockers.
+	We do not need navigation space but blockers. The behavior automatically uses the previously
+	added collider behavior.
+	-->
+	<behavior type='ECBehaviorNavigationSpace'/>
+	
+	<!--
+	In SimpleElementClass used as base class for CustomColorExampleClass the behaviors
+	ECBehaviorNavigationSpace and ECBehaviorAttachToParent are present too. We do not need
+	them in this class so we can skip them.
+	-->
+	
+	<!--
+	Add a couple of custom color behaviors. In SimpleElementClass 5 such behaviors are added.
+	We do the same thing here. Each behavior requires a unique identifier.
+	-->
+	<behavior type='ECBehaviorCustomColor' id='color1'>
+		<string name='.name'>Background</string>
+		<color name='.defaultColor' r='0' g='0' b='0.5'/>
+		
+		<!--
+		In SimpleElementClass there is also an example to define allowed colors. As mentioned
+		in the element class limiting to these colors is not implemented. Nevertheless it is
+		shown here how such a list of colors would be defined.
+		-->
+		<list name='.allowedColors'>
+			<color r='0' g='0' b='0.5'/> <!-- darkBlue -->
+			<color r='0.25' g='0.25' b='0.25'/> <!-- darkGray -->
+			<color r='0' g='0.5' b='0'/> <!-- darkGreen -->
+			<color r='0.5' g='0' b='0'/> <!-- darkRed -->
+			<color r='1' g='1' b='1'/> <!-- white -->
+			<color r='0' g='0' b='0'/> <!-- black -->
+		</list>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color2'>
+		<string name='.name'>Dragoness</string>
+		<color name='.defaultColor' r='0.85' g='0.3' b='1'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color3'>
+		<string name='.name'>Text Left</string>
+		<color name='.defaultColor' r='0.33' g='0.44' b='0.7'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color4'>
+		<string name='.name'>Text Right</string>
+		<color name='.defaultColor' r='0.8' g='0.8' b='0.8'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color5'>
+		<string name='.name'>Text Center</string>
+		<color name='.defaultColor' r='0.65' g='0.65' b='0.65'/>
+	</behavior>
+	
+	<!--
+	Add dynamic skin behavior. This allows the textures of the component behavior to be
+	modified dynamically at runtime. The behavior automatically uses the previously added
+	component behavior.
+	-->
+	<behavior type='ECBehaviorDynamicSkin'/>
+	
+	<!--
+	Add renderable canvas behavior. This modifies the "customColor" renderable defined
+	in the skin file. You need one per renderable you want to modify. Since we use only
+	one renderable canvas here we are not required to set an identifier. It is though
+	good practice to set one. This behavior automatically uses the previously added
+	dynamic skin behavior.
+	-->
+	<behavior type='ECBehaviorRenderableCanvas' id='customColor'>
+		<string name='.renderable'>customColor</string>
+		<point name='.size' x='512' y='512'/>
+		<color name='.backgroundColor' r='1' g='1' b='1'/>
+	</behavior>
+	
+	<!--
+	Add behaviors to apply the custom colors to the renderable canvas. These behaviors
+	automatically use the previously added renderable canvas behavior. Here we have
+	something new. Some behaviors support (or require) parameters at construction time.
+	This is done by adding parameter definitions inside the behavior tag. In general the
+	parameters required to be placed inside the behavior tag can not be changed later on
+	using regular property definition tags outside the behavior tag. See the respective
+	Factory inner classes inside the behavior of interest for information on such parameters.
+	In the case of the ECBehaviorRenderableCustomColor behavior we have to define which
+	ECBehaviorCustomColor behavior to use.
+	
+	Because we created above a renderable canvas behavior with a non-empty identifier
+	we have to define below which renderable canvas we want to use. If the identifier
+	would be empty (not set) we could remove the renderCanvas string tag and the factory
+	would use the renderable canvas with the empty identifier.
+	-->
+	<behavior type='ECBehaviorRenderableCustomColor' id='color1'>
+		<string name='customColor'>color1</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color1.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color2'>
+		<string name='customColor'>color2</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color2.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color3'>
+		<string name='customColor'>color3</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color3.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color4'>
+		<string name='customColor'>color4</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color4.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color5'>
+		<string name='customColor'>color5</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color5.png</string>
+	</behavior>
+	
+	<!--
+	Add behavior for player to interact with this element. Adjust the interaction zone
+	to work with the box. This is a behavior specific to the example application. For this
+	reason it uses the prefix "Behavior" instead of "ECBehavior" as the behaviors provided
+	by the Drag[en]gine. Another typical prefix is "ECB". This prefix can be used to avoid
+	confusion with game world behaviors which use prefix "GWBehavior".
+	-->
+	<behavior type='BehaviorChooseColors'>
+		<vector name='.interactionSpot.position' x='0' y='0' z='3'/>
+		<vector name='.interactionSpot.lookAt' x='0.5' y='1' z='1'/>
+	</behavior>
+	
+	<!--
+	At this point we have replicated the behaviors present in the SimpleElementClass but
+	using an XML element class instead of a DragonScript class. The advantage of using
+	the XML element class way is that no script changes are required. It is also possible
+	to use automated tools to produce or modify such files.
+	-->
+	
+	<!--
+	Let's add some more behaviors to extend the element class, even if it is silly. Let's first
+	add a light near the front side which is red and strong enough against the sun.
+	-->
+	<behavior type='ECBehaviorLight'>
+		<float name='.intensity'>50</float>
+		<float name='.halfIntensityDistance'>0.5</float>
+		<float name='.range'>1</float>
+		<color name='.color' r='1'/>
+		<vector name='.position' x='0' y='0.25' z='1.1'/>
+	</behavior>
+	
+	<!--
+	And just because we can also add two particle emitters on top of it. The first one produces
+	a flame and the second one the smoke. Actually this can be done using a single particle
+	emitter emitting two types of particles but for this example two emitters are used.
+	-->
+	<behavior type='ECBehaviorParticleEmitter' id='flame'>
+		<string name='.path'>/content/emitters/flame1.depemit</string>
+		<vector name='.position' y='2.05' z='0.75'/>
+		<vector name='.orientation' x='90'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorParticleEmitter' id='smoke'>
+		<string name='.path'>/content/emitters/smoke.depemit</string>
+		<vector name='.position' y='2.3' z='0.75'/>
+		<vector name='.orientation' x='90'/>
+	</behavior>
+	
+	<!--
+	And where there is fire should be also sound. Add a speaker behavior with some sound playing.
+	-->
+	<behavior type='ECBehaviorSpeaker'>
+		<string name='.sound'>/content/sound/crackle.ogg</string>
+		<float name='.range'>15</float>
+		<float name='.volume'>0.5</float>
+		<vector name='.position' y='2.5' z='0.75'/>
+	</behavior>
+</elementClass>

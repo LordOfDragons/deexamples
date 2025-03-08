@@ -286,6 +286,17 @@ class ExampleApp extends BaseGameApp
 		eclist.add(InteractionSpotExampleClass.new())
 		eclist.add(CustomColorExampleClass.new())
 		
+		// Add generic behavior element class. This allows XML element classes to add
+		// behaviors in addition to defining properties. You have to explicitely add
+		// element classes with behavior factories added for this to work. Regular
+		// classes to not allow adding behaviors. This helps to keep control over how
+		// XML element classes can modify game logic.
+		//
+		// Instead of GenericBehaviorElementClass we use a subclass which adds our own
+		// defined behaviors to the Drag[en]gine provided ones
+		//eclist.add(GenericBehaviorElementClass.new())
+		eclist.add(ExtendibleBehaviorElementClass.new())
+		
 		// Add XML element classes by recursively scanning directory for *.deeclass files.
 		// These require scripted element classes as parent classes. Using *.deeclass
 		// files you can easily add content with needing to write scripted classes.

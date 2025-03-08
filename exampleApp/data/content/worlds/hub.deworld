@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>aa</nextObjectID>
+	<nextObjectID>ac</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1442,6 +1442,15 @@
 		<texture name='content'>
 			<skin>/content/materials/signs/hiddenelement.deskin</skin>
 		</texture>
+	</object>
+	<object id='ab'>
+		<classname>ExtendedCustomColor</classname>
+		<position x='-10.5' y='0' z='-25'/>
+		<property key='renderableCustomColor(color2).image'>/content/models/customColor/color2Masked.png</property>
+		<property key='renderableCustomColor(color5).image'>/content/models/customColor/color5Masked.png</property>
+		<property key='renderableCustomColor(color4).image'>/content/models/customColor/color4Masked.png</property>
+		<property key='renderableCustomColor(color3).image'>/content/models/customColor/color3Masked.png</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 	</object>
 	
 	<decal>

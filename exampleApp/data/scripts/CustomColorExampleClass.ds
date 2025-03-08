@@ -120,7 +120,7 @@ public class CustomColorExampleClass extends SimpleElementClass
 		
 		// Add behavior for player to interact with this element. Adjust the
 		// interaction zone to work with the box
-		var BehaviorChangeCustomColors ccc = BehaviorChangeCustomColors.new(this)
+		var BehaviorChooseColors ccc = BehaviorChooseColors.new(this)
 		ccc.interactionSpot.getPosition().setVector(Vector.new(0, 0, 3))
 		ccc.interactionSpot.getLookAt().setVector(Vector.new(0.5, 1, 1))
 	end

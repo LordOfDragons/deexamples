@@ -97,7 +97,7 @@ class PlayerActionCustomColor extends BAAFirstPerson
 		
 		
 		/** Create dialog and display it on the desktop. */
-		public func new(BehaviorChangeCustomColors.Instance behavior) super(20, 100, 400, 400)
+		public func new(BehaviorChooseColors.Instance behavior) super(20, 100, 400, 400)
 			// Create list model containing all custom colors
 			modelCustomColors = DefaultListModel.new(behavior.customColors)
 			modelCustomColors.addListener(SelectCustomColor.new(this))
@@ -239,15 +239,15 @@ class PlayerActionCustomColor extends BAAFirstPerson
 	
 	public var ECBehaviorAlignActor.Instance alignActor
 	public var ECBehaviorOccupier.Instance occupier
-	public var BehaviorChangeCustomColors.Instance changeCustomColors
+	public var BehaviorChooseColors.Instance changeCustomColors
 	public var State state
 	public var DialogEditColors dialog
 	
 	
 	/**
-	 * \brief Create Action operating BehaviorChangeCustomColors.
+	 * \brief Create Action operating BehaviorChooseColors.
 	 */
-	public func new(BehaviorChangeCustomColors.Instance changeCustomColors)
+	public func new(BehaviorChooseColors.Instance changeCustomColors)
 		this.changeCustomColors = changeCustomColors
 	end
 	
