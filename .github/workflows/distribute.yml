@@ -50,7 +50,7 @@ jobs:
         with:
           projectFile: 'audioTest/audioTest.degp'
           profile: 'Release'
-          logDir: '${{ github.workspace }}/logs/audioTest'
+          outputDir: '${{ github.workspace }}/deigde-output/audioTest'
       
       - name: Distribute GraphicsTest
         id: graphicstest
@@ -58,7 +58,7 @@ jobs:
         with:
           projectFile: 'degraphicstest/DEGraphicsTest.degp'
           profile: 'Default'
-          logDir: '${{ github.workspace }}/logs/degraphicstest'
+          outputDir: '${{ github.workspace }}/deigde-output/degraphicstest'
       
       - name: Distribute DSTestProject
         id: dstestproject
@@ -66,7 +66,7 @@ jobs:
         with:
           projectFile: 'dstestproject/dstestproject.degp'
           profile: 'Default'
-          logDir: '${{ github.workspace }}/logs/dstestproject'
+          outputDir: '${{ github.workspace }}/deigde-output/dstestproject'
       
       - name: Distribute ExampleApp
         id: exampleapp
@@ -74,7 +74,7 @@ jobs:
         with:
           projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
-          logDir: '${{ github.workspace }}/logs/exampleApp'
+          outputDir: '${{ github.workspace }}/deigde-output/exampleApp'
       
       - name: Distribute ExampleVR
         id: examplevr
@@ -82,7 +82,7 @@ jobs:
         with:
           projectFile: 'exampleVR/ExampleVR.degp'
           profile: 'Release'
-          logDir: '${{ github.workspace }}/logs/exampleVR'
+          outputDir: '${{ github.workspace }}/deigde-output/exampleVR'
       
       - name: Distribute Network
         id: network
@@ -90,7 +90,7 @@ jobs:
         with:
           projectFile: 'network/NetworkExample.degp'
           profile: 'Release'
-          logDir: '${{ github.workspace }}/logs/network'
+          outputDir: '${{ github.workspace }}/deigde-output/network'
       
       - name: Distribute VideoPlayer
         id: videoplayer
@@ -98,7 +98,7 @@ jobs:
         with:
           projectFile: 'videoplayer/Video Player.degp'
           profile: 'Default'
-          logDir: '${{ github.workspace }}/logs/videoplayer'
+          outputDir: '${{ github.workspace }}/deigde-output/videoplayer'
         
       - name: Copy Artifacts
         run: |
@@ -113,9 +113,9 @@ jobs:
         
       - name: Store DELGAs
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: ${{ inputs.artifact }}
           path: >
             artifacts/*.delga,
-            logs
-          if-no-files-found: error
+            deigde-output
