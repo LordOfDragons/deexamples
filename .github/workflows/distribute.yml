@@ -46,59 +46,59 @@ jobs:
       
       - name: Distribute AudioTest
         id: audiotest
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'audioTest/audioTest.degp'
           profile: 'Release'
-          outputDir: '${{ github.workspace }}/deigde-output/audioTest'
+          outputDir: 'deigde-output/audioTest'
       
       - name: Distribute GraphicsTest
         id: graphicstest
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'degraphicstest/DEGraphicsTest.degp'
           profile: 'Default'
-          outputDir: '${{ github.workspace }}/deigde-output/degraphicstest'
+          outputDir: 'deigde-output/degraphicstest'
       
       - name: Distribute DSTestProject
         id: dstestproject
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'dstestproject/dstestproject.degp'
           profile: 'Default'
-          outputDir: '${{ github.workspace }}/deigde-output/dstestproject'
+          outputDir: 'deigde-output/dstestproject'
       
       - name: Distribute ExampleApp
         id: exampleapp
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
-          outputDir: '${{ github.workspace }}/deigde-output/exampleApp'
+          outputDir: 'deigde-output/exampleApp'
       
       - name: Distribute ExampleVR
         id: examplevr
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'exampleVR/ExampleVR.degp'
           profile: 'Release'
-          outputDir: '${{ github.workspace }}/deigde-output/exampleVR'
+          outputDir: 'deigde-output/exampleVR'
       
       - name: Distribute Network
         id: network
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'network/NetworkExample.degp'
           profile: 'Release'
-          outputDir: '${{ github.workspace }}/deigde-output/network'
+          outputDir: 'deigde-output/network'
       
       - name: Distribute VideoPlayer
         id: videoplayer
-        uses: LordOfDragons/build-delga@v1.0.1
+        uses: LordOfDragons/build-delga@v2
         with:
           projectFile: 'videoplayer/Video Player.degp'
           profile: 'Default'
-          outputDir: '${{ github.workspace }}/deigde-output/videoplayer'
+          outputDir: 'deigde-output/videoplayer'
         
       - name: Copy Artifacts
         run: |
@@ -116,6 +116,6 @@ jobs:
         if: always()
         with:
           name: ${{ inputs.artifact }}
-          path: >
-            artifacts/*.delga,
+          path: |
+            artifacts/*.delga
             deigde-output
