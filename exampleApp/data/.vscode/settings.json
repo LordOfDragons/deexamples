@@ -1,6 +1,6 @@
 {
 	"dragonscriptLanguage.scriptDirectories": [
-		"data/scripts"
+		"scripts"
 	],
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,

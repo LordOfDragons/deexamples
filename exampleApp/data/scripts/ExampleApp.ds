@@ -272,7 +272,38 @@ class ExampleApp extends BaseGameApp
 	end
 	
 	/**
-	 * Create element classes and add them to element class list.
+	 * \brief Create behavior factories adding them to the factory list.
+	 * 
+	 * Behavior factories allow generic \ref BehaviorElementClass to be created using XML element
+	 * class files (*.deeclass) where not only element class properties can be defined but
+	 * also behaviors added. \ref GenericBehaviorElementClass uses the factories added here
+	 * as initial list of allowed factories. See \ref BehaviorFactoryHelper#addAllFactories()
+	 * for the list of factories added by default. Hence by default you can use
+	 * "GenericBehaviorElement" as the jack of all trades class with access to all factories.
+	 * 
+	 * Using \ref GenericBehaviorElementClass is one possibility. Every \ref BehaviorElementClass
+	 * can add supported factories in their constructor. This allows to fine tune for which
+	 * element class which behavior factories are allowed to be used. If you use BehaviorElement
+	 * classes fine tuned in this way it is recommended to either clear
+	 * \ref #getBehaviorFactories() to turn \ref GenericBehaviorElementClass into a simple
+	 * \ref BehaviorElementClass or you remove it as available class in
+	 * \ref #createAndAddElementClasses().
+	 */
+	protected func void createAndAddBehaviorFactories()
+		super.createAndAddBehaviorFactories()
+		
+		// We are using here two custom behaviors. Add them so they can be used
+		var BehaviorFactoryList factories = getBehaviorFactories()
+		factories.add(BehaviorChooseColors.Factory.new())
+		factories.add(BehaviorInteractToggle.Factory.new())
+	end
+	
+	/**
+	 * \brief Create element classes and add them to element class list.
+	 * 
+	 * Element classes list contains all element classes world files are allowed to be used.
+	 * See \ref BaseGameApp#createAndAddElementClasses for the list of element classes added
+	 * by default. Undesired element classes can be removed and custom ones added.
 	 */
 	protected func void createAndAddElementClasses()
 		super.createAndAddElementClasses()
@@ -285,17 +316,6 @@ class ExampleApp extends BaseGameApp
 		eclist.add(StateMachineExampleClass.new())
 		eclist.add(InteractionSpotExampleClass.new())
 		eclist.add(CustomColorExampleClass.new())
-		
-		// Add generic behavior element class. This allows XML element classes to add
-		// behaviors in addition to defining properties. You have to explicitely add
-		// element classes with behavior factories added for this to work. Regular
-		// classes to not allow adding behaviors. This helps to keep control over how
-		// XML element classes can modify game logic.
-		//
-		// Instead of GenericBehaviorElementClass we use a subclass which adds our own
-		// defined behaviors to the Drag[en]gine provided ones
-		//eclist.add(GenericBehaviorElementClass.new())
-		eclist.add(ExtendibleBehaviorElementClass.new())
 		
 		// Add XML element classes by recursively scanning directory for *.deeclass files.
 		// These require scripted element classes as parent classes. Using *.deeclass
