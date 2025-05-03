@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<stateMachine>
+	<!--
+	Logic file for extended2.deeclass . Uses are these behaviors (action prefixes):
+	- customColor(color2)
+	- light
+	- particleEmitter(flame)
+	- particleEmitter(smoke)
+	- speaker
+	-->
+	<initialState>base</initialState>
+	
+	<!--
+	This is a rather simple example with only one state with a single player interaction
+	transition to do some conditioned actions. Real world use has more states to build
+	interesting logic with.
+	
+	As a side note state machines run only if events are send running the actions assigned
+	with transitions and state changes. To perform actions on a every think step better use
+	behavior trees. Behaviors trees though can be expensive since they run on every think
+	step and can have to run at least one action each time they are run. State machines on
+	the other hand are more efficient since they run only if an event triggers them.
+	If possible use state machines and switch to behavior trees if you need extra complexity
+	-->
+	
+	<state id='base'>
+		<!--
+		Init event is send by ECBehaviorStateMachine after all behavior have initialized.
+		We use this to do initial enabling.
+		-->
+		<transition event='init'>
+			<!--
+			Switch on light if red color is above 0.75.
+			-->
+			<action name='light.set'>
+				<parameter name='customColor(color2).color.red.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='activated'>true</parameter>
+			</action>
+			
+			<!--
+			Switch on particle emitters if green color is above 0.75.
+			-->
+			<action name='particleEmitter(flame).set'>
+				<parameter name='customColor(color2).color.green.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='casting'>true</parameter>
+			</action>
+			
+			<action name='particleEmitter(smoke).set'>
+				<parameter name='customColor(color2).color.green.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='casting'>true</parameter>
+			</action>
+			
+			<!--
+			Switch on speaker if blue color is above 0.75.
+			-->
+			<action name='speaker.set'>
+				<parameter name='customColor(color2).color.blue.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='playing'>true</parameter>
+			</action>
+		</transition>
+		
+		<!--
+		This event is send if the player changes the color.
+		Enable or disable the respective resource.
+		-->
+		<transition event='customColor(color2).color'>
+			<!--
+			Switch on light if red color is above 0.75.
+			-->
+			<action name='light.set'>
+				<parameter name='customColor(color2).color.red.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='activated'>true</parameter>
+			</action>
+			
+			<action name='light.set'>
+				<parameter name='customColor(color2).color.red.less'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='activated'>false</parameter>
+			</action>
+			
+			
+			<!--
+			Switch on particle emitters if green color is above 0.75.
+			-->
+			<action name='particleEmitter(flame).set'>
+				<parameter name='customColor(color2).color.green.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='casting'>true</parameter>
+			</action>
+			
+			<action name='particleEmitter(smoke).set'>
+				<parameter name='customColor(color2).color.green.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='casting'>true</parameter>
+			</action>
+			
+			<action name='particleEmitter(flame).set'>
+				<parameter name='customColor(color2).color.green.less'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='casting'>false</parameter>
+			</action>
+			
+			<action name='particleEmitter(smoke).set'>
+				<parameter name='customColor(color2).color.green.less'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='casting'>false</parameter>
+			</action>
+			
+			
+			<!--
+			Switch on speaker if blue color is above 0.75.
+			-->
+			<action name='speaker.set'>
+				<parameter name='customColor(color2).color.blue.greater'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='playing'>true</parameter>
+			</action>
+			
+			<action name='speaker.set'>
+				<parameter name='customColor(color2).color.blue.less'>0.75</parameter>
+				<condition>customColor(color2).check</condition>
+				
+				<parameter name='playing'>false</parameter>
+			</action>
+		</transition>
+	</state>
+</stateMachine>

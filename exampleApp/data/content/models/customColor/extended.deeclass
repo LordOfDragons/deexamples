@@ -4,6 +4,9 @@
 	Example element class creating a similar element class as CustomColorExampleClass
 	but using GenericBehaviorElement as base class and adding behaviors in XML.
 	Furthermore some additional behaviors are added to show the flexibility of this approach.
+	
+	See the behavior documentation on the Wiki page for detailed information:
+	https://developer.dragondreams.ch/wiki/doku.php/dragengine:modules:dragonscript:behavior_elements
 	-->
 	
 	<!--
@@ -27,13 +30,23 @@
 	Add navigation space behavior. This adds support for adding navigation space and blockers.
 	We do not need navigation space but blockers. The behavior automatically uses the previously
 	added collider behavior.
+	
+	Another solution is to use ECBehaviorNavigationBlocker. This is what we are using here
+	instead of ECBehaviorNavigationSpace as CustomColorExampleClass does (the SimpleElementClass
+	super class adds this behavior). If possible use ECBehaviorNavigationBlocker unless you
+	need to add navigation space too. Keep in ming the element class properties of both
+	behaviors are not identical. It is thus not possible to simply exchange
+	ECBehaviorNavigationSpace with ECBehaviorNavigationBlocker since the
+	already assigned element properties do not match anymore. In articular
+	ECBehaviorNavigationSpace has the property prefix "navigationSpace." while
+	ECBehaviorNavigationBlocker has the property prefix "navigationBlocker.". This results
+	for example in "navigationSpace.blockerShape" to become "navigationBlocker.shape".
 	-->
-	<behavior type='ECBehaviorNavigationSpace'/>
+	<behavior type='ECBehaviorNavigationBlocker'/>
 	
 	<!--
-	In SimpleElementClass used as base class for CustomColorExampleClass the behaviors
-	ECBehaviorNavigationSpace and ECBehaviorAttachToParent are present too. We do not need
-	them in this class so we can skip them.
+	In SimpleElementClass used as base class for CustomColorExampleClass the behavior
+	ECBehaviorAttachToParent is present too. We do not need them so we can skip them.
 	-->
 	
 	<!--
@@ -106,9 +119,9 @@
 	This is done by adding parameter definitions inside the behavior tag. In general the
 	parameters required to be placed inside the behavior tag can not be changed later on
 	using regular property definition tags outside the behavior tag. See the respective
-	Factory inner classes inside the behavior of interest for information on such parameters.
-	In the case of the ECBehaviorRenderableCustomColor behavior we have to define which
-	ECBehaviorCustomColor behavior to use.
+	Factory inner classes inside the behavior of interest or the respective Wiki page
+	for information on such parameters. In the case of the ECBehaviorRenderableCustomColor
+	behavior we have to define which ECBehaviorCustomColor behavior to use.
 	
 	Because we created above a renderable canvas behavior with a non-empty identifier
 	we have to define below which renderable canvas we want to use. If the identifier

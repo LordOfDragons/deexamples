@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='ExtendedCustomColor2' class='GenericBehaviorElement'>
+	<!--
+	Variation of ExtendedCustomColor using a state machine to add logic to the element only
+	based on Drag[en]gine provided behaviors. If a state machine is present some behaviors
+	add state machine actions, conditions and send events. The same if a behavior tree is
+	present. This can be used to create simple logic for elements without needing to write
+	a behavior just to do the element logic.
+	
+	The logic provided by the behaviors is limited to state changes which these behaviors
+	can persist. This ensures state machines and behavior trees can not change states of
+	behaviors that would vanish after loading a persisted state. This is required since
+	the effect of state machines and behavior trees actions after they have ben run can not
+	be restored unless the behavior providing the logic can restore it. Hence if you need
+	to change behavior states in a non-persistable way you have to create your own behavior
+	which applies the changes and provides persistency support as well as behavior tree
+	and state machine actions. A simple way to implement these actions is by subclassing
+	BTSMActionCondition helper class in the behavior.
+	
+	In general state machine and behavior tree support in elements is about adding higher
+	level logic while behaviors (including custom written ones) provide the lower level
+	actions, conditions and event sending.
+	
+	See the behavior documentation on the Wiki page for detailed information:
+	https://developer.dragondreams.ch/wiki/doku.php/dragengine:modules:dragonscript:behavior_elements
+	-->
+	
+	<!--
+	First adding behaviors we do not need to use in the state machine or that do not
+	provide state machine support.
+	-->
+	<behavior type='ECBehaviorComponent'>
+		<string name='.model'>/content/models/box/box.demodel</string>
+		<string name='.rig'>/content/models/box/box.derig</string>
+		<string name='.skin'>customColor.deskin</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorCollider'/>
+	<behavior type='ECBehaviorNavigationBlocker'/>
+	<behavior type='ECBehaviorDynamicSkin'/>
+	
+	<behavior type='ECBehaviorRenderableCanvas' id='customColor'>
+		<string name='.renderable'>customColor</string>
+		<point name='.size' x='512' y='512'/>
+		<color name='.backgroundColor' r='1' g='1' b='1'/>
+	</behavior>
+	
+	<!--
+	Add the state machine behavior. All behaviors added afterwards will find the state machine
+	behavior and will add their actions/conditions to it as well as sending events
+	-->
+	<behavior type='ECBehaviorStateMachine'>
+		<string name='.path'>logic.desm</string>
+		
+		<!--
+		When writing new state machines things might not work as expected. By enabling debug
+		mode state machine events, transitions and actions are logged to the console.
+		This makes it easier to see where something goes wrong.
+		-->
+		<!-- <string name='.debug'>ExtendedCustomColor2-SM-Debug</string> -->
+	</behavior>
+	
+	<!--
+	Now all behaviors are added which can potentially use the state machine.
+	
+	In particular ECBehaviorCustomColor(color2) is used in the state machine as well as the
+	light, particle emitters and speaker.
+	-->
+	<behavior type='ECBehaviorCustomColor' id='color1'>
+		<string name='.name'>Background</string>
+		<color name='.defaultColor' r='0' g='0' b='0.5'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color2'>
+		<string name='.name'>Dragoness</string>
+		<color name='.defaultColor' r='0.5' g='0.5' b='0.5'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color3'>
+		<string name='.name'>Text Left</string>
+		<color name='.defaultColor' r='0.33' g='0.44' b='0.7'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color4'>
+		<string name='.name'>Text Right</string>
+		<color name='.defaultColor' r='0.8' g='0.8' b='0.8'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorCustomColor' id='color5'>
+		<string name='.name'>Text Center</string>
+		<color name='.defaultColor' r='0.65' g='0.65' b='0.65'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color1'>
+		<string name='customColor'>color1</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color1.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color2'>
+		<string name='customColor'>color2</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color2.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color3'>
+		<string name='customColor'>color3</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color3.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color4'>
+		<string name='customColor'>color4</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color4.png</string>
+	</behavior>
+	
+	<behavior type='ECBehaviorRenderableCustomColor' id='color5'>
+		<string name='customColor'>color5</string>
+		<string name='renderableCanvas'>customColor</string>
+		
+		<string name='.image'>color5.png</string>
+	</behavior>
+	
+	<behavior type='BehaviorChooseColors'>
+		<vector name='.interactionSpot.position' x='0' y='0' z='3'/>
+		<vector name='.interactionSpot.lookAt' x='0.5' y='1' z='1'/>
+	</behavior>
+	
+	<behavior type='ECBehaviorLight'>
+		<float name='.intensity'>50</float>
+		<float name='.halfIntensityDistance'>0.5</float>
+		<float name='.range'>1</float>
+		<color name='.color' r='1'/>
+		<vector name='.position' x='0' y='0.25' z='1.1'/>
+		<boolean name='.activated'>false</boolean>
+	</behavior>
+	
+	<behavior type='ECBehaviorParticleEmitter' id='flame'>
+		<string name='.path'>/content/emitters/flame1.depemit</string>
+		<vector name='.position' y='2.05' z='0.75'/>
+		<vector name='.orientation' x='90'/>
+		<boolean name='.casting'>false</boolean>
+	</behavior>
+	
+	<behavior type='ECBehaviorParticleEmitter' id='smoke'>
+		<string name='.path'>/content/emitters/smoke.depemit</string>
+		<vector name='.position' y='2.3' z='0.75'/>
+		<vector name='.orientation' x='90'/>
+		<boolean name='.casting'>false</boolean>
+	</behavior>
+	
+	<behavior type='ECBehaviorSpeaker'>
+		<string name='.sound'>/content/sound/crackle.ogg</string>
+		<float name='.range'>15</float>
+		<float name='.volume'>0.5</float>
+		<vector name='.position' y='2.5' z='0.75'/>
+		<boolean name='.playing'>false</boolean>
+	</behavior>
+</elementClass>
