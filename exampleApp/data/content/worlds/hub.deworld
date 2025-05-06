@@ -110,7 +110,7 @@
 		<property key='showMessage.trigger'>boomCounter3</property>
 	</object>
 	<object id='f'>
-		<classname>CowardlyActor</classname>
+		<classname>CowardlyActor2</classname>
 		<position x='28' y='0' z='-20'/>
 	</object>
 	<object id='10'>
@@ -1455,11 +1455,11 @@
 	<object id='ac'>
 		<classname>ExtendedCustomColor2</classname>
 		<position x='-13' y='0' z='-25'/>
+		<property key='renderableCustomColor(color3).image'>/content/models/customColor/color3Masked.png</property>
 		<property key='renderableCustomColor(color2).image'>/content/models/customColor/color2Masked.png</property>
 		<property key='navigationBlocker.shape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
 		<property key='renderableCustomColor(color5).image'>/content/models/customColor/color5Masked.png</property>
 		<property key='renderableCustomColor(color4).image'>/content/models/customColor/color4Masked.png</property>
-		<property key='renderableCustomColor(color3).image'>/content/models/customColor/color3Masked.png</property>
 	</object>
 	
 	<decal>

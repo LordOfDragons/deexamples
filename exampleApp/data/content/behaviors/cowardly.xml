@@ -115,6 +115,25 @@
 			you can create a negated version of the condition. This has been
 			done in the two actions below.
 			-->
+			
+			<!--
+			The condition "playerNearby" demonstrates how recurring conditions
+			testing parameter table entries using a new condition. The same
+			could be also achieve with the tags below (see
+			https://developer.dragondreams.ch/wiki/doku.php/dragengine:modules:dragonscript:behavior_parametertable#behavior_tree_conditions
+			for documentation of the tags):
+			
+			<parameter name='parameterTree.name'>playerDistance</parameter>
+			<parameter name='parameterTree.value.less'>4</parameter>
+			<condition>parameterTree.check</condition>
+			
+			For "playerNotNearby" replace "parameterTree.value.less" with "parameterTree.value.greater".
+			
+			By using a custom condition for this check not only the complexity
+			can be reduced but also parametrization can be dealt with in the
+			behavior condition implementation which also allows defining the
+			parameters in XML element classes.
+			-->
 		</action>
 		
 		<!--

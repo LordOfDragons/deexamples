@@ -1,0 +1,434 @@
+namespace Example
+
+pin Dragengine.Scenery
+pin Dragengine.Preloading
+pin Dragengine.BehaviorTreeSystem
+
+/**
+ * Behavior adding behavior tree actions and conditions for the coward actor example.
+ * 
+ * Adds these actions:
+ * - wander
+ * - wait
+ * - turning
+ * - flee
+ * - backOff
+ * 
+ * Adds these conditions:
+ * - playerNearby
+ * - playerNotNearby
+ * 
+ * For example purpose multiple actions and conditions are added. For more elaborate
+ * situations it is useful to group similar actions in one action and using action
+ * parameters to determine the actual behavior carried out. This reduces the count of
+ * actions and conditions and allows to easily extend functionality.
+ */
+class BehaviorAICoward extends DefaultECBehavior
+	/**
+	 * Behavior factory.
+	 * 
+	 * Example XML element class:
+	 * \code{.xml}
+	 * <behavior type='BehaviorAICoward'/>
+	 * \endcode
+	 */
+	class Factory implements BehaviorFactory
+		func new()
+		end
+		
+		func String factoryId()
+			return "BehaviorAICoward"
+		end
+		
+		func ECBehavior addBehavior(BehaviorElementClass eclass, String id, Dictionary parameters)
+			if not id.empty()
+				throw EInvalidParam.new("id is not empty string")
+			end
+			
+			// Create behavior
+			var BehaviorAICoward behavior = BehaviorAICoward.new(eclass)
+			
+			// Assign behaviors. We can do this also in the constructor but assinging
+			// directly to class variables is cleaner and easier to extend. The
+			// BehaviorFactoryHelper class instance (present as static variable in
+			// BehaviorElementClass) provides helper methods to find often used behaviors.
+			// For behaviors which can be present or a single time these helper functions
+			// are not needed. Use the respective "getBehaviorIn" functions
+			behavior.behaviorTree = eclass.sharedFactoryHelper.defaultBehaviorTree(eclass, parameters)
+			behavior.parameterTable = ECBehaviorParameterTable.getBehaviorIn(eclass)
+			behavior.actorMover = ECBehaviorActorMover.getBehaviorIn(eclass)
+			behavior.playerInputMove = ECBehaviorPlayerInputMove.getBehaviorIn(eclass)
+			behavior.footSteps = ECBehaviorFootSteps.getBehaviorIn(eclass)
+			
+			// Behavior properties can be set directly from inside the behavior tag
+			// instead of using regular element class property tags. This avoids the
+			// the need to remember the full behavior property prefix. For this situation
+			// the BehaviorFactoryHelper provides a helper function. The third parameter
+			// is the prefix used while adding element class properties in the behavior
+			// constructor
+			eclass.sharedFactoryHelper.setPropertiesFromParameters(eclass, parameters, "aiCoward")
+			
+			return behavior
+		end
+	end
+	
+	/**
+	 * Instance of behavior. This is used at run-time to access the functionality.
+	 */
+	class Instance extends DefaultECBehaviorInstance
+		/**
+		 * Base action for actions moving somewhere.
+		 */
+		private abstract class BaseActionMove implements BTAction
+			protected var Instance instance
+			
+			func new(Instance instance)
+				this.instance = instance
+			end
+			
+			protected func BTResult moveStart(DVector target, bool run)
+				instance.actorMover.setSpeed(run\
+					if instance.playerInputMove.getSpeedRun()\
+					else instance.playerInputMove.getSpeedWalk())
+				instance.actorMover.moveTo(target, 0.2)
+				return BTResult.running
+			end
+			
+			protected func BTResult moveContinue()
+				if instance.actorMover.hasGoal()
+					return BTResult.running
+					
+				else
+					moveStop()
+					return BTResult.success
+				end
+			end
+			
+			protected func BTResult moveStart(bool run)
+				var float distance = DEMath.random(0.1, instance.wanderRadius)
+				var float direction = DEMath.random(0.0, 360.0)
+				
+				var DVector target = instance.wanderOrigin\
+					+ DMatrix.newRotationY(direction).getViewVector() * distance
+				
+				return moveStart(target, run)
+			end
+			
+			protected func void moveStop()
+				instance.actorMover.stopMoving()
+			end
+		end
+		
+		/**
+		 * Wander action.
+		 */
+		private class ActionWander extends BaseActionMove
+			func new(Instance instance) super(instance)
+			end
+			
+			func BTResult runAction(BTContext context, Dictionary parameters)
+				if context.getActionFirstRun()
+					if not DEMath.probability(0.25)
+						return BTResult.failure // action launcher but missed chance
+						
+					else
+						return moveStart(false)
+					end
+					
+				else
+					return moveContinue()
+				end
+			end
+		end
+		
+		/**
+		 * Wait action.
+		 */
+		private class ActionWait extends BaseActionMove
+			func new(Instance instance) super(instance)
+			end
+			
+			func BTResult runAction(BTContext context, Dictionary parameters)
+				if context.getActionFirstRun()
+					moveStop()
+					instance.countdown = DEMath.random(1.0, 5.0)
+					
+				elif instance.countdown <= 0
+					return BTResult.success
+				end
+				
+				return BTResult.running
+			end
+		end
+		
+		/**
+		 * Turning action.
+		 */
+		private class ActionTurning extends BaseActionMove
+			func new(Instance instance) super(instance)
+			end
+			
+			func BTResult runAction(BTContext context, Dictionary parameters)
+				var float direction
+				
+				if context.getActionFirstRun()
+					if not DEMath.probability(0.35)
+						return BTResult.failure // action launcher but missed chance
+					end
+					
+					moveStop()
+					instance.targetOrientation = DEMath.random(0.0, 360.0)
+				end
+				
+				var Locomotion locomotion = instance.actorMover.getLocomotion().getLocomotion()
+				direction = DEMath.normalize(instance.targetOrientation - locomotion.getOrientation(), -180.0, 180.0)
+				direction = DEMath.clamp(direction, -60.0, 60.0) // avoid rotation jumping
+				locomotion.setLookHorizontalGoal(direction)
+				locomotion.setTurnHorizontal(direction)
+				
+				return DEMath.fabs(direction) < 0.1 if BTResult.success else BTResult.running
+			end
+		end
+		
+		/**
+		 * Back-off action.
+		 */
+		private class ActionBackOff extends BaseActionMove
+			func new(Instance instance) super(instance)
+			end
+			
+			protected func BTResult moveStart(bool run)
+				var DVector player = BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement().getPosition()
+				var float distance = 8
+				var DVector vector = instance.getElement().getPosition() - player
+				var float direction = -DEMath.atan2(vector.getX(), vector.getZ()) + DEMath.random(-15.0, 15.0)
+				
+				var DVector target = player + DMatrix.newRotationY(direction).getViewVector() * distance
+				
+				return moveStart(target, run)
+			end
+			
+			protected func BTResult moveContinue()
+				var float distance = instance.playerDistance.getValue(100)
+				
+				if distance < 2
+					return moveStart(true)
+					
+				elif distance < 6
+					return super.moveContinue()
+					
+				else
+					moveStop()
+					return BTResult.success
+				end
+			end
+			
+			func BTResult runAction(BTContext context, Dictionary parameters)
+				if context.getActionFirstRun()
+					if instance.playerInputMove.getRun()
+						return BTResult.failure
+						
+					else
+						return moveStart(false)
+					end
+					
+				else
+					return moveContinue()
+				end
+			end
+		end
+		
+		/**
+		 * Flee action.
+		 */
+		private class ActionFlee extends ActionBackOff
+			func new(Instance instance) super(instance)
+			end
+			
+			func BTResult runAction(BTContext context, Dictionary parameters)
+				if context.getActionFirstRun()
+					if not instance.playerInputMove.getRun()
+						return BTResult.failure
+						
+					else
+						//var Collider collider = getActor().getAICollider()
+						//collider.setLinearVelocity( collider.getLinearVelocity() + Vector.new( 0, 4, 0 ) )
+						return moveStart(true)
+					end
+					
+				else
+					return moveContinue()
+				end
+			end
+		end
+		
+		
+		var BehaviorAICoward pBehavior
+		
+		/** Actor mover behavior instance. */
+		public var ECBehaviorActorMover.Instance actorMover
+		
+		/** Player movement input behavior instance. */
+		public var ECBehaviorPlayerInputMove.Instance playerInputMove
+		
+		/** Foot steps behavior instance. */
+		public var ECBehaviorFootSteps.Instance footSteps
+		
+		/** Player distance to actor. */
+		public var ParameterTableEntry playerDistance
+		
+		/** Wander origin. */
+		public var DVector wanderOrigin
+		
+		/** Wander radius. */
+		public var float wanderRadius
+		
+		/** Countdown time. */
+		public var float countdown
+		
+		/** Target orientation. */
+		public var float targetOrientation
+		
+		
+		/**
+		 * Create instance.
+		 */
+		func new(BehaviorAICoward behavior, BehaviorElement element) super(element)
+			pBehavior = behavior
+			
+			// Store behavior instances we use later on. We can do this in the constructor
+			actorMover = behavior.actorMover.instance(element)
+			playerInputMove = behavior.playerInputMove.instance(element)
+			footSteps = behavior.footSteps.instance(element)
+			
+			// Behavior requires think() and postThink() to be called
+			setRequiresThink(true)
+		end
+		
+		/**
+		 * Overrides DefaultECBehaviorInstance.dispose(). As with
+		 * BehaviorAICoward.dispose() this is used to avoid leaking.
+		 */
+		func void dispose()
+			actorMover = null
+			playerInputMove = null
+			footSteps = null
+			playerDistance = null
+			
+			// Never forget the super call
+			super.dispose()
+		end
+		
+		func void init(StubElement stub)
+			var BehaviorElement element = getElement()
+			
+			// get parameter table entry. done here not in constructor since
+			// ECBehaviorParameterTable creates parameter table during init not in constructor.
+			var ParameterTable paramTable = pBehavior.parameterTable.instance(element).getParameterTable()
+			playerDistance = paramTable.getAt("playerDistance")
+			
+			// Behavior tree actions and conditions must be added here not in the constructor
+			// since the ECBehaviorBehaviorTree behavior can only create the context inside
+			// its init() call. And since we have been added later we have to do it here too
+			var BTContext context = pBehavior.behaviorTree.instance(element).getContext()
+			
+			// Add actions used by behavior tree. Missing actions cause BTResult.failure
+			context.setAction("wander", ActionWander.new(this))
+			context.setAction("wait", ActionWait.new(this))
+			context.setAction("turning", ActionTurning.new(this))
+			context.setAction("flee", ActionFlee.new(this))
+			context.setAction("backOff", ActionBackOff.new(this))
+			
+			// condition testing if the player is near the actor or not. parameter table
+			// conditions support the negated() method. this way opposite conditions can
+			// be quickly added. this reduces typing required in XML behavior trees and
+			// makes the XML behavior trees more readable and understandable
+			var BTConditionParameterTableFloat condition = BTConditionParameterTableFloat.new(\
+				playerDistance, 100, BTConditionParameterTableFloat.Operator.lessThan, 4)
+			context.setCondition("playerNearby", condition)
+			context.setCondition("playerNotNearby", condition.negated())
+			
+			wanderOrigin = element.getPosition()
+			wanderRadius = 8
+		end
+		
+		func void think(float elapsed)
+			// count down. does not matter if used or not
+			countdown -= elapsed
+			
+			// store the distance to the player actor in the actor parameter table. this
+			// way the behavior tree conditions have easy access to this information. of
+			// course a class variable could be used to. this requires then a BTCondition
+			// implementation to test the class variable. using the parameter table is
+			// usually a quicker solution for simple problems. also other scripts in the
+			// game have access to the actor parameter table
+			var BehaviorElement player = BaseGameApp.getApp().getPlayerControlledActor().getActor().getElement()
+			playerDistance.setValue((player.getPosition() - getElement().getPosition()).getLength())
+			
+			// this would be an example of jumping to a specific rule
+			//if interrupt
+			//	pBehavior.behaviorTree.instance(getElement()).getContext().setCurrentRuleByID("flee")
+			//end
+			
+			updateFootSteps()
+		end
+		
+		/**
+		 * Update foot steps.
+		 */
+		func void updateFootSteps()
+			// if going to stop moving stop foot steps. otherwise use the appropriate steps
+			if actorMover.getLocomotion().getLocomotion().getMovingSpeed() < 0.1
+				footSteps.clearActiveConfiguration()
+				
+			elif actorMover.getSpeed() > playerInputMove.getSpeedWalk() * 1.1
+				footSteps.setActiveConfigurationWithID(CowardlyActorClass.FOOTSTEPS_RUN, true)
+				
+			else
+				footSteps.setActiveConfigurationWithID(CowardlyActorClass.FOOTSTEPS_WALK, true)
+			end
+		end
+	end
+	
+	
+	public var ECBehaviorBehaviorTree behaviorTree
+	public var ECBehaviorParameterTable parameterTable
+	public var ECBehaviorActorMover actorMover
+	public var ECBehaviorPlayerInputMove playerInputMove
+	public var ECBehaviorFootSteps footSteps
+	
+	
+	/**
+	 * \brief Create behavior.
+	 */
+	func new(BehaviorElementClass eclass) super(eclass)
+		// Here element class properties can be added to configure the behavior.
+		//var String prefix = "aiCoward."
+		
+		// Add this behavior to the element class
+		eclass.addBehavior(this)
+	end
+	
+	/**
+	 * Dispose of the behavior. This is used to break reference loops avoiding leaking.
+	 * It is not required to clear all stored behaviors but doing so ensures you never
+	 * end up with surprises.
+	 */
+	func void dispose()
+		behaviorTree = null
+		parameterTable = null
+		actorMover = null
+		playerInputMove = null
+		footSteps = null
+		
+		// Never forget the super call
+		super.dispose()
+	end
+	
+	/**
+	 * Create instance.
+	 */
+	func ECBehaviorInstance createInstance(BehaviorElement element)
+		return Instance.new(this, element)
+	end
+end

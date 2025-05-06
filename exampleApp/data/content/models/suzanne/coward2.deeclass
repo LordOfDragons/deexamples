@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='CowardlyActor2' class='Actor'>
+	<!--
+	Define element class similar to CowardlyActorClass but using XML.
+	
+	See the behavior documentation on the Wiki page for detailed information:
+	https://developer.dragondreams.ch/wiki/doku.php/dragengine:modules:dragonscript:behavior_elements
+	-->
+	
+	<!--
+	Set ECBehaviorComponent properties
+	-->
+	<string name='component.model'>suzanne.demodel</string>
+	<string name='component.skin'>coward.deskin</string>
+	<string name='component.rig'>suzanne.derig</string>
+	
+	<!--
+	Set actor moving speed. Make actor moving faster than player so he can flee a bit
+	-->
+	<float name='actorMover.speed'>1.5</float>
+	<float name='playerInputMove.speedWalk'>1.5</float>
+	<float name='playerInputMove.speed'>5</float>
+	
+	<!--
+	Set action and AI to start out with.
+	
+	the BAAFirstPerson is the default action factory. We use this one as it is enough
+	for this actor. Otherwise you can create your own BaseActorAction subclass or
+	you can use BAAStateMachine. This allows to use a state machine (*.desm) to
+	create actor actions. By using a state machine you can easily switch activate it
+	by using this behavior tree action (path can be relative to the *.debt file directory):
+	
+		<action name='aiAction.set'>
+			<parameter name='action.stateMachine'>/content/action/myAction.desm</parameter>
+		</action>
+	
+	By default BAAIBehaviorTree is used as AI. This runs a behavior tree as AI.
+	Set the initial behavior tree (*.debt) to run using "behaviorTree.path".
+	This element class property belongs to ECBehaviorBehaviorTree behavior.
+	You can switch the AI to a new behavior tree one by using this behavior tree
+	action (path can be relative to the *.debt file directory).
+	
+		<action name='aiAction.set'>
+			<parameter name='ai.behaviorTree'>/content/ai/patrol.debt</parameter>
+		</action>
+	
+	-->
+	<string name='behaviorTree.path'>/content/behaviors/cowardly.xml</string>
+	
+	<!--
+	The same behavior tree file is used for both the script element class
+	(CowardlyActor) and the XML element class (this one here). In this case here
+	the custom behavior tree actions are provided by a custom behavior "BehaviorAICoward".
+	By adding the behavior to this class we can use the actions and conditions in
+	the behavior tree. This is the recommended way of handling custom actions
+	-->
+	<behavior type='BehaviorAICoward'/>
+	
+	<!--
+	Add foot step configurations. The ECBehaviorFootSteps behavior stores a list of
+	configurations the behavior tree and state machine can active at runtime. These
+	configurations can be added using script code or using other behaviors.
+	
+	The Drag[en]gine provides the ECBehaviorFootStepConfig behavior which allows to
+	add a single configuration. Multiple such behaviors can be used to add as many
+	configurations as needed.
+	
+	If sounds are added in these configurations ECBehaviorFootSteps plays them randomly.
+	You can also keep the list empty and write your own behavior listening to foot
+	step events on ECBehaviorFootSteps to produce situation tailored foot step sounds.
+	
+	In this example two configurations are used, one for walking and one for running.
+	Both use the same sounds but with different play sound parameters.
+	-->
+	<behavior type='ECBehaviorFootStepConfig' id='walk'>
+		<string name='.configId'>walk</string>
+		<float name='.interval'>0.6</float>
+		<float name='.volume'>0.2</float>
+		<float name='.range'>20</float>
+		<list name='.sounds'>
+			<string>/content/sound/footstep1.ogg</string>
+			<string>/content/sound/footstep2.ogg</string>
+			<string>/content/sound/footstep3.ogg</string>
+			<string>/content/sound/footstep4.ogg</string>
+			<string>/content/sound/footstep5.ogg</string>
+			<string>/content/sound/footstep6.ogg</string>
+		</list>
+		<list name='.eventTimes'>
+			<float>0.5</float>
+		</list>
+	</behavior>
+	
+	<behavior type='ECBehaviorFootStepConfig' id='run'>
+		<string name='.configId'>run</string>
+		<float name='.interval'>0.4</float>
+		<float name='.volume'>0.4</float>
+		<float name='.range'>40</float>
+		<list name='.sounds'>
+			<string>/content/sound/footstep1.ogg</string>
+			<string>/content/sound/footstep2.ogg</string>
+			<string>/content/sound/footstep3.ogg</string>
+			<string>/content/sound/footstep4.ogg</string>
+			<string>/content/sound/footstep5.ogg</string>
+			<string>/content/sound/footstep6.ogg</string>
+		</list>
+		<list name='.eventTimes'>
+			<float>0.3</float>
+		</list>
+	</behavior>
+</elementClass>

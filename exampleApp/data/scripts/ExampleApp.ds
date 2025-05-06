@@ -296,6 +296,7 @@ class ExampleApp extends BaseGameApp
 		var BehaviorFactoryList factories = getBehaviorFactories()
 		factories.add(BehaviorChooseColors.Factory.new())
 		factories.add(BehaviorInteractToggle.Factory.new())
+		factories.add(BehaviorAICoward.Factory.new())
 	end
 	
 	/**
