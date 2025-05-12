@@ -1,0 +1,404 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<stateMachine>
+	<!--
+	Import the "firstPerson.desm" state machine. This includes the defines states into
+	this state machine. If states exist already they are overwritten. After importing
+	you can overwrite imported states by simply redefining them.
+	
+	You can also import other state machines. This allows storing often used states
+	and state templates in separate files for easier reuse.
+	-->
+	<import>/shareddata/stateMachines/actorAction/firstPerson.desm</import>
+	<!-- <import>/shareddata/stateMachines/actorAction/vehicle.desm</import> -->
+	
+	<!--
+	Import shared states.
+	-->
+	<import>player_shared.desm</import>
+	
+	<!--
+	This example state machine is similar to the class PlayerAction but done using
+	BAAStateMachine using this state machine.
+	
+	Using state machines actor actions can be define in a simpler way without needing
+	to write BaseActorAction subclasses. In contrary to scripted actions state machines
+	are based on a composition design instead of a polymorphism design.
+	
+	For actor actions start out by extending one of the pre-made state machines.
+	In this example the first person fps state machine is extended. For this
+	include the "extend" attribute in the "stateMachine" tag with the path of the file
+	"/shareddata/stateMachines/actorAction/firstPerson.desm". You have now a state machine
+	which contains the same states as defined in this file. You can now replace or extend
+	the provided states depending on your needs.
+	
+		<stateMachine>
+			<import>/shareddata/stateMachines/actorAction/firstPerson.desm</import>
+			...
+		</stateMachine>
+	
+	You can read the "firstPerson.desm" file with all comments on github:
+	https://github.com/LordOfDragons/dragengine/blob/master/src/modules/scripting/dragonscript/data/stateMachines/actorAction/firstPerson.desm
+	
+	If you redefine a state which already exists in the extended state machine your new
+	state replaces the state of the extended state machine. You are now responsible to
+	properly set up the state to make it function properly.
+	
+		<state id='ground'>
+			...
+		</state>
+	
+	You can use importing to compose states from other states. This strong feature of the
+	state machine system allows to reuse state definitions to build complex states without
+	copying shared definitions multiple time. To import a state into the state to be defined
+	use the "import" tag with the identifier of the state to import as tag content. You can
+	use any state defined before this state as well as all states in the extended state machine
+	if used.
+	
+		<state id='shared.playerMovement'>
+			<transition event='movement.move.forward.start'>
+				<action name='playerInputMove.set'>
+					<parameter name='forward'>true</parameter>
+				</action>
+			</transition>
+		</state>
+		
+		<state id='shared.playerInteraction'>
+			<transition event='interact.primary.start'>
+				<action name='doSomething'/>
+			</transition>
+		</state>
+		
+		<state id='myState'>
+			<import>shared.playerMovement</import>
+			<import>shared.playerInteraction</import>
+			... more imports
+		</state>
+	
+	The order of imports matters in that enter actions are run in the order of the imports.
+	This is important since enter actions can switch to a new state stop processing enter
+	actions. If you want to use such interupting enter actions import them before others.
+	Furthermore transitions are matched in the order of imports. The first matching
+	transition is run even if other transitions after it would match too.
+	
+	You can use this to extend a state from the extended state machine. For this import
+	the state with the same name anywhere inside your state. This allows placing your own
+	actions and transitions before the extended state. Keep note that importing states
+	also sets the next state to transition to if the imported state does set it. You can
+	override this after importing by using "nextState" tag if required.
+	
+		<state id='ground'>
+			<transition event='movement.move.forward.start'>
+				<action name='playerInputMove.set'>
+					<parameter name='forward'>true</parameter>
+				</action>
+			</transition>
+			<import>ground</import>
+		</state>
+	-->
+	
+	
+	<!--
+	Initial state. Waits for "activate" to transition into "ground" state. To overwrite
+	the actions taken on activate add matching transition before importing the base state.
+	This way your transitions win over the ones in the base state.
+	-->
+	<state id='created'>
+		<!--
+		Actions has been activated.
+		-->
+		<transition event='activate' state='ground'>
+			<!--
+			Typically you would initialize here the animator to use. For this you would have
+			to set up the animators supported by the actor in the element class. This can be
+			done in XML using a definition like this:
+			
+			<map name='actorAnimated.animators'>
+				<string key='default'>default.deanimator</string>
+				<string key='sitting'>sitting.deanimator</string>
+				<string key='flying'>flying.deanimator</string>
+			</map>
+			
+			Then you can select the animator to use for each action in the state machine like this:
+			
+			<enterAction name='actorAnimated.set'>
+				<parameter name='animator'>default</parameter>
+				<parameter name='apply'/>
+			</enterAction>
+			
+			Take note about the "apply" parameter used. If you change the animator outside the
+			"think"/"postThink" phase animators are not automatically applied and you can end up
+			with a 1-frame animation distortion. It is safe to use "apply" here even if this is
+			not the case. It can only waste a bit of processing time.
+			
+			If you have to manually adjust controllers place the "apply" parameter in the last
+			"enterAction" to ensure "apply" is called last.
+			
+			<enterAction name='actorAnimated.set'>
+				<parameter name='animator'>default</parameter>
+				<parameter name='controller.name'>animation control 1</parameter>
+				<parameter name='controller.value'>1</parameter>
+			</enterAction>
+			
+			<enterAction name='actorAnimated.set'>
+				<parameter name='controller.name'>animation control 2</parameter>
+				<parameter name='controller.value'>0.25</parameter>
+				<parameter name='apply'/>
+			</enterAction>
+			
+			In general though it is best to move controller handling into a custom behavior.
+			Such behaviors can add a listener to ECBehaviorActorAnimated to know when animators
+			change to init controllers if present. One advantage of this approach is that you
+			do not have to worry about which controller needs to be updated in actions. If the
+			controller is present in the chosen animator your behavior will find and init it
+			otherwise it is ignored.
+			
+			In this example we have no animators defined so we can skip it
+			-->
+			
+			<!--
+			Import "shared.init.inputLocomotion" and "shared.init.inputLocomotion.player"
+			from "firstPerson.desm". All enter and exit actions are added. Optionally you can
+			remove the import and do these things:
+			- init player input parameters
+			- init locomotion parameters
+			-->
+			<import>shared.init.inputLocomotion</import>
+			<import>shared.init.inputLocomotion.player</import>
+		</transition>
+		
+		<!--
+		Actions has been activated while loading.
+		
+		While loading you should not initialize animators, player input nor locomotion.
+		The respective behaviores restored these informations already from persisted data.
+		Doing it here again would overwrite the restored data.
+		
+		For this reason it is usually not necessary to redefine the base state transition
+		-->
+		<!--
+		<transition event='activateWhileLoading' state='ground'>
+		</transition>
+		-->
+	</state>
+	
+	
+	<!--
+	Note about loading.
+	
+	While loading the state machine is not sent the "activate" event but the "activateWhileLoading".
+	While "activate" can only be sent to the initial state (here "created") the
+	"activateWhileLoading" event is send to whatever state the state machine is in after loading.
+	-->
+	
+	
+	<!--
+	Actor is standing on ground. This is the main state which processes player input by
+	updating respective player input behaviors.
+	-->
+	<state id='ground'>
+		<!--
+		Other events that can be used. All these transitions stay in the same state.
+		-->
+		
+		<!--
+		Player takes control of actor. Base transition imports "shared.init.inputLocomotion"
+		and "shared.init.inputLocomotion.player"
+		-->
+		<!--
+		<transition event='playerTakesControl'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Player releases control of actor. Base transition imports "shared.init.inputLocomotion"
+		-->
+		<!--
+		<transition event='playerReleasesControl'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Think on frame update. Base transition import "shared.update.locomotion",
+		"shared.update.collider" and "shared.update.animators"
+		-->
+		<transition event='think'>
+			<import>shared.think.ground</import>
+			<import>update.footstep.configuration</import>
+		</transition>
+		
+		<!--
+		Think on frame update for player controlled actor only.
+		Base transition imports "shared.update.player.lookAround"
+		-->
+		<!--
+		<transition event='playerThink'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Post think on frame update. Base transitions imports "shared.postUpdate"
+		-->
+		<!--
+		<transition event='postThink'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Post think on frame update for player controlled actor only. Base transition is empty.
+		-->
+		<!--
+		<transition event='playerPostThink'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Element entered game world. Base transition is empty.
+		-->
+		<!--
+		<transition event='enteredGameWorld'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Element left game world. Base transition is empty.
+		-->
+		<!--
+		<transition event='leftGameWorld'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		First frame update after element entered game world. Base transition is empty.
+		-->
+		<!--
+		<transition event='enterFrame'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Actor is requested to cancel action the next time possible. Base transition
+		imports "shared.aiFailed" to notify AI about action having failed.
+		-->
+		<!--
+		<transition event='cancel'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Actor begins falling. Send by ECBehaviorProjectToGround if the actor is detected
+		to be no more touching ground.
+		
+		Base transition switches to "falling" state.
+		-->
+		<!--
+		<transition event='projectToGround.noTouch' state='falling'>
+			...
+		</transition>
+		-->
+		
+		<!--
+		Player pressed first interaction button (typically left mouse button). Applies
+		only if player is looking at an element he can interact with
+		-->
+		<transition event='interact.primary.start'>
+			<condition>lookAt.check</condition>
+			<parameter name='lookAt.interact.name'>toggle</parameter>
+			<parameter name='lookAt.interact.has'>true</parameter>
+			
+			<!--
+			Instead of using an actor action to move and align the player to toggle
+			the behavior you can do it directly here. This is more the first person
+			shooter way of doing it but also the most simple solution
+			-->
+			<!--
+			<action name='lookAt.update'>
+				<parameter name='interact'>toggle</parameter>
+			</action>
+			-->
+			
+			<action name='lookAt.update'>
+				<parameter name='interactElement.assign'/>
+			</action>
+			<action name='aiAction.set'>
+				<parameter name='action.stateMachine'>player_toggle.desm</parameter>
+			</action>
+		</transition>
+		
+		<transition event='interact.primary.start'>
+			<condition>lookAt.check</condition>
+			<parameter name='lookAt.interact.name'>chooceCustomColor</parameter>
+			<parameter name='lookAt.interact.has'>true</parameter>
+			
+		</transition>
+		
+		<!--
+		Import the base state to extend it. Transitions defined above are used instead
+		of the same base class transitions.
+		-->
+		<import>ground</import>
+	</state>
+	
+	
+	<!--
+	Actor is falling. Same as "ground" state but actor can not move out of free will.
+	In particular this means the inputs are still applied to the player input behaviors
+	but the processing of the input behaviors is different.
+	-->
+	<state id='falling'>
+		<!--
+		Thining is slightly different while falling than while on ground.
+		In particular the base state import "shared.update.collider.falling"
+		instead of "shared.update.collider.ground"
+		-->
+		<!--
+		<transition event='think'>
+			<import>shared.update.locomotion</import>
+			<import>shared.update.collider.falling</import>
+			<import>shared.update.animators</import>
+		</transition>
+		-->
+		
+		<!--
+		Actor hits ground. Send by ECBehaviorProjectToGround if the actor is detected
+		to be touching ground.
+		
+		Base transition switches to "ground" state.
+		-->
+		<!--
+		<transition event='projectToGround.touch' state='ground'>
+			...
+		</transition>
+		-->
+		
+		<import>falling</import>
+	</state>
+	
+	
+	<!--
+	Actor is moved by ECBehaviorActorMover. Same as "ground" state but certain player
+	inputs are disregarded.
+	-->
+	<state id='actorMover'>
+		<!--
+		Main difference to "ground" state is that event "playerThink" is empty in the
+		base transition. This is required since applying player input while
+		ECBehaviorActorMover is handling the actor can result in problems
+		-->
+		
+		<transition event='think'>
+			<import>shared.think.ground</import>
+			<import>update.footstep.configuration</import>
+		</transition>
+		
+		<import>actorMover</import>
+	</state>
+</stateMachine>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<stateMachine>
+	<!--
+	Share states for player state machines.
+	-->
+	
+	
+	<!--
+	Footstep handling. Import this state in the "think" transition.
+	
+	It would be also possible to switch the configuration if the player pressed/releases
+	the run key (event "movement.run.start", "movement.run.stop" and "movement.run.toggle").
+	In that case this state would be imported to these transitions.
+	
+	For more complex games though it is usually easier to create a behavior which manages
+	the footstep configuration switching itself. This can be done either regularly during
+	thinking or by listening to events. The BehaviorAICoward behavior is an example of this.
+	
+	If you want to use a material system to alter the foot step sounds remove all sounds
+	from the configurations and create a behavior which listens to ECBehaviorFootSteps
+	events. Then you can play sounds using whatever logic you want to use.
+	
+	For demonstration purpose the foot step configuration is changed from within the
+	state machine.
+	-->
+	<state id='update.footstep.configuration'>
+		<!--
+		If moving and run key is pressed use run configuration
+		-->
+		<enterAction name='footSteps.set'>
+			<condition>locomotion.check</condition>
+			<parameter name='locomotion.move.speed.absolut.greater'>0.01</parameter>
+			
+			<condition>playerInputMove.check</condition>
+			<parameter name='playerInputMove.run'>true</parameter>
+			
+			<parameter name='configuration'>run</parameter>
+		</enterAction>
+		
+		<!--
+		If moving and run key is released use walk configuration
+		-->
+		<enterAction name='footSteps.set'>
+			<condition>locomotion.check</condition>
+			<parameter name='locomotion.move.speed.absolut.greater'>0.01</parameter>
+			
+			<condition>playerInputMove.check</condition>
+			<parameter name='playerInputMove.run'>false</parameter>
+			
+			<parameter name='configuration'>walk</parameter>
+		</enterAction>
+		
+		<!--
+		If not moving clear configuration
+		-->
+		<enterAction name='footSteps.set'>
+			<condition>locomotion.check</condition>
+			<parameter name='locomotion.move.speed.absolut.less'>0.01</parameter>
+			
+			<parameter name='configuration'/>
+		</enterAction>
+	</state>
+</stateMachine>

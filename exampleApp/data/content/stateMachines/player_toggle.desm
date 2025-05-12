@@ -1,0 +1,135 @@
+<stateMachine>
+	<!--
+	State machine version of PlayerActionInteractToggle.
+	-->
+	<import>/shareddata/stateMachines/actorAction/firstPerson.desm</import>
+	<import>player_shared.desm</import>
+	
+	<initialState>created</initialState>
+	
+	
+	<state id='created'>
+		<transition event='activate' state='moving'/>
+	</state>
+	
+	
+	<state id='moving'>
+		<!--
+		Claim interaction spot. If not possible stop the action
+		-->
+		<enterAction name='occupier.update'>
+			<parameter name='claim'/> <!-- value indicates which ECBehaviorInteractElement to use -->
+			<parameter name='claim.id'>interactToggle</parameter>
+		</enterAction>
+		
+		<enterAction name='aiAction.set'>
+			<parameter name='occupier.occupying'>false</parameter>
+			<condition>occupier.check</condition>
+			
+			<parameter name='action.stateMachine'>player.desm</parameter>
+		</enterAction>
+		
+		<!--
+		Set up locomotion for non-player movement.
+		-->
+		<import>shared.init.inputLocomotion</import>
+		<!-- <import>shared.init.inputLocomotion.player</import> -->
+		
+		<!--
+		Move towards spot until close enough. Actor mover uses the actor navigator and
+		thus is able to navigate safely to the desired spot.
+		
+		This action is used last since the player can be already close enough which causes
+		this action to immediately send the "actorMover.stop" event
+		-->
+		<enterAction name='occupier.update'>
+			<parameter name='move'/>
+			<parameter name='move.distance'>0.3</parameter>
+		</enterAction>
+		
+		
+		<transition event='think'>
+			<import>shared.think.ground</import>
+			<import>update.footstep.configuration</import>
+		</transition>
+		
+		<!--
+		Actor stopped moving.
+		-->
+		<transition event='actorMover.stop' state='aligning'/>
+		
+		<!--
+		Basic state content required to be present for actor to work properly
+		-->
+		<import>shared.state.ground</import>
+	</state>
+	
+	
+	<state id='aligning'>
+		<!--
+		Switch back to player locomotion
+		-->
+		<import>shared.init.inputLocomotion.player</import>
+		
+		<!--
+		Align with interaction spot
+		-->
+		<enterAction name='occupier.update'>
+			<parameter name='align'/>
+		</enterAction>
+		
+		
+		<transition event='think'>
+			<import>shared.think.ground</import>
+			<import>update.footstep.configuration</import>
+		</transition>
+		
+		<!--
+		Actor stopped aligning.
+		-->
+		<transition event='alignActor.stop' state='interact'/>
+		
+		<!--
+		Basic state content required to be present for actor to work properly
+		-->
+		<import>shared.state.ground</import>
+	</state>
+	
+	
+	<state id='interact'>
+		<!--
+		The look-at used during aligning sticks to the actor until cleared
+		-->
+		<enterAction name='conversationActor.update'>
+			<parameter name='headLookAt.clear'/>
+		</enterAction>
+		
+		<!--
+		Interact with the element
+		-->
+		<enterAction name='interactionElement.update'>
+			<parameter name='interact'>toggle</parameter>
+			<parameter name='clear'/> <!-- clear after use -->
+		</enterAction>
+		
+		<!--
+		Release the interaction zone
+		-->
+		<enterAction name='occupier.update'>
+			<parameter name='release'/>
+		</enterAction>
+		
+		<!--
+		Activate basic player action
+		-->
+		<enterAction name='aiAction.set'>
+			<parameter name='action.stateMachine'>player.desm</parameter>
+		</enterAction>
+		
+		
+		<!--
+		Basic state content required to be present for actor to work properly
+		-->
+		<import>shared.state.ground</import>
+	</state>
+</stateMachine>

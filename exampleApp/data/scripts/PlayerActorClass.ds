@@ -17,7 +17,7 @@ pin Dragengine.Scenery
  * although they can be used with any BehaviorElement as long as the required behaviors
  * are present.
  */
-public class PlayerActorClass extends BaseActorClass
+class PlayerActorClass extends BaseActorClass
 	public static var String FOOTSTEPS_WALK = "walk"
 	public static var String FOOTSTEPS_RUN = "run"
 	
@@ -31,7 +31,7 @@ public class PlayerActorClass extends BaseActorClass
 	/**
 	 * Create element class.
 	 */
-	public func new() super("PlayerActor")
+	func new() super("PlayerActor")
 		// Set conversation actor identifier. This allows to script the player actor
 		// inside a conversation script using the "player" actor identifier
 		getConversationActor().getActorId().setValue("player")
@@ -57,6 +57,7 @@ public class PlayerActorClass extends BaseActorClass
 		// requires a bunch of other behaviors to work. BaseActorClass has added
 		// them already so jump the bandwagon
 		lookAt = ECBehaviorLookAt.new(this, getColliderAI(), getComponent(), getLocomotion())
+		lookAt.getBTSMs().addBTSM(getBehaviorTree(), getStateMachine())
 		
 		// Add support to show interaction prompts on screen. This behavior show
 		// ECBehaviorInteractPrompt instances found in the element the player is
@@ -93,10 +94,14 @@ public class PlayerActorClass extends BaseActorClass
 		
 		// Add occupier behavior. This allows the actor to claim interaction spots
 		occupier = ECBehaviorOccupier.new(this)
+		occupier.getBTSMs().addBTSM(getBehaviorTree(), getStateMachine())
 		
-		// Set the default actor action. When done in the element class a factory has
-		// to be used
+		// Set the default actor action. When done in the element class a factory has to be used
 		getAIAction().setActionFactory(PlayerAction.Factory.new())
+		
+		getAIAction().setActionFactory(BAAStateMachine.Factory.new())
+		getStateMachine().getStateMachine().setPath("/content/stateMachines/player.desm")
+		// getStateMachine().getDebug().setValue("PlayerSM")
 		
 		// Foot step sounds to play. Randomly chosen
 		footStepSounds = ECPSoundList.new("footStepSounds")

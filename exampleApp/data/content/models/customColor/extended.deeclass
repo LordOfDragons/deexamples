@@ -164,6 +164,12 @@
 	</behavior>
 	
 	<!--
+	Add interaction behavior. This is used by behavior trees and state machines
+	to figure out what interactions an element supports.
+	-->
+	<behavior type='ECBehaviorInteraction'/>
+	
+	<!--
 	Add behavior for player to interact with this element. Adjust the interaction zone
 	to work with the box. This is a behavior specific to the example application. For this
 	reason it uses the prefix "Behavior" instead of "ECBehavior" as the behaviors provided

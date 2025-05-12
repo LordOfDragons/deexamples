@@ -31,7 +31,8 @@ class BehaviorChooseColors extends DefaultECBehavior
 				throw EInvalidParam.new("id is not empty string")
 			end
 			
-			var BehaviorChooseColors behavior = BehaviorChooseColors.new(eclass)
+			var BehaviorChooseColors behavior = BehaviorChooseColors.new(eclass,\
+				ECBehaviorInteraction.getBehaviorIn(eclass))
 			
 			eclass.sharedFactoryHelper.setPropertiesFromParameters(eclass, parameters, "chooseColors")
 			
@@ -43,6 +44,22 @@ class BehaviorChooseColors extends DefaultECBehavior
 	 * Instance of behavior. This is used at run-time to access the functionality.
 	 */
 	public class Instance extends DefaultECBehaviorInstance
+		/**
+		 * Choose custom color interaction.
+		 */
+		class InteractionChooseCustomColor implements ECBehaviorInteraction.Interaction
+			var Instance pInstance
+			
+			func new(Instance instance)
+				pInstance = instance
+			end
+			
+			func bool interact(ECBehaviorInteraction.Instance instance, Array parameters, BehaviorElement source)
+				return true
+			end
+		end
+		
+		
 		/** List of custom color behaviors in the order they should be displayed. */
 		public var Array customColors
 		
@@ -61,6 +78,10 @@ class BehaviorChooseColors extends DefaultECBehavior
 			customColors = behavior.customColors.map(block ECBehaviorCustomColor each
 				return each.instance(element)
 			end)
+			
+			// Register "chooseCustomColor" interaction
+			behavior.interaction.instance(element).setInteractionAt(\
+				"chooseCustomColor", InteractionChooseCustomColor.new(this))
 		end
 		 
 		/**
@@ -80,12 +101,15 @@ class BehaviorChooseColors extends DefaultECBehavior
 	public var Array customColors
 	public var ECBehaviorInteractionSpot interactionSpot
 	public var ECBehaviorInteractPrompt prompt
+	public var ECBehaviorInteraction interaction
 	
 	
 	/**
 	 * \brief Create behavior.
 	 */
-	public func new(BehaviorElementClass eclass) super(eclass)
+	public func new(BehaviorElementClass eclass, ECBehaviorInteraction interaction) super(eclass)
+		this.interaction = interaction
+		
 		// Find all custom colors and store them. Another possibility is to add
 		// an addCustomColor(ECbehaviorCustomColor) function to allow the user
 		// to add the instances in the order he wants to. For this example though
@@ -117,6 +141,7 @@ class BehaviorChooseColors extends DefaultECBehavior
 		customColors = null
 		interactionSpot = null
 		prompt = null
+		interaction = null
 		
 		// Never forget the super call
 		super.dispose()

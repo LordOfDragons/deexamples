@@ -118,9 +118,13 @@ public class CustomColorExampleClass extends SimpleElementClass
 		ECBehaviorRenderableCustomColor.new(this, color4, renderableCanvas, basePath + "color4.png", "color4")
 		ECBehaviorRenderableCustomColor.new(this, color5, renderableCanvas, basePath + "color5.png", "color5")
 		
+		// Add interaction behavior. This is used by behavior trees and state machines
+		// to figure out what interactions an element supports
+		var ECBehaviorInteraction interaction = ECBehaviorInteraction.new(this)
+		
 		// Add behavior for player to interact with this element. Adjust the
 		// interaction zone to work with the box
-		var BehaviorChooseColors ccc = BehaviorChooseColors.new(this)
+		var BehaviorChooseColors ccc = BehaviorChooseColors.new(this, interaction)
 		ccc.interactionSpot.getPosition().setVector(Vector.new(0, 0, 3))
 		ccc.interactionSpot.getLookAt().setVector(Vector.new(0.5, 1, 1))
 	end

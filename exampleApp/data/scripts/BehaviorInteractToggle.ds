@@ -67,7 +67,8 @@ class BehaviorInteractToggle extends DefaultECBehavior
 				throw EInvalidParam.new("id is not empty string")
 			end
 			var BehaviorInteractToggle behavior = BehaviorInteractToggle.new(\
-				eclass, eclass.sharedFactoryHelper.defaultAnimated(eclass, parameters))
+				eclass, eclass.sharedFactoryHelper.defaultAnimated(eclass, parameters),\
+				ECBehaviorInteraction.getBehaviorIn(eclass))
 			
 			eclass.sharedFactoryHelper.setPropertiesFromParameters(eclass, parameters, "interactToggle")
 			
@@ -79,6 +80,23 @@ class BehaviorInteractToggle extends DefaultECBehavior
 	 * Instance of behavior. This is used at run-time to access the functionality.
 	 */
 	public class Instance extends DefaultECBehaviorInstance
+		/**
+		 * Toggle interaction.
+		 */
+		class InteractionToggle implements ECBehaviorInteraction.Interaction
+			var Instance pInstance
+			
+			func new(Instance instance)
+				pInstance = instance
+			end
+			
+			func bool interact(ECBehaviorInteraction.Instance instance, Array parameters, BehaviorElement source)
+				pInstance.toggle()
+				return true
+			end
+		end
+		
+		
 		/** The animated behavior instance. */
 		public var ECBehaviorAnimated.Instance animated
 		
@@ -93,6 +111,10 @@ class BehaviorInteractToggle extends DefaultECBehavior
 			// Look up the instance and store it. Using instance() is fast
 			animated = behavior.animated.instance(element)
 			interactionSpot = behavior.interactionSpot.instance(element)
+			
+			// Register "toggle" interaction
+			behavior.interaction.instance(element).setInteractionAt(\
+				"toggle", InteractionToggle.new(this))
 		end
 		 
 		/**
@@ -122,14 +144,17 @@ class BehaviorInteractToggle extends DefaultECBehavior
 	public var ECBehaviorAnimated animated
 	public var ECBehaviorInteractionSpot interactionSpot
 	public var ECBehaviorInteractPrompt prompt
+	public var ECBehaviorInteraction interaction
 	
 	
 	/**
 	 * \brief Create behavior.
 	 */
-	public func new(BehaviorElementClass eclass, ECBehaviorAnimated animated) super(eclass)
+	public func new(BehaviorElementClass eclass, ECBehaviorAnimated animated,\
+	ECBehaviorInteraction interaction) super(eclass)
 		// Put aside the behavior. We use it in the Instance to obtain the animated instance
 		this.animated = animated
+		this.interaction = interaction
 		
 		// Add the interaction spot. Set some basic parameters. Usually the element
 		// class using this behavior sets the parameters to match the model used.
@@ -187,6 +212,7 @@ class BehaviorInteractToggle extends DefaultECBehavior
 		animated = null
 		interactionSpot = null
 		prompt = null
+		interaction = null
 		
 		// Never forget the super call
 		super.dispose()

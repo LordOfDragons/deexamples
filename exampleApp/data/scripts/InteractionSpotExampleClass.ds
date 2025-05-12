@@ -53,6 +53,7 @@ public class InteractionSpotExampleClass extends AnimatedElementClass
 	end
 	
 	
+	public var ECBehaviorInteraction interaction
 	public var BehaviorInteractToggle interactToggle
 	
 	
@@ -95,8 +96,12 @@ public class InteractionSpotExampleClass extends AnimatedElementClass
 		// class properties to allow reusing them easily across various element classes.
 		getAnimated().getAnimator().getAnimator().setPath("/content/models/animationTest/at2.deanimator")
 		
+		// Add interaction behavior. This is used by behavior trees and state machines
+		// to figure out what interactions an element supports
+		interaction = ECBehaviorInteraction.new(this)
+		
 		// Add our interaction behavior. This is detected by the player to apply the interaction
-		interactToggle = BehaviorInteractToggle.new(this, getAnimated())
+		interactToggle = BehaviorInteractToggle.new(this, getAnimated(), interaction)
 		
 		// BehaviorInteractToggle adds an interaction spot. The BaseActor uses a
 		// collider with a radius of 0.3m . We require the player to be placed 0.8m

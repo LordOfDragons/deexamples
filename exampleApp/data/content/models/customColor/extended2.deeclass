@@ -126,6 +126,8 @@
 		<string name='.image'>color5.png</string>
 	</behavior>
 	
+	<behavior type='ECBehaviorInteraction'/>
+	
 	<behavior type='BehaviorChooseColors'>
 		<vector name='.interactionSpot.position' x='0' y='0' z='3'/>
 		<vector name='.interactionSpot.lookAt' x='0.5' y='1' z='1'/>

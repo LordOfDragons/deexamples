@@ -19,7 +19,7 @@
 	-->
 	<float name='actorMover.speed'>1.5</float>
 	<float name='playerInputMove.speedWalk'>1.5</float>
-	<float name='playerInputMove.speed'>5</float>
+	<float name='playerInputMove.speedRun'>5</float>
 	
 	<!--
 	Set action and AI to start out with.
