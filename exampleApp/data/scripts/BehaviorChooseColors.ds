@@ -55,6 +55,36 @@ class BehaviorChooseColors extends DefaultECBehavior
 			end
 			
 			func bool interact(ECBehaviorInteraction.Instance instance, Array parameters, BehaviorElement source)
+				if pInstance.dialog == null
+					pInstance.dialog = PlayerActionCustomColor.DialogEditColors.new(pInstance)
+				end
+				return true
+			end
+		end
+		
+		/**
+		 * Choose custom color interaction finished query.
+		 */
+		class InteractionChooseCustomColorFinished implements ECBehaviorInteraction.Interaction
+			var Instance pInstance
+			
+			func new(Instance instance)
+				pInstance = instance
+			end
+			
+			func bool interact(ECBehaviorInteraction.Instance instance, Array parameters, BehaviorElement source)
+				if pInstance.dialog == null
+					return true
+				end
+				
+				// Check if dialog is still shown on the desktop. Closing the window removes
+				// it from the desktop so we can check if the window still has a parent
+				if pInstance.dialog.getParent() != null
+					return false
+				end
+				
+				pInstance.dialog.safeDispose()
+				pInstance.dialog = null
 				return true
 			end
 		end
@@ -66,6 +96,8 @@ class BehaviorChooseColors extends DefaultECBehavior
 		/** Interaction spot instance. */
 		public var ECBehaviorInteractionSpot.Instance interactionSpot
 		
+		/** Dialog. */
+		public var PlayerActionCustomColor.DialogEditColors dialog
 		
 		
 		/**
@@ -82,6 +114,8 @@ class BehaviorChooseColors extends DefaultECBehavior
 			// Register "chooseCustomColor" interaction
 			behavior.interaction.instance(element).setInteractionAt(\
 				"chooseCustomColor", InteractionChooseCustomColor.new(this))
+			behavior.interaction.instance(element).setInteractionAt(\
+				"chooceCustomColor.finished", InteractionChooseCustomColorFinished.new(this))
 		end
 		 
 		/**
@@ -91,6 +125,11 @@ class BehaviorChooseColors extends DefaultECBehavior
 		public func void dispose()
 			customColors = null
 			interactionSpot = null
+			
+			if dialog != null
+				dialog.safeDispose()
+				dialog = null
+			end
 			
 			// Never forget the super call
 			super.dispose()

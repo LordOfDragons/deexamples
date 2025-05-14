@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<world>
+	<size x='150' y='100' z='150'/>
+	<gravity x='0' y='-9.81' z='0'/>
+	<worldEditor>
+		<skyPath>/igde/skies/static.desky</skyPath>
+	</worldEditor>
+	<nextObjectID>4</nextObjectID>
+	
+	<object id='1'>
+		<classname>SimpleElement</classname>
+		<position x='0' y='0' z='0'/>
+		<property key='component.model'>/content/models/suzanne/suzanne.demodel</property>
+		<property key='navigationSpace.blockerShape'>box:position,0,0.3,-0.05:extends,1.3,0.5,1.3</property>
+		<property key='component.rig'>/content/models/suzanne/suzanne.derig</property>
+		<texture name='material'>
+			<skin>/content/materials/concrete/material.deskin</skin>
+			<tint r='0.835294' g='0.419608' b='0.866667'/>
+		</texture>
+	</object>
+	<object id='2'>
+		<classname>TriggerTouch</classname>
+		<position x='0' y='1' z='1.4'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>pokeTrigger.{owner:id}</property>
+	</object>
+	<object id='3'>
+		<classname>TriggerShout</classname>
+		<position x='0' y='2.5' z='0'/>
+		<property key='showMessage.message'>{owner:property,var.pokerText}</property>
+		<property key='showMessage.trigger'>@pokeTrigger.{owner:id}</property>
+	</object>
+	
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='0' y='0.1' z='1.4'/>
+		<rotation x='90' y='0' z='0'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+</world>

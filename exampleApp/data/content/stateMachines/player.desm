@@ -335,9 +335,15 @@
 		
 		<transition event='interact.primary.start'>
 			<condition>lookAt.check</condition>
-			<parameter name='lookAt.interact.name'>chooceCustomColor</parameter>
+			<parameter name='lookAt.interact.name'>chooseCustomColor</parameter>
 			<parameter name='lookAt.interact.has'>true</parameter>
 			
+			<action name='lookAt.update'>
+				<parameter name='interactElement.assign'/>
+			</action>
+			<action name='aiAction.set'>
+				<parameter name='action.stateMachine'>player_customcolor.desm</parameter>
+			</action>
 		</transition>
 		
 		<!--

@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>b2</nextObjectID>
+	<nextObjectID>b7</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1538,6 +1538,35 @@
 		<texture name='material'>
 			<skin>/content/materials/metalPainted/rough.deskin</skin>
 			<tint r='0.466667' g='0.466667' b='0.466667'/>
+		</texture>
+	</object>
+	<object id='b2'>
+		<classname>BaseWorld</classname>
+		<position x='20' y='0' z='10'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='world.path'>/content/worlds/sub1.deworld</property>
+		<property key='var.pokerText'>First Poker Text</property>
+	</object>
+	<object id='b3'>
+		<classname>BaseWorld</classname>
+		<position x='22' y='0' z='10'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='world.path'>/content/worlds/sub1.deworld</property>
+		<property key='var.pokerText'>Second Poker Text</property>
+	</object>
+	<object id='b4'>
+		<classname>BaseWorld</classname>
+		<position x='24' y='0' z='10'/>
+		<rotation x='0' y='180' z='0'/>
+		<property key='world.path'>/content/worlds/sub1.deworld</property>
+		<property key='var.pokerText'>Third Poker Text</property>
+	</object>
+	<object id='b6'>
+		<classname>InfoSign</classname>
+		<position x='18' y='0' z='8.95'/>
+		<rotation x='0' y='-135' z='0'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/subWorld.deskin</skin>
 		</texture>
 	</object>
 	
