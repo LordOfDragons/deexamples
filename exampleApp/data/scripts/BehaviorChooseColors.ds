@@ -103,7 +103,7 @@ class BehaviorChooseColors extends DefaultECBehavior
 		/**
 		 * Create instance. The behavior is used to look up and store required instances
 		 */
-		public func new(BehaviorChooseColors behavior, BehaviorElement element) super(element)
+		func new(BehaviorChooseColors behavior, BehaviorElement element) super(element)
 			// Look up the instance and store it. Using instance() is fast
 			interactionSpot = behavior.interactionSpot.instance(element)
 			
@@ -122,7 +122,7 @@ class BehaviorChooseColors extends DefaultECBehavior
 		 * Overrides DefaultECBehaviorInstance.dispose(). As with
 		 * BehaviorChooseColors.dispose() this is used to avoid leaking.
 		 */
-		public func void dispose()
+		func void dispose()
 			customColors = null
 			interactionSpot = null
 			
@@ -146,7 +146,7 @@ class BehaviorChooseColors extends DefaultECBehavior
 	/**
 	 * \brief Create behavior.
 	 */
-	public func new(BehaviorElementClass eclass, ECBehaviorInteraction interaction) super(eclass)
+	func new(BehaviorElementClass eclass, ECBehaviorInteraction interaction) super(eclass)
 		this.interaction = interaction
 		
 		// Find all custom colors and store them. Another possibility is to add
@@ -176,7 +176,7 @@ class BehaviorChooseColors extends DefaultECBehavior
 	 * It is not required to clear all stored behaviors but doing so ensures you never
 	 * end up with surprises.
 	 */
-	public func void dispose()
+	func void dispose()
 		customColors = null
 		interactionSpot = null
 		prompt = null
@@ -189,7 +189,7 @@ class BehaviorChooseColors extends DefaultECBehavior
 	/**
 	 * Create instance.
 	 */
-	public func ECBehaviorInstance createInstance(BehaviorElement element)
+	func ECBehaviorInstance createInstance(BehaviorElement element)
 		return Instance.new(this, element)
 	end
 end

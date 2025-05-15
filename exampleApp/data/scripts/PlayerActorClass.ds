@@ -97,7 +97,7 @@ class PlayerActorClass extends BaseActorClass
 		occupier.getBTSMs().addBTSM(getBehaviorTree(), getStateMachine())
 		
 		// Set the default actor action. When done in the element class a factory has to be used
-		getAIAction().setActionFactory(PlayerAction.Factory.new())
+		// getAIAction().setActionFactory(PlayerAction.Factory.new())
 		
 		getAIAction().setActionFactory(BAAStateMachine.Factory.new())
 		getStateMachine().getStateMachine().setPath("/content/stateMachines/player.desm")

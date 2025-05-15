@@ -116,7 +116,7 @@ class BehaviorInteractToggle extends DefaultECBehavior
 			behavior.interaction.instance(element).setInteractionAt(\
 				"toggle", InteractionToggle.new(this))
 		end
-		 
+		
 		/**
 		 * Overrides DefaultECBehaviorInstance.dispose(). As with
 		 * BehaviorInteractToggle.dispose() this is used to avoid leaking.
