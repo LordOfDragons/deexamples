@@ -45,7 +45,7 @@
 		</action>
 	
 	-->
-	<string name='behaviorTree.path'>/content/behaviors/cowardly.xml</string>
+	<string name='behaviorTree.path'>/content/behaviors/cowardly.debt</string>
 	
 	<!--
 	The same behavior tree file is used for both the script element class

@@ -257,7 +257,7 @@ class CowardlyActorAI extends BAAIBehaviorTree
 	public func new()
 		// load behavior tree
 		var BehaviorTree behaviorTree = BaseGameApp.getApp().getLoaders() \
-			.getBehaviorTree().loadFromFile( "/content/behaviors/cowardly.xml" )
+			.getBehaviorTree().loadFromFile( "/content/behaviors/cowardly.debt" )
 		
 		// create context suitable for BAAIBehaviorTree and subclasses thereof
 		var BTContextAI context = BTContextAI.new( this, behaviorTree )
