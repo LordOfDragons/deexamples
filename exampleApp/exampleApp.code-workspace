@@ -5,6 +5,28 @@
 		}
 	],
 	"settings": {
-		"dragonscriptLanguage.requiresPackageDragengine": true
+		"dragonscriptLanguage.requiresPackageDragengine": true,
+		"xml.fileAssociations": [
+			{
+				"pattern": "**/*.desconvo",
+				"systemId": "https://lordofdragons.github.io/dragengine/artifacts/xmlschema/dragengine/latest/simpleConversation.xsd"
+			},
+			{
+				"pattern": "**/*.debt",
+				"systemId": "https://lordofdragons.github.io/dragengine/artifacts/xmlschema/dragengine/latest/behaviorTree.xsd"
+			},
+			{
+				"pattern": "**/*.desm",
+				"systemId": "https://lordofdragons.github.io/dragengine/artifacts/xmlschema/dragengine/latest/stateMachine.xsd"
+			},
+			{
+				"pattern": "**/*.dept",
+				"systemId": "https://lordofdragons.github.io/dragengine/artifacts/xmlschema/dragengine/latest/parameterTree.xsd"
+			},
+			{
+				"pattern": "**/*.deeclass",
+				"systemId": "https://lordofdragons.github.io/dragengine/artifacts/xmlschema/dragengine/latest/elementClass.xsd"
+			}
+		]
 	}
 }
