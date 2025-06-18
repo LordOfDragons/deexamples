@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE skin SYSTEM 'DragengineSkin.dtd'>
 <skin>
 	<texture name='material'>
 		<color property='color' r='0' g='0' b='0' a='1'/>

@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
 <rig>
 	<modelCollision>false</modelCollision>
 	<centralMassPoint x='0' y='0' z='0'/>

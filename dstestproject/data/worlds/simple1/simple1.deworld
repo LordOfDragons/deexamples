@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE world SYSTEM 'EpsylonWorld.dtd'>
 <world>
 	<gravity x='0' y='-9.81' z='0'/>
 	<ambientLight r='1' g='1' b='1'/>

@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE particleEmitter SYSTEM 'DEParticleEmitter.dtd'>
 <particleEmitter>
 	<burstLifetime>1</burstLifetime>
 	<emitBurst>true</emitBurst>

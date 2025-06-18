@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
-<!DOCTYPE rig SYSTEM 'DragengineRig.dtd'>
 <rig>
 	<box>
 		<position x='15' y='2.5' z='20.2'/>
