@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <announcer>
+	<!-- Loads files mattching pattern of all support sound files. -->
+	<!-- <parts>words</parts> -->
+	
 	<!-- Loads files mattching pattern. -->
-	<!-- <parts idCutOff='4' pattern='*.ogg'>words</parts> -->
+	<!-- <parts pattern='*.ogg'>words</parts> -->
 	
 	<!-- Invidiaul files can be added to have specific id. -->
 	<!-- <part id='test'>testfile.ogg</part> -->

@@ -297,7 +297,7 @@ class WindowDynamicMusic extends Window
 	/** \brief Scan directory for dynamic music and load them. */
 	public func void scanDynamicMusic( LoadDynamicMusic loader, String directory )
 		FileSystem.searchFiles( directory, true, block String each, FileType type
-			if type == FileType.file and FileSystem.pathMatchesPattern( each, "*.dynmusic.xml" )
+			if type == FileType.file and FileSystem.pathMatchesPattern( each, "*.dedm" )
 				try
 					// this version would load synchronously
 					//this.pModelDynamicMusic.add( NamedDynamicMusic.new( \
@@ -308,7 +308,7 @@ class WindowDynamicMusic extends Window
 					// in parallel and the gui does not block until loading finished
 					var PreloadDynamicMusic preloader = loader.loadFromFileAsync( each, null )
 					preloader.addListener( PreloadDynamicMusicFinished.new( this, NamedDynamicMusic.new( \
-						preloader.getDynamicMusic(), File.new( each ).getName().substring( 0, -13 ) ) ) )
+						preloader.getDynamicMusic(), File.new( each ).getName().substring( 0, -5 ) ) ) )
 					preloader.checkFinished()
 					
 				catch Exception e

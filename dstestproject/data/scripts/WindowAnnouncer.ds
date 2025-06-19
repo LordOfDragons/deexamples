@@ -231,7 +231,7 @@ class WindowAnnouncer extends Window
 	/** \brief Scan directory for announcer and load them. */
 	public func void scanAnnouncer( LoadAnnouncer loader, String directory )
 		FileSystem.searchFiles( directory, true, block String each, FileType type
-			if type == FileType.file and FileSystem.pathMatchesPattern( each, "*.announcer.xml" )
+			if type == FileType.file and FileSystem.pathMatchesPattern( each, "*.deann" )
 				try
 					// this version would load synchronously
 					//this.pModelAnnouncer.add( NamedAnnouncer.new( \
@@ -242,7 +242,7 @@ class WindowAnnouncer extends Window
 					// in parallel and the gui does not block until loading finished
 					var PreloadAnnouncer preloader = loader.loadFromFileAsync( each, null )
 					preloader.addListener( PreloadAnnouncerFinished.new( this, NamedAnnouncer.new( \
-						preloader.getAnnouncer(), File.new( each ).getName().substring( 0, -14 ) ) ) )
+						preloader.getAnnouncer(), File.new( each ).getName().substring( 0, -6 ) ) ) )
 					preloader.checkFinished()
 					
 				catch Exception e
