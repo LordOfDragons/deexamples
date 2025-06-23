@@ -80,7 +80,7 @@ class WindowLists extends Window
 			panel = Panel.new()
 			panel.setLayout(CentrizedBoxLayout.new(LayoutAxis.y))
 			var Label label = Label.new("", Label.topCenter)
-			label.setMaximalWidth(96)
+			label.setMaximalWidth(116)
 			label.setWordWrap(true)
 			panel.addWidget(label)
 			renderer.addWidget(panel)
@@ -111,7 +111,7 @@ class WindowLists extends Window
 		
 		/** Default height of list element. */
 		public func Point getDefaultSize(ListBox listBox)
-			return Point.new(100, 50).largest(super.getDefaultSize(listBox))
+			return Point.new(120, 50).largest(super.getDefaultSize(listBox))
 		end
 	end
 	
