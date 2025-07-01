@@ -46,13 +46,13 @@ class PlayerClass extends BaseVRActorClass
 		// Using full hand pose can be tricky since the hand model has to be crafted in
 		// a way it can deal with variable joint position depending on how the controllers
 		// used by the player report hand joints
-		/*
-		getVRRightHandPose().getFingerTipDistance().setValue(0.1667)
-		getVRRightHandPose().getOnlyRotation().setValue(false)
-		
-		getVRLeftHandPose().getFingerTipDistance().setValue(0.1667)
-		getVRLeftHandPose().getOnlyRotation().setValue(false)
-		*/
+		if GameApp.getApp().getConfiguration().getBoolAt("debug.vrHandFullPose", false)
+			getVRRightHandPose().getFingerTipDistance().setValue(0.1667)
+			getVRRightHandPose().getOnlyRotation().setValue(false)
+			
+			getVRLeftHandPose().getFingerTipDistance().setValue(0.1667)
+			getVRLeftHandPose().getOnlyRotation().setValue(false)
+		end
 		
 		// Set hand pose bones to be per-hand suffixed bone names. This makes the behaviors
 		// use bone names like "wrist.r" and "wrist.l" instad of just "wrist". Both naming

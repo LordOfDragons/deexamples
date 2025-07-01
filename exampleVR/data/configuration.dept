@@ -84,4 +84,11 @@
 	
 	<boolean path='debug.vrHandPose'>false</boolean>
 	-->
+	
+	<!--
+	By default only rotation of hand joints are applied. Using full pose the
+	position and orientation is taken into account.
+	
+	<boolean path='debug.vrHandFullPose'>false</boolean>
+	-->
 </parameterTree>
