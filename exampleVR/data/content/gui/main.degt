@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
-<guiTheme extend='/shareddata/guithemes/modern/modern.guitheme.xml'>
+<guiTheme extend='/shareddata/guithemes/modern/modern.degt'>
 	<!--
 	Gui themes can be defined in various ways.
 	
 	Without using any attributes an empty gui theme is defined. This is the way to completly
 	define a gui theme from the ground up. You have to use this solution also if you import
 	gui themes or create named fui themes. For an example of an imported gui theme see the
-	layoutText.guitheme.xml file.
+	layoutText.degt file.
 	
 	The most often used solution is by using the 'extend' attribute as done here. This loads
 	the specified gui theme first. Then the definitions in this file replace the definitions
@@ -19,7 +19,7 @@
 	defined in the current gui theme. This can be useful for more complex game UI situations
 	to reduce the typing and maintenance overhead.
 	
-	The recommended solution is using modern.guitheme.xml as base with the 'extend' attribute.
+	The recommended solution is using modern.degt as base with the 'extend' attribute.
 	This provides a solid and working basis to apply your modifications.
 	-->
 	
