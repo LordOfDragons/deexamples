@@ -67,10 +67,10 @@ class StartGame extends WindowGameWorld.Loader
 		// To debug your VR hand you can add and remove attachable behaviors any time during
 		// the game. Here is an example of adding two debug behaviors displaying the hand
 		// skeleton. This could be used to examine the player hand compared to the game hand
-		/*
-		player.addAttachableBehavior(DebugBehaviorVRHandPose.new(player.getVRRightHandPose()))
-		player.addAttachableBehavior(DebugBehaviorVRHandPose.new(player.getVRLeftHandPose()))
-		*/
+		if app.getConfiguration().getBoolAt("debug.vrHandPose", false)
+			player.addAttachableBehavior(DebugBehaviorVRHandPose.new(player.getVRRightHandPose()))
+			player.addAttachableBehavior(DebugBehaviorVRHandPose.new(player.getVRLeftHandPose()))
+		end
 		
 		// Assign camera director attaching the camera to the player controlled actor
 		// at eye level.

@@ -68,4 +68,20 @@
 	-->
 	<boolean path='defaultEnableGI'>true</boolean>
 	
+	
+	<!--
+	Debug parameters. While developing it is useful to use such parameters to
+	quickly enable debugging without needing to change script code. The developer
+	can create a copy of the "configuration.dept" file and place it in the the
+	overlay directory (IGDE project editor allows to easily open that directory).
+	Keep in mind that if "configuration.dept" file is found in the overlay directory
+	it fully replaces this file here. For development purpose this is good enough.
+	-->
+	
+	<!--
+	Visualize VR Hand Pose. Adds debug behaviors displaying the hand skeleton.
+	This could be used to examine the player hand compared to the game hand.
+	
+	<boolean path='debug.vrHandPose'>false</boolean>
+	-->
 </parameterTree>
