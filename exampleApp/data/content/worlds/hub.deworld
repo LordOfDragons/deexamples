@@ -5,7 +5,7 @@
 	<worldEditor>
 		<skyPath>/igde/skies/static.desky</skyPath>
 	</worldEditor>
-	<nextObjectID>b7</nextObjectID>
+	<nextObjectID>c0</nextObjectID>
 	
 	<object id='1'>
 		<classname>PlaygroundTerrain</classname>
@@ -1569,6 +1569,49 @@
 			<skin>/content/materials/signs/subWorld.deskin</skin>
 		</texture>
 	</object>
+	<object id='b7'>
+		<classname>WindowRoom</classname>
+		<position x='8' y='0' z='-11'/>
+		<texture name='wall outside'>
+			<skin>/content/materials/plaster/material.deskin</skin>
+			<tint r='0.439216' g='0.607843' b='0.929412'/>
+		</texture>
+	</object>
+	<object id='b8'>
+		<classname>ColorLamp</classname>
+		<position x='9.25' y='0.3' z='-13'/>
+	</object>
+	<object id='b9'>
+		<classname>ColorLamp</classname>
+		<position x='6.75' y='0.3' z='-13'/>
+		<property key='light.trigger'>@lightAnimation.ts</property>
+	</object>
+	<object id='ba'>
+		<classname>TriggerTouch</classname>
+		<position x='6.75' y='1.3' z='-11'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>lightAnimation.ts</property>
+	</object>
+	<object id='bc'>
+		<classname>ColorLamp2</classname>
+		<position x='6' y='2' z='-12'/>
+		<rotation x='0' y='-90' z='0'/>
+		<property key='light.trigger'>@lightAnimation2.ts</property>
+		<property key='animated.trigger'>@lightAnimation2.ts</property>
+	</object>
+	<object id='be'>
+		<classname>TriggerTouch</classname>
+		<position x='9.25' y='1.3' z='-11'/>
+		<scaling x='0.7' y='2' z='0.7'/>
+		<property key='touching.target'>lightAnimation2.ts</property>
+	</object>
+	<object id='bf'>
+		<classname>InfoSign</classname>
+		<position x='7.95' y='0.3' z='-13.9'/>
+		<texture name='content'>
+			<skin>/content/materials/signs/lightAnimation.deskin</skin>
+		</texture>
+	</object>
 	
 	<decal>
 		<skin>/content/materials/decal/target.deskin</skin>
@@ -1634,6 +1677,18 @@
 		<skin>/content/materials/decal/target.deskin</skin>
 		<position x='12.915' y='0.1' z='7.997'/>
 		<rotation x='89.6631' y='-14.0362' z='-165.964'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='6.75' y='0.45' z='-11'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
+		<size x='1' y='1' z='0.2'/>
+	</decal>
+	<decal>
+		<skin>/content/materials/decal/target.deskin</skin>
+		<position x='9.25' y='0.45' z='-11'/>
+		<rotation x='89.6948' y='-63.435' z='-116.565'/>
 		<size x='1' y='1' z='0.2'/>
 	</decal>
 </world>

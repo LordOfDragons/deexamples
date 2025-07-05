@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='WindowRoom' class='GenericBehaviorElement'>
+	<!--
+	Simple room with a door and window to show stuff in a more shadowy lighting situation.
+	-->
+	
+	<behavior type='ECBehaviorComponent'>
+		<string name='.model'>windowRoom.demodel</string>
+		<string name='.rig'>windowRoom.derig</string>
+		<string name='.occlusionMesh'>windowRoom.deoccmesh</string>
+		<string name='.audioModel'>windowRoom.demodel</string>
+		
+		<map name='.textureReplacements'>
+			<map key='wall inside'>
+				<string key='skin'>/content/materials/wallpaper/material.deskin</string>
+			</map>
+			<map key='floor'>
+				<string key='skin'>/content/materials/carpet/material.deskin</string>
+			</map>
+			<map key='ceiling'>
+				<string key='skin'>/content/materials/wallpaper/material.deskin</string>
+			</map>
+			<map key='wall outside'>
+				<string key='skin'>/content/materials/plaster/material.deskin</string>
+			</map>
+			<map key='stairs'>
+				<string key='skin'>/content/materials/concrete/material.deskin</string>
+			</map>
+			<map key='roof'>
+				<string key='skin'>/content/materials/concrete/material.deskin</string>
+			</map>
+		</map>
+	</behavior>
+	
+	<behavior type='ECBehaviorCollider'/>
+</elementClass>

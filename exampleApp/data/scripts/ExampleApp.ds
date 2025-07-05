@@ -180,7 +180,7 @@ class ExampleApp extends BaseGameApp
 	 * Create example application.
 	 */
 	public func new()
-		pathDesktopGuiTheme = "/content/ui/main.guitheme.xml"
+		pathDesktopGuiTheme = "/content/ui/main.degt"
 		pathLanguagePacks = "/content/langpacks"
 		defaultLanguagePackName = UnicodeString.newFromUTF8("English")
 	end

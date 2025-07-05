@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<elementClass name='ColorLamp2' class='GenericBehaviorElement'>
+	<!--
+	A color lamp demonstrating light animation using component state.
+	
+	This example takes as reference these annoying little ball lamps with changing
+	light color. This is recreated here using the ECBehaviorLightAnimation behavior.
+	Light animations can be used in two ways: animation move or component state.
+	This example uses component state. Using component state is best for element
+	classes which have already an animated component which contains bones or vertex
+	position sets to be used to drive light parameters. An example for this could
+	be an animated robot arm where lights change intensity or color depending on
+	what animation is played.
+	
+	See the behavior documentation on the Wiki page for detailed information:
+	https://developer.dragondreams.ch/wiki/doku.php/dragengine:modules:dragonscript:behavior_elements
+	-->
+	
+	<!--
+	Add component behavior. This shows the model in the game world using a skin,
+	rig and optional other parameters. We need here only model, skin and rig.
+	-->
+	<behavior type='ECBehaviorComponent'>
+		<string name='.model'>colorLamp2.demodel</string>
+		<string name='.skin'>colorLamp.deskin</string>
+		<string name='.rig'>colorLamp2.derig</string>
+		
+		<!--
+		All textures can be defined in the skin file. Often though it is easier
+		to reuse skins as textures. This avoids replicating the texture inside
+		the skin and is the preferred solution. This is done using the
+		"textureReplacements" property. This is a map of texture replacements
+		each containing a map of parameters. The "skin" parameter is required
+		while others like "transform" and "tint" are optional. These allow to
+		fine tune a texture replacement. Most of the time "skin" and "tint"
+		are used. "transform"/"scale" is typically used to modify the model
+		texture coordinates for example due to finer resolution
+		-->
+		<map name='.textureReplacements'>
+			<map key='base'>
+				<string key='skin'>/content/materials/metalPainted/rough.deskin</string>
+				<!--
+				<map key='transform'>
+					<vector2 key='scale' x='2' y='2'/>
+					<vector2 key='translate' x='0' y='0.5'/>
+				</map>
+				<color key='tint' r='0.5' g='0.3' b='0.2'/>
+				-->
+			</map>
+			<map key='plate'>
+				<string key='skin'>/content/materials/metalPainted/rough.deskin</string>
+				<color key='tint' r='0.25' g='0.25' b='0.35'/>
+			</map>
+		</map>
+	</behavior>
+	
+	<!--
+	Add collider behavior. This is required for animating the component and the light.
+	-->
+	<behavior type='ECBehaviorCollider'/>
+	
+	<!--
+	Add animated behavior. This is required for animating the component and the light.
+	
+	The default playback controller name is "playback". Since we are using the same
+	name in the animator the "playbackController" parameter is not required to be set.
+	For this example it is written to show how the name could be changed.
+	-->
+	<behavior type='ECBehaviorAnimated'>
+		<string name='.animator'>colorLamp2.deanimator</string>
+		<boolean name='.playing'>true</boolean>
+		<string name='.playbackController'>playback</string>
+	</behavior>
+	
+	<!--
+	Add dynamic skin behavior. This is required for dynamically changing the
+	texture to reflect the light parameters.
+	-->
+	<behavior type='ECBehaviorDynamicSkin'/>
+	
+	<!--
+	Add light. This is the light we want to manipulate with the help of the
+	light animation behavior. We assign here the class default parameters.
+	The user can change these later on a per element basis in the world editor.
+	
+	We use here an intensity of 20 since the lamp is sitting outside in a shadow area.
+	Daylight intensity is 20 and shadow areas still have around 4. So using 4 allows
+	to see the lamp light effect.
+	
+	Only non-default values are set. See
+	https://developer.dragondreams.ch/wiki/doku.php/dragengine:modules:dragonscript:behavior_light
+	for all possible values.
+	-->
+	<behavior type='ECBehaviorLight'>
+		<!--
+		Ignore component while casting shadows. This is done by defining a list
+		of ECBehaviorComponent. Since the ECBehaviorComponent above has an empty
+		identifier this is simply a list with one empty string in it
+		-->
+		<list name='shadowIgnoreComponents'>
+			<string/>
+		</list>
+		
+		<float name='.intensity'>4</float>
+		<float name='.range'>3</float>
+		<float name='.halfIntensityDistance'>0.4</float>
+		<string name='.hintParameter'>dynamic</string>
+		<vector name='.position' z='0.15'/>
+		<string name='.bone'>lamp</string>
+	</behavior>
+	
+	<!--
+	Add light animation behavior. This animates the light parameters using an
+	animation move. The file "data/develop/blender/lightAnimation.blend" contains
+	the blender file used to design and export the animation.
+	
+	The behavior automatically detects and uses ECBehaviorComponent.
+	
+	"positionZ" is the default value for "parameter". You do not have to set it
+	if you use the bone forward/backward position as animation value. For
+	demonstration purpose the value is set here for "colorRed" light parameter.
+	You can use bone position/rotation/scale X/Y/Z as well as vertex position set
+	weights (blend shapes in blender). Set the "parameter" value accordingly.
+	
+	Light animation starts if the light becomes active and stops if it becomes
+	deactivated. You can try setting a trigger in the editor to see this.
+	
+	In the blender file an export scale of "0.1" is used. This allows to create
+	the model in a larger size which is better suitable for blender but still
+	obtaining the correct size on export. This though also scales the animation
+	data. In particular the bones used to drive the light parameters move then
+	not in the range from "0" to "1" but in the range from "0" to "0.1". This
+	can be either fixed on the blender side or using remapping. The best solution
+	would be to fix it on the blender side. As an example though we fix it on
+	the behavior side to show how remapping works. Remapping scales and shits
+	the input to map to the range from "0" to "1" with extrapolation. Hence
+	we remap "0.1" to "1" here since "0" already maps to "0".
+	-->
+	<behavior type='ECBehaviorLightAnimation'>
+		<string name='.colorRed.target'>color.r</string>
+		<string name='.colorRed.parameter'>positionZ</string>
+		<float name='.colorRed.remapUpper'>0.1</float>
+		<string name='.colorGreen.target'>color.g</string>
+		<float name='.colorGreen.remapUpper'>0.1</float>
+		<string name='.colorBlue.target'>color.b</string>
+		<float name='.colorBlue.remapUpper'>0.1</float>
+	</behavior>
+	
+	<!--
+	Add renderable light behavior. This behavior updates renderables to match
+	the light intensity and color. This behavior automatically detects and uses
+	ECBehaviorLight and ECBehaviorDynamicSkin.
+	
+	The "scaleIntensity" is used to scale up the light intensity. In reality
+	a light bulb is much more intense than the light hitting the table around
+	it. This is due to light intensity spreading across a sphere. In this
+	example the light has an intensity of 4. Doubling makes it easier to see.
+	-->
+	<behavior type='ECBehaviorRenderableLight'>
+		<string name='.renderableIntensity'>light.intensity</string>
+		<string name='.renderableColor'>light.color</string>
+		<float name='.scaleIntensity'>2</float>
+	</behavior>
+	
+	<!--
+	That's it. The element class is now ready and shows a model with a light
+	where the light is animated and the model reflects the light parameters.
+	-->
+</elementClass>

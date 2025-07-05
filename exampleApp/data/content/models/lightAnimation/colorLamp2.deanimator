@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<animator>
+	<display>
+		<model>/content/models/lightAnimation/colorLamp2.demodel</model>
+		<skin>/content/models/lightAnimation/colorLamp.deskin</skin>
+		<rig>/content/models/lightAnimation/colorLamp2.derig</rig>
+		<locomotion>
+		</locomotion>
+	</display>
+	<rig>/content/models/lightAnimation/colorLamp2.derig</rig>
+	<animation>/content/models/lightAnimation/colorLamp2.deanim</animation>
+	
+	<controller>
+		<name>playback</name>
+		<limits min='0' max='10'/>
+		<clamp>false</clamp>
+		<locomotionAttribute>elapsedTime</locomotionAttribute>
+	</controller>
+	
+	<link>
+		<name>playback</name>
+		<controller>0</controller>
+	</link>
+	
+	<ruleAnimation>
+		<name>Animation</name>
+		<moveName>lamp2</moveName>
+		<moveTime>0</moveTime>
+		<target name='moveTime'>
+			<link>0</link>
+		</target>
+	</ruleAnimation>
+</animator>

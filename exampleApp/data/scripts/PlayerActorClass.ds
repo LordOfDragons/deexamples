@@ -79,7 +79,7 @@ class PlayerActorClass extends BaseActorClass
 		// of the PromptController and PromptControllerFactory. If you just want to
 		// style the prompt without changing the layout you can do this using the
 		// "PanelInteractPrompt" widget designer selector. See
-		// https://github.com/LordOfDragons/dragengine/blob/master/src/modules/scripting/dragonscript/data/guithemes/modern/modern.guitheme.xml#L489
+		// https://github.com/LordOfDragons/dragengine/blob/master/src/modules/scripting/dragonscript/data/guithemes/modern/modern.degt#L489
 		// for an example.
 		var BindingManager bindingManager = BaseGameApp.getApp().getBindingManager()
 		var CommandManager commandManager = BaseGameApp.getApp().getCommandManager()

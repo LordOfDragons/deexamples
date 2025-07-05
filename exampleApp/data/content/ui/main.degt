@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
-<guiTheme extend='/shareddata/guithemes/modern/modern.guitheme.xml'>
+<guiTheme extend='/shareddata/guithemes/modern/modern.degt'>
 	<!-- Main GUI Theme based on modern GUI Theme included in the DragonScript Module -->
 	
 	<!-- Change desktop mouse pointer -->
