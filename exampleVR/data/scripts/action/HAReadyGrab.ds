@@ -23,8 +23,7 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	protected var State state
-	protected var float interactTime
-	protected var float elapsedTime
+	protected var float interactTime, elapsedTime
 	protected var bool grabActive
 	
 	protected var AnimatorController controllerInteract
@@ -32,7 +31,7 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	/** Create action. */
-	public func new(bool startInReadyState)
+	func new(bool startInReadyState)
 		interactTime = 0.05
 		
 		if startInReadyState
@@ -48,7 +47,7 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	/** Action has been activated. */
-	public func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
+	func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
 		super.activate(actor, vrHand)
 		
 		// Enable grabber
@@ -56,7 +55,7 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	end
 	
 	/** Action is about to be deactivated. */
-	public func void deactivate()
+	func void deactivate()
 		// Disable grabber
 		handGrabber.setEnabled(false)
 		
@@ -119,7 +118,7 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	end
 	
 	/** Frame update. */
-	public func void think(float elapsed)
+	func void think(float elapsed)
 		// Check if an object can be grabbed. Actions to take depends on state
 		select state
 		case State.readying, State.ready
@@ -163,7 +162,7 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	/** Grab. */
-	public func void grab()
+	func void grab()
 		grabActive = true
 		
 		// Grabbing is allowed once we are ready to grab
@@ -173,15 +172,15 @@ class HAReadyGrab extends BaseVRHandAction implements BAAVRGrab
 	end
 	
 	/** Ungrab. */
-	public func void ungrab()
+	func void ungrab()
 		grabActive = false
 	end
 	
 	/** Grab in the range from 0 to 1. */
-	public func void grabAnalog(float value)
+	func void grabAnalog(float value)
 	end
 	
 	/** Squeeze force in the range from 0 to 1. */
-	public func void squeeze(float value)
+	func void squeeze(float value)
 	end
 end

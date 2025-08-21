@@ -6,7 +6,7 @@ pin Dragengine.LoadSave
 /**
  * Default hand action. Used if player is holding nothing in hand nor interacting with any object.
  */
-class HADefault extends BaseVRHandAction implements BAAVRGrab
+class HADefault extends BaseVRHandAction implements BAAVRGrab, BAAVRHandLocomotion
 	/**
 	 * Factory for loading actor actions. For this Example VR application we do not need
 	 * persistency support hence readObjectFromFile() is doing the same as createAction().
@@ -14,10 +14,10 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	public class Factory implements PersistencyFactory, ECBehaviorVRHandAction.ActionFactory
 		public static fixed var String name = "HADefault"
 		
-		public func new()
+		func new()
 		end
 		
-		public func Persistable readObjectFromFile(PersistencyEnvironment env, FileReader reader)
+		func Persistable readObjectFromFile(PersistencyEnvironment env, FileReader reader)
 			return HADefault.new()
 		end
 		
@@ -25,7 +25,7 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 			persistency.addFactory(name, Factory.new())
 		end
 		
-		public func BaseVRHandAction createAction(ECBehaviorVRHandAction.Instance instance)
+		func BaseVRHandAction createAction(ECBehaviorVRHandAction.Instance instance)
 			return HADefault.new()
 		end
 	end
@@ -37,7 +37,7 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	/** Create action. */
-	public func new()
+	func new()
 	end
 	
 	
@@ -50,7 +50,7 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	/** Action has been activated. */
-	public func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
+	func void activate(BehaviorElement actor, ECBehaviorVRHand.Instance vrHand)
 		super.activate(actor, vrHand)
 		
 		// Enable grabber
@@ -63,7 +63,7 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	end
 	
 	/** Action is about to be deactivated. */
-	public func void deactivate()
+	func void deactivate()
 		// Disable grabber
 		handGrabber.setEnabled(false)
 		
@@ -81,7 +81,7 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	end
 	
 	/** Frame update. */
-	public func void think(float elapsed)
+	func void think(float elapsed)
 		if canGrabObject()
 			handAction.setAction(HAReadyGrab.new(false))
 			
@@ -107,6 +107,11 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 			return false
 		end
 		
+		// If hand locomotion is running do not grab object
+		if handLocomotion.isRunning()
+			return false
+		end
+		
 		return handGrabber.findTouchingGrabSpot(block ECBehaviorGrabSpot.Instance grabSpot
 			return grabSpot.isNotGrabbed()
 		end) != null
@@ -115,21 +120,31 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	
 	
 	/** Grab. */
-	public func void grab()
+	func void grab()
 		grabActive = true
 	end
 	
 	/** Ungrab. */
-	public func void ungrab()
+	func void ungrab()
 		grabActive = false
 	end
 	
 	/** Grab in the range from 0 to 1. */
-	public func void grabAnalog(float value)
+	func void grabAnalog(float value)
 	end
 	
 	/** Squeeze force in the range from 0 to 1. */
-	public func void squeeze(float value)
+	func void squeeze(float value)
+	end
+	
+	
+	
+	func void startHandLocomotion()
+		handLocomotion.start()
+	end
+	
+	func void stopHandLocomotion()
+		handLocomotion.stop()
 	end
 	
 	
@@ -138,7 +153,7 @@ class HADefault extends BaseVRHandAction implements BAAVRGrab
 	 * Name of PersistencyFactory required to load object from file. Since we do not use
 	 * persistency this is not required but it is always a good idea to add this.
 	 */
-	public func String persistencyFactoryName()
+	func String persistencyFactoryName()
 		return Factory.name
 	end
 end

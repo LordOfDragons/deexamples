@@ -164,6 +164,9 @@ class GameApp extends BaseGameApp
 		// Add VR Grab actions. This allows to receive grab, ungrab and squeeze actions
 		// by implementing BAAVRGrab interface on player actions
 		CommandsBAAVRGrab.addCommands(commands, getPlayerControlledActor())
+		
+		// Add hand locomotion commands.
+		CommandsBAAVRHandLocomotion.addCommands(commands, getPlayerControlledActor())
 	end
 	
 	/**
@@ -244,6 +247,9 @@ class GameApp extends BaseGameApp
 		// matching the device are assigned. This allows to configure device bindings on
 		// the fly for newly attached devices using the same method
 		CommandsBAAVRGrab.addDefaultBindings(helper)
+		
+		// Add default hand locomotion bindings
+		CommandsBAAVRHandLocomotion.addDefaultBindings(helper, 1)
 		
 		return helper
 	end
