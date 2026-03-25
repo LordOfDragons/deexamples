@@ -94,6 +94,32 @@ class GameApp extends BaseGameApp
 		// Start VR Runtime. This can fail hence capture exceptions
 		getConsole().addMessage("Start VR Runtime...")
 		try
+			// Before starting the runtime you can request certain features to be enabled.
+			// These are features which have certain limitations, for example the user is required
+			// to give consent to use them or they are expensive potentially reducing performance.
+			// These features you can request either mandatory or optional. If optional you can
+			// query after the runtime started if they are actually enabled or not.
+			
+			// Eye gaze tracking allows to determine where the user is looking at. Since this is
+			// a privacy sensitive information requesting this feature usually requires the user
+			// to give consent. This example does not use eye gaze tracking
+			// VRSystem.requestFeatureEyeGazeTracking(VRFeatureSupportLevel.optional)
+			
+			// Facial tracking allows to determine facial expressions of the user. While less
+			// privacy sensitive than eye gaze tracking it usually still requires user consent.
+			// This example does not use facial tracking
+			// VRSystem.requestFeatureFacialTracking(VRFeatureSupportLevel.optional)
+			
+			// Body tracking allows to provide an upper body or full body avatar for the user
+			// which improves immersion. This requires headsets which are able to estimate the
+			// body pose. These results are not of high quality but can still improve immersion
+			// especially without requiring additional tracking hardware.
+			// 
+			// This example does support body tracking. It is requested optional to allow using
+			// it only if supported by the hardware.
+			VRSystem.requestFeatureBodyTracking(VRFeatureSupportLevel.optional)
+			
+			// Now the VR runtime can be started
 			VRSystem.startRuntime()
 			
 		catch Exception e
@@ -127,7 +153,8 @@ class GameApp extends BaseGameApp
 		
 		// Add scripted element classes. These can be used by XML element classes below
 		var ElementClassList eclist = getElementClassList()
-		eclist.add(PlayerClass.new())
+		eclist.add(PlayerClass.new("Player"))
+		eclist.add(PlayerFBTClass.new("PlayerFBT"))
 		eclist.add(BallClass.new())
 		eclist.add(CanClass.new())
 		eclist.add(VisualizeDevicesClass.new())

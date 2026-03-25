@@ -1,0 +1,1143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rig>
+	<mass>1</mass>
+	<centralMassPoint x='0' y='0' z='0'/>
+	
+	<bone name='origin'>
+		<position x='0.0' y='0.0' z='0.0'/>
+		<rotation x='0.0' y='0.0' z='-0.0'/>
+	</bone>
+	
+	<bone name='hips'>
+		<parent>origin</parent>
+		<position x='0.0' y='0.97' z='0.0'/>
+		<rotation x='0.0' y='-0.0' z='-0.0'/>
+		<mass>1.93</mass>
+		<centralMassPoint x='-0.00106' y='0.00811' z='-0.00212'/>
+		<sphere>
+			<position x='-0.001061' y='0.008107' z='-0.002123'/>
+			<radius>0.1663</radius>
+		</sphere>
+	</bone>
+	
+	<bone name='spineLower'>
+		<parent>hips</parent>
+		<position x='0.0' y='0.073' z='0.0'/>
+		<rotation x='90.0' y='0.0' z='180.0'/>
+		<mass>0.76</mass>
+		<centralMassPoint x='1.39e-09' y='0.0159' z='0.0778'/>
+		<cylinder>
+			<position x='1.392e-09' y='0.01592' z='0.07781'/>
+			<rotation x='90' y='0' z='-180'/>
+			<halfHeight>0.07295</halfHeight>
+			<radius>0.1288</radius>
+		</cylinder>
+	</bone>
+	
+	<bone name='spineMiddle'>
+		<parent>spineLower</parent>
+		<position x='-0.0' y='0.0' z='0.153'/>
+		<rotation x='-0.0' y='0.0' z='0.0'/>
+		<mass>0.663</mass>
+		<centralMassPoint x='4.11e-17' y='0.0164' z='0.0797'/>
+		<cylinder>
+			<position x='4.111e-17' y='0.01642' z='0.07967'/>
+			<rotation x='90' y='0' z='-180'/>
+			<halfHeight>0.06363</halfHeight>
+			<radius>0.1288</radius>
+		</cylinder>
+	</bone>
+	
+	<bone name='spineUpper'>
+		<parent>spineMiddle</parent>
+		<position x='0.0' y='-0.0' z='0.147'/>
+		<rotation x='0.0' y='0.0' z='0.0'/>
+		<mass>1.37</mass>
+		<centralMassPoint x='3.26e-17' y='-0.00348' z='0.0664'/>
+		<sphere>
+			<position x='3.261e-17' y='-0.003479' z='0.06637'/>
+			<radius>0.1484</radius>
+		</sphere>
+	</bone>
+	
+	<bone name='shoulder.l'>
+		<parent>spineUpper</parent>
+		<position x='0.0' y='0.0' z='0.133'/>
+		<rotation x='-0.0' y='-99.56' z='-99.56'/>
+	</bone>
+	
+	<bone name='armUpper.l'>
+		<parent>shoulder.l</parent>
+		<position x='-0.0' y='-0.0' z='0.151'/>
+		<rotation x='9.38' y='-1.84' z='9.73'/>
+		<mass>0.504</mass>
+		<centralMassPoint x='0.00441' y='-0.0057' z='0.109'/>
+		<capsule>
+			<position x='0.004441' y='-0.00534' z='0.1173'/>
+			<rotation x='-7.89e-06' y='89.8' z='87.6'/>
+			<halfHeight>0.1018</halfHeight>
+			<topRadius>0.05261</topRadius>
+			<bottomRadius>0.07014</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='armLower.l'>
+		<parent>armUpper.l</parent>
+		<position x='-0.0' y='-0.0' z='0.248'/>
+		<rotation x='-0.0' y='2.15' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000682' y='-0.000693' z='0.132'/>
+		<capsule>
+			<position x='0.0006822' y='-0.0006942' z='0.138'/>
+			<rotation x='-1.71e-05' y='90' z='90'/>
+			<halfHeight>0.1019</halfHeight>
+			<topRadius>0.03392</topRadius>
+			<bottomRadius>0.04522</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='wrist.l'>
+		<parent>armLower.l</parent>
+		<position x='-0.0' y='-0.0' z='0.26'/>
+		<rotation x='-0.0' y='-1.71' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='9.35e-05' y='0.0037' z='0.0296'/>
+		<capsule>
+			<position x='0.002594' y='0.003695' z='0.02958'/>
+			<rotation x='0.00407' y='-0.262' z='90'/>
+			<halfHeight>0.01311</halfHeight>
+			<topRadius>0.015</topRadius>
+			<bottomRadius>0.02</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='thumb1.l'>
+		<parent>wrist.l</parent>
+		<position x='0.024' y='-0.0' z='0.017'/>
+		<rotation x='0.0' y='-48.93' z='90.01'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-4.29e-05' y='-0.000141' z='0.0142'/>
+		<capsule>
+			<position x='-4.23e-05' y='-0.0001577' z='0.01612'/>
+			<rotation x='-89.5' y='-180' z='-180'/>
+			<halfHeight>0.01699</halfHeight>
+			<topRadius>0.01151</topRadius>
+			<bottomRadius>0.01535</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='thumb2.l'>
+		<parent>thumb1.l</parent>
+		<position x='-0.0' y='0.0' z='0.048'/>
+		<rotation x='-8.23' y='-0.0' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-4.19e-05' y='-8.08e-06' z='0.0163'/>
+		<capsule>
+			<position x='-4.139e-05' y='-7.672e-06' z='0.01799'/>
+			<rotation x='-90' y='0' z='0.0164'/>
+			<halfHeight>0.007867</halfHeight>
+			<topRadius>0.01028</topRadius>
+			<bottomRadius>0.01371</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='thumb3.l'>
+		<parent>thumb2.l</parent>
+		<position x='0.0' y='-0.0' z='0.034'/>
+		<rotation x='-25.02' y='2.96' z='1.2'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.00127' y='0.00042' z='0.0151'/>
+		<capsule>
+			<position x='-0.001211' y='0.0004352' z='0.01621'/>
+			<rotation x='-89' y='34.3' z='37.1'/>
+			<halfHeight>0.005285</halfHeight>
+			<topRadius>0.006908</topRadius>
+			<bottomRadius>0.009211</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle1.l'>
+		<parent>wrist.l</parent>
+		<position x='0.008' y='0.0' z='0.017'/>
+		<rotation x='0.0' y='-7.52' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='7.35e-05' y='4.18e-05' z='0.0381'/>
+		<capsule>
+			<position x='8.189e-05' y='4.146e-05' z='0.03939'/>
+			<rotation x='-1.83e-05' y='89.6' z='90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle2.l'>
+		<parent>middle1.l</parent>
+		<position x='-0.0' y='-0.0' z='0.067'/>
+		<rotation x='-0.0' y='3.06' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000195' y='4.2e-05' z='0.0333'/>
+		<capsule>
+			<position x='0.0001909' y='4.158e-05' z='0.03463'/>
+			<rotation x='-1.85e-05' y='90.2' z='90'/>
+			<halfHeight>0.02567</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle3.l'>
+		<parent>middle2.l</parent>
+		<position x='-0.0' y='-0.0' z='0.066'/>
+		<rotation x='-0.0' y='2.45' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000141' y='4.18e-05' z='0.0206'/>
+		<capsule>
+			<position x='0.0001369' y='4.147e-05' z='0.02191'/>
+			<rotation x='-1.86e-05' y='90.2' z='90'/>
+			<halfHeight>0.01106</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle4.l'>
+		<parent>middle3.l</parent>
+		<position x='-0.0' y='-0.0' z='0.04'/>
+		<rotation x='-20.77' y='-0.34' z='0.7'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000364' y='0.00499' z='0.013'/>
+		<capsule>
+			<position x='0.0003681' y='0.00536' z='0.01401'/>
+			<rotation x='-0.53' y='89.5' z='69.2'/>
+			<halfHeight>0.006194</halfHeight>
+			<topRadius>0.006286</topRadius>
+			<bottomRadius>0.008382</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index1.l'>
+		<parent>wrist.l</parent>
+		<position x='0.017' y='-0.0' z='0.015'/>
+		<rotation x='0.0' y='-16.03' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000116' y='8.38e-05' z='0.0393'/>
+		<capsule>
+			<position x='0.0001261' y='8.348e-05' z='0.04063'/>
+			<rotation x='0.000637' y='89.5' z='90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index2.l'>
+		<parent>index1.l</parent>
+		<position x='0.0' y='-0.0' z='0.069'/>
+		<rotation x='0.04' y='4.77' z='0.05'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.00175' y='6.46e-05' z='0.0301'/>
+		<capsule>
+			<position x='0.001748' y='6.328e-05' z='0.03145'/>
+			<rotation x='-0.0483' y='90.3' z='90.1'/>
+			<halfHeight>0.02165</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index3.l'>
+		<parent>index2.l</parent>
+		<position x='0.0' y='-0.0' z='0.061'/>
+		<rotation x='-0.04' y='4.5' z='-0.05'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000643' y='4.17e-05' z='0.0191'/>
+		<capsule>
+			<position x='0.0006107' y='4.134e-05' z='0.0204'/>
+			<rotation x='-2.2e-05' y='91.4' z='90'/>
+			<halfHeight>0.01106</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index4.l'>
+		<parent>index3.l</parent>
+		<position x='-0.0' y='-0.0' z='0.038'/>
+		<rotation x='-24.12' y='4.59' z='1.4'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000486' y='0.00491' z='0.0108'/>
+		<capsule>
+			<position x='0.0004687' y='0.005297' z='0.0117'/>
+			<rotation x='-1.59' y='90.4' z='65.9'/>
+			<halfHeight>0.005571</halfHeight>
+			<topRadius>0.005654</topRadius>
+			<bottomRadius>0.007539</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring1.l'>
+		<parent>wrist.l</parent>
+		<position x='-0.002' y='0.0' z='0.015'/>
+		<rotation x='0.0' y='2.86' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='7.22e-06' y='4.2e-05' z='0.0379'/>
+		<capsule>
+			<position x='6.744e-06' y='4.159e-05' z='0.03922'/>
+			<rotation x='-1.75e-05' y='90' z='90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring2.l'>
+		<parent>ring1.l</parent>
+		<position x='0.0' y='0.0' z='0.066'/>
+		<rotation x='0.0' y='-0.58' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000781' y='4.18e-05' z='0.029'/>
+		<capsule>
+			<position x='0.0007883' y='4.147e-05' z='0.03027'/>
+			<rotation x='-1.67e-05' y='89.7' z='90'/>
+			<halfHeight>0.02027</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring3.l'>
+		<parent>ring2.l</parent>
+		<position x='0.0' y='-0.0' z='0.057'/>
+		<rotation x='0.0' y='-0.72' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='6.15e-05' y='4.18e-05' z='0.0204'/>
+		<capsule>
+			<position x='6.392e-05' y='4.147e-05' z='0.02174'/>
+			<rotation x='-1.87e-05' y='89.9' z='90'/>
+			<halfHeight>0.01106</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring4.l'>
+		<parent>ring3.l</parent>
+		<position x='-0.0' y='-0.0' z='0.04'/>
+		<rotation x='-21.46' y='-0.33' z='0.19'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000274' y='0.00491' z='0.0124'/>
+		<capsule>
+			<position x='-0.0002708' y='0.005296' z='0.01336'/>
+			<rotation x='-0.0942' y='89.8' z='68.6'/>
+			<halfHeight>0.006194</halfHeight>
+			<topRadius>0.006286</topRadius>
+			<bottomRadius>0.008382</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky1.l'>
+		<parent>wrist.l</parent>
+		<position x='-0.01' y='0.0' z='0.013'/>
+		<rotation x='0.0' y='11.46' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='3.88e-05' y='4.18e-05' z='0.0381'/>
+		<capsule>
+			<position x='3.998e-05' y='4.147e-05' z='0.03943'/>
+			<rotation x='-1.77e-05' y='89.9' z='90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky2.l'>
+		<parent>pinky1.l</parent>
+		<position x='-0.0' y='-0.0' z='0.068'/>
+		<rotation x='0.0' y='-1.66' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='6.44e-05' y='4.2e-05' z='0.025'/>
+		<capsule>
+			<position x='5.993e-05' y='4.159e-05' z='0.02632'/>
+			<rotation x='-2.02e-05' y='90.2' z='90'/>
+			<halfHeight>0.01727</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky3.l'>
+		<parent>pinky2.l</parent>
+		<position x='-0.0' y='0.0' z='0.05'/>
+		<rotation x='0.0' y='-1.19' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.00025' y='4.2e-05' z='0.015'/>
+		<capsule>
+			<position x='0.0002515' y='4.159e-05' z='0.01631'/>
+			<rotation x='-1.51e-05' y='89.9' z='90'/>
+			<halfHeight>0.00674</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky4.l'>
+		<parent>pinky3.l</parent>
+		<position x='-0.0' y='0.0' z='0.03'/>
+		<rotation x='-24.09' y='-7.17' z='0.27'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000258' y='0.00447' z='0.0099'/>
+		<capsule>
+			<position x='-0.0002526' y='0.004843' z='0.01073'/>
+			<rotation x='-0.0852' y='89.6' z='65.9'/>
+			<halfHeight>0.005411</halfHeight>
+			<topRadius>0.005492</topRadius>
+			<bottomRadius>0.007322</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='attachHand.l'>
+		<parent>wrist.l</parent>
+		<position x='0.016' y='-0.035' z='0.059'/>
+		<rotation x='0.0' y='-0.21' z='90.0'/>
+	</bone>
+	
+	<bone name='shoulder.r'>
+		<parent>spineUpper</parent>
+		<position x='0.0' y='0.0' z='0.133'/>
+		<rotation x='-0.0' y='99.56' z='99.56'/>
+	</bone>
+	
+	<bone name='armUpper.r'>
+		<parent>shoulder.r</parent>
+		<position x='0.0' y='-0.0' z='0.151'/>
+		<rotation x='9.38' y='1.84' z='-9.73'/>
+		<mass>0.504</mass>
+		<centralMassPoint x='-0.00441' y='-0.0057' z='0.109'/>
+		<capsule>
+			<position x='-0.004441' y='-0.00534' z='0.1173'/>
+			<rotation x='-7.89e-06' y='-89.8' z='-87.6'/>
+			<halfHeight>0.1018</halfHeight>
+			<topRadius>0.05261</topRadius>
+			<bottomRadius>0.07014</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='armLower.r'>
+		<parent>armUpper.r</parent>
+		<position x='0.0' y='-0.0' z='0.248'/>
+		<rotation x='-0.0' y='-2.15' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000682' y='-0.000693' z='0.132'/>
+		<capsule>
+			<position x='-0.0006822' y='-0.0006942' z='0.138'/>
+			<rotation x='-1.71e-05' y='-90' z='-90'/>
+			<halfHeight>0.1019</halfHeight>
+			<topRadius>0.03392</topRadius>
+			<bottomRadius>0.04522</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='wrist.r'>
+		<parent>armLower.r</parent>
+		<position x='0.0' y='-0.0' z='0.26'/>
+		<rotation x='-0.0' y='1.71' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-9.35e-05' y='0.0037' z='0.0296'/>
+		<capsule>
+			<position x='-0.002594' y='0.003695' z='0.02958'/>
+			<rotation x='0.00407' y='0.262' z='-90'/>
+			<halfHeight>0.01311</halfHeight>
+			<topRadius>0.015</topRadius>
+			<bottomRadius>0.02</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='thumb1.r'>
+		<parent>wrist.r</parent>
+		<position x='-0.024' y='-0.0' z='0.017'/>
+		<rotation x='0.0' y='48.93' z='-90.01'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='4.29e-05' y='-0.000141' z='0.0142'/>
+		<capsule>
+			<position x='4.23e-05' y='-0.0001577' z='0.01612'/>
+			<rotation x='-89.5' y='180' z='180'/>
+			<halfHeight>0.01699</halfHeight>
+			<topRadius>0.01151</topRadius>
+			<bottomRadius>0.01535</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='thumb2.r'>
+		<parent>thumb1.r</parent>
+		<position x='0.0' y='0.0' z='0.048'/>
+		<rotation x='-8.23' y='0.0' z='0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='4.19e-05' y='-8.03e-06' z='0.0163'/>
+		<capsule>
+			<position x='4.139e-05' y='-7.627e-06' z='0.01799'/>
+			<rotation x='-90' y='0' z='-0.0164'/>
+			<halfHeight>0.007867</halfHeight>
+			<topRadius>0.01028</topRadius>
+			<bottomRadius>0.01371</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='thumb3.r'>
+		<parent>thumb2.r</parent>
+		<position x='-0.0' y='-0.0' z='0.034'/>
+		<rotation x='-25.02' y='-2.96' z='-1.2'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.00127' y='0.00042' z='0.0151'/>
+		<capsule>
+			<position x='0.001211' y='0.0004353' z='0.01621'/>
+			<rotation x='-89' y='-34.3' z='-37.1'/>
+			<halfHeight>0.005285</halfHeight>
+			<topRadius>0.006908</topRadius>
+			<bottomRadius>0.009211</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle1.r'>
+		<parent>wrist.r</parent>
+		<position x='-0.008' y='0.0' z='0.017'/>
+		<rotation x='0.0' y='7.52' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-7.35e-05' y='4.18e-05' z='0.0381'/>
+		<capsule>
+			<position x='-8.186e-05' y='4.146e-05' z='0.03939'/>
+			<rotation x='-2.17e-05' y='-89.6' z='-90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle2.r'>
+		<parent>middle1.r</parent>
+		<position x='0.0' y='-0.0' z='0.067'/>
+		<rotation x='-0.0' y='-3.06' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000195' y='4.2e-05' z='0.0333'/>
+		<capsule>
+			<position x='-0.0001908' y='4.158e-05' z='0.03463'/>
+			<rotation x='-1.85e-05' y='-90.2' z='-90'/>
+			<halfHeight>0.02567</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle3.r'>
+		<parent>middle2.r</parent>
+		<position x='0.0' y='-0.0' z='0.066'/>
+		<rotation x='-0.0' y='-2.45' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000141' y='4.18e-05' z='0.0206'/>
+		<capsule>
+			<position x='-0.0001369' y='4.147e-05' z='0.02191'/>
+			<rotation x='-1.69e-05' y='-90.2' z='-90'/>
+			<halfHeight>0.01106</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='middle4.r'>
+		<parent>middle3.r</parent>
+		<position x='0.0' y='-0.0' z='0.04'/>
+		<rotation x='-20.77' y='0.34' z='-0.7'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000364' y='0.00499' z='0.013'/>
+		<capsule>
+			<position x='-0.0003681' y='0.00536' z='0.01401'/>
+			<rotation x='-0.53' y='-89.5' z='-69.2'/>
+			<halfHeight>0.006194</halfHeight>
+			<topRadius>0.006286</topRadius>
+			<bottomRadius>0.008382</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring1.r'>
+		<parent>wrist.r</parent>
+		<position x='0.002' y='0.0' z='0.015'/>
+		<rotation x='0.0' y='-2.86' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-7.22e-06' y='4.2e-05' z='0.0379'/>
+		<capsule>
+			<position x='-6.741e-06' y='4.159e-05' z='0.03922'/>
+			<rotation x='-2.09e-05' y='-90' z='-90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring2.r'>
+		<parent>ring1.r</parent>
+		<position x='-0.0' y='0.0' z='0.066'/>
+		<rotation x='0.0' y='0.58' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000781' y='4.18e-05' z='0.029'/>
+		<capsule>
+			<position x='-0.0007883' y='4.147e-05' z='0.03027'/>
+			<rotation x='-2.01e-05' y='-89.7' z='-90'/>
+			<halfHeight>0.02027</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring3.r'>
+		<parent>ring2.r</parent>
+		<position x='0.0' y='-0.0' z='0.057'/>
+		<rotation x='0.0' y='0.72' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-6.15e-05' y='4.18e-05' z='0.0204'/>
+		<capsule>
+			<position x='-6.392e-05' y='4.147e-05' z='0.02174'/>
+			<rotation x='-1.53e-05' y='-89.9' z='-90'/>
+			<halfHeight>0.01106</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ring4.r'>
+		<parent>ring3.r</parent>
+		<position x='0.0' y='-0.0' z='0.04'/>
+		<rotation x='-21.46' y='0.33' z='-0.19'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000274' y='0.00491' z='0.0124'/>
+		<capsule>
+			<position x='0.0002708' y='0.005296' z='0.01336'/>
+			<rotation x='-0.0943' y='-89.8' z='-68.6'/>
+			<halfHeight>0.006194</halfHeight>
+			<topRadius>0.006286</topRadius>
+			<bottomRadius>0.008382</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky1.r'>
+		<parent>wrist.r</parent>
+		<position x='0.01' y='0.0' z='0.013'/>
+		<rotation x='0.0' y='-11.46' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-3.87e-05' y='4.18e-05' z='0.0381'/>
+		<capsule>
+			<position x='-3.991e-05' y='4.147e-05' z='0.03943'/>
+			<rotation x='-1.95e-05' y='-89.9' z='-90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky2.r'>
+		<parent>pinky1.r</parent>
+		<position x='0.0' y='-0.0' z='0.068'/>
+		<rotation x='0.0' y='1.66' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-6.44e-05' y='4.2e-05' z='0.025'/>
+		<capsule>
+			<position x='-5.992e-05' y='4.159e-05' z='0.02632'/>
+			<rotation x='-1.33e-05' y='-90.2' z='-90'/>
+			<halfHeight>0.01727</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky3.r'>
+		<parent>pinky2.r</parent>
+		<position x='0.0' y='0.0' z='0.05'/>
+		<rotation x='0.0' y='1.19' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.00025' y='4.2e-05' z='0.015'/>
+		<capsule>
+			<position x='-0.0002515' y='4.159e-05' z='0.01631'/>
+			<rotation x='-1.51e-05' y='-89.9' z='-90'/>
+			<halfHeight>0.006739</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='pinky4.r'>
+		<parent>pinky3.r</parent>
+		<position x='0.0' y='0.0' z='0.03'/>
+		<rotation x='-24.09' y='7.17' z='-0.27'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='0.000258' y='0.00447' z='0.0099'/>
+		<capsule>
+			<position x='0.0002526' y='0.004843' z='0.01073'/>
+			<rotation x='-0.0853' y='-89.6' z='-65.9'/>
+			<halfHeight>0.005411</halfHeight>
+			<topRadius>0.005491</topRadius>
+			<bottomRadius>0.007322</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index1.r'>
+		<parent>wrist.r</parent>
+		<position x='-0.017' y='-0.0' z='0.015'/>
+		<rotation x='0.0' y='16.03' z='-0.0'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000116' y='8.38e-05' z='0.0393'/>
+		<capsule>
+			<position x='-0.0001261' y='8.348e-05' z='0.04063'/>
+			<rotation x='0.000637' y='-89.5' z='-90'/>
+			<halfHeight>0.02141</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index2.r'>
+		<parent>index1.r</parent>
+		<position x='-0.0' y='-0.0' z='0.069'/>
+		<rotation x='0.04' y='-4.77' z='-0.05'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.00175' y='6.46e-05' z='0.0301'/>
+		<capsule>
+			<position x='-0.001748' y='6.328e-05' z='0.03145'/>
+			<rotation x='-0.0483' y='-90.3' z='-90.1'/>
+			<halfHeight>0.02164</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index3.r'>
+		<parent>index2.r</parent>
+		<position x='-0.0' y='-0.0' z='0.061'/>
+		<rotation x='-0.04' y='-4.5' z='0.05'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000643' y='4.17e-05' z='0.0191'/>
+		<capsule>
+			<position x='-0.0006107' y='4.134e-05' z='0.0204'/>
+			<rotation x='-1.69e-05' y='-91.4' z='-90'/>
+			<halfHeight>0.01106</halfHeight>
+			<topRadius>0.007881</topRadius>
+			<bottomRadius>0.01051</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='index4.r'>
+		<parent>index3.r</parent>
+		<position x='0.0' y='-0.0' z='0.038'/>
+		<rotation x='-24.12' y='-4.59' z='-1.4'/>
+		<mass>0.182</mass>
+		<centralMassPoint x='-0.000486' y='0.00491' z='0.0108'/>
+		<capsule>
+			<position x='-0.0004687' y='0.005297' z='0.0117'/>
+			<rotation x='-1.59' y='-90.4' z='-65.9'/>
+			<halfHeight>0.005571</halfHeight>
+			<topRadius>0.005654</topRadius>
+			<bottomRadius>0.007539</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='attachHand.r'>
+		<parent>wrist.r</parent>
+		<position x='-0.016' y='-0.035' z='0.059'/>
+		<rotation x='0.0' y='0.21' z='-90.0'/>
+	</bone>
+	
+	<bone name='chest'>
+		<parent>spineUpper</parent>
+		<position x='0.0' y='0.0' z='0.133'/>
+		<rotation x='-4.7' y='0.0' z='0.0'/>
+	</bone>
+	
+	<bone name='neck'>
+		<parent>chest</parent>
+		<position x='-0.0' y='0.0' z='0.062'/>
+		<rotation x='-7.87' y='-0.0' z='-0.0'/>
+		<mass>0.402</mass>
+		<centralMassPoint x='3.69e-14' y='0.000212' z='0.0371'/>
+		<cylinder>
+			<position x='3.686e-14' y='0.0002121' z='0.03707'/>
+			<rotation x='83.6' y='180' z='7.78e-05'/>
+			<halfHeight>0.03993</halfHeight>
+			<radius>0.0757</radius>
+		</cylinder>
+	</bone>
+	
+	<bone name='head'>
+		<parent>neck</parent>
+		<position x='-0.0' y='-0.0' z='0.091'/>
+		<rotation x='77.43' y='-180.0' z='-0.0'/>
+		<mass>1.94</mass>
+		<centralMassPoint x='-6.3e-09' y='0.0918' z='0.0605'/>
+		<sphere>
+			<position x='-6.298e-09' y='0.09183' z='0.06046'/>
+			<radius>0.1199</radius>
+		</sphere>
+	</bone>
+	
+	<bone name='ear.l1'>
+		<parent>head</parent>
+		<position x='-0.079' y='0.179' z='0.003'/>
+		<rotation x='62.97' y='113.94' z='60.96'/>
+		<mass>0.211</mass>
+		<centralMassPoint x='0.00459' y='-0.00107' z='0.0702'/>
+		<capsule>
+			<position x='0.004587' y='-0.001073' z='0.07024'/>
+			<rotation x='88.1' y='-114' z='-66.1'/>
+			<halfHeight>0.02904</halfHeight>
+			<radius>0.06104</radius>
+		</capsule>
+	</bone>
+	
+	<bone name='ear.l2'>
+		<parent>ear.l1</parent>
+		<position x='0.0' y='-0.0' z='0.151'/>
+		<rotation x='12.35' y='-1.52' z='7.45'/>
+		<mass>0.0789</mass>
+		<centralMassPoint x='-0.00143' y='0.00042' z='0.0847'/>
+		<capsule>
+			<position x='-0.001536' y='0.0004533' z='0.09371'/>
+			<rotation x='90' y='0' z='-179'/>
+			<halfHeight>0.06854</halfHeight>
+			<topRadius>0.01811</topRadius>
+			<bottomRadius>0.03622</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='ear.r1'>
+		<parent>head</parent>
+		<position x='0.079' y='0.179' z='0.003'/>
+		<rotation x='62.97' y='-113.94' z='-60.96'/>
+		<mass>0.211</mass>
+		<centralMassPoint x='-0.00459' y='-0.00107' z='0.0702'/>
+		<capsule>
+			<position x='-0.004587' y='-0.001073' z='0.07024'/>
+			<rotation x='88.1' y='114' z='66.1'/>
+			<halfHeight>0.02904</halfHeight>
+			<radius>0.06104</radius>
+		</capsule>
+	</bone>
+	
+	<bone name='ear.r2'>
+		<parent>ear.r1</parent>
+		<position x='0.0' y='0.0' z='0.151'/>
+		<rotation x='12.35' y='1.52' z='-7.45'/>
+		<mass>0.0789</mass>
+		<centralMassPoint x='0.00143' y='0.00042' z='0.0847'/>
+		<capsule>
+			<position x='0.001537' y='0.0004532' z='0.09371'/>
+			<rotation x='90' y='0' z='179'/>
+			<halfHeight>0.06854</halfHeight>
+			<topRadius>0.01811</topRadius>
+			<bottomRadius>0.03622</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='upperLeg.l'>
+		<parent>hips</parent>
+		<position x='-0.115' y='-0.016' z='-0.0'/>
+		<rotation x='-75.31' y='0.0' z='0.0'/>
+		<mass>1.5</mass>
+		<centralMassPoint x='-0.00635' y='1.86e-06' z='0.192'/>
+		<capsule>
+			<position x='-0.006347' y='-4.569e-05' z='0.2028'/>
+			<rotation x='89.7' y='0.00954' z='180'/>
+			<halfHeight>0.1266</halfHeight>
+			<topRadius>0.08327</topRadius>
+			<bottomRadius>0.1041</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='lowerLeg.l'>
+		<parent>upperLeg.l</parent>
+		<position x='-0.0' y='-0.0' z='0.392'/>
+		<rotation x='-22.81' y='1.17' z='1.38'/>
+		<mass>0.828</mass>
+		<centralMassPoint x='-0.00153' y='-0.0745' z='0.23'/>
+		<capsule>
+			<position x='0.0004098' y='-0.0611' z='0.3484'/>
+			<rotation x='58.1' y='179' z='1.3'/>
+			<halfHeight>0.1289</halfHeight>
+			<topRadius>0.05363</topRadius>
+			<bottomRadius>0.05959</bottomRadius>
+		</capsule>
+		<capsule>
+			<position x='-0.003488' y='-0.08748' z='0.1176'/>
+			<rotation x='66.3' y='-1.31' z='-179'/>
+			<halfHeight>0.1055</halfHeight>
+			<topRadius>0.05363</topRadius>
+			<bottomRadius>0.05959</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='footAnkle.l'>
+		<parent>lowerLeg.l</parent>
+		<position x='0.0' y='0.0' z='0.461'/>
+		<rotation x='71.74' y='3.24' z='-2.4'/>
+		<mass>0.845</mass>
+		<centralMassPoint x='-0.00307' y='-0.00218' z='0.172'/>
+		<box>
+			<position x='-0.003073' y='-0.00218' z='0.172'/>
+			<halfExtends x='0.08717' y='0.1914' z='0.04182'/>
+			<rotation x='63.7' y='180' z='7.44e-06'/>
+		</box>
+	</bone>
+	
+	<bone name='footBall.l'>
+		<parent>footAnkle.l</parent>
+		<position x='0.0' y='0.0' z='0.186'/>
+		<rotation x='26.13' y='1.26' z='-1.86'/>
+	</bone>
+	
+	<bone name='upperLeg.r'>
+		<parent>hips</parent>
+		<position x='0.115' y='-0.016' z='-0.0'/>
+		<rotation x='-75.31' y='-0.0' z='-0.0'/>
+		<mass>1.5</mass>
+		<centralMassPoint x='0.00635' y='1.86e-06' z='0.192'/>
+		<capsule>
+			<position x='0.006347' y='-4.569e-05' z='0.2028'/>
+			<rotation x='89.7' y='-0.00954' z='-180'/>
+			<halfHeight>0.1266</halfHeight>
+			<topRadius>0.08327</topRadius>
+			<bottomRadius>0.1041</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='lowerLeg.r'>
+		<parent>upperLeg.r</parent>
+		<position x='0.0' y='-0.0' z='0.392'/>
+		<rotation x='-22.81' y='-1.17' z='-1.38'/>
+		<mass>0.828</mass>
+		<centralMassPoint x='0.00153' y='-0.0745' z='0.23'/>
+		<capsule>
+			<position x='-0.0004098' y='-0.0611' z='0.3484'/>
+			<rotation x='58.1' y='-179' z='-1.3'/>
+			<halfHeight>0.1289</halfHeight>
+			<topRadius>0.05363</topRadius>
+			<bottomRadius>0.05959</bottomRadius>
+		</capsule>
+		<capsule>
+			<position x='0.003488' y='-0.08748' z='0.1176'/>
+			<rotation x='66.3' y='1.31' z='179'/>
+			<halfHeight>0.1055</halfHeight>
+			<topRadius>0.05363</topRadius>
+			<bottomRadius>0.05959</bottomRadius>
+		</capsule>
+	</bone>
+	
+	<bone name='footAnkle.r'>
+		<parent>lowerLeg.r</parent>
+		<position x='-0.0' y='0.0' z='0.461'/>
+		<rotation x='71.74' y='-3.24' z='2.4'/>
+		<mass>0.845</mass>
+		<centralMassPoint x='0.00307' y='-0.00218' z='0.172'/>
+		<box>
+			<position x='0.003073' y='-0.00218' z='0.172'/>
+			<halfExtends x='0.08717' y='0.1914' z='0.04182'/>
+			<rotation x='63.7' y='-180' z='-7.48e-06'/>
+		</box>
+	</bone>
+	
+	<bone name='footBall.r'>
+		<parent>footAnkle.r</parent>
+		<position x='-0.0' y='0.0' z='0.186'/>
+		<rotation x='26.13' y='-1.26' z='1.86'/>
+	</bone>
+	
+	<bone name='tail1'>
+		<parent>hips</parent>
+		<position x='0.0' y='-0.008' z='-0.192'/>
+		<rotation x='-0.67' y='-180.0' z='-0.0'/>
+		<mass>0.332</mass>
+		<centralMassPoint x='9.19e-07' y='0.000368' z='0.0922'/>
+		<dynamic>true</dynamic>
+		<capsule>
+			<position x='9.786e-07' y='0.0003922' z='0.09524'/>
+			<rotation x='89.5' y='-162' z='-17.5'/>
+			<halfHeight>0.08396</halfHeight>
+			<topRadius>0.05494</topRadius>
+			<bottomRadius>0.06104</bottomRadius>
+		</capsule>
+		<constraint>
+			<bone>hips</bone>
+			<damping>
+				<linear>0.96</linear>
+				<angular>0.9</angular>
+				<spring>0.9</spring>
+			</damping>
+			<angularX>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>5</springStiffness>
+			</angularX>
+			<angularY>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>5</springStiffness>
+			</angularY>
+			<angularZ>
+				<limitLower>-20</limitLower>
+				<limitUpper>20</limitUpper>
+				<springStiffness>5</springStiffness>
+			</angularZ>
+		</constraint>
+	</bone>
+	
+	<bone name='tail2'>
+		<parent>tail1</parent>
+		<position x='-0.0' y='-0.0' z='0.212'/>
+		<rotation x='0.41' y='-0.0' z='0.0'/>
+		<mass>0.321</mass>
+		<centralMassPoint x='-2.86e-11' y='0.000285' z='0.113'/>
+		<dynamic>true</dynamic>
+		<capsule>
+			<position x='-5.776e-10' y='0.000276' z='0.1157'/>
+			<rotation x='90' y='0' z='-180'/>
+			<halfHeight>0.09144</halfHeight>
+			<topRadius>0.05296</topRadius>
+			<bottomRadius>0.05885</bottomRadius>
+		</capsule>
+		<constraint>
+			<bone>tail1</bone>
+			<damping>
+				<linear>0.96</linear>
+				<angular>0.9</angular>
+				<spring>0.9</spring>
+			</damping>
+			<angularX>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>2</springStiffness>
+			</angularX>
+			<angularY>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>2</springStiffness>
+			</angularY>
+			<angularZ>
+				<limitLower>-20</limitLower>
+				<limitUpper>20</limitUpper>
+				<springStiffness>2</springStiffness>
+			</angularZ>
+		</constraint>
+	</bone>
+	
+	<bone name='tail3'>
+		<parent>tail2</parent>
+		<position x='0.0' y='-0.0' z='0.237'/>
+		<rotation x='0.19' y='-0.0' z='-0.0'/>
+		<mass>0.22</mass>
+		<centralMassPoint x='-3.9e-12' y='0.000955' z='0.151'/>
+		<dynamic>true</dynamic>
+		<capsule>
+			<position x='-4.468e-10' y='0.0009475' z='0.1533'/>
+			<rotation x='90' y='0' z='-180'/>
+			<halfHeight>0.1106</halfHeight>
+			<topRadius>0.04267</topRadius>
+			<bottomRadius>0.04741</bottomRadius>
+		</capsule>
+		<constraint>
+			<bone>tail2</bone>
+			<damping>
+				<linear>0.96</linear>
+				<angular>0.9</angular>
+				<spring>0.9</spring>
+			</damping>
+			<angularX>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>1</springStiffness>
+			</angularX>
+			<angularY>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>1</springStiffness>
+			</angularY>
+			<angularZ>
+				<limitLower>-20</limitLower>
+				<limitUpper>20</limitUpper>
+				<springStiffness>1</springStiffness>
+			</angularZ>
+		</constraint>
+	</bone>
+	
+	<bone name='tail4'>
+		<parent>tail3</parent>
+		<position x='0.0' y='0.0' z='0.287'/>
+		<rotation x='-0.35' y='-0.0' z='-0.0'/>
+		<mass>0.112</mass>
+		<centralMassPoint x='-3.77e-12' y='0.00125' z='0.137'/>
+		<dynamic>true</dynamic>
+		<capsule>
+			<position x='-8.587e-10' y='0.001256' z='0.1384'/>
+			<rotation x='90' y='0' z='-180'/>
+			<halfHeight>0.1059</halfHeight>
+			<topRadius>0.03212</topRadius>
+			<bottomRadius>0.03569</bottomRadius>
+		</capsule>
+		<constraint>
+			<bone>tail3</bone>
+			<damping>
+				<linear>0.96</linear>
+				<angular>0.9</angular>
+				<spring>0.9</spring>
+			</damping>
+			<angularX>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>0.05</springStiffness>
+			</angularX>
+			<angularY>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>0.05</springStiffness>
+			</angularY>
+			<angularZ>
+				<limitLower>-20</limitLower>
+				<limitUpper>20</limitUpper>
+				<springStiffness>0.05</springStiffness>
+			</angularZ>
+		</constraint>
+	</bone>
+	
+	<bone name='tail5'>
+		<parent>tail4</parent>
+		<position x='0.0' y='-0.0' z='0.259'/>
+		<rotation x='-0.51' y='0.0' z='-0.0'/>
+		<mass>0.123</mass>
+		<centralMassPoint x='-3.66e-12' y='0.0015' z='0.163'/>
+		<dynamic>true</dynamic>
+		<capsule>
+			<position x='-4.717e-09' y='0.001525' z='0.168'/>
+			<rotation x='90' y='0' z='-180'/>
+			<halfHeight>0.1527</halfHeight>
+			<topRadius>0.02307</topRadius>
+			<bottomRadius>0.03295</bottomRadius>
+		</capsule>
+		<constraint>
+			<bone>tail4</bone>
+			<damping>
+				<linear>0.96</linear>
+				<angular>0.9</angular>
+				<spring>0.9</spring>
+			</damping>
+			<angularX>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>0.025</springStiffness>
+			</angularX>
+			<angularY>
+				<limitLower>-30</limitLower>
+				<limitUpper>30</limitUpper>
+				<springStiffness>0.025</springStiffness>
+			</angularY>
+			<angularZ>
+				<limitLower>-20</limitLower>
+				<limitUpper>20</limitUpper>
+				<springStiffness>0.025</springStiffness>
+			</angularZ>
+		</constraint>
+	</bone>
+</rig>

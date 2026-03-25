@@ -52,9 +52,27 @@ class StartGame extends WindowGameWorld.Loader
 		// set properties and add texture replacements to alter the created actor. Calling
 		// createElement() creates the actor. The cast is required since spawn points require
 		// a BaseActor object instance.
-		eclass = app.getElementClassList().getNamed("Player")
+		//
+		// We use here two different element classes for the player depending if full body
+		// tracking is supported or not. It is also possible to change stub parameters to
+		// achieve similar results but using different element classes is easier and cleaner
+		if VRSystem.supportsBodyTracking()
+			eclass = app.getElementClassList().getNamed("PlayerFBT")
+			
+		else
+			eclass = app.getElementClassList().getNamed("Player")
+		end
+		
 		id = app.getIDGenerator().nextID()
-		var BaseVRActor player = StubElement.new(eclass, id).createElement() cast BaseVRActor
+		
+		var StubElement stub = StubElement.new(eclass, id)
+		
+		// Here you could adjust the player by assigning stup properties. This can be used
+		// for example to alter the element class parameters if certain VR features are supported
+		// or depending on game settings
+		//stub.setPropertyValueFor("component.model", "")
+		
+		var BaseVRActor player = stub.createElement() cast BaseVRActor
 		
 		// To spawn the actor find a suitable spawn point in the game world. For this code
 		// here to work you have to add a spawn point in your world named "player". Once
@@ -70,6 +88,20 @@ class StartGame extends WindowGameWorld.Loader
 		if app.getConfiguration().getBoolAt("debug.vrHandPose", false)
 			player.addAttachableBehavior(DebugBehaviorVRHandPose.new(player.getVRRightHandPose()))
 			player.addAttachableBehavior(DebugBehaviorVRHandPose.new(player.getVRLeftHandPose()))
+		end
+		
+		// To debug body tracking you can add and remove attachable behaviors any time during
+		// the game. You can add more than one behavior which can be used to visualize the
+		// tracked skeleton in the real location and a fake location in front of the user.
+		// This makes it easier to examine problems
+		if GameApp.getApp().getConfiguration().getBoolAt("debug.vrBodyPose", false) and VRSystem.supportsBodyTracking()
+			player.addAttachableBehavior(DebugBehaviorVRBodyPose.new(player.getVRBody()))
+			
+			// For the fake body pose you can assign a transformation matrix which offsets
+			// and rotates the visualization relative to the playspace
+			var DebugBehaviorVRBodyPose behavior = DebugBehaviorVRBodyPose.new(player.getVRBody())
+			behavior.setTransformMatrix(Matrix.newRT(Vector.new(0, 180, 0), Vector.new(0, 0, 1.5)))
+			player.addAttachableBehavior(behavior)
 		end
 		
 		// Assign camera director attaching the camera to the player controlled actor

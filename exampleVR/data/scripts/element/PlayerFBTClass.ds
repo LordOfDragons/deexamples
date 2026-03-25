@@ -1,0 +1,55 @@
+pin Dragengine.Scenery
+
+
+/**
+ * Player element class for full body tracking.
+ * 
+ * Uses \ref PlayerClass as base class with modifications for full body tracking.
+ */
+class PlayerFBTClass extends PlayerClass
+	/** Create element class. */
+	public func new(String classname) super(classname)
+		// If the VR runtime supports body tracking use a player model supporting body tracking.
+		// The ECBehaviorVRBody behavior tackes care of tracking the body tracker input device
+		// and applying the tracked pose to the ECBehaviorActorAnimated of this class.
+		// In particular this means the animations are applied in this order:
+		// - ECBehaviorActorAnimated: pre-canned animations as for non-VR games
+		// - ECBehaviorConversationActor: conversation animations like gestures
+		// - ECBehaviorVRBody: body tracking pose
+		// - ECBehaviorVRHand: hand tracking pose
+		//
+		// If no body tracking input device is present ECBehaviorVRBody does not modify the
+		// animation. This allows to use a non-tracked animation on ECBehaviorActorAnimated
+		// without extra work. Furthermore you can layer more animations on top of all these
+		// by adding more behaviors afterwards
+		getComponent().setCommonPath("/content/models/dragonroo",\
+			"dragonroo.demodel", "dragonroo.deskin", "dragonroo.derig")
+		
+		// Since the model has a dangling tail we have to enable physical simulation for
+		// it to work. Switching on physics mode allows dynamic rig bones to be affected by
+		// physics. This does not change the AI collider and thus the player will still be
+		// moved around the game world using a kinematic AI collider
+		setDynamicCollision()
+		
+		// When using full body model the hands are already included in the model itself so
+		// disable them. Also set them to ghost collision since the full body model contains
+		// collision shapes for the hands.
+		//
+		// We can keep the bone assignments since ECBehaviorVRHand defines bones already in
+		// a way they are compatible between explicit hand models and full body models
+		// 
+		// Also change hand pose to the be applied to the full body model instead of the hands
+		// 
+		// Also change the attach position from the hand to the body collider. This is required
+		// with with the full body model the hand colliders are located in the body model
+		// itself and no more in the hands
+		//
+		// This call can be done with the helper function setBodyMode()
+		setBodyMode()
+		
+		// Replace hand animators since the rig in them has to match the comonent rig
+		var String basePath = "/content/animator/player/hand/"
+		setHandAnimators(getVRRightHandAnimated().getAnimators(), basePath + "right_fbt/")
+		setHandAnimators(getVRLeftHandAnimated().getAnimators(), basePath + "left_fbt/")
+	end
+end

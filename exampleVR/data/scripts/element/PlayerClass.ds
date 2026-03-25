@@ -8,7 +8,7 @@ pin Dragengine.Scenery
  */
 class PlayerClass extends BaseVRActorClass
 	/** Create element class. */
-	public func new() super("Player")
+	public func new(String classname) super(classname)
 		// Use hand model for left and right hand instead of vendor models it present.
 		// You usually want to do this.
 		// 
@@ -69,9 +69,7 @@ class PlayerClass extends BaseVRActorClass
 		// - set collider physics type to CollisionResponse.kinematic
 		// - clear collider local gravity
 		// - set collider weight to 1
-		// - set collision filter with category BaseGameApp.CollisionFilterBit.geometry
-		//   and filter BaseGameApp.CollisionFilterBit.dynamic
-		//   and BaseGameApp.CollisionFilterBit.particle .
+		// - set collision filter similar to BaseVRActor
 		getVRRightHand().setPhysics()
 		getVRLeftHand().setPhysics()
 		
