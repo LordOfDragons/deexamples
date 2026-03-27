@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           lfs: ${{ !inputs.lfscache }}
         
@@ -28,7 +28,7 @@ jobs:
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-objects-id
 
       - name: Restore LFS Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: lfs-cache
         if: ${{ inputs.lfscache }}
         with:
@@ -46,7 +46,7 @@ jobs:
       
       - name: Distribute AudioTest
         id: audiotest
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'audioTest/audioTest.degp'
           profile: 'Release'
@@ -54,7 +54,7 @@ jobs:
       
       - name: Distribute GraphicsTest
         id: graphicstest
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'degraphicstest/DEGraphicsTest.degp'
           profile: 'Default'
@@ -62,7 +62,7 @@ jobs:
       
       - name: Distribute DSTestProject
         id: dstestproject
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'dstestproject/dstestproject.degp'
           profile: 'Default'
@@ -70,7 +70,7 @@ jobs:
       
       - name: Distribute ExampleApp
         id: exampleapp
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'exampleApp/Example App.degp'
           profile: 'Default'
@@ -78,7 +78,7 @@ jobs:
       
       - name: Distribute ExampleVR
         id: examplevr
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'exampleVR/ExampleVR.degp'
           profile: 'Release'
@@ -86,7 +86,7 @@ jobs:
       
       - name: Distribute Network
         id: network
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'network/NetworkExample.degp'
           profile: 'Release'
@@ -94,7 +94,7 @@ jobs:
       
       - name: Distribute VideoPlayer
         id: videoplayer
-        uses: LordOfDragons/build-delga@v2
+        uses: LordOfDragons/build-delga@v3
         with:
           projectFile: 'videoplayer/Video Player.degp'
           profile: 'Default'
@@ -112,7 +112,7 @@ jobs:
           cp -a videoplayer/distribute/DEVideoPlayer.delga artifacts
         
       - name: Store DELGAs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ${{ inputs.artifact }}

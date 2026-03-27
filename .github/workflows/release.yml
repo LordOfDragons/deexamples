@@ -23,12 +23,12 @@ jobs:
     
     steps:
       - name: Get Distribution
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: distribution
       
       - name: Upload Artifacts
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.21.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: false
