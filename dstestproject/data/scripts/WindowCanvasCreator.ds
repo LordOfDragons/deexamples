@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -34,12 +33,11 @@ pin Dragengine.Utils
  */
 class WindowCanvasCreator extends Window
 	/** \brief Create game. */
-	public func new() super(0, 0, 600, 450)
+	func new() super(0, 0, 600, 450)
 		setDesignerSelector("WindowPadding")
 		setTitle("Canvas Creator")
 		createContent(this)
 	end
-	
 	
 	
 	/** \brief Add content. */

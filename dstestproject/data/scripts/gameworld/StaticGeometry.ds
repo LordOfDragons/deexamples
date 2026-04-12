@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2017, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -43,16 +43,15 @@ pin Dragengine.Utils
  * resources to load while the game is running.
  */
 class StaticGeometry extends BehaviorElement
-	private var ECBehaviorComponent.Instance pComponent
-	private var ECBehaviorCollider.Instance pCollider
-	
+	var ECBehaviorComponent.Instance pComponent
+	var ECBehaviorCollider.Instance pCollider
 	
 	
 	/**
 	 * \brief Create element.
 	 * \param eclass Element class creating this element.
 	 */
-	public func new( StaticGeometryClass eclass ) super( eclass )
+	func new(StaticGeometryClass eclass) super(eclass)
 		// Set here the initial value of class members added in this class. Typically
 		// behaviors required to be modified are stored here. It is not required to
 		// store them here. Often it is also enough to retrieve them lazy at a later
@@ -62,7 +61,7 @@ class StaticGeometry extends BehaviorElement
 		// is fast since it does not require searching for the matching instance in
 		// the element. It is though restricted to the BehaviorElementClass the behavior
 		// has been created for. Using instance() in all other situations will fail.
-		this.pComponent = eclass.getComponent().instance( this )
+		pComponent = eclass.getComponent().instance(this)
 	end
 	
 	/**
@@ -72,7 +71,7 @@ class StaticGeometry extends BehaviorElement
 	 * required to ensure elements do not leak. You need to overwrite this method only
 	 * if you need disposing.
 	 */
-	public func void dispose()
+	func void dispose()
 		// Clear all parameters containing potential reference loops here. once you are
 		// finished always super-call dispose. It is usually not required to clear the
 		// behavior reference held except if this element adds listeners to behaviors.
@@ -84,17 +83,16 @@ class StaticGeometry extends BehaviorElement
 	end
 	
 	
-	
 	/**
 	 * \brief Initialize element from stub.
 	 * 
 	 * This method is called to initialize parameters from a StubElement which contains
 	 * artists properties set in the World Editor for this instance of the element.
 	 */
-	public func void init( StubElement stub )
+	func void init(StubElement stub)
 		// BehaviorElement requires super.init() to be called to properly configurate
 		// behavior instances added during BehaviorElement constructor.
-		super.init( stub )
+		super.init(stub)
 		
 		// Do your own initialization stuff here if required. While possible to add
 		// functionality to BehaviorElement subclasses directly it is recommended to
@@ -103,18 +101,17 @@ class StaticGeometry extends BehaviorElement
 	end
 	
 	
-	
 	/**
 	 * \brief Component behavio instance.
 	 */
-	public func ECBehaviorComponent.Instance getComponent()
-		return this.pComponent
+	func ECBehaviorComponent.Instance getComponent()
+		return pComponent
 	end
 	
 	/**
 	 * \brief Collider behavior instance.
 	 */
-	public func ECBehaviorCollider.Instance getCollider()
+	func ECBehaviorCollider.Instance getCollider()
 		// Example of a lazy obtained behavior instance. This avoids retrieving all
 		// behavior instances during constructor of which most if not all are never used.
 		// By using lazy retrieval the instance is looked up the first time it is needed
@@ -129,19 +126,18 @@ class StaticGeometry extends BehaviorElement
 		// for arbitrary elements (potentially not having this behavior in the first
 		// place) you have to use ECBehaviorCollider.getInstanceIn() instead. This method
 		// call does search the element for the matching behavior if present.
-		if this.pCollider == null
-			this.pCollider = ( this.getClass() cast StaticGeometryClass ).getCollider().instance( this )
+		if pCollider == null
+			pCollider = (getClass() cast StaticGeometryClass).getCollider().instance(this)
 		end
-		return this.pCollider
+		return pCollider
 	end
-	
 	
 	
 	/**
 	 * \brief Visit element.
 	 */
-	public func void visit( ElementVisitor visitor )
+	func void visit(ElementVisitor visitor)
 		// we expect this class to be used only with a visitor based on TPElementVisitor
-		( visitor cast TPElementVisitor ).visitStaticGeometry( this )
+		(visitor cast TPElementVisitor).visitStaticGeometry(this)
 	end
 end

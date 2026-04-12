@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -33,114 +32,111 @@ pin Dragengine.Utils
  */
 class WindowImage extends Window
 	/** \brief Named repeat mode. */
-	public class NamedRepeatMode
+	class NamedRepeatMode
 		/** \brief Name. */
-		private var String pName
+		var String pName
 		
 		/** \brief Repeat mode. */
-		private var RepeatMode pRepeatMode
+		var RepeatMode pRepeatMode
 		
 		/** \brief Create named repeat mode. */
-		public func new( String name, RepeatMode repeatMode )
-			this.pName = name
-			this.pRepeatMode = repeatMode
+		func new(String name, RepeatMode repeatMode)
+			pName = name
+			pRepeatMode = repeatMode
 		end
 		
 		/** \brief Name. */
-		public func String getName()
-			return this.pName
+		func String getName()
+			return pName
 		end
 		
 		/** \brief Repeat mode. */
-		public func RepeatMode getRepeatMode()
-			return this.pRepeatMode
+		func RepeatMode getRepeatMode()
+			return pRepeatMode
 		end
 		
 		/** \brief String representation. */
-		public func String toString()
-			return this.pName
+		func String toString()
+			return pName
 		end
 	end
 	
 	/** \brief Repeat mode selection listener. */
-	public class SelectionListenerRepeatMode extends DefaultListModelListener
+	class SelectionListenerRepeatMode extends DefaultListModelListener
 		/** \brief Widget. */
-		private var DisplayImage pWidget
+		var DisplayImage pWidget
 		
 		/** \brief Create selection listener. */
-		public func new( DisplayImage widget )
-			this.pWidget = widget
+		func new(DisplayImage widget)
+			pWidget = widget
 		end
 		
 		/** \brief Selection changed. */
-		public func void selectionChanged( ListModel listModel )
-			this.pWidget.setRepeatMode( ( listModel.getAt( listModel.getSelected() ) \
-				cast NamedRepeatMode ).getRepeatMode() )
+		func void selectionChanged(ListModel listModel)
+			pWidget.setRepeatMode((listModel.getAt(listModel.getSelected()) \
+				cast NamedRepeatMode).getRepeatMode())
 		end
 	end
 	
 	
-	
-	private var DefaultListModel pModelRepeatModes
-	private var FrameUpdateListener pUpdaterRotation
-	
+	var DefaultListModel pModelRepeatModes
+	var FrameUpdateListener pUpdaterRotation
 	
 	
 	/** \brief Create game. */
-	public func new() super( 0, 0, 600, 300 )
-		this.pModelRepeatModes = DefaultListModel.new()
-		this.pModelRepeatModes.add( NamedRepeatMode.new( "Repeat Once", RepeatMode.once ) )
-		this.pModelRepeatModes.add( NamedRepeatMode.new( "Stretch in both directions", RepeatMode.stretch ) )
-		this.pModelRepeatModes.add( NamedRepeatMode.new( "Tile along X direction", RepeatMode.tileX ) )
-		this.pModelRepeatModes.add( NamedRepeatMode.new( "Tile along Y direction", RepeatMode.tileY ) )
-		this.pModelRepeatModes.add( NamedRepeatMode.new( "Tile along both directions", RepeatMode.tile ) )
+	func new() super(0, 0, 600, 300)
+		pModelRepeatModes = DefaultListModel.new()
+		pModelRepeatModes.add(NamedRepeatMode.new("Repeat Once", RepeatMode.once))
+		pModelRepeatModes.add(NamedRepeatMode.new("Stretch in both directions", RepeatMode.stretch))
+		pModelRepeatModes.add(NamedRepeatMode.new("Tile along X direction", RepeatMode.tileX))
+		pModelRepeatModes.add(NamedRepeatMode.new("Tile along Y direction", RepeatMode.tileY))
+		pModelRepeatModes.add(NamedRepeatMode.new("Tile along both directions", RepeatMode.tile))
 		
-		this.runWhileBlockingLayout( block
-			this.setDesignerSelector( "WindowPadding" )
-			this.setTitle( "Image" )
-			this.createContent( this )
-		end )
+		runWhileBlockingLayout(block
+			setDesignerSelector("WindowPadding")
+			setTitle("Image")
+			createContent(this)
+		end)
 	end
 	
 	/** \brief Dispose of widget. */
-	public func void dispose()
-		if this.pUpdaterRotation != null
-			this.pUpdaterRotation.giveUp()
-			this.pUpdaterRotation = null
+	func void dispose()
+		if pUpdaterRotation != null
+			pUpdaterRotation.giveUp()
+			pUpdaterRotation = null
 		end
 		super.dispose()
 	end
 	
 	
-	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		content.setLayout( GridLayout.new( 2, 1 ) )
+	private func void createContent(Container content)
+		content.setLayout(GridLayout.new(2, 1))
 		
 		// regular image
-		content.addWidget( Panel.new( BorderLayout.new( 5 ), block Panel p
+		content.addWidget(Panel.new(BorderLayout.new(5), block Panel p
 			// combo box line
-			p.addWidget( Panel.new( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ), block Panel p2
-				p2.addWidget( Label.new( "Repeat Mode:" ) )
-				p2.addWidget( ComboBox.new( this.pModelRepeatModes ) )
-			end ), BorderLayout.Area.top )
+			p.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 10, FlowLayout.Stretch.last), block Panel p2
+				p2.addWidget(Label.new("Repeat Mode:"))
+				p2.addWidget(ComboBox.new(pModelRepeatModes))
+			end), BorderLayout.Area.top)
 			
 			// image
-			var DisplayImage displayImage = DisplayImage.new( Image.new( "/images/colorful.png" ) )
-			p.addWidget( displayImage, BorderLayout.Area.content )
-			this.pModelRepeatModes.addListener( SelectionListenerRepeatMode.new( displayImage ) )
-		end ) )
+			var DisplayImage displayImage = DisplayImage.new(Image.new("/images/colorful.png"))
+			p.addWidget(displayImage, BorderLayout.Area.content)
+			pModelRepeatModes.addListener(SelectionListenerRepeatMode.new(displayImage))
+		end))
 		
 		// rotating image
-		content.addWidget( Panel.new( BoxLayout.new( LayoutAxis.x ), block Panel p
-			var DisplayRotatingImage displayImage = DisplayRotatingImage.new( Image.new( "/images/colorful.png" ) )
-			//displayImage.setScale( 4 )
-			//displayImage.setImageOffset( Vector2.new( 0.5, 0 ) )
-			p.addWidget( displayImage )
-			this.pUpdaterRotation = BlockFrameUpdateListener.new( block float elapsed
-				displayImage.setRotation( displayImage.getRotation() + elapsed * 45 )
-			end )
-			this.pModelRepeatModes.addListener( SelectionListenerRepeatMode.new( displayImage ) )
-		end ) )
+		content.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x), block Panel p
+			var DisplayRotatingImage displayImage = DisplayRotatingImage.new(Image.new("/images/colorful.png"))
+			//displayImage.setScale(4)
+			//displayImage.setImageOffset(Vector2.new(0.5, 0))
+			p.addWidget(displayImage)
+			pUpdaterRotation = BlockFrameUpdateListener.new(block float elapsed
+				displayImage.setRotation(displayImage.getRotation() + elapsed * 45)
+			end)
+			pModelRepeatModes.addListener(SelectionListenerRepeatMode.new(displayImage))
+		end))
 	end
 end

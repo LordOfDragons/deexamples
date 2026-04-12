@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -33,53 +32,52 @@ pin Dragengine.Utils
  */
 class WindowCanvas extends Window
 	/** \brief Create game. */
-	public func new() super( 0, 0, 630, 460 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Canvas View" )
-		this.createContent( this )
+	func new() super(0, 0, 630, 460)
+		setDesignerSelector("WindowPadding")
+		setTitle("Canvas View")
+		createContent(this)
 	end
 	
 	
-	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		var Point padding = Point.new( 10, 10 )
-		var Point size = Point.new( 200, 200 )
+	private func void createContent(Container content)
+		var Point padding = Point.new(10, 10)
+		var Point size = Point.new(200, 200)
 		
-		content.setLayout( FixedLayout.new() )
+		content.setLayout(FixedLayout.new())
 		
 		// real panel with active widgets. real panel requires a background canvas creator to
 		// be present otherwise the copied content has artifacts. this happens because without
 		// background canvas creator the area is undefined
 		var Panel realPanel = Panel.new()
-		realPanel.setLayout( FlowLayout.new( LayoutAxis.y, 3 ) )
-		realPanel.setSize( size )
-		realPanel.setPosition( padding )
-		realPanel.setDesignerSelector( "PanelWithBackground" )
+		realPanel.setLayout(FlowLayout.new(LayoutAxis.y, 3))
+		realPanel.setSize(size)
+		realPanel.setPosition(padding)
+		realPanel.setDesignerSelector("PanelWithBackground")
 		
-		var Label label = Label.new( "Upper left is the real panel with active widgets. The others are canvas view rendering" )
-		label.setMaximalWidth( 200 )
-		label.setWordWrap( true )
-		realPanel.addWidget( label )
-		realPanel.addWidget( TextField.new( DefaultTextModel.new( "Enter some text" ) ) )
-		realPanel.addWidget( Button.new( "I do nothing" ) )
+		var Label label = Label.new("Upper left is the real panel with active widgets. The others are canvas view rendering")
+		label.setMaximalWidth(200)
+		label.setWordWrap(true)
+		realPanel.addWidget(label)
+		realPanel.addWidget(TextField.new(DefaultTextModel.new("Enter some text")))
+		realPanel.addWidget(Button.new("I do nothing"))
 		
-		realPanel.addWidget( ScrollPanel.new( TextArea.new( DefaultTextModel.new( "Enter some text" ) ) ) )
+		realPanel.addWidget(ScrollPanel.new(TextArea.new(DefaultTextModel.new("Enter some text"))))
 		
-		content.addWidget( realPanel )
+		content.addWidget(realPanel)
 		
 		// canvas view of same size
-		var DisplayCanvas displayCanvas = DisplayCanvas.new( realPanel.getCanvasWidget(), RepeatMode.stretch )
-		displayCanvas.setSize( size )
-		displayCanvas.setPosition( padding + Point.new( 0, size.getY() + 10 ) )
-		displayCanvas.setDesignerSelector( "BorderBlue2px" )
-		content.addWidget( displayCanvas )
+		var DisplayCanvas displayCanvas = DisplayCanvas.new(realPanel.getCanvasWidget(), RepeatMode.stretch)
+		displayCanvas.setSize(size)
+		displayCanvas.setPosition(padding + Point.new(0, size.getY() + 10))
+		displayCanvas.setDesignerSelector("BorderBlue2px")
+		content.addWidget(displayCanvas)
 		
 		// canvas view of double size
-		displayCanvas = DisplayCanvas.new( realPanel.getCanvasWidget(), RepeatMode.stretch )
-		displayCanvas.setSize( size * 2 )
-		displayCanvas.setPosition( padding + Point.new( size.getX() + 10, 0 ) )
-		displayCanvas.setDesignerSelector( "BorderBlue2px" )
-		content.addWidget( displayCanvas )
+		displayCanvas = DisplayCanvas.new(realPanel.getCanvasWidget(), RepeatMode.stretch)
+		displayCanvas.setSize(size * 2)
+		displayCanvas.setPosition(padding + Point.new(size.getX() + 10, 0))
+		displayCanvas.setDesignerSelector("BorderBlue2px")
+		content.addWidget(displayCanvas)
 	end
 end

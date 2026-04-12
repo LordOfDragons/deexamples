@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,9 +19,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
-
 
 
 /**
@@ -29,7 +27,7 @@ pin Dragengine.Gui.Events
  */
 class TestProject extends BaseGameApp
 	/** \brief Create game. */
-	public func new()
+	func new()
 		// the most simple solution is to use one gui theme for the entire project. you can
 		// always add named gui themes inside this main gui theme. this way you can use custom
 		// gui themes for different parts of the project without needing to manually load them.
@@ -40,9 +38,8 @@ class TestProject extends BaseGameApp
 	end
 	
 	
-	
 	/** \brief Init application. */
-	public func void initGame()
+	func void initGame()
 		super.initGame()
 		
 		InputSystem.setCaptureInputDevices(false)
@@ -70,7 +67,7 @@ class TestProject extends BaseGameApp
 	 * 
 	 * Called after logo windows are finished.
 	 */
-	public func void launchApplication()
+	func void launchApplication()
 		getWindowGameWorld().becomeBackgroundWindow()
 		
 		addLogoWindow()
@@ -81,7 +78,7 @@ class TestProject extends BaseGameApp
 	end
 	
 	/** \brief Process input event. */
-	public func void inputEvent(InputEvent event)
+	func void inputEvent(InputEvent event)
 		if event.getType() == InputEventType.keyPress and event.getCode() == InputEventKey.f10
 			getScreenshotCreator().takeScreenshot()
 			
@@ -89,7 +86,6 @@ class TestProject extends BaseGameApp
 			super.inputEvent(event)
 		end
 	end
-	
 	
 	
 	/**
@@ -108,7 +104,6 @@ class TestProject extends BaseGameApp
 		window.fitToContent()
 		window.setPosition(Point.new((getDesktop().getWidth() - window.getWidth()) / 2, 10))
 	end
-	
 	
 	
 	/**

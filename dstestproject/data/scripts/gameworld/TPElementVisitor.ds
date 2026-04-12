@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2017, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -38,13 +38,12 @@ pin Dragengine.Scenery
  */
 class TPElementVisitor extends ElementVisitor
 	/** \brief Create extended element visitor. */
-	public func new()
+	func new()
 	end
 	
 	
-	
 	/** \brief Visit a static world geometry element. */
-	public func void visitStaticGeometry( StaticGeometry staticGeometry )
-		this.visitBehaviorElement( staticGeometry )
+	func void visitStaticGeometry(StaticGeometry staticGeometry)
+		visitBehaviorElement(staticGeometry)
 	end
 end

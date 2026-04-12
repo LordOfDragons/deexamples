@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -35,24 +34,24 @@ class WindowLists extends Window
 	/** Test class. */
 	class TestClass
 		/** Icon. */
-		private var Image pIcon
+		var Image pIcon
 		
 		/** Text. */
-		private var String pText
+		var String pText
 		
 		/** Create instance. */
-		public func new(Image icon, String text)
+		func new(Image icon, String text)
 			pIcon = icon
 			pText = text
 		end
 		
 		/** Icon. */
-		public func Image getIcon()
+		func Image getIcon()
 			return pIcon
 		end
 		
 		/** Text. */
-		public func String getText()
+		func String getText()
 			return pText
 		end
 	end
@@ -60,12 +59,12 @@ class WindowLists extends Window
 	/** Test class list element renderer. */
 	class TestClassRenderer extends DefaultListElementRenderer
 		/** Create test class list element renderer. */
-		public func new()
+		func new()
 			setDefaultObject(TestClass.new(null, "XXX\nXXX"))
 		end
 		
 		/** Create renderer. */
-		public func Widget createRenderer(ListBox listBox)
+		func Widget createRenderer(ListBox listBox)
 			var Panel renderer = Panel.new()
 			renderer.setLayout(FlowLayout.new(LayoutAxis.y, 2, FlowLayout.Stretch.last))
 			
@@ -89,7 +88,7 @@ class WindowLists extends Window
 		end
 		
 		/** Update renderer with object state. */
-		public func void updateRenderer(ListBox listBox, Widget renderer, \
+		func void updateRenderer(ListBox listBox, Widget renderer, \
 		Object element, bool selected, bool focused)
 			var TestClass testClass = element cast TestClass
 			var Panel panel = renderer cast Panel
@@ -110,7 +109,7 @@ class WindowLists extends Window
 		end
 		
 		/** Default height of list element. */
-		public func Point getDefaultSize(ListBox listBox)
+		func Point getDefaultSize(ListBox listBox)
 			return Point.new(120, 50).largest(super.getDefaultSize(listBox))
 		end
 	end
@@ -118,15 +117,15 @@ class WindowLists extends Window
 	/** Change edit text model action listener. */
 	class ChangeEditTextActionListener extends DefaultActionListener
 		/** Text model. */
-		private var TextModel pModel
+		var TextModel pModel
 		
 		/** Create action listener. */
-		public func new(TextModel model)
+		func new(TextModel model)
 			pModel = model
 		end
 		
 		/** Perform action. */
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			pModel.setText((event.getSource() cast ComboBoxEditor).getEditorValue().toString())
 		end
 	end
@@ -134,37 +133,34 @@ class WindowLists extends Window
 	/** Set list type action. */
 	class SetListTypeAction extends DefaultActionListener
 		/** List box to manipulate. */
-		private var ListBox pListBox
+		var ListBox pListBox
 		
 		/** Type to set. */
-		private var ListBox.Type pType
+		var ListBox.Type pType
 		
 		/** Create action listener. */
-		public func new(ListBox listBox, ListBox.Type type)
+		func new(ListBox listBox, ListBox.Type type)
 			pListBox = listBox
 			pType = type
 		end
 		
 		/** Perform action. */
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			pListBox.setType(pType)
 		end
 	end
 	
 	
-	
 	/** Combo box edit text model. */
-	private var TextModel pModelComboBoxEditText
-	
+	var TextModel pModelComboBoxEditText
 	
 	
 	/** Create game. */
-	public func new() super(0, 0, 700, 320)
+	func new() super(0, 0, 700, 320)
 		setDesignerSelector("WindowPadding")
 		setTitle("Lists")
 		createContent(this)
 	end
-	
 	
 	
 	/** Create list model with some testing data in it. */

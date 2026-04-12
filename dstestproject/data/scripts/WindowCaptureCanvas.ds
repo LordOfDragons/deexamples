@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -35,203 +34,199 @@ class WindowCaptureCanvas extends Window
 	/** \brief Action capturing screen. */
 	class ActionCaptureScreen extends DefaultActionListener
 		/** \brief Capture canvas window. */
-		private var WindowCaptureCanvas pWindow
+		var WindowCaptureCanvas pWindow
 		
 		/** \brief Create action. */
-		public func new( WindowCaptureCanvas window )
-			this.pWindow = window
+		func new(WindowCaptureCanvas window)
+			pWindow = window
 		end
 		
 		/** \brief Perform action. */
-		public func void onAction( ActionEvent event )
-			this.pWindow.captureScreen()
+		func void onAction(ActionEvent event)
+			pWindow.captureScreen()
 		end
 	end
 	
 	/** \brief Action capturing panel. */
 	class ActionCapturePanel extends DefaultActionListener
 		/** \brief Capture canvas window. */
-		private var WindowCaptureCanvas pWindow
+		var WindowCaptureCanvas pWindow
 		
 		/** \brief Create action. */
-		public func new( WindowCaptureCanvas window )
-			this.pWindow = window
+		func new(WindowCaptureCanvas window)
+			pWindow = window
 		end
 		
 		/** \brief Perform action. */
-		public func void onAction( ActionEvent event )
-			this.pWindow.capturePanel()
+		func void onAction(ActionEvent event)
+			pWindow.capturePanel()
 		end
 	end
 	
 	/** \brief Capture timer. */
 	class CaptureTimer extends Timer
 		/** \brief Capture canvas window. */
-		private var WindowCaptureCanvas pWindow
+		var WindowCaptureCanvas pWindow
 		
 		/** \brief Capture canvas to check. */
-		private var CaptureCanvas pCaptureCanvas
+		var CaptureCanvas pCaptureCanvas
 		
 		/** \brief Create timer. */
-		public func new( WindowCaptureCanvas window, CaptureCanvas captureCanvas ) super( 0, true )
-			this.pWindow = window
-			this.pCaptureCanvas = captureCanvas
+		func new(WindowCaptureCanvas window, CaptureCanvas captureCanvas) super(0, true)
+			pWindow = window
+			pCaptureCanvas = captureCanvas
 		end
 		
 		/** \brief Timer elapsed. */
-		public func void fire()
-			this.pWindow.updateCapture( this.pCaptureCanvas )
+		func void fire()
+			pWindow.updateCapture(pCaptureCanvas)
 		end
 	end
 	
 	
-	
 	/** \brief Panel to capture. */
-	private var Panel pPanelCapture
+	var Panel pPanelCapture
 	
 	/** \brief Display captured image if present. */
-	private var DisplayImage pDisplayImage
+	var DisplayImage pDisplayImage
 	
 	/** \brief Capture screen. */
-	private var CaptureCanvas pCaptureScreen
+	var CaptureCanvas pCaptureScreen
 	
 	/** \brief Capture panel. */
-	private var CaptureCanvas pCapturePanel
+	var CaptureCanvas pCapturePanel
 	
 	/** \brief Capture timer. */
-	private var CaptureTimer pTimerCapture
-	
+	var CaptureTimer pTimerCapture
 	
 	
 	/** \brief Create game. */
-	public func new() super( 0, 0, 650, 500 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Capture Canvas" )
+	func new() super(0, 0, 650, 500)
+		setDesignerSelector("WindowPadding")
+		setTitle("Capture Canvas")
 		
-		this.createContent( this )
+		createContent(this)
 		
 		// create capture canvas
-		this.pCaptureScreen = CaptureCanvas.new()
-		this.pCaptureScreen.setCanvasView( GraphicSystem.getPrimaryCanvas() )
+		pCaptureScreen = CaptureCanvas.new()
+		pCaptureScreen.setCanvasView(GraphicSystem.getPrimaryCanvas())
 		
-		this.pCapturePanel = CaptureCanvas.new()
-		this.pCapturePanel.setCanvasView( this.pPanelCapture.getCanvasWidget() )
+		pCapturePanel = CaptureCanvas.new()
+		pCapturePanel.setCanvasView(pPanelCapture.getCanvasWidget())
 	end
 	
 	/** \brief Dispose of widget. */
-	public func void dispose()
-		this.stopTimer()
+	func void dispose()
+		stopTimer()
 		
-		this.pCapturePanel = null
-		this.pCaptureScreen = null
+		pCapturePanel = null
+		pCaptureScreen = null
 		
-		this.pDisplayImage = null
-		this.pPanelCapture = null
+		pDisplayImage = null
+		pPanelCapture = null
 		
 		super.dispose()
 	end
 	
 	
-	
 	/** \brief Capture screen. */
-	public func void captureScreen()
-		if this.pCaptureScreen.getCapture()
+	func void captureScreen()
+		if pCaptureScreen.getCapture()
 			return
 		end
 		
-		this.pCaptureScreen.setImage( GraphicSystem.getWindowWidth(), GraphicSystem.getWindowHeight(), 3, 8 )
-		this.pCaptureScreen.setCapture( true )
+		pCaptureScreen.setImage(GraphicSystem.getWindowWidth(), GraphicSystem.getWindowHeight(), 3, 8)
+		pCaptureScreen.setCapture(true)
 		
-		this.startTimer( this.pCaptureScreen )
+		startTimer(pCaptureScreen)
 	end
 	
 	/** \brief Capture panel. */
-	public func void capturePanel()
-		if this.pCapturePanel.getCapture()
+	func void capturePanel()
+		if pCapturePanel.getCapture()
 			return
 		end
 		
-		this.pCapturePanel.setImage( this.pPanelCapture.getWidth(), this.pPanelCapture.getHeight(), 3, 8 )
-		this.pCapturePanel.setCapture( true )
+		pCapturePanel.setImage(pPanelCapture.getWidth(), pPanelCapture.getHeight(), 3, 8)
+		pCapturePanel.setCapture(true)
 		
-		this.startTimer( this.pCapturePanel )
+		startTimer(pCapturePanel)
 	end
 	
 	/** \brief Update capture. */
-	public func void updateCapture( CaptureCanvas captureCanvas )
+	func void updateCapture(CaptureCanvas captureCanvas)
 		if captureCanvas.getCapture()
 			return
 		end
 		
-		this.stopTimer()
+		stopTimer()
 		
-		this.pDisplayImage.setImage( captureCanvas.getImage() )
+		pDisplayImage.setImage(captureCanvas.getImage())
 		captureCanvas.dropImage()
 	end
 	
 	/** \brief Stop capture timer. */
-	public func void stopTimer()
-		if this.pTimerCapture == null
+	func void stopTimer()
+		if pTimerCapture == null
 			return
 		end
 		
-		this.pTimerCapture.giveUp()
-		this.pTimerCapture = null
+		pTimerCapture.giveUp()
+		pTimerCapture = null
 	end
 	
 	/** \brief Start capture timer. */
-	public func void startTimer( CaptureCanvas captureCanvas )
-		this.stopTimer()
-		this.pTimerCapture = CaptureTimer.new( this, captureCanvas )
+	func void startTimer(CaptureCanvas captureCanvas)
+		stopTimer()
+		pTimerCapture = CaptureTimer.new(this, captureCanvas)
 	end
 	
 	
-	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		var Point padding = Point.new( 10, 10 )
-		var Point size = Point.new( 200, 200 )
+	private func void createContent(Container content)
+		var Point padding = Point.new(10, 10)
+		var Point size = Point.new(200, 200)
 		
-		content.setLayout( BorderLayout.new() )
+		content.setLayout(BorderLayout.new())
 		
 		// real panel with active widgets. real panel requires a background canvas creator to
 		// be present otherwise the copied content has artifacts. this happens because without
 		// background canvas creator the area is undefined
 		var Panel subPanel = Panel.new()
-		subPanel.setLayout( FlowLayout.new( LayoutAxis.y ) )
+		subPanel.setLayout(FlowLayout.new(LayoutAxis.y))
 		
-		this.pPanelCapture = Panel.new()
-		this.pPanelCapture.setLayout( FlowLayout.new( LayoutAxis.y, 3 ) )
-		this.pPanelCapture.setSize( size )
-		this.pPanelCapture.setPosition( padding )
-		this.pPanelCapture.setDesignerSelector( "PanelWithBackground" )
+		pPanelCapture = Panel.new()
+		pPanelCapture.setLayout(FlowLayout.new(LayoutAxis.y, 3))
+		pPanelCapture.setSize(size)
+		pPanelCapture.setPosition(padding)
+		pPanelCapture.setDesignerSelector("PanelWithBackground")
 		
-		var Label label = Label.new( "Some sample text spawning multiple lines." )
-		label.setMaximalWidth( 200 )
-		label.setWordWrap( true )
-		this.pPanelCapture.addWidget( label )
-		this.pPanelCapture.addWidget( TextField.new( DefaultTextModel.new( "Enter some text" ) ) )
+		var Label label = Label.new("Some sample text spawning multiple lines.")
+		label.setMaximalWidth(200)
+		label.setWordWrap(true)
+		pPanelCapture.addWidget(label)
+		pPanelCapture.addWidget(TextField.new(DefaultTextModel.new("Enter some text")))
 		
-		var Button button = Button.new( "Screenshot Panel" )
-		button.addActionListener( ActionCapturePanel.new( this ) )
-		this.pPanelCapture.addWidget( button )
+		var Button button = Button.new("Screenshot Panel")
+		button.addActionListener(ActionCapturePanel.new(this))
+		pPanelCapture.addWidget(button)
 		
-		button = Button.new( "Screenshow Screen" )
-		button.addActionListener( ActionCaptureScreen.new( this ) )
-		this.pPanelCapture.addWidget( button )
+		button = Button.new("Screenshow Screen")
+		button.addActionListener(ActionCaptureScreen.new(this))
+		pPanelCapture.addWidget(button)
 		
-		var TextArea textArea = TextArea.new( DefaultTextModel.new( "Enter some text" ) )
-		textArea.setMaximalWidth( 50 )
-		textArea.setRowCount( 5 )
-		this.pPanelCapture.addWidget( ScrollPanel.new( textArea ) )
+		var TextArea textArea = TextArea.new(DefaultTextModel.new("Enter some text"))
+		textArea.setMaximalWidth(50)
+		textArea.setRowCount(5)
+		pPanelCapture.addWidget(ScrollPanel.new(textArea))
 		
-		subPanel.addWidget( this.pPanelCapture )
-		content.addWidget( subPanel, BorderLayout.Area.left )
+		subPanel.addWidget(pPanelCapture)
+		content.addWidget(subPanel, BorderLayout.Area.left)
 		
 		// captured image
-		this.pDisplayImage = DisplayImage.new()
-		var ScrollPanel scrollPanel = ScrollPanel.new( Viewport.new( this.pDisplayImage ) )
-		scrollPanel.setDesignerSelector( "CaptureScrollPanel" )
-		content.addWidget( scrollPanel, BorderLayout.Area.content )
+		pDisplayImage = DisplayImage.new()
+		var ScrollPanel scrollPanel = ScrollPanel.new(Viewport.new(pDisplayImage))
+		scrollPanel.setDesignerSelector("CaptureScrollPanel")
+		content.addWidget(scrollPanel, BorderLayout.Area.content)
 	end
 end

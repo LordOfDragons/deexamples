@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -33,30 +32,29 @@ pin Dragengine.Utils
  */
 class WindowVideoPlayer extends Window
 	/** \brief Create game. */
-	public func new() super( 0, 0, 600, 450 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Video Player" )
-		this.createContent( this )
+	func new() super(0, 0, 600, 450)
+		setDesignerSelector("WindowPadding")
+		setTitle("Video Player")
+		createContent(this)
 	end
 	
 	
-	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		var Video video = Video.new( "/videos/video1.ogv" )
+	private func void createContent(Container content)
+		var Video video = Video.new("/videos/video1.ogv")
 		var Panel row
 		
-		content.setLayout( FlowLayout.new( LayoutAxis.y, 10 ) )
+		content.setLayout(FlowLayout.new(LayoutAxis.y, 10))
 		
 		row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 10, FlowLayout.Stretch.last ) )
-		content.addWidget( row )
-		row.addWidget( DisplayVideo.new( video, RepeatMode.once, true ) )
-		row.addWidget( DisplayVideo.new( video, RepeatMode.stretch, true ) )
+		row.setLayout(FlowLayout.new(LayoutAxis.x, 10, FlowLayout.Stretch.last))
+		content.addWidget(row)
+		row.addWidget(DisplayVideo.new(video, RepeatMode.once, true))
+		row.addWidget(DisplayVideo.new(video, RepeatMode.stretch, true))
 		
 		row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 0, FlowLayout.Stretch.last ) )
-		content.addWidget( row )
-		row.addWidget( DisplayVideo.new( video, RepeatMode.tileX, true ) )
+		row.setLayout(FlowLayout.new(LayoutAxis.x, 0, FlowLayout.Stretch.last))
+		content.addWidget(row)
+		row.addWidget(DisplayVideo.new(video, RepeatMode.tileX, true))
 	end
 end

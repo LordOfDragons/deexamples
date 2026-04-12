@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Layouts
@@ -34,39 +33,37 @@ pin Dragengine.LoadSave
  */
 class WindowEditModuleParameters extends Window
 	/** \brief Create window. */
-	public func new() super( 0, 0, 500, 400 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Edit Module Parameters" )
+	func new() super(0, 0, 500, 400)
+		setDesignerSelector("WindowPadding")
+		setTitle("Edit Module Parameters")
 		
-		this.runWhileBlockingLayout( block
-			this.createContent( this )
-		end )
+		runWhileBlockingLayout(block
+			createContent(this)
+		end)
 	end
 	
 	/** \brief Dispose of window. */
-	public func void dispose()
-		this.pPanelEditModuleParameters = null
+	func void dispose()
+		pPanelEditModuleParameters = null
 		super.dispose()
 	end
 	
 	
-	
-	private var EditModuleParametersPanel pPanelEditModuleParameters
-	
+	var EditModuleParametersPanel pPanelEditModuleParameters
 	
 	
 	/** \brief Create content. */
-	private func void createContent( Container content )
-		content.setLayout( BorderLayout.new( 5 ) )
+	private func void createContent(Container content)
+		content.setLayout(BorderLayout.new(5))
 		
-		this.pPanelEditModuleParameters = EditModuleParametersPanel.new()
-		this.addWidget( this.pPanelEditModuleParameters, BorderLayout.Area.content )
+		pPanelEditModuleParameters = EditModuleParametersPanel.new()
+		addWidget(pPanelEditModuleParameters, BorderLayout.Area.content)
 		
-		this.addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.x, 20 ), block Panel panel
-			panel.addWidget( Button.new( "Apply Changes", \
-				EditModuleParametersPanel.ActionApplyChanges.new( this.pPanelEditModuleParameters ) ) )
-			panel.addWidget( Button.new( "Reset Changes", \
-				EditModuleParametersPanel.ActionResetChanges.new( this.pPanelEditModuleParameters ) ) )
-		end ), BorderLayout.Area.bottom )
+		addWidget(Panel.new(CentrizedBoxLayout.new(LayoutAxis.x, 20), block Panel panel
+			panel.addWidget(Button.new("Apply Changes", \
+				EditModuleParametersPanel.ActionApplyChanges.new(pPanelEditModuleParameters)))
+			panel.addWidget(Button.new("Reset Changes", \
+				EditModuleParametersPanel.ActionResetChanges.new(pPanelEditModuleParameters)))
+		end), BorderLayout.Area.bottom)
 	end
 end

@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,19 +19,11 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
 pin Dragengine.Scenery
 pin Dragengine.Utils
-pin Dragengine.Gui
-pin Dragengine.Gui.Layouts
-pin Dragengine.Gui.Layouts
-pin Dragengine.Gui
-pin Dragengine.Gui
-pin Dragengine.Gui
-pin Dragengine.Gui
 
 
 
@@ -42,24 +34,24 @@ class WindowScrollbars extends Window
 	/** \brief Popup test action. */
 	class ActionPopupTest extends DefaultActionListener
 		class ActionPopdown extends DefaultActionListener
-			private var WindowPopup pPopup
+			var WindowPopup pPopup
 			
-			public func new(WindowPopup popup)
+			func new(WindowPopup popup)
 				pPopup = popup
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				pPopup.popdown()
 			end
 		end
 		
-		private var WindowScrollbars pWindow
+		var WindowScrollbars pWindow
 		
-		public func new(WindowScrollbars window)
+		func new(WindowScrollbars window)
 			pWindow = window
 		end
 		
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			var Widget widget = event.getSource() cast Widget
 			var WindowPopup window = WindowPopup.new()
 			
@@ -74,9 +66,8 @@ class WindowScrollbars extends Window
 	end
 	
 	
-	
 	/** \brief Create game. */
-	public func new() super(0, 0, 500, 450)
+	func new() super(0, 0, 500, 450)
 		runWhileBlockingLayout(block
 			setDesignerSelector("WindowPadding")
 			setLayout(BorderLayout.new())
@@ -84,7 +75,6 @@ class WindowScrollbars extends Window
 			createContent(this)
 		end)
 	end
-	
 	
 	
 	/** \brief Add content. */

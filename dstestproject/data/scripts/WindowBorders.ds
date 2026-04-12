@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Layouts
@@ -33,103 +32,102 @@ pin Dragengine.Utils
  */
 class WindowBorders extends Window
 	/** \brief Create game. */
-	public func new() super( 0, 0, 600, 300 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Borders" )
-		this.createContent( this )
+	func new() super(0, 0, 600, 300)
+		setDesignerSelector("WindowPadding")
+		setTitle("Borders")
+		createContent(this)
 	end
 	
 	
-	
 	/** \brief Add content. */
-	private func void createContent( Container content )
+	private func void createContent(Container content)
 		var Label label
 		var Panel row
 		
-		content.setLayout( FlowLayout.new( LayoutAxis.y, 10 ) )
+		content.setLayout(FlowLayout.new(LayoutAxis.y, 10))
 		
 		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		label = Label.new( "No border" )
-		row.addWidget( label )
-		label = Label.new( "Line border" )
-		label.setDesignerSelector( "BorderTest1" )
-		row.addWidget( label )
-		label = Label.new( "Line border" )
-		label.setDesignerSelector( "BorderTest2" )
-		row.addWidget( label )
+		row.setLayout(BoxLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		label = Label.new("No border")
+		row.addWidget(label)
+		label = Label.new("Line border")
+		label.setDesignerSelector("BorderTest1")
+		row.addWidget(label)
+		label = Label.new("Line border")
+		label.setDesignerSelector("BorderTest2")
+		row.addWidget(label)
 		
 		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		label = Label.new( "Line border" )
-		label.setDesignerSelector( "BorderTest3" )
-		row.addWidget( label )
-		label = Label.new( "Etched border" )
-		label.setDesignerSelector( "BorderTest4" )
-		row.addWidget( label )
-		label = Label.new( "Etched border" )
-		label.setDesignerSelector( "BorderTest5" )
-		row.addWidget( label )
+		row.setLayout(BoxLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		label = Label.new("Line border")
+		label.setDesignerSelector("BorderTest3")
+		row.addWidget(label)
+		label = Label.new("Etched border")
+		label.setDesignerSelector("BorderTest4")
+		row.addWidget(label)
+		label = Label.new("Etched border")
+		label.setDesignerSelector("BorderTest5")
+		row.addWidget(label)
 		
 		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		label = Label.new( "Etched border" )
-		label.setDesignerSelector( "BorderTest6" )
-		row.addWidget( label )
-		label = Label.new( "Etched border" )
-		label.setDesignerSelector( "BorderTest7" )
-		row.addWidget( label )
-		label = Label.new( "Bevel border" )
-		label.setDesignerSelector( "BorderTest8" )
-		row.addWidget( label )
+		row.setLayout(BoxLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		label = Label.new("Etched border")
+		label.setDesignerSelector("BorderTest6")
+		row.addWidget(label)
+		label = Label.new("Etched border")
+		label.setDesignerSelector("BorderTest7")
+		row.addWidget(label)
+		label = Label.new("Bevel border")
+		label.setDesignerSelector("BorderTest8")
+		row.addWidget(label)
 		
 		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		label = Label.new( "Bevel border" )
-		label.setDesignerSelector( "BorderTest9" )
-		row.addWidget( label )
-		label = Label.new( "Bevel border" )
-		label.setDesignerSelector( "BorderTest10" )
-		row.addWidget( label )
-		label = Label.new( "Bevel border" )
-		label.setDesignerSelector( "BorderTest11" )
-		row.addWidget( label )
+		row.setLayout(BoxLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		label = Label.new("Bevel border")
+		label.setDesignerSelector("BorderTest9")
+		row.addWidget(label)
+		label = Label.new("Bevel border")
+		label.setDesignerSelector("BorderTest10")
+		row.addWidget(label)
+		label = Label.new("Bevel border")
+		label.setDesignerSelector("BorderTest11")
+		row.addWidget(label)
 		
 		row = Panel.new()
-		row.setLayout( BoxLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		label = Label.new( "Bevel border" )
-		label.setDesignerSelector( "BorderTest11" )
-		row.addWidget( label )
-		label = Label.new( "Titled etched border" )
-		label.setBorder( TitledEtchedBorder.new( "Border Title" ) )
-		label.setProtectBorder( true )
-		row.addWidget( label )
+		row.setLayout(BoxLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		label = Label.new("Bevel border")
+		label.setDesignerSelector("BorderTest11")
+		row.addWidget(label)
+		label = Label.new("Titled etched border")
+		label.setBorder(TitledEtchedBorder.new("Border Title"))
+		label.setProtectBorder(true)
+		row.addWidget(label)
 		
 		row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		label = Label.new( "Image Border" )
-		label.setDesignerSelector( "BorderTest12" )
-		label.setProtectMinimumSize( true )
-		row.addWidget( label )
-		label = Label.new( "Image Border" )
-		label.setDesignerSelector( "BorderTest12b" )
-		row.addWidget( label )
-		label = Label.new( "Image Border" )
-		label.setDesignerSelector( "BorderTest12b" )
-		row.addWidget( label )
+		row.setLayout(FlowLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		label = Label.new("Image Border")
+		label.setDesignerSelector("BorderTest12")
+		label.setProtectMinimumSize(true)
+		row.addWidget(label)
+		label = Label.new("Image Border")
+		label.setDesignerSelector("BorderTest12b")
+		row.addWidget(label)
+		label = Label.new("Image Border")
+		label.setDesignerSelector("BorderTest12b")
+		row.addWidget(label)
 		
 		row = Panel.new()
-		row.setLayout( FlowLayout.new( LayoutAxis.x, 10 ) )
-		content.addWidget( row )
-		var BgButton button = BgButton.new( Image.new( "/images/button1_unpressed.png" ), \
-			Image.new( "/images/button1_pressed.png" ), "Background Image Button", null )
-		button.setTextPadding( 10 )
-		row.addWidget( button )
+		row.setLayout(FlowLayout.new(LayoutAxis.x, 10))
+		content.addWidget(row)
+		var BgButton button = BgButton.new(Image.new("/images/button1_unpressed.png"), \
+			Image.new("/images/button1_pressed.png"), "Background Image Button", null)
+		button.setTextPadding(10)
+		row.addWidget(button)
 	end
 end

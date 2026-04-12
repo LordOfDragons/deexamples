@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland (roland@rptd.dnsalias.net)
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -19,7 +19,6 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 pin Dragengine.Gui.Borders
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Layouts
@@ -34,47 +33,47 @@ pin Dragengine.LoadSave
  */
 class WindowGuiTheme extends Window
 	/** \brief Named gui theme. */
-	public class NamedGuiTheme
+	class NamedGuiTheme
 		/** \brief Name. */
-		private var String pName
+		var String pName
 		
 		/** \brief Gui theme. */
-		private var GuiTheme pGuiTheme
+		var GuiTheme pGuiTheme
 		
 		/** \brief Create named gui theme. */
-		public func new(String name, GuiTheme guitheme)
+		func new(String name, GuiTheme guitheme)
 			pName = name
 			pGuiTheme = guitheme
 		end
 		
 		/** \brief Name. */
-		public func String getName()
+		func String getName()
 			return pName
 		end
 		
 		/** \brief Gui theme. */
-		public func GuiTheme getGuiTheme()
+		func GuiTheme getGuiTheme()
 			return pGuiTheme
 		end
 		
 		/** \brief String representation. */
-		public func String toString()
+		func String toString()
 			return pName
 		end
 	end
 	
 	/** \brief Gui theme selection listener. */
-	public class SelectionListenerGuiTheme extends DefaultListModelListener
+	class SelectionListenerGuiTheme extends DefaultListModelListener
 		/** \brief Window. */
-		private var WindowGuiTheme pWindow
+		var WindowGuiTheme pWindow
 		
 		/** \brief Create selection listener. */
-		public func new(WindowGuiTheme window)
+		func new(WindowGuiTheme window)
 			pWindow = window
 		end
 		
 		/** \brief Selection changed. */
-		public func void selectionChanged(ListModel listModel)
+		func void selectionChanged(ListModel listModel)
 			pWindow.updateGuiTheme()
 		end
 	end
@@ -82,20 +81,20 @@ class WindowGuiTheme extends Window
 	/** \brief Popup test action. */
 	class ActionPopupTest extends DefaultActionListener
 		class ActionPopdown extends DefaultActionListener
-			private var WindowPopup pPopup
-			public func new(WindowPopup popup)
+			var WindowPopup pPopup
+			func new(WindowPopup popup)
 				pPopup = popup
 			end
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				pPopup.popdown()
 			end
 		end
 		
-		private var WindowGuiTheme pWindow
-		public func new(WindowGuiTheme window)
+		var WindowGuiTheme pWindow
+		func new(WindowGuiTheme window)
 			pWindow = window
 		end
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			var Desktop desktop = pWindow.getDesktop()
 			var Widget widget = event.getSource() cast Widget
 			var MenuPopup menu = pWindow.createMenuPopup1()
@@ -108,30 +107,30 @@ class WindowGuiTheme extends Window
 	
 	/** Log message. */
 	class LogMessage implements ConsoleListener
-		public func new()
+		func new()
 		end
 		
-		public func void messageAdded(Console console, ConsoleMessage message, bool removedTop)
+		func void messageAdded(Console console, ConsoleMessage message, bool removedTop)
 			BaseGameApp.getApp().getConsole().addMessage(message.getMessage())
 		end
 		
-		public func void consoleCleared(Console console)
+		func void consoleCleared(Console console)
 		end
 	end
 	
 	/** \brief Enable/disable check/option button action listener. */
 	class ListenerEnableButtons extends DefaultToggleModelListener
-		private var Array pWidgets
+		var Array pWidgets
 		
-		public func new()
+		func new()
 			pWidgets = Array.new()
 		end
 		
-		public func void addWidget(Widget widget)
+		func void addWidget(Widget widget)
 			pWidgets.add(widget)
 		end
 		
-		public func void toggledChanged(ToggleModel model)
+		func void toggledChanged(ToggleModel model)
 			var bool enabled = not model.getToggled()
 			pWidgets.forEach(block Widget each
 				each.setEnabled(enabled)
@@ -142,26 +141,26 @@ class WindowGuiTheme extends Window
 	/** \brief Dialog window test action. */
 	class ActionDialogTest extends DefaultActionListener
 		class EchoResult implements WindowDialog.ResultListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onResult(Object result)
+			func void onResult(Object result)
 				WindowDialog.message(pWindow, "Result", "Result: " + result, null, null, null) \
 					.setGuiTheme(pWindow.getGuiTheme())
 			end
 		end
 		
 		class ActionMessageBox implements ActionListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				WindowDialog.message(pWindow, "Message Box", \
 					"This is a message to fill the message box with. It has multiple lines wrapping around.", \
 					null, null, null) \
@@ -170,13 +169,13 @@ class WindowGuiTheme extends Window
 		end
 		
 		class ActionQuestionBox implements ActionListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				WindowDialog.question(pWindow, "Question Box", \
 					"Shows a question box asking the user what to do next." \
 						+ " The buttons can be customized." \
@@ -193,13 +192,13 @@ class WindowGuiTheme extends Window
 		end
 		
 		class ActionSmallChooseBox implements ActionListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				WindowDialog.choose(pWindow, "Choose", \
 					"Choose box using option boxes for each element." \
 					+ " Useful for small list of options to select from.", \
@@ -211,13 +210,13 @@ class WindowGuiTheme extends Window
 		end
 		
 		class ActionLargeChooseBox implements ActionListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				var DefaultListModel elements = DefaultListModel.new()
 				var int i
 				for i = 0 to 50
@@ -235,13 +234,13 @@ class WindowGuiTheme extends Window
 		end
 		
 		class ActionSelectionBox implements ActionListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				WindowDialog.selection(pWindow, "Selection", \
 					"Selection box using check boxes for each element." \
 					+ " Useful for small list of options to select.", \
@@ -254,13 +253,13 @@ class WindowGuiTheme extends Window
 		end
 		
 		class ActionInputBox implements ActionListener
-			private var WindowModal pWindow
+			var WindowModal pWindow
 			
-			public func new(WindowModal window)
+			func new(WindowModal window)
 				pWindow = window
 			end
 			
-			public func void onAction(ActionEvent event)
+			func void onAction(ActionEvent event)
 				WindowDialog.input(pWindow, "Input", "Input test.", \
 					null, "Initial Text", null, null, EchoResult.new(pWindow)) \
 						.setGuiTheme(pWindow.getGuiTheme())
@@ -269,13 +268,13 @@ class WindowGuiTheme extends Window
 		
 		
 		
-		private var WindowGuiTheme pWindow
+		var WindowGuiTheme pWindow
 		
-		public func new(WindowGuiTheme window)
+		func new(WindowGuiTheme window)
 			pWindow = window
 		end
 		
-		public func void onAction(ActionEvent event)
+		func void onAction(ActionEvent event)
 			var WindowModal window = WindowModal.new()
 			
 			window.runWhileBlockingLayout(block
@@ -313,9 +312,8 @@ class WindowGuiTheme extends Window
 	end
 	
 	
-	
 	/** \brief Create window. */
-	public func new() super(0, 0, 500, 500)
+	func new() super(0, 0, 500, 500)
 		pModelCheck1 = DefaultToggleModel.new()
 		pModelCheck2 = DefaultToggleModel.new()
 		pModelCheck3 = DefaultToggleModel.new()
@@ -332,7 +330,7 @@ class WindowGuiTheme extends Window
 	end
 	
 	/** \brief Dispose of window. */
-	public func void dispose()
+	func void dispose()
 		pModelGuiThemes = null
 		pComboBoxGuiThemes = null
 		pModelCheck1 = null
@@ -342,12 +340,11 @@ class WindowGuiTheme extends Window
 	end
 	
 	
-	
 	/** \brief Gui theme list model. */
-	private var DefaultListModel pModelGuiThemes
+	var DefaultListModel pModelGuiThemes
 	
 	/** \brief Gui theme combo box. */
-	private var ComboBox pComboBoxGuiThemes
+	var ComboBox pComboBoxGuiThemes
 	
 	public var DefaultToggleModel pModelCheck1
 	public var DefaultToggleModel pModelCheck2
@@ -356,9 +353,8 @@ class WindowGuiTheme extends Window
 	public var DefaultListModel pModelOptions
 	
 	
-	
 	/** \brief Update gui theme. */
-	public func void updateGuiTheme()
+	func void updateGuiTheme()
 		setGuiTheme((pModelGuiThemes.getAt(\
 			pComboBoxGuiThemes.getSelectedElement()) cast NamedGuiTheme).getGuiTheme())
 	end
@@ -375,7 +371,6 @@ class WindowGuiTheme extends Window
 		pModelGuiThemes.add(NamedGuiTheme.new("Modern", loadGuiTheme.loadFromFile(\
 			"/shareddata/guithemes/modern/modern.guitheme.xml")))
 	end
-	
 	
 	
 	/** \brief Add content. */
@@ -520,7 +515,7 @@ class WindowGuiTheme extends Window
 	end
 	
 	/** Create menu popup 1. */
-	public func MenuPopup createMenuPopup1()
+	func MenuPopup createMenuPopup1()
 		var Image icon1 = Image.new("/images/icons/menu_icon1.png")
 		var Image icon2 = Image.new("/images/icons/menu_icon2.png")
 		var Image icon3 = Image.new("/images/icons/menu_icon3.png")

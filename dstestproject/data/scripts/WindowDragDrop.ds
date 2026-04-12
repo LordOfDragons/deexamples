@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2020, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -18,7 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 
 pin Dragengine.Gui.Events
 pin Dragengine.Gui.Borders
@@ -40,44 +39,44 @@ class WindowDragDrop extends Window
 	 * \brief Drop target listener.
 	 */
 	class DropTargetListener extends DefaultDragListener
-		private var DisplayImage pWidget
+		var DisplayImage pWidget
 		
-		public func new( DisplayImage widget )
-			this.pWidget = widget
+		func new(DisplayImage widget)
+			pWidget = widget
 		end
 		
 		/** \brief Drag enters widget. */
-		public func void onDragEnter( DragEvent event )
+		func void onDragEnter(DragEvent event)
 			var DragAndDrop dnd = event.getDragAndDrop()
-			dnd.setCanDrop( dnd.supportsDataType( WindowDragDrop.dndTypeColor ) )
+			dnd.setCanDrop(dnd.supportsDataType(WindowDragDrop.dndTypeColor))
 		end
 		
 		/** \brief Drag leaves widget. */
-		public func void onDragLeave( DragEvent event )
+		func void onDragLeave(DragEvent event)
 		end
 		
 		/** \brief Drag over. */
-		public func void onDragOver( DragEvent event )
+		func void onDragOver(DragEvent event)
 		end
 		
 		/** \brief Drag drop. */
-		public func void onDragDrop( DragEvent event )
+		func void onDragDrop(DragEvent event)
 			var DragAndDrop dnd = event.getDragAndDrop()
-			if not dnd.supportsDataType( WindowDragDrop.dndTypeColor )
-				dnd.dropDone( false )
+			if not dnd.supportsDataType(WindowDragDrop.dndTypeColor)
+				dnd.dropDone(false)
 			end
 			
-			var Color color = dnd.getDragDataAs( WindowDragDrop.dndTypeColor ) cast Color
+			var Color color = dnd.getDragDataAs(WindowDragDrop.dndTypeColor) cast Color
 			var ColorMatrix colorMatrix = ColorMatrix.new()
 			
-			if not color.equals( Color.white )
-				colorMatrix = ColorMatrix.newSaturation( 0 ) \
-					* ColorMatrix.newBrightness( 0.25 ) \
-					* ColorMatrix.newScaling( color * 1.5 )
+			if not color.equals(Color.white)
+				colorMatrix = ColorMatrix.newSaturation(0) \
+					* ColorMatrix.newBrightness(0.25) \
+					* ColorMatrix.newScaling(color * 1.5)
 			end
 			
-			this.pWidget.setColorTransformation( colorMatrix )
-			dnd.dropDone( true )
+			pWidget.setColorTransformation(colorMatrix)
+			dnd.dropDone(true)
 		end
 	end
 	
@@ -85,20 +84,20 @@ class WindowDragDrop extends Window
 	 * \brief Drag handler.
 	 */
 	class DragHandler extends DefaultDragAndDrop
-		private var Color pColor
+		var Color pColor
 		
 		/** \brief Create drag handler. */
-		public func new( Widget source, Color color ) super( source )
-			this.pColor = color
-			this.addSupportedDataType( WindowDragDrop.dndTypeColor )
+		func new(Widget source, Color color) super(source)
+			pColor = color
+			addSupportedDataType(WindowDragDrop.dndTypeColor)
 		end
 		
 		/**
 		 * \brief Drag data in a specific format or \em null if not supported.
 		 */
-		public func Object getDragDataAs( String type )
-			if type.equals( WindowDragDrop.dndTypeColor )
-				return this.pColor
+		func Object getDragDataAs(String type)
+			if type.equals(WindowDragDrop.dndTypeColor)
+				return pColor
 			end
 			return null
 		end
@@ -108,77 +107,75 @@ class WindowDragDrop extends Window
 	 * \brief Start drag listener.
 	 */
 	class StartDragListener extends DefaultMouseListener
-		private var Color pColor
+		var Color pColor
 		
 		/** \brief Create listener. */
-		public func new( Color color )
-			this.pColor = color
+		func new(Color color)
+			pColor = color
 		end
 		
 		/** \brief Mouse button has been pressed. */
-		public func void onButtonPress( MouseEvent event )
+		func void onButtonPress(MouseEvent event)
 			if event.getButton() == InputEventMouseButton.left
-				DragHandler.new( event.getSource() cast Widget, this.pColor ) \
-					.beginDrag( InputEventMouseButton.left )
+				DragHandler.new(event.getSource() cast Widget, pColor) \
+					.beginDrag(InputEventMouseButton.left)
 			end
 		end
 	end
 	
 	
-	
 	/** \brief Create game. */
-	public func new() super( 0, 0, 300, 300 )
-		this.setDesignerSelector( "WindowPadding" )
-		this.setTitle( "Drag and Drop" )
-		this.createContent( this )
+	func new() super(0, 0, 300, 300)
+		setDesignerSelector("WindowPadding")
+		setTitle("Drag and Drop")
+		createContent(this)
 	end
-	
 	
 	
 	/** \brief Add content. */
-	private func void createContent( Container content )
-		content.setLayout( CentrizedBoxLayout.new( LayoutAxis.y, 50 ) )
+	private func void createContent(Container content)
+		content.setLayout(CentrizedBoxLayout.new(LayoutAxis.y, 50))
 		
 		// panel with colors
-		this.addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.x, 10 ), block Panel panel
-			this.addColorWell( panel, Color.white )
-			this.addColorWell( panel, Color.red )
-			this.addColorWell( panel, Color.green )
-			this.addColorWell( panel, Color.blue )
-			this.addColorWell( panel, Color.yellow )
-			this.addColorWell( panel, Color.gray )
-		end ) )
+		addWidget(Panel.new(CentrizedBoxLayout.new(LayoutAxis.x, 10), block Panel panel
+			addColorWell(panel, Color.white)
+			addColorWell(panel, Color.red)
+			addColorWell(panel, Color.green)
+			addColorWell(panel, Color.blue)
+			addColorWell(panel, Color.yellow)
+			addColorWell(panel, Color.gray)
+		end))
 		
 		// panel with images to drag colors to
-		var Image image = Image.new( "/images/colorful.png" )
-		this.addWidget( Panel.new( CentrizedBoxLayout.new( LayoutAxis.x, 50 ), block Panel panel
-			this.addImage( panel, image )
-			this.addImage( panel, image )
-			this.addImage( panel, image )
-		end ) )
+		var Image image = Image.new("/images/colorful.png")
+		addWidget(Panel.new(CentrizedBoxLayout.new(LayoutAxis.x, 50), block Panel panel
+			addImage(panel, image)
+			addImage(panel, image)
+			addImage(panel, image)
+		end))
 	end
 	
 	/** \brief Add color well. */
-	private func void addColorWell( Panel panel, Color color )
+	private func void addColorWell(Panel panel, Color color)
 		var Widget well = Widget.new()
 		
-		var RectangleCanvasCreator bg = RectangleCanvasCreator.new( color, Color.black )
-		bg.setThickness( 2 )
-		well.setBackgroundCanvasCreator( bg )
-		well.setProtectBackgroundCanvasCreator( true ) // not changed by widget designer
+		var RectangleCanvasCreator bg = RectangleCanvasCreator.new(color, Color.black)
+		bg.setThickness(2)
+		well.setBackgroundCanvasCreator(bg)
+		well.setProtectBackgroundCanvasCreator(true) // not changed by widget designer
 		
-		well.setMinimumSize( Point.new( 60, 40 ) )
-		well.setProtectMinimumSize( true ) // not changed by widget designer
+		well.setMinimumSize(Point.new(60, 40))
+		well.setProtectMinimumSize(true) // not changed by widget designer
 		
-		well.addMouseListener( StartDragListener.new( color ) )
+		well.addMouseListener(StartDragListener.new(color))
 		
-		panel.addWidget( well )
+		panel.addWidget(well)
 	end
 	
 	/** \brief Add image. */
-	private func void addImage( Panel panel, Image image )
-		var DisplayImage displayImage = DisplayImage.new( image )
-		displayImage.addDragListener( DropTargetListener.new( displayImage ) )
-		panel.addWidget( displayImage )
+	private func void addImage(Panel panel, Image image)
+		var DisplayImage displayImage = DisplayImage.new(image)
+		displayImage.addDragListener(DropTargetListener.new(displayImage))
+		panel.addWidget(displayImage)
 	end
 end

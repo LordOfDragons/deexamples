@@ -1,7 +1,7 @@
 /* 
- * Drag[en]gine Library Scripts -- Game Engine
+ * Drag[en]gine Example Project: DragonScript Test Project
  *
- * Copyright (C) 2017, Plüss Roland ( roland@rptd.dnsalias.net )
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
  * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License 
@@ -40,23 +40,22 @@ class StaticGeometryClass extends BehaviorElementClass
 	/**
 	 * \brief Component behavior providing visual representation of element.
 	 */
-	private var ECBehaviorComponent pComponent
+	var ECBehaviorComponent pComponent
 	
 	/**
 	 * \brief Collider behavior providing physical presence of element.
 	 */
-	private var ECBehaviorCollider pCollider
+	var ECBehaviorCollider pCollider
 	
 	/**
 	 * \brief Navigation space behavior allowing actors to navigate along element using Navigator.
 	 */
-	private var ECBehaviorNavigationSpace pNavigationSpace
+	var ECBehaviorNavigationSpace pNavigationSpace
 	
 	/**
 	 * \brief Behavior providing support to attach element to other elements using editor.
 	 */
-	private var ECBehaviorAttachToParent pAttachToParent
-	
+	var ECBehaviorAttachToParent pAttachToParent
 	
 	
 	/**
@@ -66,7 +65,7 @@ class StaticGeometryClass extends BehaviorElementClass
 	 * class names used in the World Editor. It is usually the name of the
 	 * element script class but can be anything as long as it is unique.
 	 */
-	public func new() this( "StaticGeometry" )
+	func new() this("StaticGeometry")
 	end
 	
 	/**
@@ -75,7 +74,7 @@ class StaticGeometryClass extends BehaviorElementClass
 	 * This is the default constructor and allows subclasses to be created
 	 * with a different element class name.
 	 */
-	public func new( String className ) super( className )
+	func new(String className) super(className)
 		// Create and store behaviors. By creating a behavior it is added to the element
 		// class provided as argument. From this point on the behavior is responsible to
 		// do all the organizational tasks required to provide the requested behavior.
@@ -91,10 +90,10 @@ class StaticGeometryClass extends BehaviorElementClass
 		// for them using getBehaviorIn(). Second elements created from this element
 		// class can obtain and store BehaviorInstance of desired behaviors using
 		// instance() calls instead of searching or them which is faster.
-		this.pComponent = ECBehaviorComponent.new( this, null )
-		this.pCollider = ECBehaviorCollider.new( this, this.pComponent )
-		this.pNavigationSpace = ECBehaviorNavigationSpace.new( this, this.pCollider )
-		this.pAttachToParent = ECBehaviorAttachToParent.new( this, this.pCollider, null )
+		pComponent = ECBehaviorComponent.new(this, null)
+		pCollider = ECBehaviorCollider.new(this, pComponent)
+		pNavigationSpace = ECBehaviorNavigationSpace.new(this, pCollider)
+		pAttachToParent = ECBehaviorAttachToParent.new(this, pCollider, null)
 		
 		// for the time being a default skin is required. pComponent is a component
 		// behavior. It contains an ECComposeComponent instance obtained by calling
@@ -110,39 +109,37 @@ class StaticGeometryClass extends BehaviorElementClass
 		// <string name='component.skin'>/materials/something.deskin</string>
 		// \endcode
 		// Or by setting the object property "component.skin" in the World Editor.
-		this.pComponent.getComponent().getSkin().setPath( "/materials/empty.deskin" )
+		pComponent.getComponent().getSkin().setPath("/materials/empty.deskin")
 	end
-	
 	
 	
 	/**
 	 * \brief Component behavior.
 	 */
-	public func ECBehaviorComponent getComponent()
-		return this.pComponent
+	func ECBehaviorComponent getComponent()
+		return pComponent
 	end
 	
 	/**
 	 * \brief Collider behavior.
 	 */
-	public func ECBehaviorCollider getCollider()
-		return this.pCollider
+	func ECBehaviorCollider getCollider()
+		return pCollider
 	end
 	
 	/**
 	 * \brief Navigation space behavior.
 	 */
-	public func ECBehaviorNavigationSpace getNavigationSpace()
-		return this.pNavigationSpace
+	func ECBehaviorNavigationSpace getNavigationSpace()
+		return pNavigationSpace
 	end
 	
 	/**
 	 * \brief Attach to parent behavior.
 	 */
-	public func ECBehaviorAttachToParent getAttachToParent()
-		return this.pAttachToParent
+	func ECBehaviorAttachToParent getAttachToParent()
+		return pAttachToParent
 	end
-	
 	
 	
 	/**
@@ -151,8 +148,8 @@ class StaticGeometryClass extends BehaviorElementClass
 	 * Used for example for creating element classes using XML files. All element
 	 * classes are required to overwrite this method.
 	 */
-	public func ElementClass duplicateNamed( String classname )
-		return StaticGeometryClass.new( classname )
+	func ElementClass duplicateNamed(String classname)
+		return StaticGeometryClass.new(classname)
 	end
 	
 	/**
@@ -165,6 +162,6 @@ class StaticGeometryClass extends BehaviorElementClass
 	 * and loadAndAddElement() bypassing this method.
 	 */
 	protected func Element createElement()
-		return StaticGeometry.new( this )
+		return StaticGeometry.new(this)
 	end
 end
