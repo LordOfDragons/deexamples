@@ -367,9 +367,9 @@ class WindowGuiTheme extends Window
 		
 		pModelGuiThemes = DefaultListModel.new()
 		pModelGuiThemes.add(NamedGuiTheme.new("Simple", loadGuiTheme.loadFromFile(\
-			"/shareddata/guithemes/simple/simple.guitheme.xml")))
+			"/shareddata/guithemes/simple/simple.degt")))
 		pModelGuiThemes.add(NamedGuiTheme.new("Modern", loadGuiTheme.loadFromFile(\
-			"/shareddata/guithemes/modern/modern.guitheme.xml")))
+			"/shareddata/guithemes/modern/modern.degt")))
 	end
 	
 	

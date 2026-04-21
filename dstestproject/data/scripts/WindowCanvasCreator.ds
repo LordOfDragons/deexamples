@@ -42,7 +42,7 @@ class WindowCanvasCreator extends Window
 	
 	/** \brief Add content. */
 	private func void createContent(Container content)
-		// see canvascreator.guitheme.xml for the designer definitions
+		// see canvascreator.degt for the designer definitions
 		
 		var Widget widget
 		

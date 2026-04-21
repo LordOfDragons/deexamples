@@ -14,7 +14,7 @@
 		<creator>Drag[en]gine</creator>
 		<website>https://dragondreams.ch</website>
 		<icon>/images/icon64.png</icon>
-		<windowSize x='1024' y='800'/>
+		<windowSize x='1280' y='800'/>
 		<excludePattern>/dynmusic/local</excludePattern>
 		<excludePattern>/announcer/local/__*</excludePattern>
 		<excludePattern>/synmusic/local/*.7z</excludePattern>
@@ -35,7 +35,7 @@
 		<creator>Drag[en]gine</creator>
 		<website>https://dragondreams.ch</website>
 		<icon>/images/icon64.png</icon>
-		<windowSize x='1024' y='800'/>
+		<windowSize x='1280' y='800'/>
 		<excludePattern>/announcer/local/__*</excludePattern>
 		<excludePattern>/synmusic/local/*.7z</excludePattern>
 		<delgaPath>distribute/DSTestProject.delga</delgaPath>

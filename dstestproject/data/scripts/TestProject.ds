@@ -34,7 +34,7 @@ class TestProject extends BaseGameApp
 		// 
 		// keep in mind loaded gui themes are shared. do not modify them directly. if you need
 		// to modify them create first a copy using the copy constructor
-		pathDesktopGuiTheme = "/guithemes/ui.guitheme.xml"
+		pathDesktopGuiTheme = "/guithemes/ui.degt"
 	end
 	
 	

@@ -2,7 +2,7 @@
 <guiTheme>
 	<!--
 	This file contains canvas creator definitions for the WindowLayouts example.
-	It is used using an import tag in the ui.guitheme.xml . For this reason the guiTheme
+	It is used using an import tag in the ui.degt . For this reason the guiTheme
 	tag is required to have no attributes defined at all. Otherwise the result can be
 	quite unexpected.
 	-->

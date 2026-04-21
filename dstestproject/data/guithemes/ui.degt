@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
-<guiTheme extend='/shareddata/guithemes/modern/modern.guitheme.xml'>
+<guiTheme extend='/shareddata/guithemes/modern/modern.degt'>
 	<!--
 	Gui themes can be defined in various ways.
 	
 	Without using any attributes an empty gui theme is defined. This is the way to completly
 	define a gui theme from the ground up. You have to use this solution also if you import
 	gui themes or create named fui themes. For an example of an imported gui theme see the
-	layoutText.guitheme.xml file.
+	layoutText.degt file.
 	
 	The most often used solution is by using the 'extend' attribute as done here. This loads
 	the specified gui theme first. Then the definitions in this file replace the definitions
@@ -19,7 +19,7 @@
 	defined in the current gui theme. This can be useful for more complex game UI situations
 	to reduce the typing and maintenance overhead.
 	
-	The recommended solution is using modern.guitheme.xml as base with the 'extend' attribute.
+	The recommended solution is using modern.degt as base with the 'extend' attribute.
 	This provides a solid and working basis to apply your modifications.
 	-->
 	
@@ -189,15 +189,40 @@
 	
 	
 	<!--
+	Audio capture window.
+	-->
+	<designer name='Label.AudioCapture.FormLabel' extendNamed='Label'>
+		<string parameter='normal.alignment'>left,middle</string>
+	</designer>
+	
+	<designer name='Label.AudioCapture.FormValue' extendNamed='Label'>
+		<string parameter='normal.alignment'>right,middle</string>
+	</designer>
+	
+	<designer name='Label.AudioCapture.FormValueCenter' extendNamed='Label'>
+		<string parameter='normal.alignment'>center,middle</string>
+	</designer>
+	
+	<designer name='ProgressBar.AudioCapture.FrequencyBand' extendNamed='ProgressBar'>
+		<point parameter='normal.minimumSize' x='1' y='80'/>
+		<boolean parameter='normal.showPercentage'>false</boolean>
+	</designer>
+	
+	<designer name='WorldRenderer.AudioCapture.Avatar' extendNamed='WorldRenderer'>
+		<point parameter='normal.minimumSize' x='300' y='300'/>
+	</designer>
+	
+	
+	<!--
 	Import definitions for the canvas creator test. Importing allows to split complex
 	definitions over multiple files to keep things tidy.
 	-->
-	<import>canvascreator.guitheme.xml</import>
-	<import>borders.guitheme.xml</import>
+	<import>canvascreator.degt</import>
+	<import>borders.degt</import>
 	
 	
 	<!--
 	Import definitions for the layout test.
 	-->
-	<import>layout.guitheme.xml</import>
+	<import>layout.degt</import>
 </guiTheme>
