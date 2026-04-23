@@ -377,6 +377,21 @@ class WindowMain extends Window
 		end
 	end
 	
+	/** \brief Action create audio capture window. */
+	class ActionWindowAudioCapture extends DefaultActionListener
+		var WindowMain pWindowMain
+		
+		func new(WindowMain windowMain)
+			pWindowMain = windowMain
+		end
+		
+		func void onAction(ActionEvent event)
+			var Window window = WindowAudioCapture.new()
+			pWindowMain.getDesktop().addWindow(window)
+			window.centerWindow()
+		end
+	end
+	
 	/** \brief Action create drag and drop window. */
 	class ActionWindowDragDrop extends DefaultActionListener
 		/** \brief Main window to get desktop from. */
@@ -423,6 +438,7 @@ class WindowMain extends Window
 			addWidget(Button.new("Gui Theme", ActionWindowGuiTheme.new(this)))
 			addWidget(Button.new("Dynamic Music", ActionWindowDynamicMusic.new(this)))
 			addWidget(Button.new("Announcer", ActionWindowAnnouncer.new(this)))
+			addWidget(Button.new("Audio Capture", ActionWindowAudioCapture.new(this)))
 			addWidget(Button.new("World Renderer", ActionWindowWorldRenderer.new(this)))
 			addWidget(Button.new("Input Device", ActionWindowInputDevice.new(this)))
 			addWidget(Button.new("Edit Bindings", ActionWindowEditBindings.new(this)))

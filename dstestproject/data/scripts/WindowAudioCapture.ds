@@ -1,0 +1,445 @@
+/* 
+ * Drag[en]gine Example Project: DragonScript Test Project
+ *
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui.Borders
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+pin Dragengine.XML
+pin Dragengine.Audio.LipSync
+
+
+/**
+ * \brief DragonScript test project audio capture window.
+ * 
+ * Enables audio capture using \ref AudioSystem and displays analysis metrics provided
+ * by \ref AudioAnalyzer.
+ */
+class WindowAudioCapture extends Window
+	/** \brief Start audio capture action. */
+	private class StartCaptureAction extends DefaultActionListener
+		var WindowAudioCapture pWindow
+		
+		func new(WindowAudioCapture window)
+			pWindow = window
+		end
+		
+		func void onAction(ActionEvent event)
+			pWindow.startCapture()
+		end
+	end
+	
+	/** \brief Stop audio capture action. */
+	private class StopCaptureAction extends DefaultActionListener
+		var WindowAudioCapture pWindow
+		
+		func new(WindowAudioCapture window)
+			pWindow = window
+		end
+		
+		func void onAction(ActionEvent event)
+			pWindow.stopCapture()
+		end
+	end
+	
+	class FaceExpressionVPS
+		public var String expression, vpsName
+		public var int vpsIndex
+		public var float weight
+		
+		func new(String expression, String vpsName, int vpsIndex)
+			this.expression = expression
+			this.vpsName = vpsName
+			this.vpsIndex = vpsIndex
+		end
+	end
+	
+	
+	
+	var Array pTempPeaks
+	
+	var DefaultTextModel pModelStatus
+	var Button pButtonStart
+	var Button pButtonStop
+	var WorldRenderer pRendererAvatar
+	
+	// Capture metrics models
+	var DefaultRangeModel pModelCaptureLevelPeak
+	var DefaultRangeModel pModelCaptureLevelRMS
+	
+	// Time-domain metric models
+	var DefaultRangeModel pModelRMS
+	var DefaultRangeModel pModelPeak
+	var DefaultRangeModel pModelZCR
+	
+	// Frequency-domain metric models
+	var DefaultTextModel pModelCentroid
+	var DefaultRangeModel pModelFlatness
+	var DefaultRangeModel pModelFlux
+	var DefaultTextModel pModelRolloff
+	var DefaultTextModel pModelPitch
+	var Array pModelPeaks, pModelFreqBands
+	
+	var LipSync pLipSyncAvatar
+	
+	var World pWorldAvatar
+	var Camera pCameraAvatar
+	var Component pComponentAvatar
+	var Dictionary pExpressionVPSAvatar, pVisemeExpressionAvatar
+	
+	
+	/** \brief Create window. */
+	func new() super(0, 0, 800, 450)
+		setDesignerSelector("WindowPadding")
+		setTitle("Audio Capture")
+		
+		if AudioSystem.canCaptureAudio()
+			pLipSyncAvatar = LipSyncSpectrogram.new()
+		end
+		
+		pModelStatus = DefaultTextModel.new("Not capturing")
+		
+		pModelCaptureLevelPeak = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		pModelCaptureLevelRMS = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		
+		pModelRMS = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		pModelPeak = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		pModelZCR = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		
+		pModelCentroid = DefaultTextModel.new("0 Hz")
+		pModelFlatness = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		pModelFlux = DefaultRangeModel.new(0, 1000, 100, 0, 1)
+		pModelRolloff = DefaultTextModel.new("0 Hz")
+		pModelPitch = DefaultTextModel.new("0 Hz")
+		
+		pTempPeaks = Array.new()
+		pModelPeaks = Array.new()
+		pModelFreqBands = Array.new()
+		
+		if pLipSyncAvatar != null
+			var int peakCount = pLipSyncAvatar.getAudioAnalyzer().getSpectralPeakCount()
+			var int bandCount = pLipSyncAvatar.getAudioAnalyzer().getFrequencyBandCount()
+			var int i = 0
+			
+			for i = 0 to peakCount
+				pModelPeaks.add(DefaultTextModel.new("-"))
+			end
+			for i = 0 to bandCount
+				pModelFreqBands.add(DefaultRangeModel.new(0, 1000, 100, 0, 1))
+			end
+		end
+		
+		createContent()
+		
+		if pLipSyncAvatar == null
+			pModelStatus.setText("Audio capture not supported")
+			pButtonStart.setEnabled(false)
+		end
+	end
+	
+	/** \brief Dispose of window. */
+	func void dispose()
+		stopCapture()
+		pButtonStart = pButtonStop = null
+		pRendererAvatar = null
+		super.dispose()
+	end
+	
+	
+	/** \brief Start audio capture. */
+	func void startCapture()
+		if pLipSyncAvatar == null or not pButtonStart.getEnabled()
+			return
+		end
+		
+		AudioSystem.startAudioCapture()
+		pModelStatus.setText("Capturing")
+		pButtonStart.setEnabled(false)
+		pButtonStop.setEnabled(true)
+		
+		startFrameUpdater()
+	end
+	
+	/** \brief Stop audio capture. */
+	func void stopCapture()
+		if pLipSyncAvatar == null or pButtonStart.getEnabled()
+			return
+		end
+		
+		stopFrameUpdater()
+		AudioSystem.stopAudioCapture()
+		
+		pModelStatus.setText("Not capturing")
+		pButtonStart.setEnabled(true)
+		pButtonStop.setEnabled(false)
+	end
+	
+	func void onFrameUpdate(float elapsed)
+		updateDisplay(elapsed)
+		
+		if pWorldAvatar != null
+			pWorldAvatar.update(elapsed)
+		end
+	end
+	
+	/** \brief Update display with current analysis results. */
+	func void updateDisplay(float elapsed)
+		if not AudioSystem.isCapturingAudio()
+			return
+		end
+		
+		pLipSyncAvatar.update(elapsed)
+		var AudioAnalyzer analyzer = pLipSyncAvatar.getAudioAnalyzer()
+		
+		// Audio capture levels
+		var float peak = AudioSystem.magnitudeToDbPercentage(AudioSystem.getAudioCapturePeak())
+		pModelCaptureLevelPeak.setValue((peak * 1000 + 0.5) cast int)
+		
+		var float rms = AudioSystem.magnitudeToDbPercentage(AudioSystem.getAudioCaptureRMS())
+		pModelCaptureLevelRMS.setValue((rms * 1000 + 0.5) cast int)
+		
+		// Time-domain metrics
+		rms = AudioSystem.magnitudeToDbPercentage(analyzer.getRMS())
+		pModelRMS.setValue((rms * 1000 + 0.5) cast int)
+		
+		peak = AudioSystem.magnitudeToDbPercentage(analyzer.getPeak())
+		pModelPeak.setValue((peak * 1000 + 0.5) cast int)
+		
+		var float zcr = analyzer.getZeroCrossingRate()
+		pModelZCR.setValue((zcr * 1000 + 0.5) cast int)
+		
+		// Frequency-domain metrics
+		pModelCentroid.setText("{:.0f} Hz".format(Array.newWith(analyzer.getSpectralCentroid())))
+		
+		var float flatness = analyzer.getSpectralFlatness()
+		pModelFlatness.setValue((flatness * 1000 + 0.5) cast int)
+		
+		var float flux = analyzer.getSpectralFlux()
+		pModelFlux.setValue((flux * 1000 + 0.5) cast int)
+		
+		pModelRolloff.setText("{:.0f} Hz".format(Array.newWith(analyzer.getSpectralRolloff())))
+		pModelPitch.setText("{:.0f} Hz".format(Array.newWith(analyzer.getPitch())))
+		
+		// Spectral peaks
+		pModelPeaks.forEach(block int index, DefaultTextModel model
+			if index < analyzer.getSpectralPeakCount()
+				var float frequency = analyzer.getSpectralPeakFrequencyAt(index)
+				var float magnitude = analyzer.getSpectralPeakMagnitudeAt(index)
+				model.setText("{:.0f} Hz [{:.2f}]".format(Array.newWith(frequency, magnitude)))
+				
+			else
+				model.setText("-")
+			end
+		end)
+		
+		// Frequency band
+		var float totalBandEnergy = analyzer.getTotalBandEnergy()
+		var float normBandEnergy = totalBandEnergy > 0 if 1 / totalBandEnergy else 0
+		
+		pModelFreqBands.forEach(block int index, DefaultRangeModel model
+			var float band = AudioSystem.magnitudeToDbPercentage(analyzer.getFrequencyBandEnergyAt(index) * normBandEnergy)
+			model.setValue((band * 1000 + 0.5) cast int)
+		end)
+		
+		// Viseme test
+		updateAvatar()
+	end
+	
+	/** \brief Update avatar. */
+	private func void updateAvatar()
+		if pComponentAvatar == null or pLipSyncAvatar == null
+			return
+		end
+		
+		pExpressionVPSAvatar.forEachValue(block FaceExpressionVPS expression
+			expression.weight = 0
+		end)
+		
+		pLipSyncAvatar.forEachVisemeResult(block LipSync.VisemeResult each
+			if each.getWeightSmooth() > 0.01
+				avatarApplyViseme(each.getViseme(), each.getWeightSmooth())
+			end
+		end)
+		
+		pExpressionVPSAvatar.forEachValue(block FaceExpressionVPS expression
+			pComponentAvatar.vertexPositionSetSetWeightAt(expression.vpsIndex, expression.weight)
+		end)
+	end
+	
+	private func void avatarApplyViseme(LipSync.Viseme viseme, float weight)
+		var Dictionary ve = pVisemeExpressionAvatar.getAt(viseme, null) cast Dictionary
+		if ve != null
+			ve.forEach(block FaceExpressionVPS expression, float value
+				expression.weight += value * weight
+			end)
+		end
+	end
+	
+	/** \brief Create window content. */
+	private func void createContent()
+		setLayout(BorderLayout.new(5))
+		
+		// Status at top
+		addWidget(Panel.new(FormLayout.new(), block Panel p
+			p.addWidget(Label.new("Status:"))
+			p.addWidget(Label.new(pModelStatus))
+			
+			addMetricBar(p, "Peak:", "Peak value of the audio capture", pModelCaptureLevelPeak)
+			addMetricBar(p, "RMS:", "RMS value of the audio capture", pModelCaptureLevelRMS)
+		end), BorderLayout.Area.top)
+		
+		// Metrics area in center
+		addWidget(Panel.new(FlowLayout.new(LayoutAxis.y, 5), block Panel p
+			p.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 10), block Panel p2
+				// Time domain metrics
+				p2.addWidget(Panel.new(FormLayout.new(true, 10, 0), block Panel p3
+					p3.setDesignerSelector("Panel.Titled")
+					p3.setTitle("Time Domain")
+					addMetricBar(p3, "RMS:", "Root Mean Square", pModelRMS)
+					addMetricBar(p3, "Peak:", "Peak Value", pModelPeak)
+					addMetricBar(p3, "ZCR:", "Zero Crossing Rate", pModelZCR)
+				end))
+				
+				// Frequency domain metrics
+				p2.addWidget(Panel.new(FormLayout.new(true, 10, 0), block Panel p3
+					p3.setDesignerSelector("Panel.Titled")
+					p3.setTitle("Frequency Domain")
+					addMetricLabel(p3, "Centroid:", "Spectral Centroid", pModelCentroid)
+					addMetricBar(p3, "Flatness:", "Spectral Flatness", pModelFlatness)
+					addMetricBar(p3, "Flux:", "Spectral Flux", pModelFlux)
+					addMetricLabel(p3, "Rolloff:", "Spectral Rolloff", pModelRolloff)
+					addMetricLabel(p3, "Pitch:", "Pitch", pModelPitch)
+				end))
+			end))
+			
+			// Spectral peaks
+			p.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x), block Panel p2
+				p2.setDesignerSelector("Panel.Titled")
+				p2.setTitle("Spectral Peaks")
+				pModelPeaks.forEach(block DefaultTextModel model
+					p2.addWidget(Label.new(model, "Label.AudioCapture.FormValueCenter"))
+				end)
+			end))
+			
+			// Frequency bands
+			p.addWidget(Panel.new(BoxLayout.new(LayoutAxis.x), block Panel p2
+				p2.setDesignerSelector("Panel.Titled")
+				p2.setTitle("Frequency Bands")
+				p2.setMinimumSize(Point.new(50, 100))
+				p2.setProtectMinimumSize(true)
+				pModelFreqBands.forEach(block DefaultRangeModel model
+					var ProgressBar progressBar = ProgressBar.new(Orientation.vertical, model)
+					progressBar.setDesignerSelector("ProgressBar.AudioCapture.FrequencyBand")
+					p2.addWidget(progressBar)
+				end)
+			end))
+		end), BorderLayout.Area.content)
+		
+		// Avatar on the right
+		addWidget(Panel.new(BoxLayout.new(LayoutAxis.y), block Panel p
+			pWorldAvatar = World.new()
+			
+			var SkyInstance sky = SkyInstance.new()
+			sky.setSky(TestProject.getApp().getLoaders().getSky().loadFromFile("/sky/simple.desky"))
+			pWorldAvatar.addSky(sky)
+			
+			pCameraAvatar = Camera.new()
+			pCameraAvatar.setLowestIntensity(20)
+			pCameraAvatar.setHighestIntensity(20)
+			pCameraAvatar.setFov(30)
+			pCameraAvatar.setPosition(DVector.new(0, 0, 0.75))
+			pCameraAvatar.setOrientation(Quaternion.newFromEulerY(180))
+			pWorldAvatar.addCamera(pCameraAvatar)
+			
+			pComponentAvatar = Component.new(Model.new("/models/dragonroohead/dragonroohead.demodel"), Skin.new("/models/dragonroohead/dragonroohead.deskin"))
+			pComponentAvatar.setOrientation(Quaternion.newFromEulerY(-20))
+			pWorldAvatar.addComponent(pComponentAvatar)
+			
+			var EasyXMLElement xmlRoot = EasyXML.new("/models/dragonroohead/expressions.xml").getRootElement()
+			
+			pExpressionVPSAvatar = Dictionary.new()
+			pVisemeExpressionAvatar = Dictionary.new()
+			xmlRoot.forEachTag(block EasyXMLElement element, String tagName
+				if tagName.equals("expressionVPS")
+					var String vpsName = element.getFirstCData()
+					var int vpsIndex = pComponentAvatar.indexOfVertexPositionSetNamed(vpsName)
+					if vpsIndex != -1
+						var String expression = element.getAttributeNamed("id")
+						pExpressionVPSAvatar.setAt(expression, FaceExpressionVPS.new(expression, vpsName, vpsIndex))
+					end
+					
+				elif tagName.equals("viseme")
+					var Dictionary ve = Dictionary.new()
+					element.forEachTag(block EasyXMLElement element2, String tagName2
+						if tagName2.equals("expression")
+							var FaceExpressionVPS expression = pExpressionVPSAvatar.getAt(element2.getAttributeNamed("id"), null) cast FaceExpressionVPS
+							if expression != null
+								ve.setAt(expression, element2.getAttributeFloatNamed("weight"))
+							end
+						end
+					end)
+					pVisemeExpressionAvatar.setAt(LipSync.Viseme.named(element.getAttributeNamed("id")), ve)
+				end
+			end)
+			
+			pRendererAvatar = WorldRenderer.new()
+			pRendererAvatar.setDesignerSelector("WorldRenderer.AudioCapture.Avatar")
+			pRendererAvatar.setCamera(pCameraAvatar)
+			p.addWidget(pRendererAvatar)
+		end), BorderLayout.Area.right)
+		
+		// Button panel at bottom
+		addWidget(Panel.new(BoxLayout.new(LayoutAxis.x, 5), block Panel p
+			pButtonStart = Button.new("Start Capture", StartCaptureAction.new(this))
+			p.addWidget(pButtonStart)
+			
+			pButtonStop = Button.new("Stop Capture", StopCaptureAction.new(this))
+			pButtonStop.setEnabled(false)
+			p.addWidget(pButtonStop)
+			
+			p.addWidget(Button.new("Close", CloseWindowActionListener.new(this)))
+		end), BorderLayout.Area.bottom)
+	end
+	
+	/** \brief Add metric row with a progress bar and an optional value label. */
+	private func void addMetricBar(Panel container, String name, String toolTip, DefaultRangeModel rangeModel)
+		var Label label = Label.new(name, "Label.AudioCapture.FormLabel")
+		label.setToolTip(toolTip)
+		container.addWidget(label)
+		container.addWidget(ProgressBar.new(Orientation.horizontal, rangeModel))
+	end
+	
+	/** \brief Add metric row with a text value label. */
+	private func void addMetricLabel(Panel container, String name, String toolTip, DefaultTextModel textModel)
+		var Label label = Label.new(name, "Label.AudioCapture.FormLabel")
+		label.setToolTip(toolTip)
+		container.addWidget(label)
+		container.addWidget(Label.new(textModel, "Label.AudioCapture.FormValue"))
+	end
+	
+	private func void addMetricLabelCenter(Panel container, String name, String toolTip, DefaultTextModel textModel)
+		var Label label = Label.new(name, "Label.AudioCapture.FormLabel")
+		label.setToolTip(toolTip)
+		container.addWidget(label)
+		container.addWidget(Label.new(textModel, "Label.AudioCapture.FormValueCenter"))
+	end
+end

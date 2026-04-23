@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expressions>
+	<expressionVPS id="eyeRightBlink">EyeBlink.r</expressionVPS>
+	<expressionVPS id="eyeLeftBlink">EyeBlink.l</expressionVPS>
+	<expressionVPS id="eyeRightWide">EyeWide.r</expressionVPS>
+	<expressionVPS id="eyeLeftWide">EyeWide.l</expressionVPS>
+	<expressionVPS id="eyeRightSqueeze">EyeSqueeze.r</expressionVPS>
+	<expressionVPS id="eyeLeftSqueeze">EyeSqueeze.l</expressionVPS>
+	<expressionVPS id="eyeRightDown">EyeDown.r</expressionVPS>
+	<expressionVPS id="eyeLeftDown">EyeDown.l</expressionVPS>
+	<expressionVPS id="eyeRightUp">EyeDown.r</expressionVPS>
+	<expressionVPS id="eyeLeftUp">EyeUp.l</expressionVPS>
+	<expressionVPS id="jawRight">Jaw.r</expressionVPS>
+	<expressionVPS id="jawLeft">Jaw.l</expressionVPS>
+	<expressionVPS id="jawForward">JawForward</expressionVPS>
+	<expressionVPS id="jawOpen">JawOpen</expressionVPS>
+	<expressionVPS id="cheekPuffRight">CheekPuff.r</expressionVPS>
+	<expressionVPS id="cheekPuffLeft">CheekPuff.l</expressionVPS>
+	<expressionVPS id="cheekSuck">CheekSuck</expressionVPS>
+	<expressionVPS id="mouthApeShape">MouthApeShape</expressionVPS>
+	<expressionVPS id="mouthUpperRight">MouthUpper.r</expressionVPS>
+	<expressionVPS id="mouthUpperLeft">MouthUpper.l</expressionVPS>
+	<expressionVPS id="mouthUpperUpRight">MouthUpperUp.r</expressionVPS>
+	<expressionVPS id="mouthUpperUpLeft">MouthUpperUp.l</expressionVPS>
+	<expressionVPS id="mouthUpperOverturn">MouthUpperOverturn</expressionVPS>
+	<expressionVPS id="mouthUpperInside">MouthUpperInside</expressionVPS>
+	<expressionVPS id="mouthLowerRight">MouthLower.r</expressionVPS>
+	<expressionVPS id="mouthLowerLeft">MouthLower.l</expressionVPS>
+	<expressionVPS id="mouthLowerDownRight">MouthLowerDown.r</expressionVPS>
+	<expressionVPS id="mouthLowerDownLeft">MouthLowerDown.l</expressionVPS>
+	<expressionVPS id="mouthLowerOverturn">MouthLowerOverturn</expressionVPS>
+	<expressionVPS id="mouthLowerInside">MouthLowerInside</expressionVPS>
+	<expressionVPS id="mouthLowerOverlay">MouthLowerOverlay</expressionVPS>
+	<expressionVPS id="mouthPout">MouthPout</expressionVPS>
+	<expressionVPS id="mouthSmileRight">MouthSmile.r</expressionVPS>
+	<expressionVPS id="mouthSmileLeft">MouthSmile.l</expressionVPS>
+	<expressionVPS id="mouthSadRight">MouthSad.r</expressionVPS>
+	<expressionVPS id="mouthSadLeft">MouthSad.l</expressionVPS>
+	<expressionVPS id="tongueRight">Tongue.r</expressionVPS>
+	<expressionVPS id="tongueLeft">Tongue.l</expressionVPS>
+	<expressionVPS id="tongueUp">TongueUp</expressionVPS>
+	<expressionVPS id="tongueDown">TongueDown</expressionVPS>
+	<expressionVPS id="tongueRoll">TongueRoll</expressionVPS>
+	<expressionVPS id="tongueLongStep1">TongueLongstep1</expressionVPS>
+	<expressionVPS id="tongueLongStep2">TongueLongstep2</expressionVPS>
+	<expressionVPS id="tongueMorphUpRight">TongueUpMorph.r</expressionVPS>
+	<expressionVPS id="tongueMorphUpLeft">TongueUpMorph.l</expressionVPS>
+	<expressionVPS id="tongueMorphDownRight">TongueDownMorph.r</expressionVPS>
+	<expressionVPS id="tongueMorphDownLeft">TongueDownMorph.l</expressionVPS>
+	
+	<viseme id='aa'>
+		<expression id='jawOpen' weight='1'/>
+	</viseme>
+	<viseme id='e'>
+		<expression id='jawOpen' weight='0.5'/>
+		<expression id='mouthSmileRight' weight='0.3'/>
+		<expression id='mouthSmileLeft' weight='0.3'/>
+	</viseme>
+	<viseme id='i'>
+		<expression id='jawOpen' weight='0.15'/>
+		<expression id='mouthSmileRight' weight='0.6'/>
+		<expression id='mouthSmileLeft' weight='0.6'/>
+	</viseme>
+	<viseme id='o'>
+		<expression id='mouthPout' weight='1'/>
+	</viseme>
+	<viseme id='u'>
+		<expression id='mouthPout' weight='1'/>
+		<expression id='mouthUpperOverturn' weight='0.5'/>
+		<expression id='mouthLowerOverlay' weight='0.5'/>
+	</viseme>
+	<viseme id='rr'>
+		<expression id='jawOpen' weight='0.15'/>
+		<expression id='mouthSmileRight' weight='0.3'/>
+		<expression id='mouthSmileLeft' weight='0.3'/>
+		<expression id='mouthUpperUpRight' weight='0.8'/>
+		<expression id='mouthUpperUpLeft' weight='0.8'/>
+		<expression id='tongueRoll' weight='1'/>
+	</viseme>
+	<viseme id='pp'>
+		<expression id='mouthUpperInside' weight='1'/>
+		<expression id='mouthLowerInside' weight='1'/>
+	</viseme>
+	<viseme id='ff'>
+		<expression id='mouthPout' weight='0.25'/>
+	</viseme>
+	<viseme id='th'>
+		<expression id='jawOpen' weight='0.2'/>
+		<expression id='mouthUpperOverturn' weight='0.5'/>
+		<expression id='tongueLongStep1' weight='1'/>
+		<expression id='tongueLongStep2' weight='0.2'/>
+		<expression id='tongueUp' weight='0.5'/>
+	</viseme>
+	<viseme id='dd'>
+		<expression id='jawOpen' weight='0.2'/>
+		<expression id='mouthSmileRight' weight='0.3'/>
+		<expression id='mouthSmileLeft' weight='0.3'/>
+		<expression id='tongueLongStep1' weight='1'/>
+		<expression id='tongueUp' weight='0.6'/>
+	</viseme>
+	<viseme id='kk'>
+		<expression id='jawOpen' weight='0.35'/>
+	</viseme>
+	<viseme id='ch'>
+		<expression id='jawOpen' weight='0.25'/>
+		<expression id='mouthPout' weight='0.25'/>
+		<expression id='mouthSmileRight' weight='0.3'/>
+		<expression id='mouthSmileLeft' weight='0.3'/>
+	</viseme>
+	<viseme id='ss'>
+		<expression id='jawOpen' weight='0.05'/>
+		<expression id='mouthSmileRight' weight='0.6'/>
+		<expression id='mouthSmileLeft' weight='0.6'/>
+	</viseme>
+	<viseme id='nn'>
+		<expression id='jawOpen' weight='0.25'/>
+		<expression id='mouthSmileRight' weight='0.6'/>
+		<expression id='mouthSmileLeft' weight='0.6'/>
+		<expression id='tongueLongStep1' weight='1'/>
+		<expression id='tongueLongStep2' weight='0.15'/>
+		<expression id='tongueUp' weight='0.6'/>
+	</viseme>
+</expressions>
