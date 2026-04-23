@@ -61,6 +61,793 @@ class WindowAudioCapture extends Window
 		end
 	end
 	
+	
+	class LipSyncFormant extends LipSync
+		class VisemeTarget
+			public var LipSync.Viseme viseme
+			public var Vector2 coordinates
+			public var float distance, weightSmooth, weight
+			
+			func new(LipSync.Viseme viseme, float formant1, float formant2)
+				this.viseme = viseme
+				this.coordinates = Vector2.new(formant1, formant2)
+			end
+		end
+		
+		
+		/** \brief Count of frequency bands to analyze. */
+		static fixed var int frequencyBands = 12
+		
+		/** \brief Lowest frequency to analyze. */
+		static fixed var int minFrequency = 300 //100 //30
+		
+		/** \brief Highest frequency to analyze. */
+		static fixed var int maxFrequency = 8000 //7800
+		
+		/** \brief Count of spectral peaks to show. */
+		static fixed var int spectralPeaks = 4
+		
+		
+		var float pVowelFloor
+		
+		var Viseme pViseme
+		var float pVisualWeight
+		var Array pPeaks
+		var float pFormant1, pFormant2, pLowestPeakFrequency
+		var Vector2 pFormantCoordinates
+		var float pVisemeTimer, pVisemeHoldTime
+		var Array pVisemeTargets
+		var float pAutoMinF1, pAutoMaxF1, pAutoMinF2, pAutoMaxF2
+		var float pAutoCalibrateTime, pVowelBlendTime
+		var float pPeakThreshold, pCalibrateThreshold
+		var bool pSilenceVowels
+		
+		var Array pHeadAudioVisemes, pHeadAudioTargets, pHeadAudioInput, pHeadAudioTemp, pHeadAudioDCTBasis
+		var float pInvLog10
+		
+		func new()
+			pVowelFloor = 0.004 // -48dB
+			pViseme = Viseme.sil
+			//pVisemeHoldTime = 0.05
+			pVisemeHoldTime = 0
+			pPeaks = Array.new()
+			pFormantCoordinates = Vector2.new()
+			pPeakThreshold = 300
+			pCalibrateThreshold = 150
+			
+			// for accoustic models (textbook values)
+			pAutoMinF1 = 270
+			pAutoMaxF1 = 730
+			pAutoMinF2 = 870
+			pAutoMaxF2 = 2290
+			
+			// for more game-like behavior
+			/*
+			pAutoMinF1 = 212.5 // 270 - ((730-270)/0.8)*0.1
+			pAutoMaxF1 = 787.5 // 730 + ((730-270)/0.8)*0.1
+			pAutoMinF2 = 692.5 // 870 - ((2290-870)/0.8)*0.1
+			pAutoMaxF2 = 2467.5 // 2290 + ((2290-870)/0.8)*0.1
+			*/
+			
+			pAutoCalibrateTime = 5 // 5s
+			pVowelBlendTime = 0.025 // 25ms
+			
+			pInvLog10 = 1 / Math.log(10)
+			
+			// custom calibration
+			/*
+			pAutoMinF1 = 231
+			pAutoMaxF1 = 753
+			pAutoMinF2 = 712
+			pAutoMaxF2 = 2323
+			*/
+			
+			initVowelMap()
+			
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			analyzer.setSampleRate(16000)
+			analyzer.setResolution(512)
+			analyzer.setEnablePreEmphasis(true)
+			analyzer.setPreEmphasisFactor(0.97)
+			analyzer.setEnableMelFiltering(true)
+			analyzer.setNormalizeMelEnergies(false)
+			analyzer.setMelFilterCount(40)
+			analyzer.setFrequencyBandCount(frequencyBands)
+			analyzer.setFrequencyRange(minFrequency, maxFrequency)
+		end
+		
+		func Viseme getViseme()
+			return pViseme
+		end
+		
+		func bool isVisemeVowel(Viseme viseme)
+			select viseme
+			case Viseme.aa, Viseme.e, Viseme.i, Viseme.o, Viseme.u, Viseme.rr
+				return true
+				
+			else
+				return false
+			end
+		end
+		
+		func float getVisualWeight()
+			return pVisualWeight
+		end
+		
+		func void forEachVisemeTarget(Block ablock)
+			pVisemeTargets.forEach(ablock)
+		end
+		
+		func void forEachHeadAudioViseme(Block ablock)
+			pHeadAudioVisemes.forEach(ablock)
+		end
+		
+		protected func void updateLipSync(float elapsed)
+			getAudioAnalyzer().updateResults()
+			
+			var float rms = getAudioAnalyzer().getRMS()
+			var Viseme targetViseme = Viseme.sil
+			pSilenceVowels = true
+			
+			if rms > getNoiseFloor()
+				updatePeaks()
+				updateFormants(elapsed)
+				autoCalibrate(elapsed)
+				targetViseme = detectViseme(elapsed)
+			end
+			
+			if pSilenceVowels
+				silenceVowels(elapsed)
+			end
+			
+			if targetViseme == Viseme.sil
+				pFormant1 = pFormant2 = 0
+				pVisualWeight = 0
+			end
+			
+			if targetViseme != pViseme
+				pVisemeTimer += elapsed
+				if pVisemeTimer > pVisemeHoldTime
+					pViseme = targetViseme
+					pVisemeTimer = 0
+				end
+				
+			else
+				pVisemeTimer = 0
+			end
+			
+			// visual weight. uses a slight curve (pow 0.8) to make the jaw more active during quiet speech
+			pVisualWeight = Math.clamp(Math.pow(rms * 4.5, 0.8), 0.0, 1.0)
+			
+			debugLog()
+		end
+		
+		func void updatePeaks()
+			pLowestPeakFrequency = 1000
+			
+			pPeaks.removeAll()
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			var int i, peakCount = analyzer.getSpectralPeakCount()
+			var float peakFrequency
+			for i = 0 to peakCount
+				peakFrequency = analyzer.getSpectralPeakFrequencyAt(i)
+				pLowestPeakFrequency = Math.min(pLowestPeakFrequency, peakFrequency)
+				if peakFrequency > pPeakThreshold and pPeaks.getCount() < 2
+					pPeaks.add(peakFrequency)
+				end
+			end
+			pPeaks.sort()
+		end
+		
+		func void updateFormants(float elapsed)
+			if pPeaks.getCount() < 2
+				return
+			end
+			
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			var float peak0 = pPeaks.getAt(0) cast float
+			var float peak1 = pPeaks.getAt(1) cast float
+			
+			var float threshold = peak0 + 200 //500
+			if peak1 < threshold
+				var int i, peakCount = analyzer.getSpectralPeakCount()
+				var float peakFrequency
+				
+				peak1 = 0
+				for i = 0 to peakCount
+					peakFrequency = analyzer.getSpectralPeakFrequencyAt(i)
+					if peakFrequency > threshold
+						peak1 = peakFrequency
+						break
+					end
+				end
+			end
+			
+			// F1/F2 is usually below 1200/3500Hz. values above are most likely noise
+			if peak1 == 0 or peak0 > 2000 or peak1 > 4000
+				return
+			end
+			
+			if pFormant1 > 0
+				pFormant1 = DEMath.mix(pFormant1, peak0, elapsed * 15)
+				
+			else
+				pFormant1 = peak0
+			end
+			
+			if pFormant2 > 0
+				pFormant2 = DEMath.mix(pFormant2, peak1, elapsed * 15)
+				
+			else
+				pFormant2 = peak1
+			end
+		end
+		
+		func void autoCalibrate(float elapsed)
+			if getAudioAnalyzer().getRMS() < getNoiseFloor()
+				return
+			end
+			
+			var float factorIn = elapsed / pAutoCalibrateTime
+			var float factorOut = factorIn * 2
+			
+			if pFormant1 > pCalibrateThreshold
+				pAutoMinF1 = DEMath.mix(pAutoMinF1, pFormant1, pFormant1 < pAutoMinF1 if factorOut else factorIn)
+				pAutoMaxF1 = DEMath.mix(pAutoMaxF1, pFormant1, pFormant1 > pAutoMaxF1 if factorOut else factorIn)
+			end
+			
+			if pFormant2 > pCalibrateThreshold
+				pAutoMinF2 = DEMath.mix(pAutoMinF2, pFormant2, pFormant2 < pAutoMinF2 if factorOut else factorIn)
+				pAutoMaxF2 = DEMath.mix(pAutoMaxF2, pFormant2, pFormant2 > pAutoMaxF2 if factorOut else factorIn)
+			end
+		end
+		
+		func Viseme detectViseme(float elapsed)
+			pSilenceVowels = true
+			if pFormant1 == 0 or pFormant2 == 0
+				return Viseme.sil
+			end
+			
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			var float centroid = analyzer.getSpectralCentroid()
+			var float zcr = analyzer.getZeroCrossingRate()
+			var float rms = analyzer.getRMS()
+			
+			// consonants / fricatives
+			if zcr > 0.25
+				return Viseme.ss
+			end
+			
+			if zcr > 0.12
+				if centroid > 4000
+					return Viseme.ch
+					
+				elif centroid > 2500
+					return Viseme.ff
+					
+				else
+					return Viseme.th
+				end
+			end
+			
+			// vowels (significant energy with clear formants)
+			if rms > pVowelFloor
+				updateVowels(elapsed)
+				var VisemeTarget target = closestVowel()
+				if target.distance < 0.8 //0.5
+					pSilenceVowels = false
+					return target.viseme
+				end
+			end
+			
+			// consonant / muffled (closed or semi-closed shapes)
+			// must be checked before vowels to prevent hums from opening the mouth
+			//elif centroid < 1800 or rms < pNoiseFloor * 2
+			//elif centroid < 1600 or zcr < 0.06
+			//elif (centroid < 1000 and zcr < 0.03) or (rms < pNoiseFloor * 1.5)
+			if zcr < 0.05
+				// low frequency energy with low noise. differentiate based on where the tongue/F2 is
+				if pFormant2 > 2000
+					return Viseme.dd
+					
+				elif pFormant2 > 1200
+					return Viseme.nn
+					
+				elif pLowestPeakFrequency < 200
+					return Viseme.pp // muffled, mouth closed
+					
+				else
+					return Viseme.kk // back of throat
+				end
+			end
+			
+			// not sure what this is so use "sil"
+			return Viseme.sil
+		end
+		
+		func void updateVowels(float elapsed)
+			pFormantCoordinates = Vector2.new(\
+				Math.clamp((pFormant1 - pAutoMinF1) / Math.max(pAutoMaxF1 - pAutoMinF1, 100.0), 0.0, 1.0),\
+				Math.clamp((pFormant2 - pAutoMinF2) / Math.max(pAutoMaxF2 - pAutoMinF2, 100.0), 0.0, 1.0))
+			
+			var float factor = elapsed / pVowelBlendTime
+			pVisemeTargets.forEach(block VisemeTarget each
+				each.distance = (each.coordinates - pFormantCoordinates).getLength()
+				each.weight = Math.max(1 - each.distance / 0.5, 0.0)
+				each.weightSmooth = DEMath.mix(each.weightSmooth, each.weight, factor)
+			end)
+			
+			var float sumWeight = pVisemeTargets.inject(0, block float acc, VisemeTarget each
+				return acc + each.weightSmooth
+			end) cast float
+			
+			factor = sumWeight > 0.001 if 1 / sumWeight else 0
+			pVisemeTargets.forEach(block VisemeTarget each
+				each.weight = each.weightSmooth * factor
+			end)
+		end
+		
+		func void silenceVowels(float elapsed)
+			var float factor = elapsed / pVowelBlendTime
+			pVisemeTargets.forEach(block VisemeTarget each
+				each.weight = DEMath.mix(each.weight, 0.0, factor)
+			end)
+		end
+		
+		func VisemeTarget closestVowel()
+			return pVisemeTargets.fold(block VisemeTarget a, VisemeTarget b
+				return a.distance < b.distance if a else b
+			end) cast VisemeTarget
+		end
+		
+		func void debugLog()
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			var int i, peakCount = analyzer.getSpectralPeakCount()
+			var Array debugPeaks = Array.new()
+			for i = 0 to peakCount
+				if analyzer.getSpectralPeakFrequencyAt(i) > pPeakThreshold
+					debugPeaks.add("{:.0f}|{:.2f}".format(Array.newWith(\
+						analyzer.getSpectralPeakFrequencyAt(i),\
+						analyzer.getSpectralPeakMagnitudeAt(i))))
+					if debugPeaks.getCount() == 4
+						break
+					end
+				end
+			end
+			
+			Engine.log("VT: rms={} f1={} f2={} zcr={} cen={} vis={} vw={} lp={} peaks={}".format(\
+				Array.newWith(analyzer.getRMS(), pFormant1, pFormant2,\
+					analyzer.getZeroCrossingRate(), analyzer.getSpectralCentroid(),\
+					pViseme.name(), pVisualWeight, pLowestPeakFrequency, debugPeaks)))
+			/*
+			Engine.log("    auto=({:.0f}-{:.0f}|{:.0f}-{:.0f}) fco={} vow={}".format(\
+				Array.newWith(pAutoMinF1, pAutoMaxF1, pAutoMinF2, pAutoMaxF2, pFormantCoordinates,\
+					pVisemeTargets.map(block VisemeTarget each
+						return "{}:{:.2f}".format(Array.newWith(each.viseme.name(), each.weight))
+					end))))
+			*/
+		end
+		
+		func float hzToMel(float hz)
+			return 1127.0 * Math.log(1.0 + hz / 700.0)
+		end
+		
+		func void initVowelMap()
+			// this mapping is based on accoustic models (textbook values)
+			// aa: F1=730, F2=1090
+			// i: F1=270, F2=2290
+			// u: F1=300, F2=870
+			// e: F1=530, F2=1840
+			// o: F1=440, F2=1020
+			/*
+			pVisemeTargets = Array.newWith(\
+				VisemeTarget.new(Viseme.aa, 1.000, 0.155),\
+				VisemeTarget.new(Viseme.i,  0.000, 1.000),\
+				VisemeTarget.new(Viseme.u,  0.065, 0.000),\
+				VisemeTarget.new(Viseme.e,  0.565, 0.683),\
+				VisemeTarget.new(Viseme.o,  0.370, 0.105),\
+				VisemeTarget.new(Viseme.rr, 0.283, 0.162))
+			*/
+			
+			// adjusted mapping to work better
+			pVisemeTargets = Array.newWith(\
+				VisemeTarget.new(Viseme.aa, 1.00, 0.15),\
+				VisemeTarget.new(Viseme.i,  0.00, 1.00),\
+				VisemeTarget.new(Viseme.u,  0.10, 0.00),\
+				VisemeTarget.new(Viseme.e,  0.50, 0.70),\
+				VisemeTarget.new(Viseme.o,  0.40, 0.10),\
+				VisemeTarget.new(Viseme.rr, 0.30, 0.30))
+			
+			// for more game-like behavior
+			/*
+			pVisemeTargets = Array.newWith(\
+				VisemeTarget.new(Viseme.aa, 0.9, 0.5),\
+				VisemeTarget.new(Viseme.i,  0.1, 0.9),\
+				VisemeTarget.new(Viseme.u,  0.1, 0.1),\
+				VisemeTarget.new(Viseme.e,  0.5, 0.8),\
+				VisemeTarget.new(Viseme.o,  0.5, 0.2),\
+				VisemeTarget.new(Viseme.rr, 0.4, 0.4))
+			*/
+		end
+	end
+	
+	
+	/**
+	 * \brief Lip sync using band amplitudes.
+	 */
+	class LipSyncSpectrogramDev extends LipSyncSpectrogram
+		func new()
+		end
+		
+		protected func void updateLipSync(float elapsed)
+			super.updateLipSync(elapsed)
+			if getRms() > getNoiseFloor()
+				debugLog()
+			end
+		end
+		
+		protected func void calculateVisemes(float elapsed)
+			super.calculateVisemes(elapsed)
+			
+			// group bands into logical vocal buckets
+			var float low = getEnergyLow() // bass/plosives (PP, OU)
+			var float lowMid = getEnergyLowMid() // vowels (AA, OH, RR)
+			var float mid = getEnergyMid() // consonants (DD, NN, KK)
+			var float high = getEnergyHigh() // sibilants (SS, CH, FF)
+			
+			// map broad energy to specific visemes. The rms is used to scale the intensity
+			// so the mouth opens wider when louder. An rms of 0.1 is considered fully open
+			// mouth. On louder microphones 0.2 is better
+			//var float factor = Math.min(rms * 10.0, 1.0) / total
+			var float total = low + lowMid + mid + high
+			var float factor = total > 0 if 1 / total else 0
+			
+			/*
+			getVisemeResult(Viseme.sil).weight = 0
+			getVisemeResult(Viseme.pp).weight = low * factor * 0.4
+			getVisemeResult(Viseme.ff).weight = high * factor * 0.5
+			getVisemeResult(Viseme.th).weight = high * factor * 0.3
+			getVisemeResult(Viseme.dd).weight = mid * factor * 0.6
+			getVisemeResult(Viseme.kk).weight = mid * factor * 0.4
+			getVisemeResult(Viseme.ch).weight = high * factor * 0.8
+			getVisemeResult(Viseme.ss).weight = high * factor * 1.0
+			getVisemeResult(Viseme.nn).weight = mid * factor * 0.5
+			getVisemeResult(Viseme.rr).weight = lowMid * factor * 0.4
+			getVisemeResult(Viseme.aa).weight = lowMid * factor * 1.0
+			getVisemeResult(Viseme.e).weight = lowMid * factor * 0.7
+			getVisemeResult(Viseme.i).weight = mid * factor * 0.6
+			getVisemeResult(Viseme.o).weight = low * factor * 0.8
+			getVisemeResult(Viseme.u).weight = low * factor * 0.9
+			*/
+			
+			
+			/*
+			var float rL = low / total
+			var float rLM = lowMid / total
+			var float rM = mid / total
+			var float rH = high / total
+			
+			// muffle. if the difference between bands is small it's a "muddy" or "muffled" sound.
+			// this keeps the mouth mostly shut for Nn, Ll, and Th
+			var Viseme chosen
+			
+			var float variance = Math.fabs(rL - rLM) + Math.fabs(rLM - rM)
+			if variance < 0.15 and rH < 0.2
+				chosen = Viseme.nn // minimal mouth opening
+				
+			// vowels, consonants
+			elif rH > 0.4
+				chosen = Viseme.ss // sharp/high
+				
+			elif rH > 0.25
+				chosen = Viseme.ch // mid-high
+				
+			elif rL > 0.5
+				chosen = Viseme.o // deep/rounded
+				
+			elif rLM > 0.45
+				chosen = Viseme.aa // open vowel
+				
+			elif rM > 0.4
+				chosen = Viseme.i // wide/mid-range
+				
+			// fallback. smallest open shape. use 'nn' to keep mouth mostly closed on noise
+			else
+				chosen = Viseme.nn
+			end
+			
+			getVisemeResults().forEachValue(block VisemeResult each
+				each.weight = each.viseme == chosen if 1 else 0
+			end)
+			*/
+			
+			/*
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			var float scale = 1 / analyzer.getTotalBandEnergy()
+			
+			getVisemeResult(Viseme.sil).weight = 0
+			
+			getVisemeResult(Viseme.pp).weight = pBandEnergies.getAt(0) cast float * scale // ~100Hz
+			getVisemeResult(Viseme.u).weight = pBandEnergies.getAt(1) cast float * scale // ~300Hz
+			getVisemeResult(Viseme.o).weight = pBandEnergies.getAt(2) cast float * scale // ~500Hz
+			getVisemeResult(Viseme.rr).weight = pBandEnergies.getAt(3) cast float * scale // ~700Hz
+			getVisemeResult(Viseme.aa).weight = pBandEnergies.getAt(4) cast float * scale // ~1kHz
+			getVisemeResult(Viseme.e).weight = pBandEnergies.getAt(5) cast float * scale // ~1.3kHz
+			getVisemeResult(Viseme.nn).weight = pBandEnergies.getAt(6) cast float * scale // ~1.6kHz
+			getVisemeResult(Viseme.dd).weight = pBandEnergies.getAt(7) cast float * scale // ~2kHz
+			getVisemeResult(Viseme.i).weight = pBandEnergies.getAt(8) cast float * scale // ~2.5kHz
+			getVisemeResult(Viseme.kk).weight = pBandEnergies.getAt(9) cast float * scale // ~3kHz
+			getVisemeResult(Viseme.th).weight = pBandEnergies.getAt(10) cast float * scale // ~3.5kHz
+			getVisemeResult(Viseme.ch).weight = pBandEnergies.getAt(11) cast float * scale // ~4kHz
+			getVisemeResult(Viseme.ff).weight = pBandEnergies.getAt(12) cast float * scale // ~5kHz
+			getVisemeResult(Viseme.ss).weight = pBandEnergies.getAt(14) cast float * scale // ~7kHz
+			*/
+			
+			normalizeVisemes()
+		end
+		
+		func void debugLog()
+			Engine.log("LipSync: rms={} flat={} zrc={} low={} lowMid={} mid={} high={} bands={}".format(\
+				Array.newWith(getRms(), getFlatness(), getZcr(), getEnergyLow(), getEnergyLowMid(), getEnergyMid(), getEnergyHigh(), getBandEnergies())))
+			
+			var Array weights = Array.new()
+			forEachVisemeResult(block VisemeResult each
+				weights.add("{}:{:.2f}".format(Array.newWith(each.getViseme().name(), each.getWeight())))
+			end)
+			Engine.log("         vw=" + weights)
+		end
+	end
+	
+	
+	/**
+	 * \brief Lip sync using a machine learning model trained on audio features.
+	 * 
+	 * Based on HeadAudio: https://github.com/met4citizen/HeadAudio
+	 */
+	class LipSyncHeadAudio extends LipSync
+		class VisemeTarget
+			public var LipSync.Viseme viseme
+			public var Vector2 coordinates
+			public var float distance, weightSmooth, weight
+			
+			func new(LipSync.Viseme viseme, float formant1, float formant2)
+				this.viseme = viseme
+				this.coordinates = Vector2.new(formant1, formant2)
+			end
+		end
+		
+		class HeadAudioTarget
+			public var LipSync.VisemeResult viseme
+			public var Array mean, invCov
+			public var float distance, weight
+			
+			func new(LipSync.VisemeResult viseme)
+				this.viseme = viseme
+				mean = Array.new()
+				invCov = Array.new()
+			end
+		end
+		
+		
+		var float pSensitivity
+		var Array pHeadAudioVisemes, pHeadAudioTargets, pHeadAudioInput, pHeadAudioTemp
+		var float pInvLog10
+		
+		func new()
+			// higher sensitivity makes the model more confident and less blended. adjust based on model performance
+			// 10 = very smooth/blended, 15 = good balance, 20+ = very sharp/confident
+			pSensitivity = 10
+			
+			pInvLog10 = 1 / Math.log(10)
+			loadHeadAudioModel()
+			
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			analyzer.setSampleRate(16000)
+			analyzer.setResolution(512)
+			analyzer.setEnablePreEmphasis(true)
+			analyzer.setPreEmphasisFactor(0.97)
+			analyzer.setEnableMelFiltering(true)
+			analyzer.setNormalizeMelEnergies(false)
+			analyzer.setMelFilterCount(40)
+			analyzer.setFrequencyBandCount(12)
+			analyzer.setFrequencyRange(300, 8000) // min: 100, 30; max: 7800
+		end
+		
+		func void forEachHeadAudioViseme(Block ablock)
+			pHeadAudioVisemes.forEach(ablock)
+		end
+		
+		protected func void updateLipSync(float elapsed)
+			getAudioAnalyzer().updateResults()
+			updateHeadAudio(elapsed)
+			setVisemeSubsetFromFull()
+			setJawOpenessFromVisemeSubset()
+			smoothResults(elapsed)
+			debugLog()
+		end
+		
+		func void debugLog()
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			Engine.log("VT: rms={} zcr={} cen={}".format(Array.newWith(\
+				analyzer.getRMS(), analyzer.getZeroCrossingRate(), analyzer.getSpectralCentroid())))
+			Engine.log("    vb=" + pHeadAudioVisemes.map(block VisemeResult each
+				return "{}:{:.2f}".format(Array.newWith(each.getViseme().name(), each.getWeight()))
+			end))
+		end
+		
+		func float hzToMel(float hz)
+			return 1127.0 * Math.log(1.0 + hz / 700.0)
+		end
+		
+		private func void loadHeadAudioModel()
+			var FileReader reader = FileReader.new("/models/dragonroohead/headaudio-speechmodel.bin")
+			var int protoCount = reader.getLength() / 368
+			var HeadAudioTarget target
+			var int i, j
+			
+			pHeadAudioVisemes = Array.new(15)
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.aa))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.e))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.i))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.o))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.u))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.pp))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.ss))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.th))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.dd))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.ff))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.kk))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.nn))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.rr))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.ch))
+			pHeadAudioVisemes.add(getVisemeResult(Viseme.sil))
+			
+			pHeadAudioTargets = Array.new(protoCount)
+			for i = 0 to protoCount
+				reader.readInt() // IPA: 4 bytes
+				reader.movePosition(3) // reserved: 3 bytes
+				
+				// viseme id: 1 byte
+				target = HeadAudioTarget.new(pHeadAudioVisemes.getAt(reader.readByte()) cast VisemeResult)
+				
+				// mean: 12 floats (48 bytes)
+				for j = 0 to 12
+					target.mean.add(reader.readFloat())
+				end
+				
+				// inverse covariance: 78 floats (312 bytes)
+				for j = 0 to 78
+					target.invCov.add(reader.readFloat())
+				end
+				
+				pHeadAudioTargets.add(target)
+			end
+			
+			pHeadAudioInput = Array.new(12, 0.0)
+			pHeadAudioTemp = Array.new(12, 0.0)
+			
+			/*
+			pHeadAudioTargets.forEach(block int index, HeadAudioTarget target
+				TestProject.getApp().getConsole().addMessage("loadHeadAudioModel: proto {}: vis={}".format(\
+					Array.newWith(index, target.viseme.viseme.name())))
+				//TestProject.getApp().getConsole().addMessage("loadHeadAudioModel: vis={} mean={} invCov={}".format(\
+				//	Array.newWith(target.viseme.viseme.name(), target.mean, target.invCov)))
+				//TestProject.getApp().getConsole().addMessage("loadHeadAudioModel: vis={} mean={}".format(\
+				//	Array.newWith(target.viseme.viseme.name(), target.mean)))
+			end)
+			*/
+		end
+		
+		private func void updateHeadAudio(float elapsed)
+			var AudioAnalyzer analyzer = getAudioAnalyzer()
+			var float rms = analyzer.getRMS()
+			if rms < getNoiseFloor()
+				pHeadAudioVisemes.forEach(block VisemeResult viseme
+					viseme.setWeight(viseme.getViseme() == Viseme.sil if 1 else 0)
+				end)
+				return
+			end
+			
+			// get bands from analyzer. input vector is <band0, band1, ..., band10>
+			var float lifter = 22
+			var int i, j, k
+			var float value
+			
+			if rms > getNoiseFloor()
+				for i = 0 to 12
+					value = analyzer.getFrequencyBandMfccAt(i)
+					
+					// scale down raw DCT result to prevent saturation
+					//value /= i == 0 if 600 else 60
+					//value /= 20
+					
+					// apply lifter
+					value *= 1 + (lifter / 2) * Math.sin(Math.M_PI * (i + 1) / lifter)
+					
+					// compress feature. speech model expects scaled MFCC features
+					value = Math.tanh(value)
+					
+					pHeadAudioInput.setAt(i, value)
+				end
+				
+				// input 0 is log energy (volume) in dB. normalize into range -1 to 1 using -60dB floor
+				/* never used by HeadAudio
+				value = Math.log(rms + 0.0001) * pInvLog10
+				value = Math.tanh((value + 40) / 20)
+				pHeadAudioInput.setAt(0, value)
+				*/
+				
+			else
+				for i = 0 to 12
+					pHeadAudioInput.setAt(i, 0.0)
+				end
+			end
+			
+			// calculate squared Mahalanobis distance for all targets
+			var float diffI, diffJ, invCovValue
+			pHeadAudioTargets.forEach(block HeadAudioTarget target
+				for i = 0 to 12
+					pHeadAudioTemp.setAt(i, pHeadAudioInput.getAt(i) cast float - target.mean.getAt(i) cast float)
+				end
+				
+				target.distance = 0
+				k = 0
+				for i = 0 to 12 // rows
+					diffI = pHeadAudioTemp.getAt(i) cast float
+					for j = 0 to (i + 1) // columns (0 up to and including i)
+						diffJ = pHeadAudioTemp.getAt(j) cast float
+						invCovValue = target.invCov.getAt(k) cast float
+						
+						value = diffI * diffJ * invCovValue
+						
+						// the matrix is stored as a triangle. for off-diagonals (i != j)
+						// multiply by 2 to account for both [i][j] and [j][i]
+						target.distance += i == j if value else value * 2
+						k += 1
+					end
+				end
+				
+				// negative values are not possible in this calculation but can happen due to
+				// numerical errors. clamping should prevent problems
+				//target.distance = Math.max(target.distance, 0.0001)
+			end)
+			
+			var float minDistance = pHeadAudioTargets.inject(1000000.0, block float acc, HeadAudioTarget target
+				return Math.min(acc, target.distance)
+			end) cast float
+			
+			
+			TestProject.getApp().getConsole().addMessage("updateHeadAudio: input={} minDist={} dist={}".format(Array.newWith(\
+				pHeadAudioInput, minDistance, pHeadAudioTargets.map(block HeadAudioTarget target
+					return target.distance
+				end))))
+			
+			
+			// convert distances to weights
+			pHeadAudioVisemes.forEach(block VisemeResult viseme
+				viseme.setWeight(0)
+			end)
+			
+			pHeadAudioTargets.forEach(block HeadAudioTarget target
+				// convert distance to weight. lower distance yields higher weight.
+				// sensitivity controls how sharp or smooth the blending is
+				target.weight = Math.exp(-pSensitivity * (target.distance - minDistance))
+				target.viseme.setWeight(target.viseme.getWeight() + target.weight)
+			end)
+			
+			// normalize weights
+			var float sumWeight = pHeadAudioTargets.inject(0.0, block float acc, HeadAudioTarget target
+				return acc + target.weight
+			end) cast float
+			
+			var float factor = sumWeight > 0.001 if 1 / sumWeight else 0
+			pHeadAudioVisemes.forEach(block VisemeResult viseme
+				viseme.setWeight(viseme.getWeight() * factor)
+			end)
+		end
+	end
+	
+	
 	class FaceExpressionVPS
 		public var String expression, vpsName
 		public var int vpsIndex
@@ -113,7 +900,7 @@ class WindowAudioCapture extends Window
 		setTitle("Audio Capture")
 		
 		if AudioSystem.canCaptureAudio()
-			pLipSyncAvatar = LipSyncSpectrogram.new()
+			pLipSyncAvatar = LipSyncSpectrogramDev.new()
 		end
 		
 		pModelStatus = DefaultTextModel.new("Not capturing")
