@@ -135,7 +135,8 @@ class WindowCaptureCanvas extends Window
 			return
 		end
 		
-		pCaptureScreen.setImage(GraphicSystem.getWindowWidth(), GraphicSystem.getWindowHeight(), 3, 8)
+		pCaptureScreen.setImage(GraphicSystem.getWindowWidth(), GraphicSystem.getWindowHeight(),\
+			3, GraphicSystem.getWindowHdrOutput() if 32 else 8)
 		pCaptureScreen.setCapture(true)
 		
 		startTimer(pCaptureScreen)

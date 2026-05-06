@@ -72,7 +72,7 @@ class WindowDragDrop extends Window
 			if not color.equals(Color.white)
 				colorMatrix = ColorMatrix.newSaturation(0) \
 					* ColorMatrix.newBrightness(0.25) \
-					* ColorMatrix.newScaling(color * 1.5)
+					* ColorMatrix.newScaling(Color.new(color * 1.5, 1))
 			end
 			
 			pWidget.setColorTransformation(colorMatrix)
