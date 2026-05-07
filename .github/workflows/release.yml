@@ -8,6 +8,7 @@ on:
         required: true
         type: string
         default: 'X.Y{.Z}'
+  repository_dispatch:
 
 jobs:
   distribute:
