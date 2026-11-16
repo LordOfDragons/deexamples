@@ -13,15 +13,15 @@
 			<text>
 				<position x='45' y='20'/>
 				<size x='438' y='115'/>
-				<path>/font/roomLabel.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Animated</text>
 				<color r='0.141176' g='0.141176' b='0'/>
 			</text>
 			<text>
 				<position x='37' y='137'/>
-				<size x='440' y='110'/>
-				<path>/font/roomLabel.defont</path>
+				<size x='454' y='110'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Geometry</text>
 				<color r='0.141176' g='0.141176' b='0'/>

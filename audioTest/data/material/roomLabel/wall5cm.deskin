@@ -11,9 +11,9 @@
 				<path>/material/roomLabel/baseEmissivity.jpg</path>
 			</image>
 			<text>
-				<position x='155' y='75'/>
-				<size x='249' y='112'/>
-				<path>/font/roomLabel.defont</path>
+				<position x='159' y='75'/>
+				<size x='245' y='112'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>5 cm</text>
 				<color r='0.141176' g='0.141176' b='0'/>

@@ -11,9 +11,9 @@
 				<path>/material/roomLabel/baseEmissivity.jpg</path>
 			</image>
 			<text>
-				<position x='34' y='20'/>
-				<size x='444' y='93'/>
-				<path>/font/roomLabel.defont</path>
+				<position x='29' y='20'/>
+				<size x='462' y='102'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Furnished</text>
 				<color r='0.141176' g='0.141176' b='0'/>
@@ -21,7 +21,7 @@
 			<text>
 				<position x='132' y='137'/>
 				<size x='266' y='110'/>
-				<path>/font/roomLabel.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Room</text>
 				<color r='0.141176' g='0.141176' b='0'/>

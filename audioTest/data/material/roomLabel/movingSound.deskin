@@ -12,16 +12,16 @@
 			</image>
 			<text>
 				<position x='98' y='20'/>
-				<size x='330' y='115'/>
-				<path>/font/roomLabel.defont</path>
+				<size x='336' y='115'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Moving</text>
 				<color r='0.141176' g='0.141176' b='0'/>
 			</text>
 			<text>
-				<position x='132' y='137'/>
-				<size x='266' y='110'/>
-				<path>/font/roomLabel.defont</path>
+				<position x='116' y='136'/>
+				<size x='303' y='110'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Sound</text>
 				<color r='0.141176' g='0.141176' b='0'/>

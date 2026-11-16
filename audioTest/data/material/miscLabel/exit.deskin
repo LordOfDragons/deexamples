@@ -7,7 +7,7 @@
 			<text>
 				<position x='38' y='76'/>
 				<size x='187' y='116'/>
-				<path>/font/roomLabel.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Exit</text>
 				<color r='0' g='0.321569' b='0.666667'/>

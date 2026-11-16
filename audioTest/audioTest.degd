@@ -24,7 +24,7 @@
 	<findPathSkins>/material</findPathSkins>
 	<class name='Dragoness'>
 		<description>Dragoness actor.</description>
-		<inherit name='BaseActor'>
+		<inherit name='Actor'>
 		</inherit>
 		<propertyValue name='component.model'>/model/dragoness/dragoness.demodel</propertyValue>
 		<propertyValue name='component.skin'>/model/dragoness/dragoness.deskin</propertyValue>

@@ -11,17 +11,17 @@
 				<path>/material/roomLabel/baseEmissivity.jpg</path>
 			</image>
 			<text>
-				<position x='139' y='20'/>
-				<size x='254' y='93'/>
-				<path>/font/roomLabel.defont</path>
+				<position x='132' y='20'/>
+				<size x='261' y='93'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>109</fontSize>
 				<text>Small</text>
 				<color r='0.141176' g='0.141176' b='0'/>
 			</text>
 			<text>
 				<position x='28' y='137'/>
-				<size x='466' y='110'/>
-				<path>/font/roomLabel.defont</path>
+				<size x='474' y='110'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>90</fontSize>
 				<text>Reverberant</text>
 				<color r='0.141176' g='0.141176' b='0'/>

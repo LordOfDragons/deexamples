@@ -5,9 +5,9 @@
 			<size x='256' y='256'/>
 			<color r='0.67451' g='1' b='0.713726'/>
 			<text>
-				<position x='24' y='86'/>
-				<size x='214' y='93'/>
-				<path>/font/roomLabel.defont</path>
+				<position x='17' y='86'/>
+				<size x='230' y='93'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</path>
 				<fontSize>85</fontSize>
 				<text>Active</text>
 				<color r='1' g='0.172549' b='0.0980392'/>

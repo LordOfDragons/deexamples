@@ -9,18 +9,18 @@
 				<path>images/trigger1.png</path>
 			</image>
 			<text>
-				<position x='10' y='9'/>
+				<position x='11' y='18'/>
 				<size x='115' y='49'/>
-				<path>/igde/fonts/regular_67px.defont</path>
-				<fontSize>50</fontSize>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
+				<fontSize>44</fontSize>
 				<text>Player</text>
 				<color r='0' g='0' b='1'/>
 			</text>
 			<text>
-				<position x='18' y='57'/>
-				<size x='97' y='49'/>
-				<path>/igde/fonts/regular_67px.defont</path>
-				<fontSize>50</fontSize>
+				<position x='19' y='57'/>
+				<size x='99' y='49'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
+				<fontSize>44</fontSize>
 				<text>Runs</text>
 				<color r='0' g='0' b='1'/>
 			</text>
