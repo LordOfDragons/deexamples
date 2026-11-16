@@ -45,7 +45,7 @@
 		<borderSize parameter='normal.padding' left='25' right='25' top='15' bottom='15'/>
 	</designer>
 	<designer name='Label.WindowLoading' extendNamed='Label'>
-<!-- 		<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/sans15.defont</font> -->
+<!-- 		<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font> -->
 		<color parameter='normal.textColor' r='0.8' g='8' b='1'/>
 		<null parameter='disabled.textColor'/>
 		<borderSize parameter='normal.padding' left='0' right='0' top='0' bottom='10'/>
@@ -126,7 +126,7 @@
 	</designer>
 	
 	<designer name='Label.ParameterController' extendNamed='Label'>
-		<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/sans15.defont</font>
+		<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
 		<color parameter='normal.textColor' r='1' g='1' b='1' a='0.75'/>
 		<null parameter='disabled.textColor'/>
 		<string parameter='normal.alignment'>left,middle</string>
