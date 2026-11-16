@@ -5,12 +5,11 @@
 			<size x='256' y='256'/>
 			<color r='0.898039' g='0.65098' b='0.65098'/>
 			<text>
-				<position x='29' y='11'/>
-				<size x='204' y='67'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<position x='47' y='83'/>
+				<size x='177' y='77'/>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>67</fontSize>
-				<text>Coward!</text>
-				<color r='0' g='0' b='0'/>
+				<text>Player</text>
 			</text>
 		</constructed>
 		<value property='reflectivity'>0.23</value>
