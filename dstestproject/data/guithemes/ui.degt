@@ -134,29 +134,49 @@
 	Example of an icon style list box. The renderer uses a designer for the label similar
 	to the regular list box.
 	-->
-	<designer name='Label.ListRenderer.IconList.Text' type='Label'>
-		<canvasCreator parameter='normal.canvas' type='Default'/>
-		<color parameter='normal.textColor' r='0' g='0' b='0'/>
-	</designer>
-	
-	<designer name='Label.ListRenderer.IconList.Text.Selected' type='Label'>
-		<canvasCreator parameter='normal.canvas'
-		extend='/shareddata/guithemes/modern/framed/background.ccreator.xml'>
-			<colorMatrix parameter='colorMatrix'>
-				<scale r='0.2' g='0.2' b='0.5'/>
-			</colorMatrix>
-		</canvasCreator>
-		<color parameter='normal.textColor' r='1' g='1' b='1'/>
-	</designer>
-	
 	<designer name='Image.ListRenderer.IconList' type='Image'>
 		<colorMatrix parameter='normal.imageColorTransform'/>
+		
+		<colorMatrix parameter='hover.imageColorTransform'>
+			<brightness r='0.15' g='0.15' b='0.15' a='0'/>
+			<scale r='1.25' g='1.25' b='1.25' a='1'/>
+		</colorMatrix>
 	</designer>
 	
 	<designer name='Image.ListRenderer.IconList.Selected' type='Image'>
 		<colorMatrix parameter='normal.imageColorTransform'>
-			<scale r='0.5' g='0.5' b='1'/>
+			<brightness r='0.125' g='0.125' b='0.125' a='0'/>
+			<scale r='1.25' g='1.25' b='1.25' a='1'/>
 		</colorMatrix>
+		
+		<colorMatrix parameter='hover.imageColorTransform'>
+			<brightness r='0.2' g='0.2' b='0.2' a='0'/>
+			<scale r='1.5' g='1.5' b='1.5' a='1'/>
+		</colorMatrix>
+	</designer>
+	
+	<designer name='Label.ListRenderer.IconList.Text' extendNamed='Label.ListRenderer'>
+		<canvasCreator parameter='normal.canvas' type='Default'/>
+		
+		<canvasCreator parameter='hover.canvas' extend='/shareddata/guithemes/modern/framed/background.ccreator.xml'>
+			<colorMatrix parameter='colorMatrix'>
+				<scale r='0.2' g='0.2' b='0.5' a='0.1'/>
+			</colorMatrix>
+		</canvasCreator>
+	</designer>
+	
+	<designer name='Label.ListRenderer.IconList.Text.Selected' extendNamed='Label.ListRenderer.Selected'>
+		<canvasCreator parameter='normal.canvas' extend='/shareddata/guithemes/modern/framed/background.ccreator.xml'>
+			<colorMatrix parameter='colorMatrix'>
+				<scale r='0.85' g='0.85' b='1'/>
+			</colorMatrix>
+		</canvasCreator>
+		
+		<canvasCreator parameter='hover.canvas' extend='/shareddata/guithemes/modern/framed/background.ccreator.xml'>
+			<colorMatrix parameter='colorMatrix'>
+				<scale r='0.9' g='0.9' b='1'/>
+			</colorMatrix>
+		</canvasCreator>
 	</designer>
 	
 	

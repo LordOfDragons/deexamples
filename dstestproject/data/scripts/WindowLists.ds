@@ -65,26 +65,27 @@ class WindowLists extends Window
 		
 		/** Create renderer. */
 		func Widget createRenderer(ListBox listBox)
-			var Panel renderer = Panel.new()
-			renderer.setLayout(FlowLayout.new(LayoutAxis.y, 2, FlowLayout.Stretch.last))
-			
-			var Panel panel = Panel.new()
-			panel.setLayout(CentrizedBoxLayout.new(LayoutAxis.y))
-			var DisplayImage image = DisplayImage.new(null, RepeatMode.once)
-			image.setMinimumSize(Point.new(32, 32))
-			image.setProtectMinimumSize(true)
-			panel.addWidget(image)
-			renderer.addWidget(panel)
-			
-			panel = Panel.new()
-			panel.setLayout(CentrizedBoxLayout.new(LayoutAxis.y))
-			var Label label = Label.new("", Label.topCenter)
-			label.setMaximalWidth(116)
-			label.setWordWrap(true)
-			panel.addWidget(label)
-			renderer.addWidget(panel)
-			
-			return renderer
+			return Panel.new(FlowLayout.new(LayoutAxis.y, 2, FlowLayout.Stretch.last), block Panel p
+				p.setStateChangeNotifyChildren(true)
+				
+				p.addWidget(Panel.new(CentrizedBoxLayout.new(LayoutAxis.y), block Panel p2
+					p2.setStateChangeNotifyChildren(true)
+					
+					var DisplayImage image = DisplayImage.new(null, RepeatMode.once)
+					image.setMinimumSize(Point.new(32, 32))
+					image.setProtectMinimumSize(true)
+					p2.addWidget(image)
+				end))
+				
+				p.addWidget(Panel.new(CentrizedBoxLayout.new(LayoutAxis.y), block Panel p2
+					p2.setStateChangeNotifyChildren(true)
+					
+					var Label label = Label.new("", Label.topCenter)
+					label.setMaximalWidth(116)
+					label.setWordWrap(true)
+					p2.addWidget(label)
+				end))
+			end)
 		end
 		
 		/** Update renderer with object state. */
@@ -339,7 +340,7 @@ class WindowLists extends Window
 	
 	/** Create list panel 2. */
 	private func Panel createListPanel2()
-		var Panel panel  = Panel.new()
+		var Panel panel = Panel.new()
 		panel.setLayout(FlowLayout.new(LayoutAxis.y, 10, FlowLayout.Stretch.last))
 		
 		// list box for option box to manipulate
