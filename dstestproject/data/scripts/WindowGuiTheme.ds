@@ -435,7 +435,7 @@ class WindowGuiTheme extends Window
 					
 					p2.addWidget(Panel.new(FlowLayout.new(LayoutAxis.x, 5, FlowLayout.Stretch.last), block Panel p3
 						//var IntegerTextField integerText = IntegerTextField.new(RangeTextModel.new(modelProgress))
-						var TextField integerText = TextField.new()
+						var TextField integerText = TextField.new("3")
 						integerText.setDisplayCharCount(3)
 						integerText.setValidator(SimpleTextValidator.new(3, SimpleTextValidator.CharacterClass.digits))
 						p3.addWidget(integerText)

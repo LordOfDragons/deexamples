@@ -31,15 +31,12 @@ pin Dragengine.Utils
 class WindowMain extends Window
 	/** \brief Action create border window. */
 	class ActionWindowBorder extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowBorders.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -49,15 +46,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create aspect ratio window. */
 	class ActionWindowAspectRatio extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowAspectRatio.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -67,15 +61,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create scrollbar window. */
 	class ActionWindowScrollbar extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowScrollbars.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -85,15 +76,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create lists window. */
 	class ActionWindowLists extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowLists.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -103,15 +91,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create canvas window. */
 	class ActionWindowCanvas extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowCanvas.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -121,15 +106,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create canvas paint window. */
 	class ActionWindowCanvasPaint extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowCanvasPaint.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -140,15 +122,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create capture canvas window. */
 	class ActionWindowCaptureCanvas extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowCaptureCanvas.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -156,17 +135,29 @@ class WindowMain extends Window
 		end
 	end
 	
-	/** \brief Action create video player window. */
-	class ActionWindowVideoPlayer extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
+	/** \brief Action create fonts window. */
+	class ActionWindowFonts extends DefaultActionListener
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
+		func void onAction(ActionEvent event)
+			var Window window = WindowFonts.new()
+			pWindowMain.getDesktop().addWindow(window)
+			window.centerWindow()
+		end
+	end
+
+	/** \brief Action create video player window. */
+	class ActionWindowVideoPlayer extends DefaultActionListener
+		var WindowMain pWindowMain
+		
+		func new(WindowMain windowMain)
+			pWindowMain = windowMain
+		end
+		
 		func void onAction(ActionEvent event)
 			var Window window = WindowVideoPlayer.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -176,15 +167,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create image window. */
 	class ActionWindowImage extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowImage.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -194,15 +182,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create canvas creator window. */
 	class ActionWindowCanvasCreator extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowCanvasCreator.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -212,15 +197,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create layout show-case window. */
 	class ActionWindowLayouts extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowLayouts.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -230,15 +212,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create gui theme window. */
 	class ActionWindowGuiTheme extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowGuiTheme.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -248,15 +227,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create dynamic music window. */
 	class ActionWindowDynamicMusic extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowDynamicMusic.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -266,15 +242,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create announcer window. */
 	class ActionWindowAnnouncer extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowAnnouncer.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -284,15 +257,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create world renderer window. */
 	class ActionWindowWorldRenderer extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var WindowWorldRenderer window = WindowWorldRenderer.getOpenWindow()
 			
@@ -310,15 +280,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create styled text window. */
 	class ActionWindowStyledText extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowStyledText.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -328,15 +295,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create input device window. */
 	class ActionWindowInputDevice extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowInputDevice.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -344,17 +308,14 @@ class WindowMain extends Window
 		end
 	end
 	
-	/** \brief Action create edit bindins window. */
+	/** \brief Action create edit bindings window. */
 	class ActionWindowEditBindings extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowEditBindings.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -394,15 +355,12 @@ class WindowMain extends Window
 	
 	/** \brief Action create drag and drop window. */
 	class ActionWindowDragDrop extends DefaultActionListener
-		/** \brief Main window to get desktop from. */
 		var WindowMain pWindowMain
 		
-		/** \brief Create action. */
 		func new(WindowMain windowMain)
 			pWindowMain = windowMain
 		end
 		
-		/** \brief Perform action. */
 		func void onAction(ActionEvent event)
 			var Window window = WindowDragDrop.new()
 			pWindowMain.getDesktop().addWindow(window)
@@ -431,6 +389,7 @@ class WindowMain extends Window
 			addWidget(Button.new("Capture Canvas View", ActionWindowCaptureCanvas.new(this)))
 			addWidget(Button.new("Image", ActionWindowImage.new(this)))
 			addWidget(Button.new("Video Player", ActionWindowVideoPlayer.new(this)))
+			addWidget(Button.new("Fonts", ActionWindowFonts.new(this)))
 			addWidget(Button.new("Styled Text", ActionWindowStyledText.new(this)))
 			addWidget(Button.new("Canvas Creator", ActionWindowCanvasCreator.new(this)))
 			addWidget(Button.new("Layout Show-Case", ActionWindowLayouts.new(this)))

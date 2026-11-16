@@ -225,4 +225,10 @@
 	Import definitions for the layout test.
 	-->
 	<import>layout.degt</import>
+	
+	
+	<!--
+	Import definitions for the fonts test.
+	-->
+	<import>fonts.degt</import>
 </guiTheme>

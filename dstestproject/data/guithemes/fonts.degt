@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<guiTheme>
+	<!--
+	WindowFonts
+	-->
+	
+	<theme name='font0'>
+		<designer name='WindowFonts.Label.Caption' type='Label'>
+			<string parameter='normal.alignment'>left,middle</string>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Regular15' type='Label'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
+			<color parameter='normal.textColor' r='0' g='0' b='0'/>
+			<string parameter='normal.alignment'>left,middle</string>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold15' type='Label'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</font>
+			<color parameter='normal.textColor' r='0' g='0' b='0'/>
+			<string parameter='normal.alignment'>left,middle</string>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Italic15' type='Label'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/italic.ttf</font>
+			<color parameter='normal.textColor' r='0' g='0' b='0'/>
+			<string parameter='normal.alignment'>left,middle</string>
+		</designer>
+		
+		<designer name='WindowFonts.Label.BoldItalic15' type='Label'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/boldItalic.ttf</font>
+			<color parameter='normal.textColor' r='0' g='0' b='0'/>
+			<string parameter='normal.alignment'>left,middle</string>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold9' extendNamed='WindowFonts.Label.Bold15'>
+			<font parameter='normal.font' size='9'>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30' extendNamed='WindowFonts.Label.Bold15'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold15Border' extendNamed='WindowFonts.Label.Bold15'>
+			<color parameter='normal.textColor' r='1' g='1' b='1'/>
+			<color parameter='normal.textBorderColor' r='0' g='0' b='0'/>
+			<float parameter='normal.textBorderThickness'>0.075</float>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30Border' extendNamed='WindowFonts.Label.Bold30'>
+			<color parameter='normal.textColor' r='1' g='1' b='1'/>
+			<color parameter='normal.textBorderColor' r='0' g='0' b='0'/>
+			<float parameter='normal.textBorderThickness'>0.075</float>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColor' extendNamed='WindowFonts.Label.Bold15Border'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/sans/bold.ttf</font>
+			<color parameter='normal.textColor' r='1' g='1' b='0.5'/>
+			<color parameter='normal.textBorderColor' r='0' g='0.5' b='0'/>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColorThick' extendNamed='WindowFonts.Label.Bold20BorderColor'>
+			<float parameter='normal.textBorderThickness'>0.15</float>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColorTransp' extendNamed='WindowFonts.Label.Bold20BorderColor'>
+			<color parameter='normal.textColor' r='1' g='1' b='0.5' a='0.5' />
+			<color parameter='normal.textBorderColor' r='0' g='0.5' b='0' a='0.5'/>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30Dilate' extendNamed='WindowFonts.Label.Bold30'>
+			<float parameter='normal.textDilation'>0.0075</float>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateIn' extendNamed='WindowFonts.Label.Bold30'>
+			<float parameter='normal.textDilation'>-0.0075</float>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateBorder' extendNamed='WindowFonts.Label.Bold30Border'>
+			<float parameter='normal.textDilation'>0.0075</float>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateInBorder' extendNamed='WindowFonts.Label.Bold30Border'>
+			<float parameter='normal.textDilation'>-0.0075</float>
+		</designer>
+		
+	</theme>
+	
+	
+	<theme name='font1' extendNamed='font0'>
+		<designer name='WindowFonts.Label.Regular15' extendNamed='WindowFonts.Label.Regular15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/serif/regular.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold15' extendNamed='WindowFonts.Label.Bold15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Italic15' extendNamed='WindowFonts.Label.Italic15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/serif/italic.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.BoldItalic15' extendNamed='WindowFonts.Label.BoldItalic15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/serif/boldItalic.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold9' extendNamed='WindowFonts.Label.Bold9'>
+			<font parameter='normal.font' size='9'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30' extendNamed='WindowFonts.Label.Bold30'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold15Border' extendNamed='WindowFonts.Label.Bold15Border'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30Border' extendNamed='WindowFonts.Label.Bold30Border'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColor' extendNamed='WindowFonts.Label.Bold20BorderColor'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColorThick' extendNamed='WindowFonts.Label.Bold20BorderColorThick'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColorTransp' extendNamed='WindowFonts.Label.Bold20BorderColorTransp'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30Dilate' extendNamed='WindowFonts.Label.Bold30Dilate'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateIn' extendNamed='WindowFonts.Label.Bold30DilateIn'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateBorder' extendNamed='WindowFonts.Label.Bold30DilateBorder'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateInBorder' extendNamed='WindowFonts.Label.Bold30DilateInBorder'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/serif/bold.ttf</font>
+		</designer>
+	</theme>
+	
+	
+	<theme name='font2' extendNamed='font0'>
+		<designer name='WindowFonts.Label.Regular15' extendNamed='WindowFonts.Label.Regular15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/mono/regular.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold15' extendNamed='WindowFonts.Label.Bold15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Italic15' extendNamed='WindowFonts.Label.Italic15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/mono/italic.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.BoldItalic15' extendNamed='WindowFonts.Label.BoldItalic15'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/mono/boldItalic.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold9' extendNamed='WindowFonts.Label.Bold9'>
+			<font parameter='normal.font' size='9'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30' extendNamed='WindowFonts.Label.Bold30'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold15Border' extendNamed='WindowFonts.Label.Bold15Border'>
+			<font parameter='normal.font' size='15'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30Border' extendNamed='WindowFonts.Label.Bold30Border'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColor' extendNamed='WindowFonts.Label.Bold20BorderColor'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColorThick' extendNamed='WindowFonts.Label.Bold20BorderColorThick'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold20BorderColorTransp' extendNamed='WindowFonts.Label.Bold20BorderColorTransp'>
+			<font parameter='normal.font' size='20'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30Dilate' extendNamed='WindowFonts.Label.Bold30Dilate'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateIn' extendNamed='WindowFonts.Label.Bold30DilateIn'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateBorder' extendNamed='WindowFonts.Label.Bold30DilateBorder'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+		
+		<designer name='WindowFonts.Label.Bold30DilateInBorder' extendNamed='WindowFonts.Label.Bold30DilateInBorder'>
+			<font parameter='normal.font' size='30'>/shareddata/guithemes/modern/fonts/liberation/mono/bold.ttf</font>
+		</designer>
+	</theme>
+</guiTheme>

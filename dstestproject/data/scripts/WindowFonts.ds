@@ -1,0 +1,130 @@
+/* 
+ * Drag[en]gine Example Project: DragonScript Test Project
+ *
+ * Copyright (C) 2026, Plüss Roland (roland@dragondreams.ch)
+ * 
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation; either 
+ * version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+pin Dragengine.Gui.Events
+pin Dragengine.Gui.Borders
+pin Dragengine.Gui.Layouts
+pin Dragengine.Scenery
+pin Dragengine.Utils
+
+
+/**
+ * \brief DragonScript test project fonts window.
+ */
+class WindowFonts extends Window
+	class FontSelected extends DefaultListModelListener
+		var Widget pWidget
+		
+		func new(Widget widget)
+			pWidget = widget
+		end
+		
+		func void selectionChanged(ListModel listModel)
+			if listModel.getSelected() != -1
+				pWidget.setThemeSelector("font" + listModel.getSelected())
+			end
+		end
+	end
+	
+	
+	func new() super(0, 0, 650, 500)
+		runWhileBlockingLayout(block
+			setDesignerSelector("WindowPadding")
+			setTitle("Fonts")
+			createContent(this)
+		end)
+	end
+	
+	
+	/** \brief Add content. */
+	private func void createContent(Container content)
+		content.setLayout(BorderLayout.new(10))
+		
+		var TextModel modelText = DefaultTextModel.new("Drag[en]gine Game Engine")
+		
+		var DefaultListModel modelFonts = DefaultListModel.new()
+		modelFonts.add("Liberation Sans")
+		modelFonts.add("Liberation Serif")
+		modelFonts.add("Liberation Mono")
+		modelFonts.setSelected(0)
+		
+		content.addWidget(Panel.new(FormLayout.new(true, 20, 2), block Panel p
+			p.addWidget(Label.new("Font:"))
+			p.addWidget(ComboBox.new(modelFonts))
+			
+			p.addWidget(Label.new("Text:"))
+			p.addWidget(TextField.new(modelText))
+		end), BorderLayout.Area.top)
+		
+		var Panel panelSamples = Panel.new(FormLayout.new(true, 20, 2), block Panel p
+			p.setThemeSelector("font0")
+			
+			p.addWidget(Label.new("Regular 15:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Regular15"))
+			
+			p.addWidget(Label.new("Bold 15:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold15"))
+			
+			p.addWidget(Label.new("Italic 15:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Italic15"))
+			
+			p.addWidget(Label.new("Bold Italic 15:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.BoldItalic15"))
+			
+			p.addWidget(Label.new("Bold 9:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold9"))
+			
+			p.addWidget(Label.new("Bold 30:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold30"))
+			
+			p.addWidget(Label.new("Bold 15 Border:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold15Border"))
+			
+			p.addWidget(Label.new("Bold 30 Border:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold30Border"))
+			
+			p.addWidget(Label.new("Bold 20 Border Color:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold20BorderColor"))
+			
+			p.addWidget(Label.new("Bold 20 Border Thick:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold20BorderColorThick"))
+			
+			p.addWidget(Label.new("Bold 20 Transparent:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold20BorderColorTransp"))
+			
+			p.addWidget(Label.new("Bold 30 Dilate:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold30Dilate"))
+			
+			p.addWidget(Label.new("Bold 30 Dilate In:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold30DilateIn"))
+			
+			p.addWidget(Label.new("Bold 30 Dilate Border:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold30DilateBorder"))
+			
+			p.addWidget(Label.new("Bold 30 Dilate In Border:", "WindowFonts.Label.Caption"))
+			p.addWidget(Label.new(modelText, "WindowFonts.Label.Bold30DilateInBorder"))
+		end)
+		
+		content.addWidget(ScrollPanel.new(Viewport.new(panelSamples, FlowLayout.new(LayoutAxis.y))), BorderLayout.Area.content)
+		
+		modelFonts.addListener(FontSelected.new(panelSamples))
+	end
+end
