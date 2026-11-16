@@ -80,7 +80,7 @@
 			<text>
 				<position x='0' y='200'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Booting kernel Example3E...</text>
 				<color r='1' g='1' b='1'/>
@@ -88,7 +88,7 @@
 			<text>
 				<position x='0' y='225'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Loading Remote Control Module...</text>
 				<color r='1' g='1' b='1'/>
@@ -96,7 +96,7 @@
 			<text>
 				<position x='0' y='250'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Checking Module Parameters...</text>
 				<color r='1' g='1' b='1'/>
@@ -104,7 +104,7 @@
 			<text>
 				<position x='0' y='275'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Warning! Invalid Calibration Value Detected!</text>
 				<color r='0.992157' g='1' b='0'/>
@@ -112,7 +112,7 @@
 			<text>
 				<position x='0' y='300'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Correcting Calibration Value...</text>
 				<color r='1' g='1' b='1'/>
@@ -120,7 +120,7 @@
 			<text>
 				<position x='0' y='325'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Error! Failed Correcting Calibration Value!</text>
 				<color r='1' g='0' b='0'/>
@@ -128,7 +128,7 @@
 			<text>
 				<position x='0' y='350'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Activating Fallback Calibration Process.</text>
 				<color r='1' g='1' b='1'/>
@@ -136,7 +136,7 @@
 			<text>
 				<position x='0' y='375'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Fallback Calibration Process Finished.</text>
 				<color r='1' g='1' b='1'/>
@@ -144,7 +144,7 @@
 			<text>
 				<position x='0' y='400'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Resume Boot Process.</text>
 				<color r='1' g='1' b='1'/>
@@ -152,7 +152,7 @@
 			<text>
 				<position x='0' y='425'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Starting Engine Controller.</text>
 				<color r='1' g='1' b='1'/>
@@ -160,7 +160,7 @@
 			<text>
 				<position x='0' y='450'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Error! Failed Starting Engine Controller.</text>
 				<color r='1' g='0' b='0'/>
@@ -168,7 +168,7 @@
 			<text>
 				<position x='0' y='475'/>
 				<size x='500' y='25'/>
-				<path>/content/fonts/regular_67px.defont</path>
+				<path>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</path>
 				<fontSize>25</fontSize>
 				<text>Panic! Unrecoverable Error! Rebooting System!</text>
 				<color r='1' g='0' b='0'/>
