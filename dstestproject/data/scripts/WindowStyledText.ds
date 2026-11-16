@@ -205,6 +205,14 @@ class WindowStyledText extends Window
 		var ScrollBar scrollbar = ScrollBar.new(Orientation.vertical)
 		scrollbar.setModel(pModelPage)
 		content.addWidget(scrollbar, BorderLayout.Area.right)
+		
+		pStyledText.addMouseListener(WheelActionMouseListener.new(\
+			BlockActionListener.new(block ActionEvent e
+				pModelPage.setValue(pModelPage.getValue() - 1)
+			end),\
+			BlockActionListener.new(block ActionEvent e
+				pModelPage.setValue(pModelPage.getValue() + 1)
+			end)))
 	end
 	
 	

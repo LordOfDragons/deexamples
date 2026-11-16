@@ -3,35 +3,45 @@
 	<margins all='5'/>
 	
 	<style name='first'>
-		<font size='15'>/shareddata/guithemes/modern/fonts/sans15.defont</font>
+		<font size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
 		<textColor r='0' g='0' b='0'/>
 		<firstLineIndent>20</firstLineIndent>
 		<alignment>left</alignment>
 	</style>
 	
 	<style name='leftAlign'>
-		<font size='12'>/shareddata/guithemes/modern/fonts/sans15.defont</font>
+		<font size='12'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
 		<textColor r='0' g='0' b='1'/>
 		<margins top='12'/>
 		<alignment>left</alignment>
 	</style>
 	
 	<style name='rightAlign'>
-		<font size='20'>/shareddata/guithemes/modern/fonts/sans15.defont</font>
-		<textColor r='0' g='0.5' b='0'/>
+		<font size='20'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
+		<textColor r='0.75' g='1' b='0.75'/>
+		<textBorderColor r='0' g='0.25' b='0'/>
+		<textBorderThickness>0.075</textBorderThickness>
 		<margins top='12'/>
 		<alignment>right</alignment>
 	</style>
 	
 	<style name='centerAlign'>
-		<font size='15'>/shareddata/guithemes/modern/fonts/sans15.defont</font>
+		<font size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
 		<textColor r='0.75' g='0' b='0'/>
 		<margins top='12'/>
 		<alignment>center</alignment>
 	</style>
 	
 	<style name='text'>
-		<font size='15'>/shareddata/guithemes/modern/fonts/sans15.defont</font>
+		<font size='15'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
+		<textColor r='0' g='0' b='0'/>
+		<margins top='12'/>
+		<firstLineIndent>20</firstLineIndent>
+		<alignment>block</alignment>
+	</style>
+	
+	<style name='text.larger'>
+		<font size='20'>/shareddata/guithemes/modern/fonts/liberation/sans/regular.ttf</font>
 		<textColor r='0' g='0' b='0'/>
 		<margins top='12'/>
 		<firstLineIndent>20</firstLineIndent>
@@ -70,7 +80,7 @@
 	<text style='text'>So what to talk now more to fill those lines. I get it. A bit
 	or lorum ipsum is always nice for such a task.</text>
 	
-	<text style='text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+	<text style='text.larger'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 	Vivamus ac nisl ante. Fusce urna arcu, congue ut ultrices ut, aliquam vitae urna.
 	Donec vel purus in metus fermentum fermentum at at risus. Curabitur viverra est
 	ut orci gravida at scelerisque magna mollis. Nunc auctor malesuada nisl non
