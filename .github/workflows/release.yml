@@ -32,7 +32,7 @@ jobs:
         uses: ncipollo/release-action@v1.21.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: false
+          allowUpdates: true
           artifactErrorsFailBuild: true
           draft: false
           prerelease: false
